@@ -1,0 +1,34 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/alasco-capex-openapi.json, openapi/alasco-esg-openapi.json, openapi/alasco-fincon-openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: API Key
+  type: apiKey
+  in: header
+  parameter: X-API-KEY
+  description: |-
+    The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+    needs to be sent in a header field called `X-API-KEY`.
+  sources:
+  - openapi/alasco-capex-openapi.json
+  - openapi/alasco-esg-openapi.json
+  - openapi/alasco-fincon-openapi.json
+- name: API Token
+  type: apiKey
+  in: header
+  parameter: X-API-TOKEN
+  description: |-
+    In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+    for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+    Right now, it's not possible to create API keys and API tokens from within Alasco.
+    If you are interested in using the Alasco API, please reach out to the
+    [support team](mailto:support@alasco.de). They will assist
+  sources:
+  - openapi/alasco-capex-openapi.json
+  - openapi/alasco-esg-openapi.json
+  - openapi/alasco-fincon-openapi.json
