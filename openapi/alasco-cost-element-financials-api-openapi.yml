@@ -1,0 +1,975 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Cost Element Financials API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: Read-only reporting view of budget and cost aggregated per **Cost Element** within a project.
+  name: Cost Element Financials
+paths:
+  /reporting/cost_elements/:
+    get:
+      operationId: get_cost_element_financials_reporting_cost_elements__get
+      parameters:
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can filter on certain attributes by specifying them as a GET parameter along
+
+          with an operation, e.g. `filter[name.exact]=abc`.
+
+
+          Currently supported operations are:
+
+          * `in`: Expects one or multiple values
+
+
+          The following attributes support filtering:
+
+
+          | **Attribute** | `in` |
+
+          | :--- | :---: |
+
+          | `project` | x |
+
+          '
+        in: query
+        name: filter[attribute.operation]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can filter on certain attributes by specifying them as a GET parameter along
+
+            with an operation, e.g. `filter[name.exact]=abc`.
+
+
+            Currently supported operations are:
+
+            * `in`: Expects one or multiple values
+
+
+            The following attributes support filtering:
+
+
+            | **Attribute** | `in` |
+
+            | :--- | :---: |
+
+            | `project` | x |
+
+            '
+          title: Filter[Attribute.Operation]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+        API Token: []
+      summary: Get Cost Element Financials
+      tags:
+      - Cost Element Financials
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    CostElementFinancialsAttributes:
+      properties:
+        approved_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Approved amounts** · **Freigegebene Beträge**'
+          title: Approved Amount
+        change_orders_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Acknowledged change orders** · **Anerkannte Nachträge**'
+          title: Change Orders Amount
+        contract_amount_in_draft:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Planned contracts** · **Geplante Aufträge**'
+          title: Contract Amount In Draft
+        contract_budget_deviation_real_case:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Budget deviation, contract forecast (real case)** · **Budgetabweichung Auftragsprognose (Real-Case)**'
+          title: Contract Budget Deviation Real Case
+        contract_budget_deviation_worst_case:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Budget deviation, contract forecast (worst case)** · **Budgetabweichung Auftragsprognose (Worst-Case)**'
+          title: Contract Budget Deviation Worst Case
+        contract_cost_forecast_real_case:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contract cost forecast (real case)** · **Auftragsprognose (Real-Case)**'
+          title: Contract Cost Forecast Real Case
+        contract_cost_forecast_worst_case:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contract cost forecast (worst case)** · **Auftragsprognose (Worst-Case)**'
+          title: Contract Cost Forecast Worst Case
+        contract_planned_receivables_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Planned receivables** · **Geplante Forderungen**'
+          title: Contract Planned Receivables Amount
+        contract_realised_receivables_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Realised receivables** · **Realisierte Forderungen**'
+          title: Contract Realised Receivables Amount
+        contractual_cost_allocations:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contractual cost allocations** · **Vertragliche Kostenumlagen**'
+          title: Contractual Cost Allocations
+        contractual_discounts:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contractual discounts** · **Vertragliche Nachlässe**'
+          title: Contractual Discounts
+        contractual_retentions:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Realised retentions** · **Realisierte Einbehalte**'
+          title: Contractual Retentions
+        cost_element:
+          description: '**Cost element** · **Kostengruppe**'
+          format: uuid
+          title: Cost Element
+          type: string
+        cost_element_tree_template:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**Cost element tree template** · **Kostengruppenstruktur**'
+          title: Cost Element Tree Template
+        current_budget:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Current budget** · **Aktuelles Budget**'
+          title: Current Budget
+        initial_budget:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Initial budget** · **Ausgangsbudget**'
+          title: Initial Budget
+        main_contract_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Main contracts** · **Hauptaufträge**'
+          title: Main Contract Amount
+        manual_retentions:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Realised manual retentions** · **Realisierte manuelle Einbehalte**'
+          title: Manual Retentions
+        open_change_orders_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Open change orders (real case)** · **Offene Nachträge (Real-Case)**'
+          title: Open Change Orders Amount
+        open_change_orders_amount_unweighted:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Open change orders (unweighted)** · **Offene Nachträge (Ungewichtet)**'
+          title: Open Change Orders Amount Unweighted
+        paid_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Paid amounts** · **Ausgezahlte Beträge**'
+          title: Paid Amount
+        progress_reported:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Progress reported** · **Leistungsmeldungen**'
+          title: Progress Reported
+        project:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**Project** · **Projekt**'
+          title: Project
+        project_budget_deviation_real_case:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Project budget deviation (real case)** · **Budgetabweichung Projektprognose (Real-Case)**'
+          title: Project Budget Deviation Real Case
+        project_budget_deviation_worst_case:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Project budget deviation (worst case)** · **Budgetabweichung Projektprognose (Worst-Case)**'
+          title: Project Budget Deviation Worst Case
+        project_cost_forecast_real_case:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Project cost forecast (real case)** · **Projektprognose (Real-Case)**'
+          title: Project Cost Forecast Real Case
+        project_cost_forecast_worst_case:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Project cost forecast (worst case)** · **Projektprognose (Worst-Case)**'
+          title: Project Cost Forecast Worst Case
+        realised_cash_discount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Realised cash discount** · **Realisierter Skonto**
+
+
+            Sum of the realised cash discount, measured against approved amounts.
+
+
+            Summe des realisierten Skonto – gemessen an freigegebenen Beträgen.'
+          title: Realised Cash Discount
+        reserves_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Reserves** · **Rückstellungen**'
+          title: Reserves Amount
+        risk_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Risks** · **Risiken**'
+          title: Risk Amount
+        undistributed_budget:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Undistributed budget** · **Unverteiltes Budget**'
+          title: Undistributed Budget
+      required:
+      - contract_realised_receivables_amount
+      - cost_element
+      title: CostElementFinancialsAttributes
+      type: object
+    Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CostElementFinancialsAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: COST_ELEMENT_FINANCIALS
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[CostElementFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_FINANCIALS: ''COST_ELEMENT_FINANCIALS''>]]'
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ListResponse_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[CostElementFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_FINANCIALS: ''COST_ELEMENT_FINANCIALS''>]]'
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

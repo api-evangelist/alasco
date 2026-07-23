@@ -1,0 +1,794 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Change Order API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: A **Change Order** is a formal amendment to a **Contract** - a cost or scope change - carrying claimed, audited and approved amounts and an approval state. Change orders are read-only through this API and can hold **Documents**.
+  name: Change Order
+paths:
+  /change_orders/:
+    get:
+      operationId: get_change_orders_change_orders__get
+      parameters:
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can filter on certain attributes by specifying them as a GET parameter along
+
+          with an operation, e.g. `filter[name.exact]=abc`.
+
+
+          Currently supported operations are:
+
+          * `exact`: Expects one value
+
+          * `contains`: Expects one value
+
+          * `less_than_equal`: Expects one value
+
+          * `greater_than_equal`: Expects one value
+
+          * `range`: Expects two values
+
+          * `in`: Expects one or multiple values
+
+          * `not_in`: Expects one or multiple values
+
+          * `is`: Expects one value
+
+
+          The following attributes support filtering:
+
+
+          | **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |
+
+          | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+
+          | `id` |   |   |   |   |   | x | x |   |
+
+          | `name` | x | x |   |   |   |   |   |   |
+
+          | `identifier` | x | x |   |   |   |   |   |   |
+
+          | `contract` |   |   |   |   |   | x | x |   |
+
+          | `project` |   |   |   |   |   | x | x |   |
+
+          | `acknowledged_at` |   |   | x | x | x |   |   |   |
+
+          | `declined_at` |   |   | x | x | x |   |   |   |
+
+          | `approved_amount.net` |   |   | x | x | x |   |   | x |
+
+          | `approved_amount.tax` |   |   | x | x | x |   |   | x |
+
+          | `audited_amount.net` |   |   | x | x | x |   |   | x |
+
+          | `audited_amount.tax` |   |   | x | x | x |   |   | x |
+
+          | `change_order_date` |   |   | x | x | x |   |   | x |
+
+          | `claimed_amount.net` |   |   | x | x | x |   |   | x |
+
+          | `claimed_amount.tax` |   |   | x | x | x |   |   | x |
+
+          | `state` |   |   |   |   |   | x | x |   |
+
+          | `basis_of_claim` |   |   |   |   |   | x | x |   |
+
+          | `other_basis_of_claim` | x | x |   |   |   |   |   |   |
+
+          | `trigger` |   |   |   |   |   | x | x |   |
+
+          | `other_trigger` | x | x |   |   |   |   |   |   |
+
+          '
+        in: query
+        name: filter[attribute.operation]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can filter on certain attributes by specifying them as a GET parameter along
+
+            with an operation, e.g. `filter[name.exact]=abc`.
+
+
+            Currently supported operations are:
+
+            * `exact`: Expects one value
+
+            * `contains`: Expects one value
+
+            * `less_than_equal`: Expects one value
+
+            * `greater_than_equal`: Expects one value
+
+            * `range`: Expects two values
+
+            * `in`: Expects one or multiple values
+
+            * `not_in`: Expects one or multiple values
+
+            * `is`: Expects one value
+
+
+            The following attributes support filtering:
+
+
+            | **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |
+
+            | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+
+            | `id` |   |   |   |   |   | x | x |   |
+
+            | `name` | x | x |   |   |   |   |   |   |
+
+            | `identifier` | x | x |   |   |   |   |   |   |
+
+            | `contract` |   |   |   |   |   | x | x |   |
+
+            | `project` |   |   |   |   |   | x | x |   |
+
+            | `acknowledged_at` |   |   | x | x | x |   |   |   |
+
+            | `declined_at` |   |   | x | x | x |   |   |   |
+
+            | `approved_amount.net` |   |   | x | x | x |   |   | x |
+
+            | `approved_amount.tax` |   |   | x | x | x |   |   | x |
+
+            | `audited_amount.net` |   |   | x | x | x |   |   | x |
+
+            | `audited_amount.tax` |   |   | x | x | x |   |   | x |
+
+            | `change_order_date` |   |   | x | x | x |   |   | x |
+
+            | `claimed_amount.net` |   |   | x | x | x |   |   | x |
+
+            | `claimed_amount.tax` |   |   | x | x | x |   |   | x |
+
+            | `state` |   |   |   |   |   | x | x |   |
+
+            | `basis_of_claim` |   |   |   |   |   | x | x |   |
+
+            | `other_basis_of_claim` | x | x |   |   |   |   |   |   |
+
+            | `trigger` |   |   |   |   |   | x | x |   |
+
+            | `other_trigger` | x | x |   |   |   |   |   |   |
+
+            '
+          title: Filter[Attribute.Operation]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Change Orders
+      tags:
+      - Change Order
+  /change_orders/{id}/:
+    get:
+      operationId: get_change_order_details_change_orders__id___get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Change Order Details
+      tags:
+      - Change Order
+  /contracts/{contract_id}/change_orders/:
+    get:
+      operationId: get_change_orders_by_contract_contracts__contract_id__change_orders__get
+      parameters:
+      - in: path
+        name: contract_id
+        required: true
+        schema:
+          format: uuid
+          title: Contract Id
+          type: string
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Change Orders By Contract
+      tags:
+      - Change Order
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ChangeOrderAttributes:
+      properties:
+        acknowledged_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          description: '**Acknowledged at** · **Anerkannt am**'
+          title: Acknowledged At
+        approved_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Approved amount** · **Freigegebener Betrag**'
+          title: Approved Amount
+        audited_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Audited amount** · **Geprüfter Betrag**'
+          title: Audited Amount
+        basis_of_claim:
+          $ref: '#/components/schemas/BasisOfClaim'
+          description: '**Basis of claim** · **Anspruchsgrundlage**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `QUANTITY_CHANGE` | Change in quantity | Mengenänderung |
+
+            | `PRICE_CHANGE` | Change in price | Preisänderung |
+
+            | `SERVICE_OMMISION` | Omission of service | Wegfall von Leistung |
+
+            | `SERVICE_CHANGE` | Change in service | Leistungsänderung |
+
+            | `ADDITIONAL_SERVICE` | Additional service | Zusätzliche/Besondere Leistung |
+
+            | `SERVICE_WITHOUT_CONTRACT` | Service without contract | Leistung ohne Auftrag |
+
+            | `DIRECT_LABOR_WORK` | Direct labor work | Stundenlohnarbeiten |
+
+            | `PERFORMANCE_PERIOD_EXTENSION` | Extension of performance period | Verlängerung der Ausführungsfrist |
+
+            | `COMPENSATION` | Compensation | Entschädigung |
+
+            | `OTHER` | Other | Sonstiges |'
+        change_order_date:
+          description: '**Change order date** · **Nachtragsdatum**'
+          format: date
+          title: Change Order Date
+          type: string
+        claimed_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Claimed amount** · **Geforderter Betrag**'
+          title: Claimed Amount
+        contract:
+          description: '**Change order contract** · **Auftrag des Nachtrags**'
+          format: uuid
+          title: Contract
+          type: string
+        declined_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          description: '**Declined at** · **Abgelehnt am**'
+          title: Declined At
+        identifier:
+          description: '**Change order number** · **Nachtragsnummer**'
+          title: Identifier
+          type: string
+        name:
+          description: '**Change order name** · **Name**'
+          title: Name
+          type: string
+        other_basis_of_claim:
+          description: '**Basis of claim (other)** · **Anspruchsgrundlage (Sonstige)**'
+          title: Other Basis Of Claim
+          type: string
+        other_trigger:
+          description: '**Trigger (other)** · **Auslöser (Sonstige)**'
+          title: Other Trigger
+          type: string
+        state:
+          $ref: '#/components/schemas/ChangeOrderState'
+          description: '**Change order state** · **Status**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `OPEN` | Open | Offen |
+
+            | `DETAILS_ENTERED` | Details entered | Erfasst |
+
+            | `ACKNOWLEDGED` | Acknowledged | Anerkannt |
+
+            | `REJECTED` | Declined | Abgelehnt |'
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+          description: '**Trigger** · **Auslöser**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `CONTRACTING_ENTITY_BUILDING_OWNER` | Contracting entity / building owner | Auftraggeber / Bauherr |
+
+            | `USER_TENANT` | User / tenant | Nutzer / Mieter |
+
+            | `BUYER` | Buyer | Käufer |
+
+            | `PLANNING` | Planning | Planung |
+
+            | `CONSTRUCTION_SUPERVISION` | Construction supervision | Bauüberwachung |
+
+            | `THIRD_PARTY_CONSTRUCTION_SECTIONS` | Third-party - Construction sections | Dritte - Gewerke |
+
+            | `THIRD_PARTY_AUTHORITIES` | Third-party - Authorities | Dritte - Behörden |
+
+            | `UNFORESEEABLE_EVENTS` | Unforeseeable events | Unvorhersehbares |
+
+            | `OTHER` | Other | Sonstiges |'
+        weighting_factor:
+          anyOf:
+          - type: number
+          - type: 'null'
+          description: '**Weighting factor** · **Gewichtungsfaktor**'
+          title: Weighting Factor
+      required:
+      - acknowledged_at
+      - approved_amount
+      - audited_amount
+      - basis_of_claim
+      - change_order_date
+      - claimed_amount
+      - contract
+      - declined_at
+      - identifier
+      - name
+      - other_basis_of_claim
+      - other_trigger
+      - state
+      - trigger
+      - weighting_factor
+      title: ChangeOrderAttributes
+      type: object
+    Trigger:
+      enum:
+      - CONTRACTING_ENTITY_BUILDING_OWNER
+      - USER_TENANT
+      - BUYER
+      - PLANNING
+      - CONSTRUCTION_SUPERVISION
+      - THIRD_PARTY_CONSTRUCTION_SECTIONS
+      - THIRD_PARTY_AUTHORITIES
+      - UNFORESEEABLE_EVENTS
+      - OTHER
+      title: Trigger
+      type: string
+    BasisOfClaim:
+      enum:
+      - QUANTITY_CHANGE
+      - PRICE_CHANGE
+      - SERVICE_OMMISION
+      - SERVICE_CHANGE
+      - ADDITIONAL_SERVICE
+      - SERVICE_WITHOUT_CONTRACT
+      - DIRECT_LABOR_WORK
+      - PERFORMANCE_PERIOD_EXTENSION
+      - COMPENSATION
+      - OTHER
+      title: BasisOfClaim
+      type: string
+    Response_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ChangeOrderAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CHANGE_ORDER
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
+      type: object
+    ListResponse_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
+      type: object
+    ChangeOrderState:
+      enum:
+      - OPEN
+      - DETAILS_ENTERED
+      - ACKNOWLEDGED
+      - REJECTED
+      title: ChangeOrderState
+      type: string
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

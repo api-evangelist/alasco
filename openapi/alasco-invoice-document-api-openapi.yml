@@ -1,0 +1,718 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Invoice Document API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: An **Invoice Document** is a file attached to an **Invoice**, such as the invoice PDF or supporting evidence. At least one document is required before an invoice can be checked; documents can be uploaded, downloaded and, under certain conditions, deleted.
+  name: Invoice Document
+paths:
+  /invoices/{invoice_id}/documents/:
+    get:
+      operationId: get_invoice_documents_invoices__invoice_id__documents__get
+      parameters:
+      - in: path
+        name: invoice_id
+        required: true
+        schema:
+          format: uuid
+          title: Invoice Id
+          type: string
+      - description: '
+
+          You can filter on certain attributes by specifying them as a GET parameter along
+
+          with an operation, e.g. `filter[name.exact]=abc`.
+
+
+          Currently supported operations are:
+
+          * `less_than_equal`: Expects one value
+
+          * `greater_than_equal`: Expects one value
+
+          * `range`: Expects two values
+
+          * `in`: Expects one or multiple values
+
+          * `not_in`: Expects one or multiple values
+
+
+          The following attributes support filtering:
+
+
+          | **Attribute** | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |
+
+          | :--- | :---: | :---: | :---: | :---: | :---: |
+
+          | `document_type` |   |   |   | x | x |
+
+          | `uploaded_at` | x | x | x |   |   |
+
+          '
+        in: query
+        name: filter[attribute.operation]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can filter on certain attributes by specifying them as a GET parameter along
+
+            with an operation, e.g. `filter[name.exact]=abc`.
+
+
+            Currently supported operations are:
+
+            * `less_than_equal`: Expects one value
+
+            * `greater_than_equal`: Expects one value
+
+            * `range`: Expects two values
+
+            * `in`: Expects one or multiple values
+
+            * `not_in`: Expects one or multiple values
+
+
+            The following attributes support filtering:
+
+
+            | **Attribute** | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |
+
+            | :--- | :---: | :---: | :---: | :---: | :---: |
+
+            | `document_type` |   |   |   | x | x |
+
+            | `uploaded_at` | x | x | x |   |   |
+
+            '
+          title: Filter[Attribute.Operation]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceDocumentListResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Invoice Documents
+      tags:
+      - Invoice Document
+    post:
+      operationId: create_invoice_document_invoices__invoice_id__documents__post
+      parameters:
+      - in: path
+        name: invoice_id
+        required: true
+        schema:
+          format: uuid
+          title: Invoice Id
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_create_invoice_document_invoices__invoice_id__documents__post'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceDocumentResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Create Invoice Document
+      tags:
+      - Invoice Document
+  /invoices/{invoice_id}/documents/{document_id}/:
+    get:
+      operationId: get_invoice_document_invoices__invoice_id__documents__document_id___get
+      parameters:
+      - in: path
+        name: invoice_id
+        required: true
+        schema:
+          format: uuid
+          title: Invoice Id
+          type: string
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          format: uuid
+          title: Document Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceDocumentResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Invoice Document
+      tags:
+      - Invoice Document
+  /invoices/{invoice_id}/documents/{document_id}/download-annotated/:
+    get:
+      operationId: download_annotated_invoice_document_invoices__invoice_id__documents__document_id__download_annotated__get
+      parameters:
+      - in: path
+        name: invoice_id
+        required: true
+        schema:
+          format: uuid
+          title: Invoice Id
+          type: string
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          format: uuid
+          title: Document Id
+          type: string
+      responses:
+        '200':
+          description: '
+
+            Returns the document with annotations if available, otherwise returns the original document.
+
+            '
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Download Annotated Invoice Document
+      tags:
+      - Invoice Document
+  /invoices/{invoice_id}/documents/{document_id}/download/:
+    get:
+      operationId: download_invoice_document_invoices__invoice_id__documents__document_id__download__get
+      parameters:
+      - in: path
+        name: invoice_id
+        required: true
+        schema:
+          format: uuid
+          title: Invoice Id
+          type: string
+      - in: path
+        name: document_id
+        required: true
+        schema:
+          format: uuid
+          title: Document Id
+          type: string
+      responses:
+        '302':
+          description: '
+
+            Redirect to the temporary download link
+
+            '
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Download Invoice Document
+      tags:
+      - Invoice Document
+components:
+  schemas:
+    InvoiceDocumentReadType:
+      description: 'This used for reading document invoice types and some other extra  types such as `COVERSHEET`,
+
+        `COMPOSED_DOCUMENTS`, `GUARANTEE` and `FINAL_INVOICE` in addition to the invoice document types and this
+
+        one being used to read data only not for creation.'
+      enum:
+      - INVOICE
+      - ATTACHMENT
+      - COVERSHEET_EXTERNAL
+      - AUDITED_INVOICE
+      - INTERNAL_CORRESPONDENCE
+      - EXTERNAL_CORRESPONDENCE
+      - VALUATIONS
+      - PLANS
+      - REVISED_INVOICE
+      - PAYMENT_CERTIFICATE
+      - PROTOCOL
+      - OTHER
+      - FINAL_INVOICE
+      - GUARANTEE
+      - COVERSHEET
+      - COMPOSED_DOCUMENTS
+      - EINVOICE_VISUALIZATION
+      title: InvoiceDocumentReadType
+      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Body_create_invoice_document_invoices__invoice_id__documents__post:
+      properties:
+        document_type:
+          $ref: '#/components/schemas/InvoiceDocumentCreateType'
+          description: 'Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `INVOICE` | Invoice | Rechnung |
+
+            | `ATTACHMENT` | Attachment | Anhang |
+
+            | `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |
+
+            | `AUDITED_INVOICE` | Audited invoice | Prüfrechnung |
+
+            | `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |
+
+            | `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |
+
+            | `VALUATIONS` | Valuations | Aufmaß |
+
+            | `PLANS` | Plans | Planunterlagen |
+
+            | `REVISED_INVOICE` | Revised invoice | Korrekturrechnung |
+
+            | `PAYMENT_CERTIFICATE` | Payment certificate | Zahlungsnachweis |
+
+            | `PROTOCOL` | Protocol | Protokoll |
+
+            | `OTHER` | Other | Sonstiges |'
+        upload:
+          contentMediaType: application/octet-stream
+          description: '
+
+            The file to submit. The file must be a valid PDF.
+
+            '
+          title: Upload
+          type: string
+      required:
+      - document_type
+      - upload
+      title: Body_create_invoice_document_invoices__invoice_id__documents__post
+      type: object
+    InvoiceDocumentAttributes:
+      properties:
+        document_type:
+          $ref: '#/components/schemas/InvoiceDocumentReadType'
+          description: '**Document type** · **Dokumentenart**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `INVOICE` | Invoice | Rechnung |
+
+            | `ATTACHMENT` | Attachment | Anhang |
+
+            | `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |
+
+            | `AUDITED_INVOICE` | Audited invoice | Prüfrechnung |
+
+            | `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |
+
+            | `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |
+
+            | `VALUATIONS` | Valuations | Aufmaß |
+
+            | `PLANS` | Plans | Planunterlagen |
+
+            | `REVISED_INVOICE` | Revised invoice | Korrekturrechnung |
+
+            | `PAYMENT_CERTIFICATE` | Payment certificate | Zahlungsnachweis |
+
+            | `PROTOCOL` | Protocol | Protokoll |
+
+            | `OTHER` | Other | Sonstiges |
+
+            | `FINAL_INVOICE` | Final invoice | Schlussrechnung |
+
+            | `GUARANTEE` | Guarantee | Bürgschaft |
+
+            | `COVERSHEET` | Cover sheet | Deckblatt |
+
+            | `COMPOSED_DOCUMENTS` | Composed documents | Zusammengefügte Dokumente |
+
+            | `EINVOICE_VISUALIZATION` | E-Invoice visualization | Visualisierung von E-Rechnungen |'
+          examples:
+          - INVOICE
+        filename:
+          description: '**Filename** · **Dateiname**'
+          title: Filename
+          type: string
+        uploaded_at:
+          description: '**Uploaded at** · **Hochgeladen am**'
+          format: date-time
+          title: Uploaded At
+          type: string
+      required:
+      - filename
+      - uploaded_at
+      - document_type
+      title: InvoiceDocumentAttributes
+      type: object
+    InvoiceDocumentListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/InvoiceDocumentData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      required:
+      - data
+      title: InvoiceDocumentListResponse
+      type: object
+    InvoiceDocumentDataLinks:
+      properties:
+        download:
+          examples:
+          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download/
+          title: Download
+          type: string
+        download_annotated:
+          examples:
+          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download-annotated/
+          title: Download Annotated
+          type: string
+        self:
+          examples:
+          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/
+          title: Self
+          type: string
+      required:
+      - self
+      - download
+      - download_annotated
+      title: InvoiceDocumentDataLinks
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    InvoiceDocumentData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/InvoiceDocumentAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        links:
+          $ref: '#/components/schemas/InvoiceDocumentDataLinks'
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - invoice:
+              data:
+                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
+                type: INVOICE
+          title: Relationships
+        type:
+          default: INVOICE_DOCUMENT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      - links
+      title: InvoiceDocumentData
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    InvoiceDocumentCreateType:
+      description: 'Invoice documents can be of different types. The file which is uploaded to Alasco when a new
+
+        invoice is created is of type `INVOICE`. All other documents which are added to the invoice in
+
+        Alasco later on can be of type `INVOICE`, `ATTACHMENT`, `AUDITED_INVOICE`, `EXTERNAL_CORRESPONDENCE`,
+
+        `INTERNAL_CORRESPONDENCE`, `VALUATIONS`, `PLANS`, `REVISED_INVOICE`, `PAYMENT_CERTIFICATE`,
+
+        `COVERSHEET_EXTERNAL`, `PROTOCOL` and `OTHER`.
+
+        If the invoice is of invoice type `RETAINAGE_PAYOUT` the guarantee which was used to start the
+
+        payout process is added to the invoice documents with the type `GUARANTEE`.'
+      enum:
+      - INVOICE
+      - ATTACHMENT
+      - COVERSHEET_EXTERNAL
+      - AUDITED_INVOICE
+      - INTERNAL_CORRESPONDENCE
+      - EXTERNAL_CORRESPONDENCE
+      - VALUATIONS
+      - PLANS
+      - REVISED_INVOICE
+      - PAYMENT_CERTIFICATE
+      - PROTOCOL
+      - OTHER
+      title: InvoiceDocumentCreateType
+      type: string
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    InvoiceDocumentResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/InvoiceDocumentData'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: InvoiceDocumentResponse
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

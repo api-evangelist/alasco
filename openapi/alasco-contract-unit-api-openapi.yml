@@ -1,0 +1,743 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Contract Unit API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: A **Contract Unit** is a budget package within a **Project** (the FinCon counterpart of a CapEx Measure), carrying an initial budget and a lifecycle **state**. **Contracts** are assigned to a contract unit, and **Budget Shifts** move budget between units. Contract units can be created and updated through the API.
+  name: Contract Unit
+paths:
+  /contract_units/:
+    get:
+      operationId: get_contract_units_contract_units__get
+      parameters:
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can filter on certain attributes by specifying them as a GET parameter along
+
+          with an operation, e.g. `filter[name.exact]=abc`.
+
+
+          Currently supported operations are:
+
+          * `exact`: Expects one value
+
+          * `contains`: Expects one value
+
+          * `in`: Expects one or multiple values
+
+          * `not_in`: Expects one or multiple values
+
+
+          The following attributes support filtering:
+
+
+          | **Attribute** | `exact` | `contains` | `in` | `not_in` |
+
+          | :--- | :---: | :---: | :---: | :---: |
+
+          | `id` |   |   | x | x |
+
+          | `name` | x | x |   |   |
+
+          | `state` |   |   | x | x |
+
+          | `project` |   |   | x | x |
+
+          '
+        in: query
+        name: filter[attribute.operation]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can filter on certain attributes by specifying them as a GET parameter along
+
+            with an operation, e.g. `filter[name.exact]=abc`.
+
+
+            Currently supported operations are:
+
+            * `exact`: Expects one value
+
+            * `contains`: Expects one value
+
+            * `in`: Expects one or multiple values
+
+            * `not_in`: Expects one or multiple values
+
+
+            The following attributes support filtering:
+
+
+            | **Attribute** | `exact` | `contains` | `in` | `not_in` |
+
+            | :--- | :---: | :---: | :---: | :---: |
+
+            | `id` |   |   | x | x |
+
+            | `name` | x | x |   |   |
+
+            | `state` |   |   | x | x |
+
+            | `project` |   |   | x | x |
+
+            '
+          title: Filter[Attribute.Operation]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+        API Token: []
+      summary: Get Contract Units
+      tags:
+      - Contract Unit
+    post:
+      operationId: create_contract_unit_contract_units__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractUnitCreateRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+        API Token: []
+      summary: Create Contract Unit
+      tags:
+      - Contract Unit
+  /contract_units/{id}/:
+    get:
+      operationId: get_contract_unit_details_contract_units__id___get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+        API Token: []
+      summary: Get Contract Unit Details
+      tags:
+      - Contract Unit
+    patch:
+      operationId: patch_contract_unit_contract_units__id___patch
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractUnitPatchRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+        API Token: []
+      summary: Patch Contract Unit
+      tags:
+      - Contract Unit
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ContractUnitPatchData:
+      properties:
+        attributes:
+          anyOf:
+          - $ref: '#/components/schemas/ContractUnitPatchAttributes'
+          - type: 'null'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        type:
+          const: CONTRACT_UNIT
+          default: CONTRACT_UNIT
+          title: Type
+          type: string
+      required:
+      - id
+      title: ContractUnitPatchData
+      type: object
+    ContractRelationshipAttributes:
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        type:
+          title: Type
+          type: string
+      required:
+      - type
+      - id
+      title: ContractRelationshipAttributes
+      type: object
+    ContractUnitCreateData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractUnitCreateAttributes'
+        relationships:
+          $ref: '#/components/schemas/ContractUnitCreateRelationships'
+        type:
+          const: CONTRACT_UNIT
+          default: CONTRACT_UNIT
+          title: Type
+          type: string
+      required:
+      - attributes
+      - relationships
+      title: ContractUnitCreateData
+      type: object
+    ContractUnitState:
+      enum:
+      - BUDGETED
+      - FULLY_AWARDED
+      - FINALIZED
+      - CONTINGENCY
+      - FINANCING
+      title: ContractUnitState
+      type: string
+    ContractUnitPatchRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractUnitPatchData'
+      required:
+      - data
+      title: ContractUnitPatchRequest
+      type: object
+    ListResponse_ContractUnitAttributes_Literal_CONTRACT_UNIT__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ContractUnitAttributes, Literal[<ResourceType.CONTRACT_UNIT: ''CONTRACT_UNIT''>]]'
+      type: object
+    ContractUnitCreateRelationships:
+      properties:
+        project:
+          $ref: '#/components/schemas/ContractRelationshipData'
+          description: '**Project** · **Projekt**'
+      required:
+      - project
+      title: ContractUnitCreateRelationships
+      type: object
+    Response_ContractUnitAttributes_Literal_CONTRACT_UNIT__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ContractUnitAttributes, Literal[<ResourceType.CONTRACT_UNIT: ''CONTRACT_UNIT''>]]'
+      type: object
+    ContractUnitCreateRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractUnitCreateData'
+      required:
+      - data
+      title: ContractUnitCreateRequest
+      type: object
+    ContractUnitPatchAttributes:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Description** · **Beschreibung**'
+          title: Description
+        initial_budget:
+          anyOf:
+          - properties:
+              net:
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Initial budget** · **Ausgangsbudget**
+
+
+            When set, replaces the stored initial budget (non-cost-element projects only; same constraints as internal contract unit updates). Cannot be cleared via the API; omit the field to leave it unchanged.
+
+
+            Ersetzt das gespeicherte Ausgangsbudget (nur Projekte ohne Kostengruppen; gleiche Einschränkungen wie bei internen Vergabeeinheits-Updates). Kann über die API nicht geleert werden; Feld weglassen, um es unverändert zu lassen.'
+          title: Initial Budget
+        name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Name** · **Name**'
+          title: Name
+        state:
+          anyOf:
+          - $ref: '#/components/schemas/ContractUnitState'
+          - type: 'null'
+          description: '**State** · **Status**
+
+
+            When set, updates the lifecycle state subject to server rules (e.g. finalized only when all contracts are completed). Cannot transition into or out of contingency or financing through the API.
+
+
+            Aktualisiert den Status gemäß den Serverregeln (z. B. schlussgerechnet nur, wenn alle Aufträge abgeschlossen sind). Ein Wechsel in oder aus Rückstellung oder Finanzierung ist über die API nicht möglich.
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `BUDGETED` | Budgeted | Budgetiert |
+
+            | `FULLY_AWARDED` | Fully awarded | Vergeben |
+
+            | `FINALIZED` | Finalised | Schlussgerechnet |
+
+            | `CONTINGENCY` | Contingency | Reserve |
+
+            | `FINANCING` | Financing | Finanzierung |'
+      title: ContractUnitPatchAttributes
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ContractUnitPublicCreateState:
+      enum:
+      - BUDGETED
+      - CONTINGENCY
+      title: ContractUnitPublicCreateState
+      type: string
+    Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractUnitAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CONTRACT_UNIT
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ContractUnitAttributes, Literal[<ResourceType.CONTRACT_UNIT: ''CONTRACT_UNIT''>]]'
+      type: object
+    ContractRelationshipData:
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractRelationshipAttributes'
+      required:
+      - data
+      title: ContractRelationshipData
+      type: object
+    ContractUnitCreateAttributes:
+      properties:
+        description:
+          default: ''
+          description: '**Description** · **Beschreibung**'
+          title: Description
+          type: string
+        initial_budget:
+          anyOf:
+          - properties:
+              net:
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Initial budget** · **Ausgangsbudget**
+
+
+            Optional initial budget (net/tax). Only allowed when the target project does not use cost elements; otherwise omit or leave unset.
+
+
+            Optionales Ausgangsbudget (netto/USt.). Nur zulässig, wenn das Zielprojekt keine Kostengruppen verwendet; andernfalls weglassen.'
+          title: Initial Budget
+        name:
+          description: '**Name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+        state:
+          $ref: '#/components/schemas/ContractUnitPublicCreateState'
+          default: BUDGETED
+          description: '**State** · **Status**
+
+
+            Lifecycle state when creating the contract unit: BUDGETED or CONTINGENCY (contingency / reserve). Financing contract units cannot be created through the API.
+
+
+            Status beim Anlegen der Vergabeeinheit: BUDGETED oder CONTINGENCY (Rückstellung / Reserve). Finanzierungs-Vergabeeinheiten können nicht über die API angelegt werden.
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `BUDGETED` | Budgeted | Budgetiert |
+
+            | `CONTINGENCY` | Contingency | Reserve |'
+      required:
+      - name
+      title: ContractUnitCreateAttributes
+      type: object
+    ContractUnitAttributes:
+      properties:
+        description:
+          description: '**Description** · **Beschreibung**'
+          title: Description
+          type: string
+        name:
+          description: '**Name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+        project:
+          description: '**Project** · **Projekt**'
+          format: uuid
+          title: Project
+          type: string
+        state:
+          $ref: '#/components/schemas/ContractUnitState'
+          description: '**State** · **Status**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `BUDGETED` | Budgeted | Budgetiert |
+
+            | `FULLY_AWARDED` | Fully awarded | Vergeben |
+
+            | `FINALIZED` | Finalised | Schlussgerechnet |
+
+            | `CONTINGENCY` | Contingency | Reserve |
+
+            | `FINANCING` | Financing | Finanzierung |'
+          examples:
+          - BUDGETED
+      required:
+      - project
+      - name
+      - state
+      - description
+      title: ContractUnitAttributes
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

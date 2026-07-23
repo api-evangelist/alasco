@@ -1,0 +1,17 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Alasco FinCon API
+  version: 1.0.0
+extends: openapi/alasco-fincon-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-17'
+    x-apievangelist-artifacts:
+    - authentication/alasco-authentication.yml
+    - conventions/alasco-conventions.yml
+    - errors/alasco-problem-types.yml
+    - data-model/alasco-data-model.yml
+    - mcp/alasco-mcp.yml
+    x-api-style: json:api
+    x-pagination: cursor

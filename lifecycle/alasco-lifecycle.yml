@@ -1,0 +1,28 @@
+generated: '2026-07-17'
+method: searched
+source: https://developer.alasco.de/getstarted.html
+versioning:
+  scheme: uri-path
+  current: v1
+  stability: Stable from version 1.0; changes within a major version are backward-compatible.
+  docs: https://developer.alasco.de/getstarted.html
+changelog:
+  url: https://developer.alasco.de/changelog.html
+  scheme: date-based
+  ref: changelog/alasco-changelog.yml
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No explicit deprecation/Sunset (RFC 8594) policy published beyond the backward-compatibility
+    commitment within a major version.
+sla:
+  url: null
+  note: No public SLA/uptime target published (enterprise contract terms).
+status_page:
+  url: null
+  note: No public status page found (status.alasco.de did not resolve).
+deprecated_operations: []
+notes: >-
+  Rate limits are documented as generous but not numerically published. Security & Trust
+  posture (SOC 2, ISO/IEC 27001, GDPR) at https://www.alasco.com/security-trust.

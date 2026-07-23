@@ -1,0 +1,1075 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Invoice Tag API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: An **Invoice Tag** is a coloured label (with a name unique per account) you assign to **Invoices** for organisation and filtering. Tags can be created, updated and deleted, and assigned to or removed from invoices.
+  name: Invoice Tag
+paths:
+  /invoices/{invoice_id}/tags/:
+    get:
+      operationId: get_tags_by_invoice_invoices__invoice_id__tags__get
+      parameters:
+      - in: path
+        name: invoice_id
+        required: true
+        schema:
+          format: uuid
+          title: Invoice Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_TagAttributes_Literal_TAG__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Tags By Invoice
+      tags:
+      - Invoice Tag
+  /invoices/{invoice_id}/tags/assign/:
+    post:
+      operationId: assign_tag_invoices__invoice_id__tags_assign__post
+      parameters:
+      - in: path
+        name: invoice_id
+        required: true
+        schema:
+          format: uuid
+          title: Invoice Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_TagAssignAttributes_Literal_TAG__'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Assign Tag
+      tags:
+      - Invoice Tag
+  /invoices/{invoice_id}/tags/unassign/:
+    post:
+      operationId: unassign_tag_invoices__invoice_id__tags_unassign__post
+      parameters:
+      - in: path
+        name: invoice_id
+        required: true
+        schema:
+          format: uuid
+          title: Invoice Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_TagAssignAttributes_Literal_TAG__'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Unassign Tag
+      tags:
+      - Invoice Tag
+  /tags/:
+    get:
+      operationId: get_tags_tags__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_TagAttributes_Literal_TAG__'
+          description: Successful Response
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Tags
+      tags:
+      - Invoice Tag
+    post:
+      operationId: create_tag_tags__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_TagCreateAttributes_Literal_TAG__'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_TagAttributes_Literal_TAG__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Create Tag
+      tags:
+      - Invoice Tag
+  /tags/{id}/:
+    delete:
+      operationId: delete_tag_tags__id___delete
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Delete Tag
+      tags:
+      - Invoice Tag
+    patch:
+      operationId: update_tag_tags__id___patch
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_TagUpdateAttributes_Literal_TAG__'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_TagAttributes_Literal_TAG__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Update Tag
+      tags:
+      - Invoice Tag
+components:
+  schemas:
+    TagColorTokenOut:
+      enum:
+      - BLUE
+      - GREEN
+      - RED
+      - ORANGE
+      - UNSPECIFIED
+      title: TagColorTokenOut
+      type: string
+    Data_TagAttributes_Literal_TAG__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TagAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: TAG
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[TagAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    InvoiceProcessState:
+      description: 'The invoice process state represents the state of the invoice in its workflow.
+
+        A `NEW` invoice has not been processed by any user.
+
+        An invoice in state `DETAILS_ENTERED` means that all the required details
+
+        have been entered.
+
+        After the formal verification step has been completed, the invoice is in state `FORMALLY_CHECKED`.
+
+        As soon as the first manual approval step has been completed, the invoice enters state `CHECKED`.
+
+        An invoice is `APPROVED` when all required approvals have been given.
+
+        Finally, when the payment for an invoice is registered, it enters state `PAID`.'
+      enum:
+      - NEW
+      - DETAILS_ENTERED
+      - CHECKED
+      - APPROVED
+      - PAID
+      title: InvoiceProcessState
+      type: string
+    ListResponse_TagAttributes_Literal_TAG__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[TagAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    Payload_TagUpdateAttributes_Literal_TAG__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TagUpdateAttributes'
+        type:
+          const: TAG
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[TagUpdateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    TagAttributes:
+      properties:
+        color:
+          $ref: '#/components/schemas/TagColorTokenOut'
+          description: '**Tag color** · **Tag-Farbe**'
+        name:
+          description: '**Tag name** · **Tag-Name**'
+          title: Name
+          type: string
+      required:
+      - name
+      - color
+      title: TagAttributes
+      type: object
+    Response_TagAttributes_Literal_TAG__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[TagAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    TagCreateAttributes:
+      properties:
+        color:
+          anyOf:
+          - $ref: '#/components/schemas/TagColorTokenIn'
+          - type: 'null'
+          description: '**Tag color** · **Tag-Farbe**'
+        name:
+          description: '**Tag name** · **Tag-Name**'
+          minLength: 1
+          title: Name
+          type: string
+      required:
+      - name
+      title: TagCreateAttributes
+      type: object
+    InvoiceAttributes:
+      properties:
+        audited_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Audited amount** · **Geprüfter Rechnungsbetrag**'
+          title: Audited Amount
+        cash_discount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Cash discount** · **Skonto**'
+          title: Cash Discount
+        contract:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**Contract ID** · **Auftrags-ID**'
+          title: Contract
+        date_approved:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          description: '**Date approved** · **Freigabedatum**'
+          title: Date Approved
+        date_created:
+          description: '**Date created** · **Datum hinzugefügt**'
+          format: date-time
+          title: Date Created
+          type: string
+        date_discount:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Cash discount date** · **Skontofrist**'
+          title: Date Discount
+        date_due:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Due date** · **Fälligkeitsdatum**'
+          title: Date Due
+        date_posted:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Posting date** · **Rechnungsdatum**'
+          title: Date Posted
+        date_received:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Date received** · **Eingangsdatum**'
+          title: Date Received
+        discounted_approved_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Approved amount after cash discount** · **Freigegebener Betrag nach Skonto**'
+          title: Discounted Approved Amount
+        external_identifier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Invoice number (external)** · **Rechnungsnummer (extern)**'
+          title: External Identifier
+        installment_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Installment number** · **Abschlagsrechnungsnummer**
+
+
+            Consecutive number of the installment when the invoice type is `INSTALLMENT`.
+
+
+            Fortlaufende Nummer der Abschlagsrechnung, wenn der Rechnungstyp `INSTALLMENT` ist.'
+          examples:
+          - 1
+          title: Installment Number
+        internal_identifier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Invoice number (internal)** · **Rechnungsnummer (intern)**'
+          title: Internal Identifier
+        invoice_process_state:
+          $ref: '#/components/schemas/InvoiceProcessState'
+          description: '**Invoice status** · **Rechnungsstatus**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `NEW` | New | Neu |
+
+            | `DETAILS_ENTERED` | Details entered | Erfasst |
+
+            | `CHECKED` | Checked | Geprüft |
+
+            | `APPROVED` | Approved | Freigegeben |
+
+            | `PAID` | Paid | Bezahlt |'
+          examples:
+          - NEW
+        invoice_type:
+          anyOf:
+          - $ref: '#/components/schemas/InvoiceType'
+          - type: 'null'
+          description: '**Invoice type** · **Rechnungs-Typ**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `SINGLE` | Single | Einzelrechnung |
+
+            | `ADVANCE` | Advance | Vorauszahlung |
+
+            | `INSTALLMENT` | Installment | Abschlagsrechnung |
+
+            | `PARTIAL_FINAL` | Partial final | Teilschlussrechnung |
+
+            | `FINAL` | Final | Schlussrechnung |
+
+            | `RETAINAGE_PAYOUT` | Retention release | Auszahlung Einbehalt |
+
+            | `RECURRING` | Recurring | Dauerrechnung |'
+          examples:
+          - SINGLE
+        is_reverse_charge:
+          description: '**Is reverse charge?** · **Reverse Charge?**'
+          title: Is Reverse Charge
+          type: boolean
+        payment_amount_gross:
+          anyOf:
+          - properties:
+              amount:
+                description: '**Amount** · **Betrag**'
+                example: '123.123456789012'
+                title: Amount
+                type: string
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Paid amount (gross)** · **Ausgezahlter Betrag (brutto)**'
+          title: Payment Amount Gross
+        payment_comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Payment comment** · **Zahlungskommentar**'
+          title: Payment Comment
+        payment_created:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          description: '**Payment information created** · **Erstellungsdatum Zahlungsinformation**'
+          title: Payment Created
+        payment_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Payment date** · **Zahlungsdatum**'
+          title: Payment Date
+        unaudited_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Unaudited amount** · **Ungeprüfter Rechnungsbetrag und USt.**'
+          title: Unaudited Amount
+        undiscounted_approved_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Approved amount** · **Freigegebener Betrag**'
+          title: Undiscounted Approved Amount
+      required:
+      - date_created
+      - invoice_process_state
+      - is_reverse_charge
+      title: InvoiceAttributes
+      type: object
+    InvoiceData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/InvoiceAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - contract:
+              data:
+                id: 1aae03bc-96d8-47b6-9a8b-07f190400e62
+                type: CONTRACT
+            documents:
+              links:
+                related: https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/
+          title: Relationships
+        type:
+          default: INVOICE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: InvoiceData
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Request_TagUpdateAttributes_Literal_TAG__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_TagUpdateAttributes_Literal_TAG__'
+      required:
+      - data
+      title: 'Request[TagUpdateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    InvoiceType:
+      description: The invoice type.
+      enum:
+      - SINGLE
+      - ADVANCE
+      - INSTALLMENT
+      - PARTIAL_FINAL
+      - FINAL
+      - RETAINAGE_PAYOUT
+      - RECURRING
+      title: InvoiceType
+      type: string
+    Payload_TagAssignAttributes_Literal_TAG__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TagAssignAttributes'
+        type:
+          const: TAG
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[TagAssignAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    InvoiceResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/InvoiceData'
+          - $ref: '#/components/schemas/InvoiceCreatedData'
+          - type: 'null'
+          title: Data
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: InvoiceResponse
+      type: object
+    InvoiceCreatedData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/InvoiceBasicAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          default: INVOICE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: InvoiceCreatedData
+      type: object
+    Payload_TagCreateAttributes_Literal_TAG__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TagCreateAttributes'
+        type:
+          const: TAG
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[TagCreateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    TagAssignAttributes:
+      properties:
+        tag_id:
+          description: '**Tag ID** · **Tag-ID**'
+          format: uuid
+          title: Tag Id
+          type: string
+      required:
+      - tag_id
+      title: TagAssignAttributes
+      type: object
+    InvoiceBasicAttributes:
+      properties:
+        date_created:
+          description: '**Date created** · **Datum hinzugefügt**'
+          format: date-time
+          title: Date Created
+          type: string
+        date_received:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Date received** · **Eingangsdatum**'
+          title: Date Received
+        invoice_process_state:
+          $ref: '#/components/schemas/InvoiceProcessState'
+          description: '**Invoice status** · **Rechnungsstatus**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `NEW` | New | Neu |
+
+            | `DETAILS_ENTERED` | Details entered | Erfasst |
+
+            | `CHECKED` | Checked | Geprüft |
+
+            | `APPROVED` | Approved | Freigegeben |
+
+            | `PAID` | Paid | Bezahlt |'
+          examples:
+          - NEW
+      required:
+      - date_created
+      - invoice_process_state
+      title: InvoiceBasicAttributes
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    Request_TagAssignAttributes_Literal_TAG__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_TagAssignAttributes_Literal_TAG__'
+      required:
+      - data
+      title: 'Request[TagAssignAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    Request_TagCreateAttributes_Literal_TAG__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_TagCreateAttributes_Literal_TAG__'
+      required:
+      - data
+      title: 'Request[TagCreateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    TagColorTokenIn:
+      enum:
+      - BLUE
+      - GREEN
+      - RED
+      - ORANGE
+      title: TagColorTokenIn
+      type: string
+    TagUpdateAttributes:
+      properties:
+        color:
+          anyOf:
+          - $ref: '#/components/schemas/TagColorTokenIn'
+          - type: 'null'
+          description: '**Tag color** · **Tag-Farbe**'
+        name:
+          anyOf:
+          - minLength: 1
+            type: string
+          - type: 'null'
+          description: '**Tag name** · **Tag-Name**'
+          title: Name
+      title: TagUpdateAttributes
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

@@ -1,0 +1,912 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Buildings API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: A **Building** is a property in your Alasco asset register and the anchor for ESG data - its **Utility Meters**, **Tenants** and **Documents** all attach to it. Buildings are read-only here, identified by a UUID (and an `external_building_id` used when creating related records); each also exposes its custom data and latest CO2 analysis result.
+  name: Buildings
+paths:
+  /buildings/:
+    get:
+      operationId: get_buildings_buildings__get
+      parameters:
+      - description: "\n        Optional, comma-separated list of entities to include in the building attributes.\n        "
+        in: query
+        name: include
+        required: false
+        schema:
+          default: ''
+          description: "\n        Optional, comma-separated list of entities to include in the building attributes.\n        "
+          examples:
+          - energy_certificates,building_certificates
+          title: Include
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuildingListResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Buildings
+      tags:
+      - Buildings
+  /buildings/{building_uuid}/analysis-result/:
+    get:
+      operationId: get_analysis_result_buildings__building_uuid__analysis_result__get
+      parameters:
+      - in: path
+        name: building_uuid
+        required: true
+        schema:
+          format: uuid
+          title: Building Uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalysisResultResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Analysis Result
+      tags:
+      - Buildings
+  /buildings/{building_uuid}/custom-data/:
+    get:
+      operationId: get_custom_data_buildings__building_uuid__custom_data__get
+      parameters:
+      - in: path
+        name: building_uuid
+        required: true
+        schema:
+          format: uuid
+          title: Building Uuid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomDataListResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Custom Data
+      tags:
+      - Buildings
+components:
+  schemas:
+    BREEAMLevel:
+      enum:
+      - OUTSTANDING
+      - EXCELLENT
+      - VERY_GOOD
+      - GOOD
+      - PASS
+      - UNCLASSIFIED
+      title: BREEAMLevel
+      type: string
+    WiredScoreLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      - CERTIFIED
+      - UNDER_CERTIFICATION
+      title: WiredScoreLevel
+      type: string
+    CustomDataGroupData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CustomDataGroupAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: CUSTOM_DATA_GROUP_INSTANCE
+          default: CUSTOM_DATA_GROUP_INSTANCE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: CustomDataGroupData
+      type: object
+    BuildingData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/BuildingAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: BUILDING
+          default: BUILDING
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: BuildingData
+      type: object
+    BuildingCertificateLevelRead:
+      properties:
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BREEAMLevel'
+          - $ref: '#/components/schemas/DGNBFullLevel'
+          - $ref: '#/components/schemas/DGNBWithoutBronzeLevel'
+          - $ref: '#/components/schemas/FitwelLevel'
+          - $ref: '#/components/schemas/LEEDLevel'
+          - $ref: '#/components/schemas/WELLHealthSafetyRatingLevel'
+          - $ref: '#/components/schemas/WiredScoreLevel'
+          title: Id
+        label:
+          title: Label
+          type: string
+      required:
+      - id
+      - label
+      title: BuildingCertificateLevelRead
+      type: object
+    BuildingListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/BuildingData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: BuildingListResponse
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    AnalysisResultAttributes:
+      properties:
+        co2_intensity:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**CO₂ intensity** · **CO₂-Intensität**'
+          title: Co2 Intensity
+        energy_intensity:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Energy intensity** · **Energieintensität**'
+          title: Energy Intensity
+        final_energy_intensity:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Final energy intensity** · **Endenergieintensität**'
+          title: Final Energy Intensity
+        primary_energy_intensity:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Primary energy intensity** · **Primärenergieintensität**'
+          title: Primary Energy Intensity
+        scope_1_emissions:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Scope 1 emissions** · **Scope-1-Emissionen**'
+          title: Scope 1 Emissions
+        scope_2_emissions:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Scope 2 emissions** · **Scope-2-Emissionen**'
+          title: Scope 2 Emissions
+        scope_3_emissions:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Scope 3 emissions** · **Scope-3-Emissionen**'
+          title: Scope 3 Emissions
+        self_supply_rate:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Self-supply rate** · **Eigenversorgungsquote**'
+          title: Self Supply Rate
+        total_consumption:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Total consumption** · **Gesamtverbrauch**'
+          title: Total Consumption
+        total_emissions:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Total emissions** · **Gesamtemissionen**'
+          title: Total Emissions
+        total_energy_generated:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Total energy generated** · **Erzeugte Energie (gesamt)**'
+          title: Total Energy Generated
+        year:
+          description: '**Year** · **Jahr**'
+          title: Year
+          type: integer
+      required:
+      - year
+      - co2_intensity
+      - energy_intensity
+      - final_energy_intensity
+      - primary_energy_intensity
+      - total_emissions
+      - total_consumption
+      - total_energy_generated
+      - self_supply_rate
+      - scope_1_emissions
+      - scope_2_emissions
+      - scope_3_emissions
+      title: AnalysisResultAttributes
+      type: object
+    CustomDataGroupAttributes:
+      properties:
+        field_instances:
+          description: '**Field instances** · **Feldinstanzen**'
+          items:
+            $ref: '#/components/schemas/CustomDataFieldAttributes'
+          title: Field Instances
+          type: array
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+      required:
+      - name
+      - field_instances
+      title: CustomDataGroupAttributes
+      type: object
+    CustomDataFieldAttributes:
+      properties:
+        field_id:
+          description: '**Field ID** · **Feld-ID**'
+          format: uuid
+          title: Field Id
+          type: string
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+        value:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: '**Value** · **Wert**'
+          title: Value
+        year:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Year** · **Jahr**'
+          title: Year
+      required:
+      - name
+      - field_id
+      - year
+      - value
+      title: CustomDataFieldAttributes
+      type: object
+    LEEDLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      - CERTIFIED
+      title: LEEDLevel
+      type: string
+    DGNBWithoutBronzeLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      title: DGNBWithoutBronzeLevel
+      type: string
+    WELLHealthSafetyRatingLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      - BRONZE
+      title: WELLHealthSafetyRatingLevel
+      type: string
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    BuildingCertificateSchema:
+      enum:
+      - BREEAM_COMMUNITIES
+      - BREEAM_INFRASTRUCTURE
+      - BREEAM_NEW_CONSTRUCTION
+      - BREEAM_IN_USE
+      - BREEAM_REFURBISHMENT
+      - DGNB_EXISTING_BUILDINGS
+      - DGNB_BUILDINGS_IN_USE
+      - DGNB_NEW_CONSTRUCTION
+      - DGNB_RENOVATION
+      - FITWEL
+      - LEED_BDC_CSD_C
+      - LEED_BDC_CSD_PC
+      - LEED_BDC_NC_C
+      - LEED_BDC_NC_PC
+      - LEED_IDC_CI_C
+      - LEED_IDC_CI_PC
+      - LEED_OM_EB_C
+      - WELL_HEALTH_SAFETY_RATING
+      - WIRED_SCORE_OCCUPIED_BUILDINGS
+      - WIRED_SCORE_DEVELOPMENTS
+      title: BuildingCertificateSchema
+      type: string
+    FitwelLevel:
+      enum:
+      - ONE_STAR
+      - TWO_STAR
+      - THREE_STAR
+      title: FitwelLevel
+      type: string
+    BuildingAttributes:
+      properties:
+        building_certificates:
+          description: '**Building certificates** · **Gebäudezertifikate**
+
+
+            List of building certificates for the building, excluded if not explicitly requested.
+
+
+            Liste der Gebäudezertifikate des Gebäudes; nur enthalten, wenn ausdrücklich angefordert.'
+          items:
+            $ref: '#/components/schemas/BuildingCertificateRead'
+          title: Building Certificates
+          type: array
+        building_specification:
+          $ref: '#/components/schemas/BuildingSpecification'
+          description: '**Building specification** · **Gebäudespezifikation**'
+        energy_certificates:
+          description: '**Energy certificates** · **Energieausweise**
+
+
+            List of energy certificates for the building, excluded if not explicitly requested.
+
+
+            Liste der Energieausweise des Gebäudes; nur enthalten, wenn ausdrücklich angefordert.'
+          items:
+            $ref: '#/components/schemas/EnergyCertificateRead'
+          title: Energy Certificates
+          type: array
+        external_asset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**External asset ID** · **Externe Asset-ID**'
+          title: External Asset Id
+        external_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+      required:
+      - name
+      - external_id
+      - external_asset_id
+      - building_specification
+      title: BuildingAttributes
+      type: object
+    BuildingSpecification:
+      properties:
+        gross_external_area:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Gross external area** · **Brutto-Außenfläche**'
+          title: Gross External Area
+        gross_internal_area:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Gross internal area** · **Brutto-Innenfläche**'
+          title: Gross Internal Area
+      required:
+      - gross_external_area
+      - gross_internal_area
+      title: BuildingSpecification
+      type: object
+    EnergyCertificateType:
+      enum:
+      - CONSUMPTION
+      - DEMAND
+      title: EnergyCertificateType
+      type: string
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    BuildingCertificateRead:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        issued_at:
+          format: date
+          title: Issued At
+          type: string
+        level:
+          $ref: '#/components/schemas/BuildingCertificateLevelRead'
+        schema:
+          $ref: '#/components/schemas/BuildingCertificateSchemaRead'
+        valid_until:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: Valid Until
+      required:
+      - level
+      - schema
+      - issued_at
+      - description
+      - valid_until
+      title: BuildingCertificateRead
+      type: object
+    BuildingCertificateSchemaRead:
+      properties:
+        id:
+          $ref: '#/components/schemas/BuildingCertificateSchema'
+        label:
+          title: Label
+          type: string
+      required:
+      - id
+      - label
+      title: BuildingCertificateSchemaRead
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    AnalysisResultData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/AnalysisResultAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: ANALYSIS_RESULT
+          default: ANALYSIS_RESULT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: AnalysisResultData
+      type: object
+    EnergyCertificateRead:
+      properties:
+        co2_emissions:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          title: Co2 Emissions
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        efficiency_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Efficiency Class
+        end_energy_electricity:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          title: End Energy Electricity
+        end_energy_heating:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          title: End Energy Heating
+        is_residential:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Residential
+        issued_at:
+          format: date
+          title: Issued At
+          type: string
+        primary_energy:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          title: Primary Energy
+        primary_energy_non_renewable:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          title: Primary Energy Non Renewable
+        type:
+          $ref: '#/components/schemas/EnergyCertificateType'
+        valid_until:
+          format: date
+          title: Valid Until
+          type: string
+      required:
+      - type
+      - is_residential
+      - efficiency_class
+      - description
+      - end_energy_heating
+      - end_energy_electricity
+      - primary_energy
+      - primary_energy_non_renewable
+      - co2_emissions
+      - issued_at
+      - valid_until
+      title: EnergyCertificateRead
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    AnalysisResultResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/AnalysisResultData'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: AnalysisResultResponse
+      type: object
+    DGNBFullLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      - BRONZE
+      title: DGNBFullLevel
+      type: string
+    CustomDataListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CustomDataGroupData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: CustomDataListResponse
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

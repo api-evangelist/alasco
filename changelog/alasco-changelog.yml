@@ -1,0 +1,36 @@
+generated: '2026-07-17'
+method: searched
+source: https://developer.alasco.de/changelog.html
+scheme: date-based
+note: >-
+  Entries are identified by release date (YYYY-MM-DD). Changes within the current major
+  version (1.0) are backward-compatible.
+entries:
+- date: '2026-06-22'
+  product: All
+  breaking: false
+  highlights: >-
+    Documentation improvements: llms.txt entry point, domain model overviews, and complete
+    English + German field descriptions using in-app labels for all products.
+- date: '2026-06-10'
+  product: FinCon
+  breaking: false
+  highlights: >-
+    Contract unit create and update endpoints - POST and PATCH for managing contract units
+    (name, description, lifecycle state, budget).
+- date: '2026-05-15'
+  product: MCP
+  breaking: false
+  highlights: >-
+    Launch of Alasco MCP server v1 (beta) at https://mcp.alasco.de, exposing Public API
+    product capabilities as Model Context Protocol tools.
+- date: '2026-05-05'
+  product: ESG
+  breaking: false
+  highlights: Tenant upsert endpoint - POST to create or update tenants for buildings.
+- date: '2026-03-18'
+  product: ESG
+  breaking: false
+  highlights: >-
+    New building fields and endpoints - external asset ID, area fields, CO2 analysis and
+    custom data retrieval endpoints.

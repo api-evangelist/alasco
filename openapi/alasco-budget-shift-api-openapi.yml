@@ -1,0 +1,513 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Budget Shift API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: A **Budget Shift** is a record of budget moved between **Contract Units** in a **Project** (or added from reserve), with a type, amount and reason. Budget shifts are read-only through this API.
+  name: Budget Shift
+paths:
+  /budget_shifts/:
+    get:
+      operationId: get_budget_shifts_budget_shifts__get
+      parameters:
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+          Currently available objects are:
+
+
+          * project
+
+          * source_contract_unit
+
+          * target_contract_unit
+
+
+          e.g. `include=project,source_contract_unit,target_contract_unit`
+
+          '
+        in: query
+        name: include
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+            Currently available objects are:
+
+
+            * project
+
+            * source_contract_unit
+
+            * target_contract_unit
+
+
+            e.g. `include=project,source_contract_unit,target_contract_unit`
+
+            '
+          title: Include
+      - description: '
+
+          You can filter on certain attributes by specifying them as a GET parameter along
+
+          with an operation, e.g. `filter[name.exact]=abc`.
+
+
+          Currently supported operations are:
+
+          * `in`: Expects one or multiple values
+
+          * `not_in`: Expects one or multiple values
+
+
+          The following attributes support filtering:
+
+
+          | **Attribute** | `in` | `not_in` |
+
+          | :--- | :---: | :---: |
+
+          | `id` | x | x |
+
+          | `source_contract_unit` | x | x |
+
+          | `target_contract_unit` | x | x |
+
+          | `project` | x | x |
+
+          '
+        in: query
+        name: filter[attribute.operation]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can filter on certain attributes by specifying them as a GET parameter along
+
+            with an operation, e.g. `filter[name.exact]=abc`.
+
+
+            Currently supported operations are:
+
+            * `in`: Expects one or multiple values
+
+            * `not_in`: Expects one or multiple values
+
+
+            The following attributes support filtering:
+
+
+            | **Attribute** | `in` | `not_in` |
+
+            | :--- | :---: | :---: |
+
+            | `id` | x | x |
+
+            | `source_contract_unit` | x | x |
+
+            | `target_contract_unit` | x | x |
+
+            | `project` | x | x |
+
+            '
+          title: Filter[Attribute.Operation]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetShiftListResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+        API Token: []
+      summary: Get Budget Shifts
+      tags:
+      - Budget Shift
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BudgetShiftListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/BudgetShiftData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: BudgetShiftListResponse
+      type: object
+    BudgetShiftAttributes:
+      properties:
+        amount:
+          description: '**Budget change amount** · **Betrag der Budgetänderung**'
+          properties:
+            currency:
+              description: '**Currency code** · **Währungscode**'
+              example: EUR
+              title: Currency code
+              type: string
+            net:
+              description: '**Net amount** · **Nettobetrag**'
+              example: '123.123456789012'
+              title: Net amount
+              type: string
+            tax:
+              description: '**Tax amount** · **Steuerbetrag**'
+              example: '123.123456789012'
+              title: Tax amount
+              type: string
+          title: Amount
+          type: object
+        budget_change_type:
+          $ref: '#/components/schemas/BudgetShiftType'
+          description: '**Budget change type** · **Art der Budgetänderung**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `SHIFT` | Shift | Umbuchung |
+
+            | `DECREASE` | Decrease | Senkung |
+
+            | `INCREASE` | Increase | Erhöhung |'
+        date_created:
+          description: '**Date created** · **Erstellt am**'
+          format: date-time
+          title: Date Created
+          type: string
+        project:
+          description: '**Project** · **Projekt**'
+          format: uuid
+          title: Project
+          type: string
+        reason:
+          description: '**Reason** · **Grund der Budgetverschiebung**'
+          title: Reason
+          type: string
+        source_contract_unit:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**Source contract unit** · **Quell-Vergabeeinheit**
+
+
+            Contract unit from which the budget is moved.
+
+
+            Vergabeeinheit, von der das Budget verschoben wird.'
+          title: Source Contract Unit
+        target_contract_unit:
+          description: '**Target contract unit** · **Ziel-Vergabeeinheit**
+
+
+            Contract unit to which the budget is moved.
+
+
+            Vergabeeinheit, in die das Budget verschoben wird.'
+          format: uuid
+          title: Target Contract Unit
+          type: string
+      required:
+      - project
+      - source_contract_unit
+      - target_contract_unit
+      - budget_change_type
+      - reason
+      - amount
+      - date_created
+      title: BudgetShiftAttributes
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    BudgetShiftType:
+      enum:
+      - SHIFT
+      - DECREASE
+      - INCREASE
+      title: BudgetShiftType
+      type: string
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    BudgetShiftData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/BudgetShiftAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - project:
+              links:
+                related: https://api.alasco.de/fincon/v1/projects/<UUID>/
+            source_contract_unit:
+              links:
+                related: https://api.alasco.de/fincon/v1/contract_units/<UUID>/
+            target_contract_unit:
+              links:
+                related: https://api.alasco.de/fincon/v1/contract_units/<UUID>/
+          title: Relationships
+        type:
+          default: BUDGET_SHIFT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: BudgetShiftData
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

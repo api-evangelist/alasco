@@ -1,0 +1,1023 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Documents API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: A **Document** is a file attached to one or more **Buildings** (certificates, leases and similar). Documents can be uploaded, downloaded, given an external id, have their metadata read and updated, and be deleted; a `file-events` feed reports document changes over a time range. Metadata edits and deletion apply to API-sourced documents.
+  name: Documents
+paths:
+  /file-events/:
+    get:
+      operationId: get_file_events_file_events__get
+      parameters:
+      - in: query
+        name: start_time
+        required: true
+        schema:
+          format: date-time
+          title: Start Time
+          type: string
+      - in: query
+        name: end_time
+        required: true
+        schema:
+          format: date-time
+          title: End Time
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentEventsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get File Events
+      tags:
+      - Documents
+  /files/:
+    delete:
+      operationId: delete_file_files__delete
+      parameters:
+      - in: query
+        name: external_id
+        required: true
+        schema:
+          title: External Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Delete File
+      tags:
+      - Documents
+    post:
+      operationId: upload_file_files__post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_file_files__post'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileUploadResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Upload File
+      tags:
+      - Documents
+  /files/metadata/:
+    get:
+      operationId: get_file_metadata_files_metadata__get
+      parameters:
+      - in: query
+        name: external_id
+        required: true
+        schema:
+          title: External Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMetadataResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get File Metadata
+      tags:
+      - Documents
+    patch:
+      operationId: patch_file_metadata_files_metadata__patch
+      parameters:
+      - in: query
+        name: external_id
+        required: true
+        schema:
+          title: External Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileMetadataUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileMetadataResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Patch File Metadata
+      tags:
+      - Documents
+  /files/{file_id}/:
+    get:
+      operationId: get_file_files__file_id___get
+      parameters:
+      - in: path
+        name: file_id
+        required: true
+        schema:
+          format: uuid
+          title: File Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileGetResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get File
+      tags:
+      - Documents
+  /files/{file_id}/external-id/:
+    post:
+      operationId: create_file_external_id_files__file_id__external_id__post
+      parameters:
+      - in: path
+        name: file_id
+        required: true
+        schema:
+          format: uuid
+          title: File Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalIdRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalIdResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Create File External Id
+      tags:
+      - Documents
+components:
+  schemas:
+    DocumentEventAttributes:
+      properties:
+        event_type:
+          $ref: '#/components/schemas/DocumentEventType'
+          description: '**Event type** · **Ereignistyp**'
+        record:
+          $ref: '#/components/schemas/DocumentEventRecord'
+          description: '**Record** · **Datensatz**'
+        source:
+          $ref: '#/components/schemas/DocumentSource'
+          description: '**Source** · **Quelle**'
+        timestamp:
+          description: '**Timestamp** · **Zeitstempel**'
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - event_type
+      - timestamp
+      - source
+      - record
+      title: DocumentEventAttributes
+      type: object
+    ExternalIdRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/ExternalIdRequestData'
+      required:
+      - data
+      title: ExternalIdRequest
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    FileUploadResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/FileUploadData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: FileUploadResponse
+      type: object
+    FileGetAttributes:
+      properties:
+        building_external_ids:
+          description: '**Building external IDs** · **Externe Gebäude-IDs**'
+          items:
+            type: string
+          title: Building External Ids
+          type: array
+        document_type:
+          $ref: '#/components/schemas/DocumentType'
+          description: '**Document type** · **Dokumenttyp**'
+        download_url:
+          description: '**Download URL** · **Download-URL**'
+          title: Download Url
+          type: string
+        external_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+        file_id:
+          description: '**File ID** · **Datei-ID**'
+          format: uuid
+          title: File Id
+          type: string
+        issued_at:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Issued at** · **Ausstellungsdatum**'
+          title: Issued At
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Name** · **Name**'
+          title: Name
+        source:
+          $ref: '#/components/schemas/DocumentSource'
+          description: '**Source** · **Quelle**'
+        valid_until:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Valid until** · **Gültig bis**'
+          title: Valid Until
+      required:
+      - name
+      - external_id
+      - source
+      - file_id
+      - building_external_ids
+      - document_type
+      - issued_at
+      - valid_until
+      - download_url
+      title: FileGetAttributes
+      type: object
+    Body_upload_file_files__post:
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_file_files__post
+      type: object
+    DocumentEventRecord:
+      properties:
+        building_external_ids:
+          description: '**Building external IDs** · **Externe Gebäude-IDs**'
+          items:
+            type: string
+          title: Building External Ids
+          type: array
+        document_type:
+          $ref: '#/components/schemas/DocumentType'
+          description: '**Document type** · **Dokumenttyp**'
+        external_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+        file_id:
+          description: '**File ID** · **Datei-ID**'
+          format: uuid
+          title: File Id
+          type: string
+        issued_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          description: '**Issued at** · **Ausstellungsdatum**'
+          title: Issued At
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Name** · **Name**'
+          title: Name
+        valid_until:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          description: '**Valid until** · **Gültig bis**'
+          title: Valid Until
+      required:
+      - file_id
+      - name
+      - external_id
+      - document_type
+      - building_external_ids
+      - issued_at
+      - valid_until
+      title: DocumentEventRecord
+      type: object
+    FileMetadataAttributes:
+      properties:
+        building_external_ids:
+          description: '**Building external IDs** · **Externe Gebäude-IDs**'
+          items:
+            type: string
+          title: Building External Ids
+          type: array
+        document_type:
+          $ref: '#/components/schemas/DocumentType'
+          description: '**Document type** · **Dokumenttyp**'
+        external_id:
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+          type: string
+        file_id:
+          description: '**File ID** · **Datei-ID**'
+          format: uuid
+          title: File Id
+          type: string
+        issued_at:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Issued at** · **Ausstellungsdatum**'
+          title: Issued At
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Name** · **Name**'
+          title: Name
+        source:
+          $ref: '#/components/schemas/DocumentSource'
+          description: '**Source** · **Quelle**'
+        valid_until:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Valid until** · **Gültig bis**'
+          title: Valid Until
+      required:
+      - name
+      - external_id
+      - source
+      - file_id
+      - building_external_ids
+      - document_type
+      - issued_at
+      - valid_until
+      title: FileMetadataAttributes
+      type: object
+    DocumentType:
+      enum:
+      - ENERGY_CERTIFICATE
+      - TAXONOMY_PROOF
+      - BUILDING_CERTIFICATE
+      - UTILITY_BILL
+      - CLIMATE_RISK_ANALYSIS
+      - TENANT_LEASE
+      - WASTE_COLLECTION_INTERVAL
+      - EMISSION_FACTOR_PROOF
+      - WASTE_MANAGEMENT_CONCEPT
+      - WASTE_DOCUMENTATION
+      - WASTE_REPORT
+      - PUBLIC_DISPLAY_ENERGY_CERTIFICATE
+      - RENEWABLE_ELECTRICITY_CERTIFICATE
+      - ESG_ANALYSIS
+      - EU_TAXONOMY_ASSESSMENT
+      - ENERGY_RENOVATION_ROADMAP
+      - ENERGY_AUDIT
+      - INVESTOR_ESG_ANALYSIS
+      - ENERGY_REVIEW
+      - OTHER
+      - UNSET
+      title: DocumentType
+      type: string
+    DocumentEventData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/DocumentEventAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: DOCUMENT_EVENT
+          default: DOCUMENT_EVENT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: DocumentEventData
+      type: object
+    ExternalIdResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ExternalIdData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: ExternalIdResponse
+      type: object
+    ExternalIdData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ExternalIdAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: FILE_EXTERNAL_ID
+          default: FILE_EXTERNAL_ID
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: ExternalIdData
+      type: object
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    FileGetData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/FileGetAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: FILE
+          default: FILE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: FileGetData
+      type: object
+    DocumentEventType:
+      enum:
+      - CREATE
+      - UPDATE
+      - DELETE
+      title: DocumentEventType
+      type: string
+    FileMetadataResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/FileMetadataData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: FileMetadataResponse
+      type: object
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    DocumentEventsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/DocumentEventData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: DocumentEventsResponse
+      type: object
+    DocumentSource:
+      enum:
+      - APP
+      - API
+      - SURVEY
+      title: DocumentSource
+      type: string
+    ExternalIdRequestAttributes:
+      properties:
+        external_id:
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+          type: string
+      required:
+      - external_id
+      title: ExternalIdRequestAttributes
+      type: object
+    FileMetadataData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/FileMetadataAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: FILE_METADATA
+          default: FILE_METADATA
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: FileMetadataData
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    FileUploadData:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: FILE
+          default: FILE
+          title: Type
+          type: string
+      required:
+      - id
+      title: FileUploadData
+      type: object
+    ExternalIdRequestData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ExternalIdRequestAttributes'
+        type:
+          const: FILE_EXTERNAL_ID
+          default: FILE_EXTERNAL_ID
+          title: Type
+          type: string
+      required:
+      - attributes
+      title: ExternalIdRequestData
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    FileMetadataUpdateData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/FileMetadataUpdateAttributes'
+        type:
+          const: FILE_METADATA
+          default: FILE_METADATA
+          title: Type
+          type: string
+      required:
+      - attributes
+      title: FileMetadataUpdateData
+      type: object
+    ExternalIdAttributes:
+      properties:
+        external_id:
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+          type: string
+        file_id:
+          description: '**File ID** · **Datei-ID**'
+          format: uuid
+          title: File Id
+          type: string
+      required:
+      - file_id
+      - external_id
+      title: ExternalIdAttributes
+      type: object
+    FileMetadataUpdateRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/FileMetadataUpdateData'
+      required:
+      - data
+      title: FileMetadataUpdateRequest
+      type: object
+    FileGetResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/FileGetData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: FileGetResponse
+      type: object
+    FileMetadataUpdateAttributes:
+      properties:
+        building_external_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Building external ID** · **Externe Gebäude-ID**'
+          title: Building External Id
+        document_type:
+          anyOf:
+          - $ref: '#/components/schemas/DocumentType'
+          - type: 'null'
+          description: '**Document type** · **Dokumenttyp**'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Name** · **Name**'
+          title: Name
+      title: FileMetadataUpdateAttributes
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

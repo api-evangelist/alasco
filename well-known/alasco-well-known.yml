@@ -1,0 +1,41 @@
+generated: '2026-07-17'
+method: searched
+source: probed base hosts from apis.yml + OpenAPI servers[]
+# Absence (401/403/404) is valid recorded data. The Alasco MCP host publishes a full
+# OAuth 2.0 / OIDC discovery surface (RFC 8414 / OIDC Discovery / RFC 9728) used by MCP clients.
+hosts:
+- host: https://mcp.alasco.de
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: alasco-mcp-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: alasco-mcp-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: alasco-mcp-oauth-protected-resource.json
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+- host: https://api.alasco.de
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 401
+  - path: /.well-known/oauth-authorization-server
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+  - path: /.well-known/security.txt
+    status: 401
+- host: https://developer.alasco.de
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+- host: https://www.alasco.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404

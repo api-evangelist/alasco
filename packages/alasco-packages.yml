@@ -1,0 +1,15 @@
+generated: '2026-07-17'
+method: searched
+source: npm registry search, PyPI
+note: >-
+  Alasco publishes no first-party client SDKs; the Public API is consumed directly over
+  HTTPS with X-API-KEY/X-API-TOKEN headers. One community (unofficial) Python SDK exists.
+packages:
+- language: python
+  registry: pypi
+  name: alasco
+  url: https://pypi.org/project/alasco/
+  install: pip install alasco
+  official: false
+  source_code: https://github.com/sylvainHellin/Alasco
+  description: Community-maintained Python SDK for the Alasco API (not published by Alasco).

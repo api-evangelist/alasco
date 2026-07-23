@@ -1,0 +1,49 @@
+generated: '2026-07-17'
+method: searched
+status: published
+source: https://developer.alasco.de/mcp.html
+server:
+  name: alasco
+  transport: http
+  url: https://mcp.alasco.de
+  status: beta
+  launched: '2026-05-15'
+authentication:
+  type: oauth2
+  description: >-
+    Log in with your Alasco account; the MCP client acts on your behalf with your
+    own access rights and Alasco permissions. Admin role currently required.
+  oauth:
+    issuer: https://mcp.alasco.de
+    authorization_server: https://mcp.alasco.de/.well-known/oauth-authorization-server
+    protected_resource: https://mcp.alasco.de/.well-known/oauth-protected-resource
+    registration_endpoint: https://app.alasco.de/mcp/oauth/register
+    dynamic_client_registration: true
+    scopes_supported:
+    - read
+    - modify
+    bearer_methods_supported:
+    - header
+compatible_clients:
+- Claude Desktop
+- Claude Code
+- Cursor
+- Langdock
+- n8n
+# Capability areas the server exposes as MCP tools (from developer.alasco.de/mcp.html).
+# Exact tool names are not published; available tools depend on enabled products,
+# account access, and Alasco permissions.
+capability_areas:
+- name: Project setup data
+  covers: projects, properties, tags, custom fields, cost element tree templates
+- name: Cost management
+  covers: contracts, invoices, change orders, contractors, financial reporting
+- name: Revenue data
+  covers: contacts, sales, rental units
+- name: Appraisal workflows
+  covers: opportunities, calculations, analysis
+- name: Report Builder
+  covers: create, edit, render templates and reports
+notes: >-
+  Official hosted, remote MCP server operated by Alasco. Exposes Public API product
+  capabilities (FinCon, CapEx, ESG) as Model Context Protocol tools over authenticated HTTP.

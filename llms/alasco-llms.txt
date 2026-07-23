@@ -1,0 +1,33 @@
+# Alasco Public API
+
+> The Alasco Public API lets you integrate your application with Alasco's real estate cost-management platform. It is REST-based and follows JSON:API principles for structuring responses. Alasco offers three product APIs - FinCon (financial controlling), CapEx (capital expenditure) and ESG (environmental data). The machine-readable OpenAPI specifications below list every endpoint, parameter and schema (enum values include both English and German in-app labels).
+
+<!-- Conventions below are kept in sync with getstarted.html. -->
+
+## Authentication
+
+Every request must include two headers:
+
+- `X-API-KEY`: your API key
+- `X-API-TOKEN`: your API token
+
+Any account administrator can create a key/token pair within Alasco once the account is activated for public API access. To get access, contact your Alasco account manager or kontakt@alasco.de.
+
+## Conventions
+
+- **Stability**: From version 1.0 the API is stable. Changes within a major version are backward-compatible; see the changelog for updates.
+- **Rate limits**: Endpoints are rate-limited. The limits are generous for most use cases - if you expect high request volumes, contact us.
+- **URL encoding**: Percent-encode any parameter that may contain spaces or special characters. For example, a space becomes `%20`, and the German letter u-umlaut becomes `%C3%BC`.
+- **Trailing slashes**: Always use a trailing slash on endpoints. Some endpoints require it (clients that don't follow `307` redirects will otherwise fail). Example: use `/contractors/`, not `/contractors`.
+
+## APIs
+
+- [FinCon API spec](/openapi/fincon.json): Financial controlling - projects, properties, contracts, invoices, change orders, cost elements, financial reporting. Base URL: `https://api.alasco.de/fincon/v1`
+- [CapEx API spec](/openapi/capex.json): Capital expenditure - assets, measures, cost processing. Base URL: `https://api.alasco.de/capex/v1`
+- [ESG API spec](/openapi/esg.json): Environmental data - buildings, documents, utility meters, tenants, consumption data, audit logs. Base URL: `https://api.alasco.de/esg/v1`
+
+## More
+
+- [Getting started](/getstarted.html): Human-readable guide to authentication and conventions.
+- [Changelog](/changelog.html): API changes within the current major version.
+- [MCP server (beta)](/mcp.html): Model Context Protocol server for AI agent integrations.

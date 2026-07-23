@@ -1,0 +1,160 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/alasco-fincon-openapi.json, openapi/alasco-capex-openapi.json, openapi/alasco-esg-openapi.json
+note: >-
+  Entity graph derived from OpenAPI path structure across the three product APIs.
+  Entities are top-level resource collections; relationships are inferred from nested
+  sub-resource paths (/parent/{id}/child/).
+entities:
+- name: budget_shifts
+  products: [fincon]
+- name: change_orders
+  products: [capex, fincon]
+- name: contacts
+  products: [fincon]
+- name: contract_units
+  products: [fincon]
+- name: contracting_entities
+  products: [capex, fincon]
+- name: contractors
+  products: [capex, fincon]
+- name: contracts
+  products: [capex, fincon]
+- name: cost_element_tree_templates
+  products: [fincon]
+- name: cost_elements
+  products: [fincon]
+- name: custom_field_definitions
+  products: [fincon]
+- name: invoices
+  products: [capex, fincon]
+- name: projects
+  products: [fincon]
+- name: properties
+  products: [fincon]
+- name: reporting
+  products: [fincon]
+- name: tags
+  products: [capex, fincon]
+- name: assets
+  products: [capex]
+- name: measures
+  products: [capex]
+- name: buildings
+  products: [esg]
+- name: consumption-intervals
+  products: [esg]
+- name: consumption
+  products: [esg]
+- name: file-events
+  products: [esg]
+- name: files
+  products: [esg]
+- name: meter-readings
+  products: [esg]
+- name: raw-audit
+  products: [esg]
+- name: raw-user-audit
+  products: [esg]
+- name: tenant-consumption-links
+  products: [esg]
+- name: tenants
+  products: [esg]
+- name: utility-data-batch-info
+  products: [esg]
+- name: utility-meters
+  products: [esg]
+relationships:
+- from: assets
+  has_many: submit-invoice
+  product: capex
+- from: buildings
+  has_many: analysis-result
+  product: esg
+- from: buildings
+  has_many: custom-data
+  product: esg
+- from: buildings
+  has_many: utility-meters
+  product: esg
+- from: change_orders
+  has_many: documents
+  product: capex
+- from: contract_units
+  has_many: contracts
+  product: fincon
+- from: contracting_entities
+  has_many: contracts
+  product: capex
+- from: contracting_entities
+  has_many: projects
+  product: fincon
+- from: contractors
+  has_many: contracts
+  product: capex
+- from: contractors
+  has_many: download-tax-waiver
+  product: capex
+- from: contractors
+  has_many: upload-tax-waiver
+  product: capex
+- from: contracts
+  has_many: change_orders
+  product: capex
+- from: contracts
+  has_many: contract_terms
+  product: capex
+- from: contracts
+  has_many: custom_fields
+  product: capex
+- from: contracts
+  has_many: documents
+  product: capex
+- from: contracts
+  has_many: invoices
+  product: capex
+- from: cost_element_tree_templates
+  has_many: cost_elements
+  product: fincon
+- from: documents
+  has_many: download
+  product: capex
+- from: documents
+  has_many: download-annotated
+  product: capex
+- from: files
+  has_many: external-id
+  product: esg
+- from: invoices
+  has_many: documents
+  product: capex
+- from: invoices
+  has_many: register-payment
+  product: capex
+- from: invoices
+  has_many: tags
+  product: capex
+- from: invoices
+  has_many: update-new
+  product: capex
+- from: invoices
+  has_many: update-paid-invoice
+  product: capex
+- from: measures
+  has_many: contracts
+  product: capex
+- from: projects
+  has_many: custom_fields
+  product: fincon
+- from: projects
+  has_many: submit-invoice
+  product: fincon
+- from: properties
+  has_many: projects
+  product: fincon
+- from: tenants
+  has_many: attachments
+  product: esg
+- from: utility-meters
+  has_many: readings
+  product: esg

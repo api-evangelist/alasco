@@ -1,0 +1,1 @@
+{"resource":"https://mcp.alasco.de","authorization_servers":["https://mcp.alasco.de"],"scopes_supported":["read","modify"],"resource_name":"Alasco MCP","bearer_methods_supported":["header"]}

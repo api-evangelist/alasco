@@ -1,0 +1,58 @@
+generated: '2026-07-17'
+method: searched
+source: https://developer.alasco.de/getstarted.html
+specs:
+- openapi/alasco-fincon-openapi.json
+- openapi/alasco-capex-openapi.json
+- openapi/alasco-esg-openapi.json
+summary: >-
+  The Alasco Public API is REST-based and follows JSON:API principles for structuring
+  responses. Cursor pagination, JSON:API-style filtering and compound documents (include),
+  dual API-key/token header auth. No idempotency-key contract is documented.
+authentication:
+  style: dual-header apiKey
+  headers:
+  - X-API-KEY
+  - X-API-TOKEN
+  ref: authentication/alasco-authentication.yml
+media_type: application/json
+json_api: true
+pagination:
+  style: cursor
+  param: cursor[position]
+  note: JSON:API-style cursor pagination; pass cursor[position] to page forward.
+filtering:
+  style: json:api
+  param_pattern: filter[<attribute>.<operation>]
+  example: filter[attribute.operation]
+compound_documents:
+  param: include
+  note: JSON:API include parameter pulls related resources into a single response.
+idempotency:
+  supported: false
+  note: No Idempotency-Key header/parameter is documented in the specs or getstarted guide.
+url_encoding:
+  required: true
+  note: Percent-encode parameters with spaces/special characters (space -> %20, u-umlaut -> %C3%BC).
+trailing_slashes:
+  required: true
+  note: >-
+    Always use a trailing slash on endpoints. Some require it; clients that do not follow
+    307 redirects will otherwise fail (use /contractors/, not /contractors).
+redirects:
+  note: Endpoints may emit 302/307 redirects; clients must follow them.
+error_envelope:
+  style: json:api
+  ref: errors/alasco-problem-types.yml
+  fields: [detail, source, status, title]
+  validation_status: 422
+rate_limiting:
+  documented: true
+  signal: none-published
+  note: >-
+    Endpoints are rate-limited; limits described as generous for most use cases. No
+    published numeric limits or rate-limit response headers documented.
+versioning:
+  scheme: uri-path major version (v1)
+  stability: Stable from 1.0; backward-compatible within a major version.
+  ref: lifecycle/alasco-lifecycle.yml

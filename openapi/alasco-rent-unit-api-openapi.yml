@@ -1,0 +1,561 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Rent Unit API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: Read-only reporting view of rental units, showing each unit's rent status and projected totals.
+  name: Rent Unit
+paths:
+  /reporting/rent_units/:
+    get:
+      operationId: get_rent_units_reporting_rent_units__get
+      parameters:
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can filter on certain attributes by specifying them as a GET parameter along
+
+          with an operation, e.g. `filter[name.exact]=abc`.
+
+
+          Currently supported operations are:
+
+          * `exact`: Expects one value
+
+          * `contains`: Expects one value
+
+          * `less_than_equal`: Expects one value
+
+          * `greater_than_equal`: Expects one value
+
+          * `range`: Expects two values
+
+          * `in`: Expects one or multiple values
+
+          * `not_in`: Expects one or multiple values
+
+          * `is`: Expects one value
+
+
+          The following attributes support filtering:
+
+
+          | **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |
+
+          | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+
+          | `id` |   |   |   |   |   | x | x |   |
+
+          | `name` | x | x |   |   |   |   |   |   |
+
+          | `status` |   |   |   |   |   | x | x |   |
+
+          | `payment_start_date` |   |   | x | x | x |   |   | x |
+
+          | `payment_end_date` |   |   | x | x | x |   |   | x |
+
+          | `real_case_total.net` |   |   | x | x | x |   |   | x |
+
+          | `real_case_total.tax` |   |   | x | x | x |   |   | x |
+
+          | `recorded_payments_total` |   |   | x | x | x |   |   | x |
+
+          | `overdue_payments_total` |   |   | x | x | x |   |   | x |
+
+          | `project` |   |   |   |   |   | x | x |   |
+
+          '
+        in: query
+        name: filter[attribute.operation]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can filter on certain attributes by specifying them as a GET parameter along
+
+            with an operation, e.g. `filter[name.exact]=abc`.
+
+
+            Currently supported operations are:
+
+            * `exact`: Expects one value
+
+            * `contains`: Expects one value
+
+            * `less_than_equal`: Expects one value
+
+            * `greater_than_equal`: Expects one value
+
+            * `range`: Expects two values
+
+            * `in`: Expects one or multiple values
+
+            * `not_in`: Expects one or multiple values
+
+            * `is`: Expects one value
+
+
+            The following attributes support filtering:
+
+
+            | **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |
+
+            | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+
+            | `id` |   |   |   |   |   | x | x |   |
+
+            | `name` | x | x |   |   |   |   |   |   |
+
+            | `status` |   |   |   |   |   | x | x |   |
+
+            | `payment_start_date` |   |   | x | x | x |   |   | x |
+
+            | `payment_end_date` |   |   | x | x | x |   |   | x |
+
+            | `real_case_total.net` |   |   | x | x | x |   |   | x |
+
+            | `real_case_total.tax` |   |   | x | x | x |   |   | x |
+
+            | `recorded_payments_total` |   |   | x | x | x |   |   | x |
+
+            | `overdue_payments_total` |   |   | x | x | x |   |   | x |
+
+            | `project` |   |   |   |   |   | x | x |   |
+
+            '
+          title: Filter[Attribute.Operation]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+        API Token: []
+      summary: Get Rent Units
+      tags:
+      - Rent Unit
+  /reporting/rent_units/{id}/:
+    get:
+      operationId: get_rent_unit_details_reporting_rent_units__id___get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+        API Token: []
+      summary: Get Rent Unit Details
+      tags:
+      - Rent Unit
+components:
+  schemas:
+    ListResponse_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[RentUnitAttributes, Literal[<ResourceType.RENT_UNIT_FINANCIALS: ''RENT_UNIT_FINANCIALS''>]]'
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    RentStatus:
+      enum:
+      - PLANNED
+      - RENTED
+      - COMPLETED
+      title: RentStatus
+      type: string
+    Response_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[RentUnitAttributes, Literal[<ResourceType.RENT_UNIT_FINANCIALS: ''RENT_UNIT_FINANCIALS''>]]'
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    RentUnitAttributes:
+      properties:
+        name:
+          description: '**Name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+        overdue_payments_total:
+          description: '**Total overdue payments** · **Überfällige Zahlungen (Gesamt)**'
+          properties:
+            amount:
+              description: '**Amount** · **Betrag**'
+              example: '123.123456789012'
+              title: Amount
+              type: string
+            currency:
+              description: '**Currency code** · **Währungscode**'
+              example: EUR
+              title: Currency code
+              type: string
+          title: Overdue Payments Total
+          type: object
+        payment_end_date:
+          description: '**Payment end date** · **Zahlungsende**'
+          format: date
+          title: Payment End Date
+          type: string
+        payment_start_date:
+          description: '**Payment start date** · **Zahlungsbeginn**'
+          format: date
+          title: Payment Start Date
+          type: string
+        project:
+          description: '**Project** · **Projekt**'
+          format: uuid
+          title: Project
+          type: string
+        real_case_total:
+          description: '**Real case total** · **Real-Case-Summe**'
+          properties:
+            currency:
+              description: '**Currency code** · **Währungscode**'
+              example: EUR
+              title: Currency code
+              type: string
+            net:
+              description: '**Net amount** · **Nettobetrag**'
+              example: '123.123456789012'
+              title: Net amount
+              type: string
+            tax:
+              description: '**Tax amount** · **Steuerbetrag**'
+              example: '123.123456789012'
+              title: Tax amount
+              type: string
+          title: Real Case Total
+          type: object
+        recorded_payments_total:
+          description: '**Total recorded payments** · **Erfasste Zahlungen (Gesamt)**'
+          properties:
+            amount:
+              description: '**Amount** · **Betrag**'
+              example: '123.123456789012'
+              title: Amount
+              type: string
+            currency:
+              description: '**Currency code** · **Währungscode**'
+              example: EUR
+              title: Currency code
+              type: string
+          title: Recorded Payments Total
+          type: object
+        status:
+          $ref: '#/components/schemas/RentStatus'
+          description: '**Status** · **Status**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `PLANNED` | Planned | Geplant |
+
+            | `RENTED` | Rented | Vermietet |
+
+            | `COMPLETED` | Completed | Abgeschlossen |'
+          examples:
+          - RENTED
+      required:
+      - name
+      - status
+      - payment_start_date
+      - payment_end_date
+      - real_case_total
+      - recorded_payments_total
+      - overdue_payments_total
+      - project
+      title: RentUnitAttributes
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Data_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/RentUnitAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: RENT_UNIT_FINANCIALS
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[RentUnitAttributes, Literal[<ResourceType.RENT_UNIT_FINANCIALS: ''RENT_UNIT_FINANCIALS''>]]'
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

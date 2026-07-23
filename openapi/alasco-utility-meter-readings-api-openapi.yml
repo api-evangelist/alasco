@@ -1,0 +1,571 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Utility Meter Readings API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: A **Utility Meter Reading** is a timestamped meter value. Readings are written individually or in bulk (upsert), keyed by the meter's external id, and feed the derived consumption figures.
+  name: Utility Meter Readings
+paths:
+  /buildings/{building_uuid}/utility-meters/{meter_uuid}/readings/:
+    post:
+      operationId: create_utility_meter_reading_buildings__building_uuid__utility_meters__meter_uuid__readings__post
+      parameters:
+      - in: path
+        name: building_uuid
+        required: true
+        schema:
+          format: uuid
+          title: Building Uuid
+          type: string
+      - in: path
+        name: meter_uuid
+        required: true
+        schema:
+          format: uuid
+          title: Meter Uuid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UtilityMeterReadingPayload'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UtilityMeterReadingResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Create Utility Meter Reading
+      tags:
+      - Utility Meter Readings
+  /meter-readings/:
+    post:
+      operationId: create_utility_meter_reading_with_external_id_meter_readings__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UtilityMeterReadingWithExternalIdPayload'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UtilityMeterReadingResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Create Utility Meter Reading With External Id
+      tags:
+      - Utility Meter Readings
+  /meter-readings/bulk/:
+    post:
+      operationId: bulk_create_utility_meter_readings_meter_readings_bulk__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkUtilityMeterReadingPayload'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkUtilityMeterReadingResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Bulk Create Utility Meter Readings
+      tags:
+      - Utility Meter Readings
+components:
+  schemas:
+    UtilityMeterReadingResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/UtilityMeterReadingData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: UtilityMeterReadingResponse
+      type: object
+    BulkUtilityMeterReadingData:
+      properties:
+        created:
+          items:
+            $ref: '#/components/schemas/ProcessedUtilityMeterReading'
+          title: Created
+          type: array
+        type:
+          const: UTILITY_METER_READING
+          default: UTILITY_METER_READING
+          title: Type
+          type: string
+        updated:
+          items:
+            $ref: '#/components/schemas/ProcessedUtilityMeterReading'
+          title: Updated
+          type: array
+      required:
+      - created
+      - updated
+      title: BulkUtilityMeterReadingData
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    UtilityMeterReadingData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterReadingAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: UTILITY_METER_READING
+          default: UTILITY_METER_READING
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: UtilityMeterReadingData
+      type: object
+    ProcessedUtilityMeterReading:
+      properties:
+        external_meter_id:
+          title: External Meter Id
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+      required:
+      - id
+      - external_meter_id
+      title: ProcessedUtilityMeterReading
+      type: object
+    UtilityMeterReadingPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/UtilityMeterReadingPayloadData'
+      required:
+      - data
+      title: UtilityMeterReadingPayload
+      type: object
+    UtilityMeterReadingAttributes:
+      properties:
+        reading_timestamp:
+          description: '**Reading timestamp** · **Ablesezeitpunkt**'
+          examples:
+          - '2024-01-01T00:00:00Z'
+          format: date-time
+          title: Reading Timestamp
+          type: string
+        reading_value:
+          description: '**Reading value** · **Zählerstand**'
+          examples:
+          - 1000
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Reading Value
+          type: string
+      required:
+      - reading_value
+      - reading_timestamp
+      title: UtilityMeterReadingAttributes
+      type: object
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    UtilityMeterReadingWithExternalIdPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/UtilityMeterReadingWithExternalIdPayloadData'
+      required:
+      - data
+      title: UtilityMeterReadingWithExternalIdPayload
+      type: object
+    BulkUtilityMeterReadingPayload:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/UtilityMeterReadingWithExternalIdPayloadData'
+          title: Data
+          type: array
+      required:
+      - data
+      title: BulkUtilityMeterReadingPayload
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    UtilityMeterReadingPayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterReadingWrite'
+        type:
+          const: UTILITY_METER_READING
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: UtilityMeterReadingPayloadData
+      type: object
+    BulkUtilityMeterReadingResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/BulkUtilityMeterReadingData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: BulkUtilityMeterReadingResponse
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    UtilityMeterReadingWithExternalIdPayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterReadingWithExternalIdWrite'
+        type:
+          const: UTILITY_METER_READING
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: UtilityMeterReadingWithExternalIdPayloadData
+      type: object
+    UtilityMeterReadingWrite:
+      properties:
+        batch_info_uuid:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: The UUID of the utility data batch info this reading should be associated with.
+          title: Batch Info Uuid
+        reading_timestamp:
+          examples:
+          - '2024-01-01T00:00:00Z'
+          format: date-time
+          title: Reading Timestamp
+          type: string
+        reading_value:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          examples:
+          - 1000
+          title: Reading Value
+      required:
+      - reading_value
+      - reading_timestamp
+      title: UtilityMeterReadingWrite
+      type: object
+    UtilityMeterReadingWithExternalIdWrite:
+      properties:
+        batch_info_uuid:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: The UUID of the utility data batch info this reading should be associated with.
+          title: Batch Info Uuid
+        external_meter_id:
+          description: The external_id of the utility meter this reading belongs to.
+          examples:
+          - 123XYZ
+          maxLength: 255
+          title: External Meter Id
+          type: string
+        reading_timestamp:
+          examples:
+          - '2024-01-01T00:00:00Z'
+          format: date-time
+          title: Reading Timestamp
+          type: string
+        reading_value:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          examples:
+          - 1000
+          title: Reading Value
+      required:
+      - reading_value
+      - reading_timestamp
+      - external_meter_id
+      title: UtilityMeterReadingWithExternalIdWrite
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

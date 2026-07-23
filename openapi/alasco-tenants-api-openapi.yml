@@ -1,0 +1,674 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Tenants API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: A **Tenant** is an occupant of a **Building**, identified by your `external_id` and linked to a building by `external_building_id`. Tenants are upserted through the API (created or updated by external id) and can carry attachments.
+  name: Tenants
+paths:
+  /tenants/:
+    post:
+      operationId: upsert_tenant_tenants__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantPayload'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantResponse'
+          description: OK
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Upsert Tenant
+      tags:
+      - Tenants
+  /tenants/{external_tenant_id}/attachments/:
+    post:
+      operationId: create_tenant_attachment_tenants__external_tenant_id__attachments__post
+      parameters:
+      - in: path
+        name: external_tenant_id
+        required: true
+        schema:
+          title: External Tenant Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantAttachmentPayload'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantAttachmentResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Create Tenant Attachment
+      tags:
+      - Tenants
+components:
+  schemas:
+    TenantAttachmentData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantAttachmentAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: TENANT_ATTACHMENT
+          default: TENANT_ATTACHMENT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: TenantAttachmentData
+      type: object
+    TenantAttachmentAttributes:
+      properties:
+        attachment_type:
+          $ref: '#/components/schemas/TenantAttachmentType'
+          description: '**Attachment type** · **Anhangstyp**'
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Comment** · **Kommentar**'
+          title: Comment
+        file_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**File ID** · **Datei-ID**'
+          title: File Id
+      required:
+      - attachment_type
+      title: TenantAttachmentAttributes
+      type: object
+    TenantAttributes:
+      properties:
+        contact_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact email** · **E-Mail**'
+          title: Contact Email
+        contact_first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact first name** · **Vorname**'
+          title: Contact First Name
+        contact_last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact last name** · **Nachname**'
+          title: Contact Last Name
+        contact_phone_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact phone number** · **Telefonnummer**'
+          title: Contact Phone Number
+        contact_salutation:
+          anyOf:
+          - $ref: '#/components/schemas/Salutation'
+          - type: 'null'
+          description: '**Contact salutation** · **Anrede**'
+        contact_title:
+          anyOf:
+          - $ref: '#/components/schemas/Title'
+          - type: 'null'
+          description: '**Contact title** · **Titel**'
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Description** · **Beschreibung**'
+          title: Description
+        external_id:
+          description: '**External tenant ID** · **Externe Mieter-ID**'
+          title: External Id
+          type: string
+        green_signature_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Green lease signature date** · **Datum der Green-Lease-Unterzeichnung**'
+          title: Green Signature Date
+        lease_area_square_meters:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Lease area (m²)** · **Mietfläche (m²)**'
+          title: Lease Area Square Meters
+        lease_end_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Lease end date** · **Mietende**'
+          title: Lease End Date
+        lease_start_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Lease start date** · **Mietbeginn**'
+          title: Lease Start Date
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+      required:
+      - name
+      - external_id
+      - description
+      - lease_start_date
+      - lease_end_date
+      - lease_area_square_meters
+      - green_signature_date
+      - contact_title
+      - contact_salutation
+      - contact_email
+      - contact_first_name
+      - contact_last_name
+      - contact_phone_number
+      title: TenantAttributes
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    TenantAttachmentCreatePayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantAttachmentWrite'
+        type:
+          const: TENANT_ATTACHMENT
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: TenantAttachmentCreatePayloadData
+      type: object
+    TenantAttachmentWrite:
+      properties:
+        attachment_type:
+          $ref: '#/components/schemas/TenantAttachmentType'
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        file_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: File Id
+      required:
+      - attachment_type
+      title: TenantAttachmentWrite
+      type: object
+    Salutation:
+      enum:
+      - MALE
+      - FEMALE
+      - FAMILY
+      - NONBINARY
+      title: Salutation
+      type: string
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    TenantAttachmentPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantAttachmentCreatePayloadData'
+      required:
+      - data
+      title: TenantAttachmentPayload
+      type: object
+    TenantResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: TenantResponse
+      type: object
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    TenantWrite:
+      properties:
+        contact_email:
+          anyOf:
+          - format: email
+            maxLength: 255
+            type: string
+          - type: 'null'
+          title: Contact Email
+        contact_first_name:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          title: Contact First Name
+        contact_last_name:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          title: Contact Last Name
+        contact_phone_number:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          title: Contact Phone Number
+        contact_salutation:
+          anyOf:
+          - $ref: '#/components/schemas/Salutation'
+          - type: 'null'
+        contact_title:
+          anyOf:
+          - $ref: '#/components/schemas/Title'
+          - type: 'null'
+        description:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          title: Description
+        external_building_id:
+          title: External Building Id
+          type: string
+        external_id:
+          maxLength: 255
+          minLength: 1
+          title: External Id
+          type: string
+        green_signature_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: Green Signature Date
+        lease_area_square_meters:
+          anyOf:
+          - exclusiveMinimum: 0.0
+            type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          title: Lease Area Square Meters
+        lease_end_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: Lease End Date
+        lease_start_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: Lease Start Date
+        name:
+          maxLength: 255
+          title: Name
+          type: string
+      required:
+      - external_building_id
+      - name
+      - external_id
+      title: TenantWrite
+      type: object
+    TenantData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: TENANT
+          default: TENANT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: TenantData
+      type: object
+    TenantPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantCreatePayloadData'
+      required:
+      - data
+      title: TenantPayload
+      type: object
+    TenantAttachmentResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantAttachmentData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: TenantAttachmentResponse
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    TenantAttachmentType:
+      enum:
+      - COMMENT
+      - DOCUMENT
+      title: TenantAttachmentType
+      type: string
+    Title:
+      enum:
+      - DR
+      - PROF
+      - PROFDR
+      title: Title
+      type: string
+    TenantCreatePayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantWrite'
+        type:
+          const: TENANT
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: TenantCreatePayloadData
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

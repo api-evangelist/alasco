@@ -1,0 +1,2106 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Contract API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: A **Contract** is an agreement with a **Contractor** to deliver work, tracking the committed amount and reserve. In CapEx a contract belongs to a **Measure**; it accumulates **Invoices** and **Change Orders** and can carry **Documents** and a **Custom Field**. Contracts can be created and updated through the API.
+  name: Contract
+paths:
+  /contracting_entities/{contracting_entity_id}/contracts/:
+    get:
+      operationId: get_contracts_by_contracting_entity_contracting_entities__contracting_entity_id__contracts__get
+      parameters:
+      - in: path
+        name: contracting_entity_id
+        required: true
+        schema:
+          format: uuid
+          title: Contracting Entity Id
+          type: string
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+          In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+          relationship names.
+
+          Currently available objects are:
+
+
+          * contractor
+
+          * contracting_entity
+
+          * contract_unit
+
+          * contract_unit.project
+
+          * contract_unit.project.property
+
+
+          e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+          '
+        in: query
+        name: include
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+            In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+            relationship names.
+
+            Currently available objects are:
+
+
+            * contractor
+
+            * contracting_entity
+
+            * contract_unit
+
+            * contract_unit.project
+
+            * contract_unit.project.property
+
+
+            e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+            '
+          title: Include
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractListResponseCapex'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Contracts By Contracting Entity
+      tags:
+      - Contract
+  /contractors/{contractor_id}/contracts/:
+    get:
+      operationId: get_contracts_by_contractor_contractors__contractor_id__contracts__get
+      parameters:
+      - in: path
+        name: contractor_id
+        required: true
+        schema:
+          format: uuid
+          title: Contractor Id
+          type: string
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+          In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+          relationship names.
+
+          Currently available objects are:
+
+
+          * contractor
+
+          * contracting_entity
+
+          * contract_unit
+
+          * contract_unit.project
+
+          * contract_unit.project.property
+
+
+          e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+          '
+        in: query
+        name: include
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+            In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+            relationship names.
+
+            Currently available objects are:
+
+
+            * contractor
+
+            * contracting_entity
+
+            * contract_unit
+
+            * contract_unit.project
+
+            * contract_unit.project.property
+
+
+            e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+            '
+          title: Include
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractListResponseCapex'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Contracts By Contractor
+      tags:
+      - Contract
+  /contracts/:
+    get:
+      operationId: get_contracts_contracts__get
+      parameters:
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can filter on certain attributes by specifying them as a GET parameter along
+
+          with an operation, e.g. `filter[name.exact]=abc`.
+
+
+          Currently supported operations are:
+
+          * `exact`: Expects one value
+
+          * `contains`: Expects one value
+
+          * `less_than_equal`: Expects one value
+
+          * `greater_than_equal`: Expects one value
+
+          * `range`: Expects two values
+
+          * `in`: Expects one or multiple values
+
+          * `not_in`: Expects one or multiple values
+
+          * `is`: Expects one value
+
+
+          The following attributes support filtering:
+
+
+          | **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |
+
+          | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+
+          | `id` |   |   |   |   |   | x | x |   |
+
+          | `name` | x | x |   |   |   |   |   |   |
+
+          | `contract_number` | x | x |   |   |   |   |   |   |
+
+          | `cost_center` | x | x |   |   |   |   |   |   |
+
+          | `status` |   |   |   |   |   | x | x |   |
+
+          | `contracting_entity` |   |   |   |   |   | x | x |   |
+
+          | `contractor` |   |   |   |   |   | x | x |   |
+
+          | `project` |   |   |   |   |   | x | x |   |
+
+          | `date_created` |   |   | x | x | x |   |   |   |
+
+          | `date_contract` |   |   | x | x | x |   |   | x |
+
+          | `contract_type` |   |   |   |   |   | x | x |   |
+
+          | `is_reverse_charge` |   |   |   |   |   |   |   | x |
+
+          | `measure (CapEx only)` |   |   |   |   |   | x | x |   |
+
+          | `contract_unit (FinCon only)` |   |   |   |   |   | x | x |   |
+
+          | `custom_fields.<uuid> (Operation depends on custom field type)` | x | x | x | x | x | x | x | x |
+
+          '
+        in: query
+        name: filter[attribute.operation]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can filter on certain attributes by specifying them as a GET parameter along
+
+            with an operation, e.g. `filter[name.exact]=abc`.
+
+
+            Currently supported operations are:
+
+            * `exact`: Expects one value
+
+            * `contains`: Expects one value
+
+            * `less_than_equal`: Expects one value
+
+            * `greater_than_equal`: Expects one value
+
+            * `range`: Expects two values
+
+            * `in`: Expects one or multiple values
+
+            * `not_in`: Expects one or multiple values
+
+            * `is`: Expects one value
+
+
+            The following attributes support filtering:
+
+
+            | **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |
+
+            | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+
+            | `id` |   |   |   |   |   | x | x |   |
+
+            | `name` | x | x |   |   |   |   |   |   |
+
+            | `contract_number` | x | x |   |   |   |   |   |   |
+
+            | `cost_center` | x | x |   |   |   |   |   |   |
+
+            | `status` |   |   |   |   |   | x | x |   |
+
+            | `contracting_entity` |   |   |   |   |   | x | x |   |
+
+            | `contractor` |   |   |   |   |   | x | x |   |
+
+            | `project` |   |   |   |   |   | x | x |   |
+
+            | `date_created` |   |   | x | x | x |   |   |   |
+
+            | `date_contract` |   |   | x | x | x |   |   | x |
+
+            | `contract_type` |   |   |   |   |   | x | x |   |
+
+            | `is_reverse_charge` |   |   |   |   |   |   |   | x |
+
+            | `measure (CapEx only)` |   |   |   |   |   | x | x |   |
+
+            | `contract_unit (FinCon only)` |   |   |   |   |   | x | x |   |
+
+            | `custom_fields.<uuid> (Operation depends on custom field type)` | x | x | x | x | x | x | x | x |
+
+            '
+          title: Filter[Attribute.Operation]
+      - description: '
+
+          You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+          In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+          relationship names.
+
+          Currently available objects are:
+
+
+          * contractor
+
+          * contracting_entity
+
+          * contract_unit
+
+          * contract_unit.project
+
+          * contract_unit.project.property
+
+
+          e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+          '
+        in: query
+        name: include
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+            In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+            relationship names.
+
+            Currently available objects are:
+
+
+            * contractor
+
+            * contracting_entity
+
+            * contract_unit
+
+            * contract_unit.project
+
+            * contract_unit.project.property
+
+
+            e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+            '
+          title: Include
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractListResponseCapex'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Contracts
+      tags:
+      - Contract
+    post:
+      operationId: create_contract_contracts__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContractRequestCapex'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractDetailsResponseCapex'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Create Contract
+      tags:
+      - Contract
+  /contracts/{contract_id}/contract_terms/:
+    get:
+      operationId: get_contract_terms_contracts__contract_id__contract_terms__get
+      parameters:
+      - in: path
+        name: contract_id
+        required: true
+        schema:
+          format: uuid
+          title: Contract Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractTermsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Contract Terms
+      tags:
+      - Contract
+  /contracts/{id}/:
+    get:
+      operationId: get_contract_details_contracts__id___get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      - description: '
+
+          You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+          In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+          relationship names.
+
+          Currently available objects are:
+
+
+          * contractor
+
+          * contracting_entity
+
+          * contract_unit
+
+          * contract_unit.project
+
+          * contract_unit.project.property
+
+
+          e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+          '
+        in: query
+        name: include
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+            In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+            relationship names.
+
+            Currently available objects are:
+
+
+            * contractor
+
+            * contracting_entity
+
+            * contract_unit
+
+            * contract_unit.project
+
+            * contract_unit.project.property
+
+
+            e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+            '
+          title: Include
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractDetailsResponseCapex'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Contract Details
+      tags:
+      - Contract
+    patch:
+      operationId: update_contract_contracts__id___patch
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContractRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractDetailsResponseCapex'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Update Contract
+      tags:
+      - Contract
+  /measures/{id}/contracts/:
+    get:
+      operationId: get_contracts_by_measure_measures__id__contracts__get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          Contains links to related objects.
+
+          '
+        in: query
+        name: include
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Include
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractListResponseCapex'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Contracts By Measure
+      tags:
+      - Contract
+  /contract_units/{contract_unit_id}/contracts/:
+    get:
+      operationId: get_contracts_by_contract_unit_contract_units__contract_unit_id__contracts__get
+      parameters:
+      - in: path
+        name: contract_unit_id
+        required: true
+        schema:
+          format: uuid
+          title: Contract Unit Id
+          type: string
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+          In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+          relationship names.
+
+          Currently available objects are:
+
+
+          * contractor
+
+          * contracting_entity
+
+          * contract_unit
+
+          * contract_unit.project
+
+          * contract_unit.project.property
+
+
+          e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+          '
+        in: query
+        name: include
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can get related objects by specifying them separated by comma as a GET `include` parameters.
+
+            In case of non-direct relation include parameter should be a relationship path - a dot-separated list of
+
+            relationship names.
+
+            Currently available objects are:
+
+
+            * contractor
+
+            * contracting_entity
+
+            * contract_unit
+
+            * contract_unit.project
+
+            * contract_unit.project.property
+
+
+            e.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`
+
+            '
+          title: Include
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractListResponseFincon'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+        API Token: []
+      summary: Get Contracts By Contract Unit
+      tags:
+      - Contract
+components:
+  schemas:
+    ContractDetailsResponseCapex:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/ContractDataCapex'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: ContractDetailsResponseCapex
+      type: object
+    UpdateContractRelationships:
+      properties:
+        contracting_entity:
+          anyOf:
+          - $ref: '#/components/schemas/ContractRelationshipData'
+          - type: 'null'
+          description: '**Contracting entity** · **Auftraggeber**'
+        contractor:
+          anyOf:
+          - $ref: '#/components/schemas/ContractRelationshipData'
+          - type: 'null'
+          description: '**Contractor ID** · **Auftragnehmer-ID**'
+      title: UpdateContractRelationships
+      type: object
+    CreateContractDataCapex:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CreateContractAttributes'
+        relationships:
+          $ref: '#/components/schemas/CreateContractRelationshipsCapex'
+        type:
+          default: CONTRACT
+          title: Type
+          type: string
+      required:
+      - attributes
+      - relationships
+      title: CreateContractDataCapex
+      type: object
+    CreateContractAttributes:
+      properties:
+        amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contract amount** · **Auftragssumme**'
+          title: Amount
+        booking_account_number:
+          anyOf:
+          - maximum: 999999999.0
+            minimum: 1.0
+            type: integer
+          - type: 'null'
+          description: '**Booking account number** · **Buchungskontonummer**'
+          title: Booking Account Number
+        contract_number:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Contract number** · **Auftragsnummer**'
+          title: Contract Number
+        cost_center:
+          anyOf:
+          - maxLength: 100
+            type: string
+          - type: 'null'
+          description: '**Cost center** · **Kostenstelle**'
+          title: Cost Center
+        date_contract:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Contract date** · **Auftragsdatum**'
+          title: Date Contract
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Description** · **Beschreibung**'
+          title: Description
+        is_reverse_charge:
+          description: '**Is reverse charge?** · **Reverse Charge?**'
+          title: Is Reverse Charge
+          type: boolean
+        name:
+          description: '**Contract name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+      required:
+      - name
+      - is_reverse_charge
+      title: CreateContractAttributes
+      type: object
+    CreateContractRelationshipsCapex:
+      properties:
+        contracting_entity:
+          $ref: '#/components/schemas/ContractRelationshipData'
+          description: '**Contracting entity** · **Auftraggeber**'
+        contractor:
+          anyOf:
+          - $ref: '#/components/schemas/ContractRelationshipData'
+          - type: 'null'
+          description: '**Contractor ID** · **Auftragnehmer-ID**'
+        measure:
+          $ref: '#/components/schemas/ContractRelationshipData'
+          description: '**Measure ID** · **Maßnahmen-ID**'
+      required:
+      - contracting_entity
+      - measure
+      title: CreateContractRelationshipsCapex
+      type: object
+    UpdateContractRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/UpdateContractData'
+      required:
+      - data
+      title: UpdateContractRequest
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ReadContractAttributesCapEx:
+      properties:
+        amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contract amount** · **Auftragssumme**'
+          title: Amount
+        booking_account_number:
+          anyOf:
+          - maximum: 999999999.0
+            minimum: 1.0
+            type: integer
+          - type: 'null'
+          description: '**Booking account number** · **Buchungskontonummer**'
+          title: Booking Account Number
+        contract_number:
+          description: '**Contract number** · **Auftragsnummer**'
+          maxLength: 250
+          title: Contract Number
+          type: string
+        contract_type:
+          $ref: '#/components/schemas/ContractType'
+          description: '**Contract type** · **Auftragstyp**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `MULTIPART` | Multipart contract | Stufenauftrag |
+
+            | `STANDARD` | Standard contract | Standardauftrag |
+
+            | `RECURRING` | Recurring invoice | Dauerrechnung |'
+        contracting_entity:
+          description: '**Contracting entity** · **Auftraggeber**'
+          format: uuid
+          title: Contracting Entity
+          type: string
+        contractor:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**Contractor ID** · **Auftragnehmer-ID**'
+          title: Contractor
+        cost_center:
+          description: '**Cost center** · **Kostenstelle**'
+          maxLength: 100
+          title: Cost Center
+          type: string
+        date_contract:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Contract date** · **Auftragsdatum**'
+          title: Date Contract
+        date_created:
+          description: '**Date created** · **Erstellt am**'
+          format: date-time
+          title: Date Created
+          type: string
+        description:
+          description: '**Description** · **Beschreibung**'
+          title: Description
+          type: string
+        is_reverse_charge:
+          description: '**Is reverse charge?** · **Reverse Charge?**'
+          title: Is Reverse Charge
+          type: boolean
+        measure:
+          description: '**Measure ID** · **Maßnahmen-ID**'
+          format: uuid
+          title: Measure
+          type: string
+        name:
+          description: '**Contract name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+        reserve_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Reserve amount** · **Rückstellungen**'
+          title: Reserve Amount
+        status:
+          $ref: '#/components/schemas/ContractStatus'
+          description: '**Status** · **Status**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `DRAFT` | Draft | Geplant |
+
+            | `ORDERED` | Ordered | Beauftragt |
+
+            | `PARTIAL_COMPLETED` | Partial completed | Teilschlussgerechnet |
+
+            | `COMPLETED` | Completed | Schlussgerechnet |'
+          examples:
+          - DRAFT
+      required:
+      - name
+      - date_contract
+      - contract_number
+      - cost_center
+      - description
+      - status
+      - is_reverse_charge
+      - date_created
+      - measure
+      - contracting_entity
+      - contract_type
+      title: ReadContractAttributesCapEx
+      type: object
+    CreateContractRequestCapex:
+      properties:
+        data:
+          $ref: '#/components/schemas/CreateContractDataCapex'
+      required:
+      - data
+      title: CreateContractRequestCapex
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ContractRelationshipData:
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractRelationshipAttributes'
+      required:
+      - data
+      title: ContractRelationshipData
+      type: object
+    ContractRelationshipAttributes:
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        type:
+          title: Type
+          type: string
+      required:
+      - type
+      - id
+      title: ContractRelationshipAttributes
+      type: object
+    ContractListResponseCapex:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ContractDataCapex'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: ContractListResponseCapex
+      type: object
+    ContractRulesAttributes:
+      properties:
+        input_value_from:
+          description: '**Input value from** · **Eingabewert von**'
+          title: Input Value From
+          type: string
+        order_in_block:
+          description: '**Order in block** · **Reihenfolge im Block**'
+          title: Order In Block
+          type: integer
+        param_values:
+          additionalProperties:
+            type: string
+          description: '**Rule parameter values** · **Regelparameter-Werte**'
+          title: Param Values
+          type: object
+        rule_identifier:
+          description: '**Rule identifier** · **Regel-Kennung**'
+          title: Rule Identifier
+          type: string
+        rule_template_key:
+          description: '**Rule template key** · **Regelvorlagen-Schlüssel**'
+          title: Rule Template Key
+          type: string
+        rule_template_title:
+          description: '**Rule template title** · **Regelvorlagen-Titel**'
+          title: Rule Template Title
+          type: string
+        rule_type:
+          description: '**Rule type** · **Regeltyp**'
+          title: Rule Type
+          type: string
+      required:
+      - rule_identifier
+      - rule_template_key
+      - rule_template_title
+      - rule_type
+      - param_values
+      - input_value_from
+      - order_in_block
+      title: ContractRulesAttributes
+      type: object
+    UpdateContractData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UpdateContractAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - $ref: '#/components/schemas/UpdateContractRelationships'
+          - type: 'null'
+        type:
+          default: CONTRACT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: UpdateContractData
+      type: object
+    UpdateContractAttributes:
+      properties:
+        amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contract amount** · **Auftragssumme**'
+          title: Amount
+        booking_account_number:
+          anyOf:
+          - maximum: 999999999.0
+            minimum: 1.0
+            type: integer
+          - type: 'null'
+          description: '**Booking account number** · **Buchungskontonummer**'
+          title: Booking Account Number
+        contract_number:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Contract number** · **Auftragsnummer**'
+          title: Contract Number
+        cost_center:
+          anyOf:
+          - maxLength: 100
+            type: string
+          - type: 'null'
+          description: '**Cost center** · **Kostenstelle**'
+          title: Cost Center
+        date_contract:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Contract date** · **Auftragsdatum**'
+          title: Date Contract
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Description** · **Beschreibung**'
+          title: Description
+        name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Contract name** · **Name**'
+          title: Name
+        status:
+          $ref: '#/components/schemas/ContractStatus'
+          default: DRAFT
+          description: '**Status** · **Status**
+
+
+            Transitions are restricted to those currently allowed for the contract (depends on contract type, linked invoices, and completion rules). Multipart contracts cannot change status via the API, and a contractor must be set before the status can be anything other than DRAFT.
+
+
+            Statusübergänge sind auf die für den Auftrag aktuell zulässigen beschränkt (abhängig von Auftragstyp, verknüpften Rechnungen und Abschlussregeln). Mehrteilige Aufträge können den Status nicht über die API ändern, und es muss ein Auftragnehmer gesetzt sein, bevor der Status etwas anderes als DRAFT sein kann.
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `DRAFT` | Draft | Geplant |
+
+            | `ORDERED` | Ordered | Beauftragt |
+
+            | `PARTIAL_COMPLETED` | Partial completed | Teilschlussgerechnet |
+
+            | `COMPLETED` | Completed | Schlussgerechnet |'
+          examples:
+          - DRAFT
+      title: UpdateContractAttributes
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ContractDataFincon:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ReadContractAttributesFincon'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - custom_fields:
+              links:
+                related: https://api.alasco.de/fincon/v1/contracts/<contract_id>/custom_fields/
+            invoices:
+              links:
+                related: https://api.alasco.de/fincon/v1/contracts/<contract_id>/invoices/
+          title: Relationships
+        type:
+          default: CONTRACT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: ContractDataFincon
+      type: object
+    GeneralTermsAttributes:
+      properties:
+        cash_discount_percentage:
+          description: '**Cash discount percentage** · **Skontosatz**'
+          title: Cash Discount Percentage
+          type: number
+        cash_discount_period_final:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Cash discount period (final)** · **Skontofrist (Schlussrechnung)**'
+          title: Cash Discount Period Final
+        cash_discount_period_installment:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Cash discount period (installment)** · **Skontofrist (Abschlagsrechnung)**'
+          title: Cash Discount Period Installment
+        cash_discount_period_partial_final:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Cash discount period (partial final)** · **Skontofrist (Teilschlussrechnung)**'
+          title: Cash Discount Period Partial Final
+        cash_discount_period_single:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Cash discount period (single invoice)** · **Skontofrist (Einzelrechnung)**'
+          title: Cash Discount Period Single
+        cash_discount_period_unit_final:
+          description: '**Cash discount period unit (final)** · **Skontofrist-Einheit (Schlussrechnung)**'
+          title: Cash Discount Period Unit Final
+          type: string
+        cash_discount_period_unit_installment:
+          description: '**Cash discount period unit (installment)** · **Skontofrist-Einheit (Abschlagsrechnung)**'
+          title: Cash Discount Period Unit Installment
+          type: string
+        cash_discount_period_unit_partial_final:
+          description: '**Cash discount period unit (partial final)** · **Skontofrist-Einheit (Teilschlussrechnung)**'
+          title: Cash Discount Period Unit Partial Final
+          type: string
+        cash_discount_period_unit_single:
+          description: '**Cash discount period unit (single invoice)** · **Skontofrist-Einheit (Einzelrechnung)**'
+          title: Cash Discount Period Unit Single
+          type: string
+        cash_discount_reference:
+          description: '**Cash discount reference** · **Skontoreferenz**'
+          title: Cash Discount Reference
+          type: string
+        cash_discount_reference_choices:
+          description: '**Cash discount reference choices** · **Auswahl Skontoreferenz**'
+          items:
+            type: string
+          title: Cash Discount Reference Choices
+          type: array
+        deduction_percentage:
+          description: '**Deduction percentage** · **Abzugssatz**'
+          title: Deduction Percentage
+          type: number
+        deduction_reference:
+          description: '**Deduction reference** · **Abzugsreferenz**'
+          title: Deduction Reference
+          type: string
+        deduction_reference_choices:
+          description: '**Deduction reference choices** · **Auswahl Abzugsreferenz**'
+          items:
+            type: string
+          title: Deduction Reference Choices
+          type: array
+        payment_period_final:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Payment period (final)** · **Zahlungsfrist (Schlussrechnung)**'
+          title: Payment Period Final
+        payment_period_installment:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Payment period (installment)** · **Zahlungsfrist (Abschlagsrechnung)**'
+          title: Payment Period Installment
+        payment_period_partial_final:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Payment period (partial final)** · **Zahlungsfrist (Teilschlussrechnung)**'
+          title: Payment Period Partial Final
+        payment_period_single:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Payment period (single invoice)** · **Zahlungsfrist (Einzelrechnung)**'
+          title: Payment Period Single
+        payment_period_unit_final:
+          description: '**Payment period unit (final)** · **Zahlungsfrist-Einheit (Schlussrechnung)**'
+          title: Payment Period Unit Final
+          type: string
+        payment_period_unit_installment:
+          description: '**Payment period unit (installment)** · **Zahlungsfrist-Einheit (Abschlagsrechnung)**'
+          title: Payment Period Unit Installment
+          type: string
+        payment_period_unit_partial_final:
+          description: '**Payment period unit (partial final)** · **Zahlungsfrist-Einheit (Teilschlussrechnung)**'
+          title: Payment Period Unit Partial Final
+          type: string
+        payment_period_unit_single:
+          description: '**Payment period unit (single invoice)** · **Zahlungsfrist-Einheit (Einzelrechnung)**'
+          title: Payment Period Unit Single
+          type: string
+      required:
+      - deduction_reference_choices
+      - cash_discount_reference_choices
+      - cash_discount_percentage
+      - deduction_percentage
+      - deduction_reference
+      - cash_discount_reference
+      - cash_discount_period_unit_single
+      - cash_discount_period_unit_installment
+      - cash_discount_period_unit_partial_final
+      - cash_discount_period_unit_final
+      - payment_period_unit_single
+      - payment_period_unit_installment
+      - payment_period_unit_partial_final
+      - payment_period_unit_final
+      - cash_discount_period_single
+      - payment_period_single
+      - payment_period_installment
+      - cash_discount_period_installment
+      - cash_discount_period_partial_final
+      - cash_discount_period_final
+      - payment_period_partial_final
+      - payment_period_final
+      title: GeneralTermsAttributes
+      type: object
+    ContractType:
+      enum:
+      - MULTIPART
+      - STANDARD
+      - RECURRING
+      title: ContractType
+      type: string
+    ContractTermsAttributes:
+      properties:
+        calculation_block_order:
+          description: '**Calculation block order** · **Reihenfolge der Berechnungsblöcke**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `deduction` | Amount after deductions | Betrag nach Nachlass |
+
+            | `retainage` | Amount after retention | Betrag nach Einbehalten |
+
+            | `cost_allocation` | Amount after cost allocations | Betrag nach Kostenumlagen |
+
+            | `guarantee` | Amount after guarantee | Betrag nach Bürgschaft |
+
+            | `insurance` | Amount after insurance | Betrag nach Versicherungen |'
+          items:
+            $ref: '#/components/schemas/CalculationReference'
+          title: Calculation Block Order
+          type: array
+        general_terms:
+          $ref: '#/components/schemas/GeneralTermsAttributes'
+          description: '**General terms** · **Allgemeine Bedingungen**'
+        rules:
+          description: '**Contract rules** · **Auftragsregeln**'
+          items:
+            $ref: '#/components/schemas/ContractRulesAttributes'
+          title: Rules
+          type: array
+      required:
+      - rules
+      - general_terms
+      - calculation_block_order
+      title: ContractTermsAttributes
+      type: object
+    CalculationReference:
+      enum:
+      - deduction
+      - retainage
+      - cost_allocation
+      - guarantee
+      - insurance
+      title: CalculationReference
+      type: string
+    ContractListResponseFincon:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ContractDataFincon'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: ContractListResponseFincon
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    ContractTermsData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractTermsAttributes'
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - contract:
+              data:
+                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
+                type: CONTRACT
+          title: Relationships
+        type:
+          default: CONTRACT_TERMS
+          title: Type
+          type: string
+      required:
+      - attributes
+      title: ContractTermsData
+      type: object
+    ContractStatus:
+      enum:
+      - DRAFT
+      - ORDERED
+      - PARTIAL_COMPLETED
+      - COMPLETED
+      title: ContractStatus
+      type: string
+    ContractDataCapex:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ReadContractAttributesCapEx'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - measures:
+              links:
+                related: https://api.alasco.de/capex/v1/contracts/<contract_id>/measures/
+          title: Relationships
+        type:
+          default: CONTRACT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: ContractDataCapex
+      type: object
+    ReadContractAttributesFincon:
+      properties:
+        amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contract amount** · **Auftragssumme**'
+          title: Amount
+        booking_account_number:
+          anyOf:
+          - maximum: 999999999.0
+            minimum: 1.0
+            type: integer
+          - type: 'null'
+          description: '**Booking account number** · **Buchungskontonummer**'
+          title: Booking Account Number
+        contract_number:
+          description: '**Contract number** · **Auftragsnummer**'
+          maxLength: 250
+          title: Contract Number
+          type: string
+        contract_type:
+          $ref: '#/components/schemas/ContractType'
+          description: '**Contract type** · **Auftragstyp**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `MULTIPART` | Multipart contract | Stufenauftrag |
+
+            | `STANDARD` | Standard contract | Standardauftrag |
+
+            | `RECURRING` | Recurring invoice | Dauerrechnung |'
+        contract_unit:
+          description: '**Contract unit ID** · **Vergabeeinheit-ID**'
+          format: uuid
+          title: Contract Unit
+          type: string
+        contracting_entity:
+          description: '**Contracting entity** · **Auftraggeber**'
+          format: uuid
+          title: Contracting Entity
+          type: string
+        contractor:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**Contractor ID** · **Auftragnehmer-ID**'
+          title: Contractor
+        cost_center:
+          description: '**Cost center** · **Kostenstelle**'
+          maxLength: 100
+          title: Cost Center
+          type: string
+        date_contract:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Contract date** · **Auftragsdatum**'
+          title: Date Contract
+        date_created:
+          description: '**Date created** · **Erstellt am**'
+          format: date-time
+          title: Date Created
+          type: string
+        description:
+          description: '**Description** · **Beschreibung**'
+          title: Description
+          type: string
+        is_reverse_charge:
+          description: '**Is reverse charge?** · **Reverse Charge?**'
+          title: Is Reverse Charge
+          type: boolean
+        name:
+          description: '**Contract name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+        reserve_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Reserve amount** · **Rückstellungen**'
+          title: Reserve Amount
+        status:
+          $ref: '#/components/schemas/ContractStatus'
+          description: '**Status** · **Status**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `DRAFT` | Draft | Geplant |
+
+            | `ORDERED` | Ordered | Beauftragt |
+
+            | `PARTIAL_COMPLETED` | Partial completed | Teilschlussgerechnet |
+
+            | `COMPLETED` | Completed | Schlussgerechnet |'
+          examples:
+          - DRAFT
+      required:
+      - name
+      - date_contract
+      - contract_number
+      - cost_center
+      - description
+      - status
+      - is_reverse_charge
+      - date_created
+      - contracting_entity
+      - contract_unit
+      - contract_type
+      title: ReadContractAttributesFincon
+      type: object
+    ContractTermsResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractTermsData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      required:
+      - data
+      title: ContractTermsResponse
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

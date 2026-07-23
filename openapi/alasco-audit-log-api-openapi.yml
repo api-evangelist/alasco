@@ -1,0 +1,575 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Audit Log API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: The **Audit Log** is a read-only account-level trail of changes. A raw audit feed reports table-level inserts, updates and deletes, and a user audit feed reports user- and API-triggered changes; both are queried over a bounded time range (up to 24 hours).
+  name: Audit Log
+paths:
+  /raw-audit/:
+    get:
+      operationId: get_events_raw_audit__get
+      parameters:
+      - in: query
+        name: start
+        required: true
+        schema:
+          format: date-time
+          title: Start
+          type: string
+      - in: query
+        name: end
+        required: true
+        schema:
+          format: date-time
+          title: End
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogListResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Events
+      tags:
+      - Audit Log
+  /raw-user-audit/:
+    get:
+      operationId: get_user_events_raw_user_audit__get
+      parameters:
+      - in: query
+        name: start
+        required: true
+        schema:
+          format: date-time
+          title: Start
+          type: string
+      - in: query
+        name: end
+        required: true
+        schema:
+          format: date-time
+          title: End
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAuditLogListResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get User Events
+      tags:
+      - Audit Log
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    UserAuditLogAttributes:
+      properties:
+        actor:
+          $ref: '#/components/schemas/UserAuditActor'
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        entity_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Entity Id
+        event_type:
+          title: Event Type
+          type: string
+        new:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: New
+        old:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Old
+        op:
+          $ref: '#/components/schemas/UserAuditOperation'
+        record_diff:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Record Diff
+        table_name:
+          title: Table Name
+          type: string
+        transaction_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Transaction Id
+        ts:
+          format: date-time
+          title: Ts
+          type: string
+        user_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: User Data
+        user_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: User Id
+      required:
+      - op
+      - actor
+      - transaction_id
+      - user_id
+      - user_data
+      - table_name
+      - entity_id
+      - old
+      - new
+      - record_diff
+      - ts
+      - description
+      - event_type
+      title: UserAuditLogAttributes
+      type: object
+    RecordOrigin:
+      enum:
+      - LEGACY
+      - APP_USER
+      - PUBLIC_API
+      - INTERNAL_PROCESS
+      title: RecordOrigin
+      type: string
+    AuditLogData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/AuditLogAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: AUDIT_LOG
+          default: AUDIT_LOG
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: AuditLogData
+      type: object
+    UserAuditLogListResponse:
+      description: Cannot use BaseResponseSchema because the ids are ints instead of uuids
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/UserAuditLogData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UserAuditLogData'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: UserAuditLogListResponse
+      type: object
+    UserAuditActor:
+      enum:
+      - SYSTEM
+      - USER
+      title: UserAuditActor
+      type: string
+    UserAuditLogData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UserAuditLogAttributes'
+        id:
+          title: Id
+          type: integer
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: USER_AUDIT_LOG
+          default: USER_AUDIT_LOG
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: UserAuditLogData
+      type: object
+    AuditOperation:
+      enum:
+      - INSERT
+      - UPDATE
+      - DELETE
+      title: AuditOperation
+      type: string
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    UserAuditOperation:
+      enum:
+      - INSERT
+      - UPDATE
+      - DELETE
+      - LOGIN
+      - LOGIN_FAILED
+      - LOGOUT
+      - PASSWORD_CHANGE_FAILED
+      - PASSWORD_CHANGE_SUCCEEDED
+      title: UserAuditOperation
+      type: string
+    AuditLogListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AuditLogData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: AuditLogListResponse
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    AuditLogAttributes:
+      properties:
+        entity_id:
+          title: Entity Id
+          type: integer
+        op:
+          $ref: '#/components/schemas/AuditOperation'
+        origin:
+          $ref: '#/components/schemas/RecordOrigin'
+        record:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Record
+        record_diff:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Record Diff
+        table_name:
+          title: Table Name
+          type: string
+        table_schema:
+          title: Table Schema
+          type: string
+        transaction_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Transaction Id
+        ts:
+          format: date-time
+          title: Ts
+          type: string
+        user_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: User Data
+        user_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: User Id
+      required:
+      - op
+      - transaction_id
+      - user_id
+      - user_data
+      - table_schema
+      - table_name
+      - entity_id
+      - record
+      - record_diff
+      - ts
+      - origin
+      title: AuditLogAttributes
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey

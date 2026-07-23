@@ -1,0 +1,24 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/alasco-fincon-openapi.json, openapi/alasco-capex-openapi.json, openapi/alasco-esg-openapi.json
+format: json:api
+envelope:
+  schema: Error
+  fields: [detail, source, status, title]
+  validation_schema: 'HTTPValidationError: detail[] of {loc, msg, type}'
+  media_type: application/json
+note: >-
+  The Alasco API returns JSON:API-style error objects (detail/source/status/title).
+  Request validation failures return 422 with a HTTPValidationError body listing each
+  invalid field (loc), a message (msg), and an error type. Redirects use 302/307 when a
+  trailing slash is missing.
+problems:
+- status: 302
+  title: Found (redirect - add trailing slash / follow redirect)
+  description: "\nRedirect to the temporary download link\n"
+  source_operation: openapi/alasco-fincon-openapi.json#download_change_order_document_change_orders__change_order_id__documents__document_id__download__get
+- status: 422
+  title: Unprocessable Entity (request validation failed)
+  description: "Validation Error"
+  media_types: [application/json]
+  source_operation: openapi/alasco-fincon-openapi.json#get_budget_shifts_budget_shifts__get

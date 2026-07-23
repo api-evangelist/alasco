@@ -1,0 +1,1231 @@
+openapi: 3.1.0
+info:
+  description: '
+
+    ## Introduction
+
+
+    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
+
+
+    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
+
+
+    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
+
+
+    The base URL for all endpoints is:
+
+    `https://api.alasco.de/capex/v1`
+
+
+    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
+
+
+    ### Domain model
+
+
+    Objects relate as follows (each `→` is a navigable sub-resource):
+
+
+    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
+
+    - **Contractor** and **Contracting Entity** → **Contracts**.
+
+    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
+
+    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
+
+
+    ### CAPEX API Overview
+
+
+    The CAPEX API provides endpoints to:
+
+    - Retrieve and manage invoices, invoice tags, and invoice documents
+
+    - Retrieve assets, contracts, contractors, and measures
+
+
+    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
+
+    '
+  title: CAPEX Annual Consumption Contractor API
+  version: '1.0'
+  x-logo:
+    url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+servers:
+- url: https://api.alasco.de/capex/v1
+tags:
+- description: A **Contractor** is a supplier engaged to carry out contracted work, holding master data such as its identifier, VAT ID and bank details. A contractor can hold many **Contracts**, its tax-waiver document can be uploaded and downloaded, and contractors can be created and updated through the API.
+  name: Contractor
+paths:
+  /contractors/:
+    get:
+      operationId: get_contractors_contractors__get
+      parameters:
+      - description: '
+
+          List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+          pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+          be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+          the next page.
+
+          '
+        in: query
+        name: cursor[position]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            List endpoint responses are paginated in the Alasco API. By calling the endpoint without the
+
+            pagination parameter you will receive the first page. If not all elements fit on one page there will
+
+            be a `next` link provided in the response''s `links` object. By calling this link you will receive
+
+            the next page.
+
+            '
+          title: Cursor[Position]
+      - description: '
+
+          You can filter on certain attributes by specifying them as a GET parameter along
+
+          with an operation, e.g. `filter[name.exact]=abc`.
+
+
+          Currently supported operations are:
+
+          * `exact`: Expects one value
+
+          * `contains`: Expects one value
+
+          * `in`: Expects one or multiple values
+
+          * `not_in`: Expects one or multiple values
+
+
+          The following attributes support filtering:
+
+
+          | **Attribute** | `exact` | `contains` | `in` | `not_in` |
+
+          | :--- | :---: | :---: | :---: | :---: |
+
+          | `id` |   |   | x | x |
+
+          | `name` | x | x |   |   |
+
+          | `iban` | x | x |   |   |
+
+          | `bic` | x | x |   |   |
+
+          | `vat_id` | x | x |   |   |
+
+          | `contact_person_name` | x | x |   |   |
+
+          | `contact_person_phone_number` | x | x |   |   |
+
+          | `contact_person_email` | x | x |   |   |
+
+          | `address` | x | x |   |   |
+
+          | `tax_id` | x | x |   |   |
+
+          | `tax_authority` |   |   | x | x |
+
+          | `identifier` | x | x |   |   |
+
+          | `asset (CapEx only)` |   |   | x | x |
+
+          | `project (FinCon only)` |   |   | x | x |
+
+          '
+        in: query
+        name: filter[attribute.operation]
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '
+
+            You can filter on certain attributes by specifying them as a GET parameter along
+
+            with an operation, e.g. `filter[name.exact]=abc`.
+
+
+            Currently supported operations are:
+
+            * `exact`: Expects one value
+
+            * `contains`: Expects one value
+
+            * `in`: Expects one or multiple values
+
+            * `not_in`: Expects one or multiple values
+
+
+            The following attributes support filtering:
+
+
+            | **Attribute** | `exact` | `contains` | `in` | `not_in` |
+
+            | :--- | :---: | :---: | :---: | :---: |
+
+            | `id` |   |   | x | x |
+
+            | `name` | x | x |   |   |
+
+            | `iban` | x | x |   |   |
+
+            | `bic` | x | x |   |   |
+
+            | `vat_id` | x | x |   |   |
+
+            | `contact_person_name` | x | x |   |   |
+
+            | `contact_person_phone_number` | x | x |   |   |
+
+            | `contact_person_email` | x | x |   |   |
+
+            | `address` | x | x |   |   |
+
+            | `tax_id` | x | x |   |   |
+
+            | `tax_authority` |   |   | x | x |
+
+            | `identifier` | x | x |   |   |
+
+            | `asset (CapEx only)` |   |   | x | x |
+
+            | `project (FinCon only)` |   |   | x | x |
+
+            '
+          title: Filter[Attribute.Operation]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_ContractorAttributes_Literal_CONTRACTOR__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Contractors
+      tags:
+      - Contractor
+    post:
+      operationId: create_contractor_contractors__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_ContractorCreateAttributes_Literal_CONTRACTOR__'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_ContractorAttributes_Literal_CONTRACTOR__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Create Contractor
+      tags:
+      - Contractor
+  /contractors/{id}/:
+    get:
+      operationId: get_contractor_details_contractors__id___get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_ContractorAttributes_Literal_CONTRACTOR__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Get Contractor Details
+      tags:
+      - Contractor
+    patch:
+      operationId: update_contractor_contractors__id___patch
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request_ContractorUpdateAttributes_Literal_CONTRACTOR__'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_ContractorAttributes_Literal_CONTRACTOR__'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Update Contractor
+      tags:
+      - Contractor
+  /contractors/{id}/download-tax-waiver/:
+    get:
+      operationId: download_tax_waiver_contractors__id__download_tax_waiver__get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      responses:
+        '302':
+          description: '
+
+            Redirect to the temporary download link
+
+            '
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Download Tax Waiver
+      tags:
+      - Contractor
+  /contractors/{id}/upload-tax-waiver/:
+    post:
+      operationId: upload_tax_waiver_contractors__id__upload_tax_waiver__post
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          title: Id
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_tax_waiver_contractors__id__upload_tax_waiver__post'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxWaiverDocumentCreatedResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API Key: []
+      - API Token: []
+      summary: Upload Tax Waiver
+      tags:
+      - Contractor
+components:
+  schemas:
+    Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractorUpdateAttributes'
+        type:
+          const: CONTRACTOR
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    ContractorAttributes:
+      properties:
+        accounts_payable_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Accounts payable number** · **Kreditorennummer (Gegenkonto)**'
+          title: Accounts Payable Number
+        address:
+          description: '**Address** · **Adresse**'
+          maxLength: 255
+          title: Address
+          type: string
+        bic:
+          description: '**BIC** · **BIC**'
+          title: Bic
+          type: string
+        city:
+          description: '**City** · **Stadt**'
+          maxLength: 255
+          title: City
+          type: string
+        contact_person_email:
+          description: '**Contact person email** · **E-Mail der Kontaktperson**'
+          title: Contact Person Email
+          type: string
+        contact_person_name:
+          description: '**Contact person name** · **Name der Kontaktperson**'
+          maxLength: 250
+          title: Contact Person Name
+          type: string
+        contact_person_phone_number:
+          description: '**Contact person phone number** · **Telefonnummer der Kontaktperson**'
+          title: Contact Person Phone Number
+          type: string
+        country:
+          description: '**Country** · **Land**'
+          title: Country
+          type: string
+        iban:
+          description: '**IBAN** · **IBAN**'
+          title: Iban
+          type: string
+        identifier:
+          description: '**Identifier** · **Kennung**'
+          title: Identifier
+          type: string
+        name:
+          description: '**Company name** · **Firmenname**'
+          maxLength: 250
+          minLength: 1
+          title: Name
+          type: string
+        tax_authority:
+          anyOf:
+          - $ref: '#/components/schemas/TaxAuthority'
+          - type: 'null'
+          description: '**Tax authority** · **Finanzamt**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `BADEN_WUERTTEMBERG` | Baden-Wuerttemberg | Baden-Württemberg |
+
+            | `BAVARIA` | Bavaria | Bayern |
+
+            | `BERLIN` | Berlin | Berlin |
+
+            | `BRANDENBURG` | Brandenburg | Brandenburg |
+
+            | `BREMEN` | Bremen | Bremen |
+
+            | `HAMBURG` | Hamburg | Hamburg |
+
+            | `HESSE` | Hesse | Hessen |
+
+            | `MECKLENBURG_VORPOMMERN` | Mecklenburg-Vorpommern | Mecklenburg-Vorpommern |
+
+            | `LOWER_SAXONY` | Lower Saxony | Niedersachsen |
+
+            | `NORTH_RHINE_WESTPHALIA` | North Rhine-Westphalia | Nordrhein-Westfalen |
+
+            | `RHEINLAND_PALATINATE` | Rhineland-Palatinate | Rheinland-Pfalz |
+
+            | `SAARLAND` | Saarland | Saarland |
+
+            | `SAXONY` | Saxony | Sachsen |
+
+            | `SACHSEN_ANHALT` | Saxony-Anhalt | Sachsen-Anhalt |
+
+            | `SCHLESWIG_HOLSTEIN` | Schleswig-Holstein | Schleswig-Holstein |
+
+            | `THURINGIA` | Thuringia | Thüringen |'
+        tax_id:
+          description: '**Tax ID** · **Steuernummer**'
+          maxLength: 250
+          title: Tax Id
+          type: string
+        tax_waiver:
+          anyOf:
+          - $ref: '#/components/schemas/TaxWaiver'
+          - type: 'null'
+          description: '**Tax waiver** · **Freistellungsbescheinigung**'
+        vat_id:
+          description: '**VAT ID** · **USt.-IdNr.**'
+          maxLength: 250
+          title: Vat Id
+          type: string
+        zip_code:
+          description: '**Zip code** · **Postleitzahl**'
+          maxLength: 12
+          title: Zip Code
+          type: string
+      required:
+      - name
+      - iban
+      - bic
+      - vat_id
+      - contact_person_name
+      - contact_person_phone_number
+      - contact_person_email
+      - tax_id
+      - address
+      - zip_code
+      - city
+      - country
+      - identifier
+      title: ContractorAttributes
+      type: object
+    Request_ContractorCreateAttributes_Literal_CONTRACTOR__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ContractorCreateAttributes_Literal_CONTRACTOR__'
+      required:
+      - data
+      title: 'Request[ContractorCreateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    Body_upload_tax_waiver_contractors__id__upload_tax_waiver__post:
+      properties:
+        upload:
+          contentMediaType: application/octet-stream
+          description: '
+
+            The file to submit. The file must be a valid PDF.
+
+            '
+          title: Upload
+          type: string
+      required:
+      - upload
+      title: Body_upload_tax_waiver_contractors__id__upload_tax_waiver__post
+      type: object
+    TaxWaiver:
+      properties:
+        filename:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**Tax waiver document filename** · **Dateiname der Freistellungsbescheinigung**'
+          title: Filename
+        security_number:
+          description: '**Security number** · **Sicherheitsnummer**'
+          maxLength: 90
+          title: Security Number
+          type: string
+        valid_until:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Expiration date** · **Ablaufdatum**'
+          title: Valid Until
+      required:
+      - security_number
+      title: TaxWaiver
+      type: object
+    Request_ContractorUpdateAttributes_Literal_CONTRACTOR__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__'
+      required:
+      - data
+      title: 'Request[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ContractorCreateAttributes:
+      properties:
+        accounts_payable_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Accounts payable number** · **Kreditorennummer (Gegenkonto)**'
+          title: Accounts Payable Number
+        address:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**Address** · **Adresse**'
+          title: Address
+        bic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**BIC** · **BIC**'
+          title: Bic
+        city:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**City** · **Stadt**'
+          title: City
+        contact_person_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact person email** · **E-Mail der Kontaktperson**'
+          title: Contact Person Email
+        contact_person_name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Contact person name** · **Name der Kontaktperson**'
+          title: Contact Person Name
+        contact_person_phone_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact person phone number** · **Telefonnummer der Kontaktperson**'
+          title: Contact Person Phone Number
+        country:
+          anyOf:
+          - $ref: '#/components/schemas/CountryCodes'
+          - type: 'null'
+          description: '**Country** · **Land**'
+          examples:
+          - DE
+        iban:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**IBAN** · **IBAN**'
+          title: Iban
+        identifier:
+          anyOf:
+          - maxLength: 50
+            type: string
+          - type: 'null'
+          description: '**Identifier** · **Kennung**'
+          title: Identifier
+        name:
+          description: '**Company name** · **Firmenname**'
+          maxLength: 250
+          minLength: 1
+          title: Name
+          type: string
+        tax_authority:
+          anyOf:
+          - $ref: '#/components/schemas/TaxAuthority'
+          - type: 'null'
+          description: '**Tax authority** · **Finanzamt**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `BADEN_WUERTTEMBERG` | Baden-Wuerttemberg | Baden-Württemberg |
+
+            | `BAVARIA` | Bavaria | Bayern |
+
+            | `BERLIN` | Berlin | Berlin |
+
+            | `BRANDENBURG` | Brandenburg | Brandenburg |
+
+            | `BREMEN` | Bremen | Bremen |
+
+            | `HAMBURG` | Hamburg | Hamburg |
+
+            | `HESSE` | Hesse | Hessen |
+
+            | `MECKLENBURG_VORPOMMERN` | Mecklenburg-Vorpommern | Mecklenburg-Vorpommern |
+
+            | `LOWER_SAXONY` | Lower Saxony | Niedersachsen |
+
+            | `NORTH_RHINE_WESTPHALIA` | North Rhine-Westphalia | Nordrhein-Westfalen |
+
+            | `RHEINLAND_PALATINATE` | Rhineland-Palatinate | Rheinland-Pfalz |
+
+            | `SAARLAND` | Saarland | Saarland |
+
+            | `SAXONY` | Saxony | Sachsen |
+
+            | `SACHSEN_ANHALT` | Saxony-Anhalt | Sachsen-Anhalt |
+
+            | `SCHLESWIG_HOLSTEIN` | Schleswig-Holstein | Schleswig-Holstein |
+
+            | `THURINGIA` | Thuringia | Thüringen |'
+        tax_id:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Tax ID** · **Steuernummer**'
+          title: Tax Id
+        tax_waiver:
+          anyOf:
+          - $ref: '#/components/schemas/TaxWaiverWriter'
+          - type: 'null'
+          description: '**Tax waiver** · **Freistellungsbescheinigung**'
+        vat_id:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**VAT ID** · **USt.-IdNr.**'
+          title: Vat Id
+        zip_code:
+          anyOf:
+          - maxLength: 12
+            type: string
+          - type: 'null'
+          description: '**Zip code** · **Postleitzahl**'
+          title: Zip Code
+      required:
+      - name
+      title: ContractorCreateAttributes
+      type: object
+    TaxWaiverDocumentCreatedResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/TaxWaiverDocumentCreated'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: TaxWaiverDocumentCreatedResponse
+      type: object
+    TaxWaiverDocumentCreated:
+      properties:
+        filename:
+          description: '**Tax waiver document filename** · **Dateiname der Freistellungsbescheinigung**'
+          title: Filename
+          type: string
+      required:
+      - filename
+      title: TaxWaiverDocumentCreated
+      type: object
+    Data_ContractorAttributes_Literal_CONTRACTOR__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractorAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CONTRACTOR
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    Payload_ContractorCreateAttributes_Literal_CONTRACTOR__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractorCreateAttributes'
+        type:
+          const: CONTRACTOR
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContractorCreateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    TaxAuthority:
+      enum:
+      - BADEN_WUERTTEMBERG
+      - BAVARIA
+      - BERLIN
+      - BRANDENBURG
+      - BREMEN
+      - HAMBURG
+      - HESSE
+      - MECKLENBURG_VORPOMMERN
+      - LOWER_SAXONY
+      - NORTH_RHINE_WESTPHALIA
+      - RHEINLAND_PALATINATE
+      - SAARLAND
+      - SAXONY
+      - SACHSEN_ANHALT
+      - SCHLESWIG_HOLSTEIN
+      - THURINGIA
+      title: TaxAuthority
+      type: string
+    CountryCodes:
+      enum:
+      - AM
+      - AT
+      - BE
+      - BG
+      - CH
+      - CY
+      - CZ
+      - DE
+      - DK
+      - EE
+      - ES
+      - FI
+      - FR
+      - GB
+      - GE
+      - GR
+      - HR
+      - HU
+      - IE
+      - IT
+      - KZ
+      - LT
+      - LU
+      - LV
+      - MT
+      - MX
+      - NL
+      - 'NO'
+      - PL
+      - PT
+      - RO
+      - RS
+      - US
+      - UY
+      - SA
+      - SE
+      - SI
+      - SK
+      - TR
+      title: CountryCodes
+      type: string
+    TaxWaiverWriter:
+      properties:
+        security_number:
+          description: '**Security number** · **Sicherheitsnummer**'
+          maxLength: 90
+          title: Security Number
+          type: string
+      required:
+      - security_number
+      title: TaxWaiver
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    ListResponse_ContractorAttributes_Literal_CONTRACTOR__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    Response_ContractorAttributes_Literal_CONTRACTOR__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    ContractorUpdateAttributes:
+      properties:
+        accounts_payable_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Accounts payable number** · **Kreditorennummer (Gegenkonto)**'
+          title: Accounts Payable Number
+        address:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**Address** · **Adresse**'
+          title: Address
+        bic:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**BIC** · **BIC**'
+          title: Bic
+        city:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**City** · **Stadt**'
+          title: City
+        contact_person_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact person email** · **E-Mail der Kontaktperson**'
+          title: Contact Person Email
+        contact_person_name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Contact person name** · **Name der Kontaktperson**'
+          title: Contact Person Name
+        contact_person_phone_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact person phone number** · **Telefonnummer der Kontaktperson**'
+          title: Contact Person Phone Number
+        country:
+          anyOf:
+          - $ref: '#/components/schemas/CountryCodes'
+          - type: 'null'
+          description: '**Country** · **Land**'
+          examples:
+          - DE
+        iban:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**IBAN** · **IBAN**'
+          title: Iban
+        identifier:
+          anyOf:
+          - maxLength: 50
+            type: string
+          - type: 'null'
+          description: '**Identifier** · **Kennung**'
+          title: Identifier
+        name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Company name** · **Firmenname**'
+          title: Name
+        tax_authority:
+          anyOf:
+          - $ref: '#/components/schemas/TaxAuthority'
+          - type: 'null'
+          description: '**Tax authority** · **Finanzamt**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `BADEN_WUERTTEMBERG` | Baden-Wuerttemberg | Baden-Württemberg |
+
+            | `BAVARIA` | Bavaria | Bayern |
+
+            | `BERLIN` | Berlin | Berlin |
+
+            | `BRANDENBURG` | Brandenburg | Brandenburg |
+
+            | `BREMEN` | Bremen | Bremen |
+
+            | `HAMBURG` | Hamburg | Hamburg |
+
+            | `HESSE` | Hesse | Hessen |
+
+            | `MECKLENBURG_VORPOMMERN` | Mecklenburg-Vorpommern | Mecklenburg-Vorpommern |
+
+            | `LOWER_SAXONY` | Lower Saxony | Niedersachsen |
+
+            | `NORTH_RHINE_WESTPHALIA` | North Rhine-Westphalia | Nordrhein-Westfalen |
+
+            | `RHEINLAND_PALATINATE` | Rhineland-Palatinate | Rheinland-Pfalz |
+
+            | `SAARLAND` | Saarland | Saarland |
+
+            | `SAXONY` | Saxony | Sachsen |
+
+            | `SACHSEN_ANHALT` | Saxony-Anhalt | Sachsen-Anhalt |
+
+            | `SCHLESWIG_HOLSTEIN` | Schleswig-Holstein | Schleswig-Holstein |
+
+            | `THURINGIA` | Thuringia | Thüringen |'
+        tax_id:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Tax ID** · **Steuernummer**'
+          title: Tax Id
+        tax_waiver:
+          anyOf:
+          - $ref: '#/components/schemas/TaxWaiverWriter'
+          - type: 'null'
+          description: '**Tax waiver** · **Freistellungsbescheinigung**'
+        vat_id:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**VAT ID** · **USt.-IdNr.**'
+          title: Vat Id
+        zip_code:
+          anyOf:
+          - maxLength: 12
+            type: string
+          - type: 'null'
+          description: '**Zip code** · **Postleitzahl**'
+          title: Zip Code
+      title: ContractorUpdateAttributes
+      type: object
+  securitySchemes:
+    API Key:
+      description: '
+
+        The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
+
+        needs to be sent in a header field called `X-API-KEY`.
+
+        '
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    API Token:
+      description: '
+
+        In addition to an API key, one has to specify an API token. There can be one or more tokens in use
+
+        for the same API key. The token needs to be sent in a header field called `X-API-TOKEN`.
+
+        Right now, it''s not possible to create API keys and API tokens from within Alasco.
+
+        If you are interested in using the Alasco API, please reach out to the
+
+        [support team](mailto:support@alasco.de). They will assist you in generating a key and token pair.
+
+        '
+      in: header
+      name: X-API-TOKEN
+      type: apiKey
