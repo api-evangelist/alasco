@@ -1,0 +1,446 @@
+{
+  "item": [
+    {
+      "id": "1fd534de-598d-4a0d-a8bb-a37aa9f6df11",
+      "name": "Tenants",
+      "description": {
+        "content": "A **Tenant** is an occupant of a **Building**, identified by your `external_id` and linked to a building by `external_building_id`. Tenants are upserted through the API (created or updated by external id) and can carry attachments.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8d2bbb20-6f4c-4613-a675-74718d538daf",
+          "name": "Upsert Tenant",
+          "request": {
+            "name": "Upsert Tenant",
+            "description": {},
+            "url": {
+              "path": [
+                "tenants",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"external_building_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"contact_email\": \"<email>\",\n      \"contact_first_name\": \"<string>\",\n      \"contact_last_name\": \"<string>\",\n      \"contact_phone_number\": \"<string>\",\n      \"contact_salutation\": \"<string>\",\n      \"contact_title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"green_signature_date\": \"<date>\",\n      \"lease_area_square_meters\": \"<number>\",\n      \"lease_end_date\": \"<date>\",\n      \"lease_start_date\": \"<date>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "34cb42f3-fbd7-49fa-90ae-bdf07b92d0a5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tenants",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"external_building_id\": \"string\",\n      \"name\": \"string\",\n      \"external_id\": \"string\",\n      \"contact_email\": \"Jt3a5qBO41B34oX@kteGpTsUFHztNJMa.mfrf\",\n      \"contact_first_name\": \"string\",\n      \"contact_last_name\": \"string\",\n      \"contact_phone_number\": \"string\",\n      \"contact_salutation\": \"NONBINARY\",\n      \"contact_title\": \"DR\",\n      \"description\": \"string\",\n      \"green_signature_date\": \"1990-04-29\",\n      \"lease_area_square_meters\": 2611.648169536067,\n      \"lease_end_date\": \"2012-09-12\",\n      \"lease_start_date\": \"1948-10-11\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"53129a8d-6b25-71bc-f606-1c6ed1234fba\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"external_id\": \"string\",\n      \"description\": \"string\",\n      \"lease_start_date\": \"1953-11-01\",\n      \"lease_end_date\": \"1947-06-18\",\n      \"lease_area_square_meters\": \"+00000000085926295739032495\",\n      \"green_signature_date\": \"1998-12-02\",\n      \"contact_title\": \"PROF\",\n      \"contact_salutation\": \"NONBINARY\",\n      \"contact_email\": \"string\",\n      \"contact_first_name\": \"string\",\n      \"contact_last_name\": \"string\",\n      \"contact_phone_number\": \"string\"\n    },\n    \"relationships\": {\n      \"key_0\": 7636,\n      \"key_1\": \"string\",\n      \"key_2\": 6608\n    },\n    \"type\": \"TENANT\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"3ee828f6-4b23-b8a3-5aa0-61e218c2b751\",\n      \"type\": \"UTILITY_METER_READING\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"4dde4a9f-3e69-b29e-d14a-17270a04b328\",\n      \"type\": \"USER_AUDIT_LOG\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 5714.289520932023\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbd20702-523a-433a-b016-0657e8b55e4d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tenants",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"external_building_id\": \"string\",\n      \"name\": \"string\",\n      \"external_id\": \"string\",\n      \"contact_email\": \"Jt3a5qBO41B34oX@kteGpTsUFHztNJMa.mfrf\",\n      \"contact_first_name\": \"string\",\n      \"contact_last_name\": \"string\",\n      \"contact_phone_number\": \"string\",\n      \"contact_salutation\": \"NONBINARY\",\n      \"contact_title\": \"DR\",\n      \"description\": \"string\",\n      \"green_signature_date\": \"1990-04-29\",\n      \"lease_area_square_meters\": 2611.648169536067,\n      \"lease_end_date\": \"2012-09-12\",\n      \"lease_start_date\": \"1948-10-11\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"53129a8d-6b25-71bc-f606-1c6ed1234fba\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"external_id\": \"string\",\n      \"description\": \"string\",\n      \"lease_start_date\": \"1953-11-01\",\n      \"lease_end_date\": \"1947-06-18\",\n      \"lease_area_square_meters\": \"+00000000085926295739032495\",\n      \"green_signature_date\": \"1998-12-02\",\n      \"contact_title\": \"PROF\",\n      \"contact_salutation\": \"NONBINARY\",\n      \"contact_email\": \"string\",\n      \"contact_first_name\": \"string\",\n      \"contact_last_name\": \"string\",\n      \"contact_phone_number\": \"string\"\n    },\n    \"relationships\": {\n      \"key_0\": 7636,\n      \"key_1\": \"string\",\n      \"key_2\": 6608\n    },\n    \"type\": \"TENANT\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"3ee828f6-4b23-b8a3-5aa0-61e218c2b751\",\n      \"type\": \"UTILITY_METER_READING\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"4dde4a9f-3e69-b29e-d14a-17270a04b328\",\n      \"type\": \"USER_AUDIT_LOG\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 5714.289520932023\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bcf1e94-6362-4185-bce0-ea01d77e7b5a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tenants",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"external_building_id\": \"string\",\n      \"name\": \"string\",\n      \"external_id\": \"string\",\n      \"contact_email\": \"Jt3a5qBO41B34oX@kteGpTsUFHztNJMa.mfrf\",\n      \"contact_first_name\": \"string\",\n      \"contact_last_name\": \"string\",\n      \"contact_phone_number\": \"string\",\n      \"contact_salutation\": \"NONBINARY\",\n      \"contact_title\": \"DR\",\n      \"description\": \"string\",\n      \"green_signature_date\": \"1990-04-29\",\n      \"lease_area_square_meters\": 2611.648169536067,\n      \"lease_end_date\": \"2012-09-12\",\n      \"lease_start_date\": \"1948-10-11\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "223e6cde-ed8e-4768-89a7-d055ed1571e4",
+          "name": "Create Tenant Attachment",
+          "request": {
+            "name": "Create Tenant Attachment",
+            "description": {},
+            "url": {
+              "path": [
+                "tenants",
+                ":external_tenant_id",
+                "attachments",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_tenant_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"attachment_type\": \"<string>\",\n      \"comment\": \"<string>\",\n      \"file_id\": \"<uuid>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e1e03b3-4799-479f-9d91-174469d83ec7",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tenants",
+                    ":external_tenant_id",
+                    "attachments",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_tenant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"attachment_type\": \"DOCUMENT\",\n      \"comment\": \"string\",\n      \"file_id\": \"ca32e5c7-7639-a04a-4060-6163fb589083\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"388ce819-948d-c1fe-0a4e-a69705503b16\",\n    \"attributes\": {\n      \"attachment_type\": \"COMMENT\",\n      \"comment\": \"string\",\n      \"file_id\": \"fbfd9fc4-4e2f-a6a6-7cb5-43939618eb99\"\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": false\n    },\n    \"type\": \"TENANT_ATTACHMENT\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"4fdf185d-3592-a38c-2eb3-a6cee05463de\",\n      \"type\": \"TENANT_CONSUMPTION_LINK\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"8c9a3891-81be-b8ee-98ca-a1fee15a3532\",\n      \"type\": \"TENANT_ATTACHMENT\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbb92c84-dbdc-40e0-ad86-58076dc314a9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tenants",
+                    ":external_tenant_id",
+                    "attachments",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_tenant_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"attachment_type\": \"DOCUMENT\",\n      \"comment\": \"string\",\n      \"file_id\": \"ca32e5c7-7639-a04a-4060-6163fb589083\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9484f697-9313-4e81-9277-a87280f4d045",
+    "name": "CAPEX Annual Consumption Tenants API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

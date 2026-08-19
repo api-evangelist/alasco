@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Audit Log API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audit Log",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/raw-audit/",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Events"
+        },
+        {
+          "info": {
+            "name": "Get User Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/raw-user-audit/",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get User Events"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

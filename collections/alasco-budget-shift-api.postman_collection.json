@@ -1,0 +1,214 @@
+{
+  "item": [
+    {
+      "id": "5a45db44-0a4c-4eb8-a033-ca73ce8e661f",
+      "name": "Budget Shift",
+      "description": {
+        "content": "A **Budget Shift** is a record of budget moved between **Contract Units** in a **Project** (or added from reserve), with a type, amount and reason. Budget shifts are read-only through this API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "acda4c10-2866-48d0-9078-9c0d46b95cdf",
+          "name": "Get Budget Shifts",
+          "request": {
+            "name": "Get Budget Shifts",
+            "description": {},
+            "url": {
+              "path": [
+                "budget_shifts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nCurrently available objects are:\n\n* project\n* source_contract_unit\n* target_contract_unit\n\ne.g. `include=project,source_contract_unit,target_contract_unit`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `in` | `not_in` |\n| :--- | :---: | :---: |\n| `id` | x | x |\n| `source_contract_unit` | x | x |\n| `target_contract_unit` | x | x |\n| `project` | x | x |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "95457ee9-775d-41da-b4df-7017612e2a96",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_shifts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"d83ff20e-8c70-d6a4-7635-271476e92b1d\",\n      \"attributes\": {\n        \"project\": \"b0049726-0fcb-8bc7-6499-7caab6791b1e\",\n        \"source_contract_unit\": \"791294f5-efa3-73dd-e6bf-d4af1f5d41e7\",\n        \"target_contract_unit\": \"42856428-747e-d9ce-930a-26049fec3e93\",\n        \"budget_change_type\": \"DECREASE\",\n        \"reason\": \"string\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"date_created\": \"1950-07-08T08:08:04.425Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 2432.9478937175695\n      },\n      \"type\": \"BUDGET_SHIFT\"\n    },\n    {\n      \"id\": \"4060e016-2bd2-5993-3622-597e23c1a190\",\n      \"attributes\": {\n        \"project\": \"53cf1bdd-4cd4-7fcd-bc00-0a4017f31efa\",\n        \"source_contract_unit\": \"106d3f2f-5045-6a65-55d1-f00f3d12da5e\",\n        \"target_contract_unit\": \"9cd28dd3-6322-007a-478e-97400d36105c\",\n        \"budget_change_type\": \"SHIFT\",\n        \"reason\": \"string\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"date_created\": \"2009-09-01T09:11:49.813Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      },\n      \"type\": \"BUDGET_SHIFT\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"80bc6a32-0362-585c-d2d3-776015575343\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 1223.3403115536635\n      }\n    },\n    {\n      \"id\": \"681b7482-4c64-9843-b07e-691f708b5455\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 4786.644348940497\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b606c0a-ef53-4938-b29c-9cceeafa2947",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "budget_shifts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "87380bf7-6a6b-4d6c-bc76-34ef925b6df0",
+    "name": "CAPEX Annual Consumption Budget Shift API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

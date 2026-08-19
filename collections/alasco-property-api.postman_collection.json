@@ -1,0 +1,723 @@
+{
+  "item": [
+    {
+      "id": "462961cb-dcaf-4fff-adf2-d3a0854813ce",
+      "name": "Property",
+      "description": {
+        "content": "A **Property** is the real-estate asset a **Project** is carried out on, holding its address and location. A project references one property, and the same property can back several projects. Properties can be created and updated through the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3697b70d-ef1a-46ac-b527-09c0a17fc40e",
+          "name": "Get Properties",
+          "request": {
+            "name": "Get Properties",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |\n| `name` | x | x |   |   |   |   |   |\n| `description` | x | x |   |   |   |   |   |\n| `address` | x | x |   |   |   |   |   |\n| `zip_code` | x | x |   |   |   |   |   |\n| `city` | x | x |   |   |   |   |   |\n| `country` |   |   |   |   |   | x | x |\n| `date_created` |   |   | x | x | x |   |   |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f35efc24-3ec5-4c8e-b99c-1bfd3da6115d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"b35dfe24-f2cd-6f43-a12c-d54df6ebcdaa\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"1993-03-25T19:00:15.476Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"85e4f5cf-2461-2dc8-c5c8-41522fe1dcd5\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"2025-01-16T11:04:11.015Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"0de56c73-a131-3d44-9ef6-fdec56237450\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"1998-05-15T00:32:04.812Z\"\n      },\n      \"relationships\": {\n        \"key_0\": 7024,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"43aa2c6f-3cc3-bc8f-ba3e-b84aefd42d3e\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"2017-01-28T20:55:30.498Z\"\n      },\n      \"relationships\": {\n        \"key_0\": 4922.645754958117,\n        \"key_1\": true,\n        \"key_2\": 5599\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54331e6c-685e-4add-b904-e14a4d2ab250",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cd0fbc3-9268-4486-91a5-e90845394140",
+          "name": "Create Property",
+          "request": {
+            "name": "Create Property",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"description\": \"<string>\",\n      \"zip_code\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7340cd7d-932c-4117-9783-4907884d239b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"TR\",\n      \"description\": \"string\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"4786b3b6-e288-2387-48a1-ac6d9e8ee0f2\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"date_created\": \"1960-12-21T05:28:55.680Z\"\n    },\n    \"relationships\": {\n      \"key_0\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1b897ed8-b3d4-8231-0e34-2803cdf651df\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"1960-02-26T10:18:46.428Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"487d29d9-99bf-ebcc-de76-1585164a99a4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"1947-02-19T03:27:23.679Z\"\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a44e4f5e-a3b5-470c-84bb-cf332d583049",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"TR\",\n      \"description\": \"string\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7848578-2d6d-4d03-bc76-32b02cf1fe03",
+          "name": "Get Property Details",
+          "request": {
+            "name": "Get Property Details",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c6d73ee-2d0d-4c00-95cb-b22ba122b0c6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"4786b3b6-e288-2387-48a1-ac6d9e8ee0f2\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"date_created\": \"1960-12-21T05:28:55.680Z\"\n    },\n    \"relationships\": {\n      \"key_0\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1b897ed8-b3d4-8231-0e34-2803cdf651df\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"1960-02-26T10:18:46.428Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"487d29d9-99bf-ebcc-de76-1585164a99a4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"1947-02-19T03:27:23.679Z\"\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afda6e3d-3c08-48a9-a429-ccf25065fa20",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87cd840c-2bee-4531-9646-9c949b464a74",
+          "name": "Update Property",
+          "request": {
+            "name": "Update Property",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"description\": \"<string>\",\n      \"name\": \"<string>\",\n      \"zip_code\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc177019-99b0-4b00-90b0-dc1597e50d4f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"CZ\",\n      \"description\": \"string\",\n      \"name\": \"string\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"4786b3b6-e288-2387-48a1-ac6d9e8ee0f2\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"date_created\": \"1960-12-21T05:28:55.680Z\"\n    },\n    \"relationships\": {\n      \"key_0\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1b897ed8-b3d4-8231-0e34-2803cdf651df\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"1960-02-26T10:18:46.428Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"487d29d9-99bf-ebcc-de76-1585164a99a4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"date_created\": \"1947-02-19T03:27:23.679Z\"\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42003af2-527c-4ebf-a988-48cf336e4499",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"CZ\",\n      \"description\": \"string\",\n      \"name\": \"string\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "45c9bd54-1493-4f76-8e9e-ab226816e3a7",
+    "name": "CAPEX Annual Consumption Property API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

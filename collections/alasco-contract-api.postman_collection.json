@@ -1,0 +1,1713 @@
+{
+  "item": [
+    {
+      "id": "0bfc64be-78b9-4a4a-b2bd-9e6ba5160dca",
+      "name": "Contract",
+      "description": {
+        "content": "A **Contract** is an agreement with a **Contractor** to deliver work, tracking the committed amount and reserve. In CapEx a contract belongs to a **Measure**; it accumulates **Invoices** and **Change Orders** and can carry **Documents** and a **Custom Field**. Contracts can be created and updated through the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b64bff7a-11cb-43aa-a118-587f8efc8a6b",
+          "name": "Get Contracts By Contracting Entity",
+          "request": {
+            "name": "Get Contracts By Contracting Entity",
+            "description": {},
+            "url": {
+              "path": [
+                "contracting_entities",
+                ":contracting_entity_id",
+                "contracts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "contracting_entity_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9a79a9bd-7aea-470d-8d98-11cae47ec9dc",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ":contracting_entity_id",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contracting_entity_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"dde8b2a4-6ec0-4796-a542-7d42f8e9195e\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1984-06-24\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": true,\n        \"date_created\": \"1970-12-11T14:14:22.443Z\",\n        \"measure\": \"e4485726-5c4b-7f21-c507-57c7bddd04f5\",\n        \"contracting_entity\": \"c4c6ae4a-7a53-e1ae-155e-7bee0ae9540d\",\n        \"contract_type\": \"STANDARD\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 876417947,\n        \"contractor\": \"0c7ada15-a985-7edb-6ebd-a915d9a8edfe\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": \"string\",\n        \"key_2\": 5446\n      },\n      \"type\": \"CONTRACT\"\n    },\n    {\n      \"id\": \"25adb52f-05d7-2875-94bc-bd608da74110\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1971-04-06\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": false,\n        \"date_created\": \"1976-01-19T15:02:46.004Z\",\n        \"measure\": \"e1af68c4-e950-d209-b389-521e6468c064\",\n        \"contracting_entity\": \"5ab2c6cd-5f8d-467f-0174-9364c245ff62\",\n        \"contract_type\": \"MULTIPART\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 402578423,\n        \"contractor\": \"e8596ffa-d2a8-a078-b4b2-689bb35dda39\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      },\n      \"type\": \"CONTRACT\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e02f0724-ceea-4697-7624-4fc93670d458\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 821,\n        \"key_2\": 1242\n      }\n    },\n    {\n      \"id\": \"d90c2e3b-c043-49e3-4120-e60a42046891\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8b49118-22a3-45f8-a02e-8c649cb93c5d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ":contracting_entity_id",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contracting_entity_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f5f3664-0cc4-4991-a920-74ce72a6906f",
+          "name": "Get Contracts By Contractor",
+          "request": {
+            "name": "Get Contracts By Contractor",
+            "description": {},
+            "url": {
+              "path": [
+                "contractors",
+                ":contractor_id",
+                "contracts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "contractor_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "257b556d-a921-4563-87b7-f810834e4a8f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":contractor_id",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contractor_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"dde8b2a4-6ec0-4796-a542-7d42f8e9195e\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1984-06-24\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": true,\n        \"date_created\": \"1970-12-11T14:14:22.443Z\",\n        \"measure\": \"e4485726-5c4b-7f21-c507-57c7bddd04f5\",\n        \"contracting_entity\": \"c4c6ae4a-7a53-e1ae-155e-7bee0ae9540d\",\n        \"contract_type\": \"STANDARD\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 876417947,\n        \"contractor\": \"0c7ada15-a985-7edb-6ebd-a915d9a8edfe\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": \"string\",\n        \"key_2\": 5446\n      },\n      \"type\": \"CONTRACT\"\n    },\n    {\n      \"id\": \"25adb52f-05d7-2875-94bc-bd608da74110\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1971-04-06\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": false,\n        \"date_created\": \"1976-01-19T15:02:46.004Z\",\n        \"measure\": \"e1af68c4-e950-d209-b389-521e6468c064\",\n        \"contracting_entity\": \"5ab2c6cd-5f8d-467f-0174-9364c245ff62\",\n        \"contract_type\": \"MULTIPART\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 402578423,\n        \"contractor\": \"e8596ffa-d2a8-a078-b4b2-689bb35dda39\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      },\n      \"type\": \"CONTRACT\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e02f0724-ceea-4697-7624-4fc93670d458\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 821,\n        \"key_2\": 1242\n      }\n    },\n    {\n      \"id\": \"d90c2e3b-c043-49e3-4120-e60a42046891\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "829610df-dbc8-49da-822f-1ffc9256195f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":contractor_id",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contractor_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "118b5e58-0b20-464a-8b6a-8b51657f5608",
+          "name": "Get Contracts",
+          "request": {
+            "name": "Get Contracts",
+            "description": {},
+            "url": {
+              "path": [
+                "contracts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n* `is`: Expects one value\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |   |\n| `name` | x | x |   |   |   |   |   |   |\n| `contract_number` | x | x |   |   |   |   |   |   |\n| `cost_center` | x | x |   |   |   |   |   |   |\n| `status` |   |   |   |   |   | x | x |   |\n| `contracting_entity` |   |   |   |   |   | x | x |   |\n| `contractor` |   |   |   |   |   | x | x |   |\n| `project` |   |   |   |   |   | x | x |   |\n| `date_created` |   |   | x | x | x |   |   |   |\n| `date_contract` |   |   | x | x | x |   |   | x |\n| `contract_type` |   |   |   |   |   | x | x |   |\n| `is_reverse_charge` |   |   |   |   |   |   |   | x |\n| `measure (CapEx only)` |   |   |   |   |   | x | x |   |\n| `contract_unit (FinCon only)` |   |   |   |   |   | x | x |   |\n| `custom_fields.<uuid> (Operation depends on custom field type)` | x | x | x | x | x | x | x | x |\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3a5c0dff-fd36-4f05-96ff-e2e19603baed",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"dde8b2a4-6ec0-4796-a542-7d42f8e9195e\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1984-06-24\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": true,\n        \"date_created\": \"1970-12-11T14:14:22.443Z\",\n        \"measure\": \"e4485726-5c4b-7f21-c507-57c7bddd04f5\",\n        \"contracting_entity\": \"c4c6ae4a-7a53-e1ae-155e-7bee0ae9540d\",\n        \"contract_type\": \"STANDARD\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 876417947,\n        \"contractor\": \"0c7ada15-a985-7edb-6ebd-a915d9a8edfe\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": \"string\",\n        \"key_2\": 5446\n      },\n      \"type\": \"CONTRACT\"\n    },\n    {\n      \"id\": \"25adb52f-05d7-2875-94bc-bd608da74110\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1971-04-06\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": false,\n        \"date_created\": \"1976-01-19T15:02:46.004Z\",\n        \"measure\": \"e1af68c4-e950-d209-b389-521e6468c064\",\n        \"contracting_entity\": \"5ab2c6cd-5f8d-467f-0174-9364c245ff62\",\n        \"contract_type\": \"MULTIPART\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 402578423,\n        \"contractor\": \"e8596ffa-d2a8-a078-b4b2-689bb35dda39\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      },\n      \"type\": \"CONTRACT\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e02f0724-ceea-4697-7624-4fc93670d458\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 821,\n        \"key_2\": 1242\n      }\n    },\n    {\n      \"id\": \"d90c2e3b-c043-49e3-4120-e60a42046891\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "009e4552-11e4-4de7-beec-7bdceb330dc1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "038ba8ce-7f01-4e6e-ae9f-0a52eac06fa1",
+          "name": "Create Contract",
+          "request": {
+            "name": "Create Contract",
+            "description": {},
+            "url": {
+              "path": [
+                "contracts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"is_reverse_charge\": \"<boolean>\",\n      \"amount\": {\n        \"currency\": \"<string>\",\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"booking_account_number\": \"<integer>\",\n      \"contract_number\": \"<string>\",\n      \"cost_center\": \"<string>\",\n      \"date_contract\": \"<date>\",\n      \"description\": \"<string>\"\n    },\n    \"relationships\": {\n      \"contracting_entity\": {\n        \"data\": {\n          \"type\": \"<string>\",\n          \"id\": \"<uuid>\"\n        }\n      },\n      \"measure\": {\n        \"data\": {\n          \"type\": \"<string>\",\n          \"id\": \"<uuid>\"\n        }\n      },\n      \"contractor\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    },\n    \"type\": \"CONTRACT\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "520b47c2-a2f6-43be-b8a5-4203863c8b58",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"name\": \"string\",\n      \"is_reverse_charge\": false,\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"booking_account_number\": 915387078,\n      \"contract_number\": \"string\",\n      \"cost_center\": \"string\",\n      \"date_contract\": \"2009-04-02\",\n      \"description\": \"string\"\n    },\n    \"relationships\": {\n      \"contracting_entity\": {\n        \"data\": {\n          \"type\": \"string\",\n          \"id\": \"ea2eec2a-f199-9d6a-e78f-76f4031973c2\"\n        }\n      },\n      \"measure\": {\n        \"data\": {\n          \"type\": \"string\",\n          \"id\": \"ecbd71d6-c352-c288-b12d-4068e5d59979\"\n        }\n      },\n      \"contractor\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    },\n    \"type\": \"CONTRACT\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"a411bdc7-5033-10ca-6d9f-9523b682d8fa\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"date_contract\": \"1951-07-04\",\n      \"contract_number\": \"string\",\n      \"cost_center\": \"string\",\n      \"description\": \"string\",\n      \"status\": \"DRAFT\",\n      \"is_reverse_charge\": true,\n      \"date_created\": \"1995-06-16T10:47:12.229Z\",\n      \"measure\": \"0c7ef138-f3ec-c015-be61-1f991072828e\",\n      \"contracting_entity\": \"a714481e-ee0b-a148-dc7d-b58db0a22a05\",\n      \"contract_type\": \"STANDARD\",\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"booking_account_number\": 140565130,\n      \"contractor\": \"fcb005a1-6939-b9c9-e47c-4ea8273669ce\",\n      \"reserve_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": 8979,\n      \"key_3\": \"string\"\n    },\n    \"type\": \"CONTRACT\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"45d18811-d7e6-011b-7f07-e8bd24e74bdf\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"57abbcdc-2af8-e97e-fbec-3cdb1cf989b1\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 6031.662907647298\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d214f4c-8560-4f2d-8099-f09de425fbc3",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"name\": \"string\",\n      \"is_reverse_charge\": false,\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"booking_account_number\": 915387078,\n      \"contract_number\": \"string\",\n      \"cost_center\": \"string\",\n      \"date_contract\": \"2009-04-02\",\n      \"description\": \"string\"\n    },\n    \"relationships\": {\n      \"contracting_entity\": {\n        \"data\": {\n          \"type\": \"string\",\n          \"id\": \"ea2eec2a-f199-9d6a-e78f-76f4031973c2\"\n        }\n      },\n      \"measure\": {\n        \"data\": {\n          \"type\": \"string\",\n          \"id\": \"ecbd71d6-c352-c288-b12d-4068e5d59979\"\n        }\n      },\n      \"contractor\": {\n        \"data\": {\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    },\n    \"type\": \"CONTRACT\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08341eaf-dfbc-460d-b127-766702d80063",
+          "name": "Get Contract Terms",
+          "request": {
+            "name": "Get Contract Terms",
+            "description": {},
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id",
+                "contract_terms",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9995daec-803c-49eb-a0c4-9f6722acdede",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "contract_terms",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"attributes\": {\n      \"rules\": [\n        {\n          \"rule_identifier\": \"string\",\n          \"rule_template_key\": \"string\",\n          \"rule_template_title\": \"string\",\n          \"rule_type\": \"string\",\n          \"param_values\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"input_value_from\": \"string\",\n          \"order_in_block\": 11\n        },\n        {\n          \"rule_identifier\": \"string\",\n          \"rule_template_key\": \"string\",\n          \"rule_template_title\": \"string\",\n          \"rule_type\": \"string\",\n          \"param_values\": {\n            \"key_0\": \"string\"\n          },\n          \"input_value_from\": \"string\",\n          \"order_in_block\": 9078\n        }\n      ],\n      \"general_terms\": {\n        \"deduction_reference_choices\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cash_discount_reference_choices\": [\n          \"string\",\n          \"string\"\n        ],\n        \"cash_discount_percentage\": 1873.3838966121675,\n        \"deduction_percentage\": 4055.1347282570905,\n        \"deduction_reference\": \"string\",\n        \"cash_discount_reference\": \"string\",\n        \"cash_discount_period_unit_single\": \"string\",\n        \"cash_discount_period_unit_installment\": \"string\",\n        \"cash_discount_period_unit_partial_final\": \"string\",\n        \"cash_discount_period_unit_final\": \"string\",\n        \"payment_period_unit_single\": \"string\",\n        \"payment_period_unit_installment\": \"string\",\n        \"payment_period_unit_partial_final\": \"string\",\n        \"payment_period_unit_final\": \"string\",\n        \"cash_discount_period_single\": 969,\n        \"payment_period_single\": 2362,\n        \"payment_period_installment\": 7501,\n        \"cash_discount_period_installment\": 938,\n        \"cash_discount_period_partial_final\": 5425,\n        \"cash_discount_period_final\": 9206,\n        \"payment_period_partial_final\": 7324,\n        \"payment_period_final\": 260\n      },\n      \"calculation_block_order\": [\n        \"deduction\",\n        \"guarantee\"\n      ]\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"CONTRACT_TERMS\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"b85f426a-491b-02f3-3f55-6a81d79713bc\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false,\n        \"key_2\": 6657.38964753803\n      }\n    },\n    {\n      \"id\": \"a27e0fe3-ae07-fd58-3041-2e7a8e200fa0\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": true,\n        \"key_2\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a1c091b-8aa7-4bc0-b1da-287eb5c763be",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "contract_terms",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "353f3475-2880-4dcc-aa77-6313e673b889",
+          "name": "Get Contract Details",
+          "request": {
+            "name": "Get Contract Details",
+            "description": {},
+            "url": {
+              "path": [
+                "contracts",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fd59353f-ffd0-441e-bea6-e95f3f1a557f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"a411bdc7-5033-10ca-6d9f-9523b682d8fa\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"date_contract\": \"1951-07-04\",\n      \"contract_number\": \"string\",\n      \"cost_center\": \"string\",\n      \"description\": \"string\",\n      \"status\": \"DRAFT\",\n      \"is_reverse_charge\": true,\n      \"date_created\": \"1995-06-16T10:47:12.229Z\",\n      \"measure\": \"0c7ef138-f3ec-c015-be61-1f991072828e\",\n      \"contracting_entity\": \"a714481e-ee0b-a148-dc7d-b58db0a22a05\",\n      \"contract_type\": \"STANDARD\",\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"booking_account_number\": 140565130,\n      \"contractor\": \"fcb005a1-6939-b9c9-e47c-4ea8273669ce\",\n      \"reserve_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": 8979,\n      \"key_3\": \"string\"\n    },\n    \"type\": \"CONTRACT\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"45d18811-d7e6-011b-7f07-e8bd24e74bdf\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"57abbcdc-2af8-e97e-fbec-3cdb1cf989b1\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 6031.662907647298\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e75173fc-a8b0-4bb4-bb0e-e548d2d3954b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d480b5a-eb8a-49e0-9e98-847b4de1acb7",
+          "name": "Update Contract",
+          "request": {
+            "name": "Update Contract",
+            "description": {},
+            "url": {
+              "path": [
+                "contracts",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"amount\": {\n        \"currency\": \"<string>\",\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"booking_account_number\": \"<integer>\",\n      \"contract_number\": \"<string>\",\n      \"cost_center\": \"<string>\",\n      \"date_contract\": \"<date>\",\n      \"description\": \"<string>\",\n      \"name\": \"<string>\",\n      \"status\": \"DRAFT\"\n    },\n    \"relationships\": {\n      \"contracting_entity\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"contractor\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"type\": \"CONTRACT\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "065e544f-934e-4572-b85f-9c5eb2a5607e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"14340542-9374-80de-aa7a-a1d93a17ec9e\",\n    \"attributes\": {\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"booking_account_number\": 917120934,\n      \"contract_number\": \"string\",\n      \"cost_center\": \"string\",\n      \"date_contract\": \"1981-10-01\",\n      \"description\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"DRAFT\"\n    },\n    \"relationships\": {\n      \"contracting_entity\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"contractor\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"type\": \"CONTRACT\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"a411bdc7-5033-10ca-6d9f-9523b682d8fa\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"date_contract\": \"1951-07-04\",\n      \"contract_number\": \"string\",\n      \"cost_center\": \"string\",\n      \"description\": \"string\",\n      \"status\": \"DRAFT\",\n      \"is_reverse_charge\": true,\n      \"date_created\": \"1995-06-16T10:47:12.229Z\",\n      \"measure\": \"0c7ef138-f3ec-c015-be61-1f991072828e\",\n      \"contracting_entity\": \"a714481e-ee0b-a148-dc7d-b58db0a22a05\",\n      \"contract_type\": \"STANDARD\",\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"booking_account_number\": 140565130,\n      \"contractor\": \"fcb005a1-6939-b9c9-e47c-4ea8273669ce\",\n      \"reserve_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": 8979,\n      \"key_3\": \"string\"\n    },\n    \"type\": \"CONTRACT\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"45d18811-d7e6-011b-7f07-e8bd24e74bdf\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"57abbcdc-2af8-e97e-fbec-3cdb1cf989b1\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 6031.662907647298\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "263e8ed5-4dcd-4b1f-914c-8bb18e2f93e8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"14340542-9374-80de-aa7a-a1d93a17ec9e\",\n    \"attributes\": {\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"booking_account_number\": 917120934,\n      \"contract_number\": \"string\",\n      \"cost_center\": \"string\",\n      \"date_contract\": \"1981-10-01\",\n      \"description\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"DRAFT\"\n    },\n    \"relationships\": {\n      \"contracting_entity\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"contractor\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"type\": \"CONTRACT\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c182a74-a924-4cc4-924e-4f63553edb13",
+          "name": "Get Contracts By Measure",
+          "request": {
+            "name": "Get Contracts By Measure",
+            "description": {},
+            "url": {
+              "path": [
+                "measures",
+                ":id",
+                "contracts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "\nContains links to related objects.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bdb683b4-c1cb-4092-a7cc-0bdc7515446f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "measures",
+                    ":id",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"dde8b2a4-6ec0-4796-a542-7d42f8e9195e\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1984-06-24\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": true,\n        \"date_created\": \"1970-12-11T14:14:22.443Z\",\n        \"measure\": \"e4485726-5c4b-7f21-c507-57c7bddd04f5\",\n        \"contracting_entity\": \"c4c6ae4a-7a53-e1ae-155e-7bee0ae9540d\",\n        \"contract_type\": \"STANDARD\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 876417947,\n        \"contractor\": \"0c7ada15-a985-7edb-6ebd-a915d9a8edfe\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": \"string\",\n        \"key_2\": 5446\n      },\n      \"type\": \"CONTRACT\"\n    },\n    {\n      \"id\": \"25adb52f-05d7-2875-94bc-bd608da74110\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1971-04-06\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": false,\n        \"date_created\": \"1976-01-19T15:02:46.004Z\",\n        \"measure\": \"e1af68c4-e950-d209-b389-521e6468c064\",\n        \"contracting_entity\": \"5ab2c6cd-5f8d-467f-0174-9364c245ff62\",\n        \"contract_type\": \"MULTIPART\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 402578423,\n        \"contractor\": \"e8596ffa-d2a8-a078-b4b2-689bb35dda39\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      },\n      \"type\": \"CONTRACT\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e02f0724-ceea-4697-7624-4fc93670d458\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 821,\n        \"key_2\": 1242\n      }\n    },\n    {\n      \"id\": \"d90c2e3b-c043-49e3-4120-e60a42046891\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10db2640-98bd-457f-8b33-9dcef6e9b523",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "measures",
+                    ":id",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61a3e335-6081-4e4c-9535-72bd55697bb8",
+          "name": "Get Contracts By Contract Unit",
+          "request": {
+            "name": "Get Contracts By Contract Unit",
+            "description": {},
+            "url": {
+              "path": [
+                "contract_units",
+                ":contract_unit_id",
+                "contracts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "contract_unit_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4b12f64d-2e3b-4f3b-83c9-557df8bd0582",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ":contract_unit_id",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contract_unit_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"8fe26638-cdf9-98ef-fa5f-54655da5c42b\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1966-11-09\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": false,\n        \"date_created\": \"1975-09-15T04:46:27.669Z\",\n        \"contracting_entity\": \"44e1c7ee-6837-d97d-0c4e-390ed4b02811\",\n        \"contract_unit\": \"18a48077-9035-e977-2c7c-41822adafa0f\",\n        \"contract_type\": \"MULTIPART\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 267594004,\n        \"contractor\": \"29a6d541-8e51-6233-22c4-2ace29f5a327\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 4254.076834616367\n      },\n      \"type\": \"CONTRACT\"\n    },\n    {\n      \"id\": \"22ce9d40-fe86-7ceb-853f-4b04971759f3\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"date_contract\": \"1950-10-26\",\n        \"contract_number\": \"string\",\n        \"cost_center\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"DRAFT\",\n        \"is_reverse_charge\": false,\n        \"date_created\": \"1961-07-26T08:15:15.789Z\",\n        \"contracting_entity\": \"e99ac993-de1f-5d82-4242-603c07270533\",\n        \"contract_unit\": \"8ea657d4-0edc-49b7-a9f3-9fb79ac7084e\",\n        \"contract_type\": \"STANDARD\",\n        \"amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"booking_account_number\": 355765483,\n        \"contractor\": \"f31c8ec9-6431-5ede-0938-0425ee304981\",\n        \"reserve_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 8104.379436474544,\n        \"key_1\": 4838.32937356119,\n        \"key_2\": \"string\",\n        \"key_3\": 2874.910236338416\n      },\n      \"type\": \"CONTRACT\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"72bd67b3-a402-e3dd-fa4b-1425d4c71506\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 1049,\n        \"key_1\": 1576.2024932498741,\n        \"key_2\": 648.0189939050696\n      }\n    },\n    {\n      \"id\": \"4bddcfd6-7e6f-6f13-f70e-1e83ddcaf206\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4479a43c-1015-4cf3-97de-27cb79965267",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ":contract_unit_id",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contract_unit_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8e96df23-24d3-46d9-a744-6f1351024b1d",
+    "name": "CAPEX Annual Consumption Contract API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

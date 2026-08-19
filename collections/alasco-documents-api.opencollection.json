@@ -1,0 +1,196 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Documents API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get File Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/file-events/",
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get File Events"
+        },
+        {
+          "info": {
+            "name": "Upload File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/files/",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload File"
+        },
+        {
+          "info": {
+            "name": "Delete File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alasco.de/capex/v1/files/",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete File"
+        },
+        {
+          "info": {
+            "name": "Get File Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/files/metadata/",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get File Metadata"
+        },
+        {
+          "info": {
+            "name": "Patch File Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.alasco.de/capex/v1/files/metadata/",
+            "params": [
+              {
+                "name": "external_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Patch File Metadata"
+        },
+        {
+          "info": {
+            "name": "Get File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/files/:file_id/",
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get File"
+        },
+        {
+          "info": {
+            "name": "Create File External Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/files/:file_id/external-id/",
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create File External Id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

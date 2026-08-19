@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Consumption Intervals API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consumption Intervals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Consumption Interval",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/consumption-intervals/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Consumption Interval"
+        },
+        {
+          "info": {
+            "name": "Bulk Create Consumption Intervals Partial",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/consumption-intervals/bulk-partial/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk Create Consumption Intervals Partial"
+        },
+        {
+          "info": {
+            "name": "Bulk Create Consumption Intervals",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/consumption-intervals/bulk/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk Create Consumption Intervals"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

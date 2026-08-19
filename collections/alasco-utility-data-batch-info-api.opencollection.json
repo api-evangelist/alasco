@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Utility Data Batch Info API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Utility Data Batch Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add Utility Data Batch Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/utility-data-batch-info/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add Utility Data Batch Info"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

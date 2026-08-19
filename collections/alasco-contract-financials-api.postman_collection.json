@@ -1,0 +1,203 @@
+{
+  "item": [
+    {
+      "id": "ee2078f1-50c0-430a-bc7a-c5256d27db0d",
+      "name": "Contract Financials",
+      "description": {
+        "content": "Read-only reporting view with one row per **Contract**, summarising its amount, invoiced, approved, paid and outstanding figures.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "58bcd183-f02d-46c2-b715-20a8053db93f",
+          "name": "Get Contract Financials",
+          "request": {
+            "name": "Get Contract Financials",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "contracts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `in` | `not_in` |\n| :--- | :---: | :---: |\n| `project` | x | x |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "25063943-592d-46fa-a911-ecb5ea4e80a5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"7b6db85c-57ca-3521-4af8-e4f7c22f6a08\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"contract_unit\": \"a0ab471a-69ef-7a6d-5a62-ab4dfbc76c0d\",\n        \"project\": \"54adb4af-aa8d-a2a8-6195-e391b00777c6\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"change_orders_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_amount_in_draft\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_cost_forecast_real_case\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_cost_forecast_worst_case\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_planned_receivables_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_realised_receivables_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_cost_allocations\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_discounts\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_retentions\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"main_contract_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"manual_retentions\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"open_change_orders_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"open_change_orders_amount_unweighted\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"paid_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"progress_reported\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"realised_cash_discount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"realised_cash_discount_paid\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"reserves_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"risk_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 6741.197530070369,\n        \"key_1\": true\n      }\n    },\n    {\n      \"id\": \"a5d9db66-9699-a323-a008-d595e787ff9e\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"contract_unit\": \"04ccbba8-a9bd-c8e5-e78e-ecb0e9aa7e9b\",\n        \"project\": \"c3f09450-3e47-e21a-50ac-8954004ced8a\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"change_orders_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_amount_in_draft\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_cost_forecast_real_case\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_cost_forecast_worst_case\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_planned_receivables_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_realised_receivables_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_cost_allocations\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_discounts\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_retentions\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"main_contract_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"manual_retentions\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"open_change_orders_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"open_change_orders_amount_unweighted\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"paid_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"progress_reported\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"realised_cash_discount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"realised_cash_discount_paid\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"reserves_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"risk_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 9127,\n        \"key_1\": 2398\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"5b0714da-e3b5-fcf8-052e-bb95690d6580\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"contract_unit\": \"3d53433d-bad0-feec-7e3b-cdb3a2f24952\",\n        \"project\": \"b7c93dee-d394-e1e4-5983-17ea967c93c1\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"change_orders_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_amount_in_draft\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_cost_forecast_real_case\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_cost_forecast_worst_case\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_planned_receivables_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_realised_receivables_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_cost_allocations\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_discounts\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_retentions\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"main_contract_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"manual_retentions\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"open_change_orders_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"open_change_orders_amount_unweighted\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"paid_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"progress_reported\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"realised_cash_discount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"realised_cash_discount_paid\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"reserves_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"risk_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 6539,\n        \"key_1\": 7489,\n        \"key_2\": false\n      }\n    },\n    {\n      \"id\": \"7b0216a8-9e02-66f2-4260-debd408af541\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"contract_unit\": \"0bb5d845-91cb-7d17-d1a0-af59c42be11f\",\n        \"project\": \"35a74e14-e9e2-62ec-c6e4-e841b892eea0\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"change_orders_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_amount_in_draft\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_cost_forecast_real_case\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_cost_forecast_worst_case\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_planned_receivables_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract_realised_receivables_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_cost_allocations\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_discounts\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contractual_retentions\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"main_contract_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"manual_retentions\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"open_change_orders_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"open_change_orders_amount_unweighted\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"paid_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"progress_reported\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"realised_cash_discount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"realised_cash_discount_paid\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"reserves_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"risk_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 1082.691871351914\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f1e9cff-a846-4c5b-8327-1ba7d05edf6c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "contracts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f38f3362-ca1c-4525-b5e7-86128afb0708",
+    "name": "CAPEX Annual Consumption Contract Financials API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

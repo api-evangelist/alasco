@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Cash Outflow Cost Element View API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cash Outflow Cost Element View",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Cash Outflow Cost Element View",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/reporting/cash_outflow/cost_elements/",
+            "params": [
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` |\n| :--- | :---: |\n| `project` | x |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "(BETA!) This endpoint is in a testing phase and the response payload may change. Returns cash outflow nodes for a single project in a cost element view."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

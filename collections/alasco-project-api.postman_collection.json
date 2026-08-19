@@ -1,0 +1,1057 @@
+{
+  "item": [
+    {
+      "id": "0301bf9c-e13a-4c6d-a30f-f43e2d41c732",
+      "name": "Project",
+      "description": {
+        "content": "A **Project** is the top-level container for a construction or development engagement. It optionally references a **Property** and a **Cost Element Tree Template**, and organises spend through **Contract Units** and **Contracts**. Projects can be created and updated through the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ba3d7cb4-362a-4fa6-8fcd-9f8dbe804f80",
+          "name": "Get Projects By Contracting Entity",
+          "request": {
+            "name": "Get Projects By Contracting Entity",
+            "description": {},
+            "url": {
+              "path": [
+                "contracting_entities",
+                ":contracting_entity_id",
+                "projects",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "contracting_entity_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1c0a43da-12c2-4566-ba21-a56f1d6e42bf",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ":contracting_entity_id",
+                    "projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contracting_entity_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"a0313b1c-b2e5-fa51-4b9d-aabde35553dd\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"0023945.9\",\n        \"default_contracting_entity\": \"2e4d0a0d-574f-86a2-8a16-ab5a786ae65f\",\n        \"property\": \"14247a77-8ec9-4898-7367-dd50eecd3378\",\n        \"commercial_area\": \"-003204.8\",\n        \"commercial_usage_ratio\": \"0375\",\n        \"cost_element_tree_template\": \"7ffa4688-da7a-6e3f-06a5-413d7db898ec\",\n        \"effective_floor_area\": \"00406087\",\n        \"estimated_end_date\": \"1982-10-09\",\n        \"estimated_start_date\": \"1954-01-21\",\n        \"gross_floor_area\": \"0000000006592706386\",\n        \"gross_volume\": \"00000000048532447.98847255\",\n        \"is_active\": true,\n        \"project_usage\": \"COMMERCIAL_USAGE\",\n        \"rental_area\": \"001334736.466242839\",\n        \"residential_area\": \"+007311.9\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 6773.299743058995\n      }\n    },\n    {\n      \"id\": \"c976ccde-1f5e-9e86-2831-c821a5023754\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"0000000008818\",\n        \"default_contracting_entity\": \"91c75f0b-ea9e-5f71-5a30-b7088b9fa78d\",\n        \"property\": \"794b7ebf-3b81-d02a-7a46-4377885ebfe9\",\n        \"commercial_area\": \"+08379746164\",\n        \"commercial_usage_ratio\": \"+0000000000499\",\n        \"cost_element_tree_template\": \"6a22c43a-afe5-fe75-43cc-5d42c25f46c6\",\n        \"effective_floor_area\": \"-0000000002971985.177168582\",\n        \"estimated_end_date\": \"1972-05-03\",\n        \"estimated_start_date\": \"1980-05-17\",\n        \"gross_floor_area\": \"000\",\n        \"gross_volume\": \"0000000000484656163518919\",\n        \"is_active\": true,\n        \"project_usage\": \"COMMERCIAL_USAGE\",\n        \"rental_area\": \"000000596743391582\",\n        \"residential_area\": \"00000001493625768.63\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"3924dacb-83f5-205f-e8f7-c5a7a8f5e6d1\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"+00000000008844144820511650\",\n        \"default_contracting_entity\": \"a7acffa1-fa99-e6c5-f262-2bae931c2fe3\",\n        \"property\": \"9ec682f1-4cff-ee46-2948-59b6e2da2649\",\n        \"commercial_area\": \"00000086296.764010\",\n        \"commercial_usage_ratio\": \"00000083\",\n        \"cost_element_tree_template\": \"809a97f4-48bf-f6db-a12f-3ffeb578b45a\",\n        \"effective_floor_area\": \"+0000245848.50123\",\n        \"estimated_end_date\": \"2007-03-30\",\n        \"estimated_start_date\": \"1949-10-02\",\n        \"gross_floor_area\": \"+000079005\",\n        \"gross_volume\": \"000000587377900.663\",\n        \"is_active\": true,\n        \"project_usage\": \"MIXED_USAGE\",\n        \"rental_area\": \"000000000054449674\",\n        \"residential_area\": \"-0002528\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 5205,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"e058806f-7506-ceb7-ed37-9637959dcbf1\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"+83629.11\",\n        \"default_contracting_entity\": \"55548b56-6402-f4a9-a4af-ea9832333c4c\",\n        \"property\": \"a65e8e80-29d9-5269-c503-a173ea2a2528\",\n        \"commercial_area\": \"0000000009.5551\",\n        \"commercial_usage_ratio\": \"-00004.1875\",\n        \"cost_element_tree_template\": \"5822ec3d-c663-bcbe-8f6c-7d56e19d5c10\",\n        \"effective_floor_area\": \"+0000000000988.\",\n        \"estimated_end_date\": \"1949-07-05\",\n        \"estimated_start_date\": \"1961-01-10\",\n        \"gross_floor_area\": \"-0068369264648\",\n        \"gross_volume\": \"-000000012407361.48881\",\n        \"is_active\": true,\n        \"project_usage\": \"MIXED_USAGE\",\n        \"rental_area\": \"+000310109874.3326\",\n        \"residential_area\": \"00082263\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 5179.819798006611\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35f0bf6f-a3fe-4ab6-9592-748de84d3dc5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ":contracting_entity_id",
+                    "projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contracting_entity_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b6616ef-46fd-4bbc-bbe9-5f20a9079932",
+          "name": "Get Projects",
+          "request": {
+            "name": "Get Projects",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n* `is`: Expects one value\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |   |\n| `name` | x | x |   |   |   |   |   |   |\n| `identifier` | x | x |   |   |   |   |   |   |\n| `description` | x | x |   |   |   |   |   |   |\n| `default_tax_rate` |   |   | x | x | x |   |   | x |\n| `use_cost_elements` |   |   |   |   |   |   |   | x |\n| `default_contracting_entity` |   |   |   |   |   | x | x |   |\n| `property` |   |   |   |   |   | x | x |   |\n| `cost_element_tree_template` |   |   |   |   |   | x | x |   |\n| `is_active` |   |   |   |   |   |   |   | x |\n| `estimated_start_date` |   |   | x | x | x |   |   | x |\n| `estimated_end_date` |   |   | x | x | x |   |   | x |\n| `gross_floor_area` |   |   | x | x | x |   |   | x |\n| `effective_floor_area` |   |   | x | x | x |   |   | x |\n| `residential_area` |   |   | x | x | x |   |   | x |\n| `commercial_area` |   |   | x | x | x |   |   | x |\n| `rental_area` |   |   | x | x | x |   |   | x |\n| `gross_volume` |   |   | x | x | x |   |   | x |\n| `commercial_usage_ratio` |   |   | x | x | x |   |   | x |\n| `project_usage` |   |   |   |   |   | x | x |   |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a8d4a40e-e36d-42d6-8070-487cf604adb5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"a0313b1c-b2e5-fa51-4b9d-aabde35553dd\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"0023945.9\",\n        \"default_contracting_entity\": \"2e4d0a0d-574f-86a2-8a16-ab5a786ae65f\",\n        \"property\": \"14247a77-8ec9-4898-7367-dd50eecd3378\",\n        \"commercial_area\": \"-003204.8\",\n        \"commercial_usage_ratio\": \"0375\",\n        \"cost_element_tree_template\": \"7ffa4688-da7a-6e3f-06a5-413d7db898ec\",\n        \"effective_floor_area\": \"00406087\",\n        \"estimated_end_date\": \"1982-10-09\",\n        \"estimated_start_date\": \"1954-01-21\",\n        \"gross_floor_area\": \"0000000006592706386\",\n        \"gross_volume\": \"00000000048532447.98847255\",\n        \"is_active\": true,\n        \"project_usage\": \"COMMERCIAL_USAGE\",\n        \"rental_area\": \"001334736.466242839\",\n        \"residential_area\": \"+007311.9\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 6773.299743058995\n      }\n    },\n    {\n      \"id\": \"c976ccde-1f5e-9e86-2831-c821a5023754\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"0000000008818\",\n        \"default_contracting_entity\": \"91c75f0b-ea9e-5f71-5a30-b7088b9fa78d\",\n        \"property\": \"794b7ebf-3b81-d02a-7a46-4377885ebfe9\",\n        \"commercial_area\": \"+08379746164\",\n        \"commercial_usage_ratio\": \"+0000000000499\",\n        \"cost_element_tree_template\": \"6a22c43a-afe5-fe75-43cc-5d42c25f46c6\",\n        \"effective_floor_area\": \"-0000000002971985.177168582\",\n        \"estimated_end_date\": \"1972-05-03\",\n        \"estimated_start_date\": \"1980-05-17\",\n        \"gross_floor_area\": \"000\",\n        \"gross_volume\": \"0000000000484656163518919\",\n        \"is_active\": true,\n        \"project_usage\": \"COMMERCIAL_USAGE\",\n        \"rental_area\": \"000000596743391582\",\n        \"residential_area\": \"00000001493625768.63\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"3924dacb-83f5-205f-e8f7-c5a7a8f5e6d1\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"+00000000008844144820511650\",\n        \"default_contracting_entity\": \"a7acffa1-fa99-e6c5-f262-2bae931c2fe3\",\n        \"property\": \"9ec682f1-4cff-ee46-2948-59b6e2da2649\",\n        \"commercial_area\": \"00000086296.764010\",\n        \"commercial_usage_ratio\": \"00000083\",\n        \"cost_element_tree_template\": \"809a97f4-48bf-f6db-a12f-3ffeb578b45a\",\n        \"effective_floor_area\": \"+0000245848.50123\",\n        \"estimated_end_date\": \"2007-03-30\",\n        \"estimated_start_date\": \"1949-10-02\",\n        \"gross_floor_area\": \"+000079005\",\n        \"gross_volume\": \"000000587377900.663\",\n        \"is_active\": true,\n        \"project_usage\": \"MIXED_USAGE\",\n        \"rental_area\": \"000000000054449674\",\n        \"residential_area\": \"-0002528\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 5205,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"e058806f-7506-ceb7-ed37-9637959dcbf1\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"+83629.11\",\n        \"default_contracting_entity\": \"55548b56-6402-f4a9-a4af-ea9832333c4c\",\n        \"property\": \"a65e8e80-29d9-5269-c503-a173ea2a2528\",\n        \"commercial_area\": \"0000000009.5551\",\n        \"commercial_usage_ratio\": \"-00004.1875\",\n        \"cost_element_tree_template\": \"5822ec3d-c663-bcbe-8f6c-7d56e19d5c10\",\n        \"effective_floor_area\": \"+0000000000988.\",\n        \"estimated_end_date\": \"1949-07-05\",\n        \"estimated_start_date\": \"1961-01-10\",\n        \"gross_floor_area\": \"-0068369264648\",\n        \"gross_volume\": \"-000000012407361.48881\",\n        \"is_active\": true,\n        \"project_usage\": \"MIXED_USAGE\",\n        \"rental_area\": \"+000310109874.3326\",\n        \"residential_area\": \"00082263\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 5179.819798006611\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21abb4c8-5880-46aa-8a35-ffb8530a8d72",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23b9ce07-55b4-420c-8226-02e45238e934",
+          "name": "Create Project",
+          "request": {
+            "name": "Create Project",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"property\": \"<uuid>\",\n      \"default_contracting_entity\": \"<uuid>\",\n      \"commercial_area\": \"<number>\",\n      \"commercial_usage_ratio\": \"<number>\",\n      \"cost_element_tree_template\": \"<uuid>\",\n      \"default_tax_rate\": \"<number>\",\n      \"description\": \"<string>\",\n      \"effective_floor_area\": \"<number>\",\n      \"estimated_end_date\": \"<date>\",\n      \"estimated_start_date\": \"<date>\",\n      \"gross_floor_area\": \"<number>\",\n      \"gross_volume\": \"<number>\",\n      \"identifier\": \"<string>\",\n      \"project_usage\": \"<string>\",\n      \"rental_area\": \"<number>\",\n      \"residential_area\": \"<number>\",\n      \"use_cost_elements\": false\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6d5a8070-8ace-407a-94fb-4c1b6b74ead0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"property\": \"1610a083-8b84-054e-ec6a-1be24d5dad69\",\n      \"default_contracting_entity\": \"eb67352b-cb50-fafe-f50d-c91a3539489c\",\n      \"commercial_area\": 1638.8168699321348,\n      \"commercial_usage_ratio\": 9900.349027363975,\n      \"cost_element_tree_template\": \"7da9bce0-4b80-48e3-f6dd-fc42f5e0f93a\",\n      \"default_tax_rate\": 2021.2009107337346,\n      \"description\": \"string\",\n      \"effective_floor_area\": 1329.956924235729,\n      \"estimated_end_date\": \"1981-11-05\",\n      \"estimated_start_date\": \"1964-05-04\",\n      \"gross_floor_area\": 9583.54426800552,\n      \"gross_volume\": 119.0699305445031,\n      \"identifier\": \"string\",\n      \"project_usage\": \"COMMERCIAL_USAGE\",\n      \"rental_area\": 7863.239306726297,\n      \"residential_area\": 9073.38231006022,\n      \"use_cost_elements\": false\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"dfac0ad4-05ac-67ea-2ea2-f282a0e6c945\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"identifier\": \"string\",\n      \"description\": \"string\",\n      \"default_tax_rate\": \"00000044059727.796114\",\n      \"default_contracting_entity\": \"cad5d383-c3e9-127d-35c0-d92863f77c41\",\n      \"property\": \"e193475c-4ea6-e161-9eb9-857f3847ca69\",\n      \"commercial_area\": \"-02684.329151\",\n      \"commercial_usage_ratio\": \"+0000.8483\",\n      \"cost_element_tree_template\": \"55dbd1c0-d91c-2b61-c773-c29359392a54\",\n      \"effective_floor_area\": \"000000000550947440\",\n      \"estimated_end_date\": \"2008-09-29\",\n      \"estimated_start_date\": \"2019-07-25\",\n      \"gross_floor_area\": \"+004797007753423\",\n      \"gross_volume\": \"-000731.9\",\n      \"is_active\": true,\n      \"project_usage\": \"NON_COMMERCIAL_USAGE\",\n      \"rental_area\": \"-00000737.485785165\",\n      \"residential_area\": \"+0000027006846.6375503042\",\n      \"use_cost_elements\": false\n    },\n    \"relationships\": {\n      \"key_0\": 7916,\n      \"key_1\": 2470.1291884552334\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"74aac03b-b150-8297-1a91-92b46a3aef93\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"00067\",\n        \"default_contracting_entity\": \"c7e5076d-e3c2-d0ce-b836-c286612909ba\",\n        \"property\": \"9203851d-8d23-e6df-2eb9-db5de0b43cbb\",\n        \"commercial_area\": \"-075279197718529\",\n        \"commercial_usage_ratio\": \"000000006289.\",\n        \"cost_element_tree_template\": \"62bb3866-c17e-a846-d4e1-e4f880c48d5a\",\n        \"effective_floor_area\": \"+000000773803120.82480627\",\n        \"estimated_end_date\": \"1970-05-03\",\n        \"estimated_start_date\": \"2007-05-30\",\n        \"gross_floor_area\": \"00087596485750977\",\n        \"gross_volume\": \"000000000834725392558\",\n        \"is_active\": true,\n        \"project_usage\": \"NON_COMMERCIAL_USAGE\",\n        \"rental_area\": \"06013.0995028\",\n        \"residential_area\": \"00022265313586033867\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 355.0001549352766\n      }\n    },\n    {\n      \"id\": \"3401a156-a2a0-bda0-7459-e930d1def0da\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"+14.0\",\n        \"default_contracting_entity\": \"4370f8bc-bb46-43f3-805b-04da85dfc6ab\",\n        \"property\": \"24691e4c-c0ba-dd77-5394-f930423ef6fc\",\n        \"commercial_area\": \"0005071.64310699\",\n        \"commercial_usage_ratio\": \"+0000000006751962724694\",\n        \"cost_element_tree_template\": \"ecabee34-24af-6538-403a-4e9af0a9efa0\",\n        \"effective_floor_area\": \"-1.24938662\",\n        \"estimated_end_date\": \"1992-06-09\",\n        \"estimated_start_date\": \"1952-02-12\",\n        \"gross_floor_area\": \"+000000000350426120\",\n        \"gross_volume\": \"-000000000295133.80217380\",\n        \"is_active\": true,\n        \"project_usage\": \"COMMERCIAL_USAGE\",\n        \"rental_area\": \"0000031.17\",\n        \"residential_area\": \"-00021982605209831\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 5412,\n        \"key_1\": 2429.312665679917\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3d5360c-6329-4873-b8ff-6207a95ad6e8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"property\": \"1610a083-8b84-054e-ec6a-1be24d5dad69\",\n      \"default_contracting_entity\": \"eb67352b-cb50-fafe-f50d-c91a3539489c\",\n      \"commercial_area\": 1638.8168699321348,\n      \"commercial_usage_ratio\": 9900.349027363975,\n      \"cost_element_tree_template\": \"7da9bce0-4b80-48e3-f6dd-fc42f5e0f93a\",\n      \"default_tax_rate\": 2021.2009107337346,\n      \"description\": \"string\",\n      \"effective_floor_area\": 1329.956924235729,\n      \"estimated_end_date\": \"1981-11-05\",\n      \"estimated_start_date\": \"1964-05-04\",\n      \"gross_floor_area\": 9583.54426800552,\n      \"gross_volume\": 119.0699305445031,\n      \"identifier\": \"string\",\n      \"project_usage\": \"COMMERCIAL_USAGE\",\n      \"rental_area\": 7863.239306726297,\n      \"residential_area\": 9073.38231006022,\n      \"use_cost_elements\": false\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4682c238-ceaa-45c6-b3ea-885279f9da64",
+          "name": "Get Project Details",
+          "request": {
+            "name": "Get Project Details",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6a406dc7-b9e8-42bf-9b6a-65fee522b86c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"dfac0ad4-05ac-67ea-2ea2-f282a0e6c945\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"identifier\": \"string\",\n      \"description\": \"string\",\n      \"default_tax_rate\": \"00000044059727.796114\",\n      \"default_contracting_entity\": \"cad5d383-c3e9-127d-35c0-d92863f77c41\",\n      \"property\": \"e193475c-4ea6-e161-9eb9-857f3847ca69\",\n      \"commercial_area\": \"-02684.329151\",\n      \"commercial_usage_ratio\": \"+0000.8483\",\n      \"cost_element_tree_template\": \"55dbd1c0-d91c-2b61-c773-c29359392a54\",\n      \"effective_floor_area\": \"000000000550947440\",\n      \"estimated_end_date\": \"2008-09-29\",\n      \"estimated_start_date\": \"2019-07-25\",\n      \"gross_floor_area\": \"+004797007753423\",\n      \"gross_volume\": \"-000731.9\",\n      \"is_active\": true,\n      \"project_usage\": \"NON_COMMERCIAL_USAGE\",\n      \"rental_area\": \"-00000737.485785165\",\n      \"residential_area\": \"+0000027006846.6375503042\",\n      \"use_cost_elements\": false\n    },\n    \"relationships\": {\n      \"key_0\": 7916,\n      \"key_1\": 2470.1291884552334\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"74aac03b-b150-8297-1a91-92b46a3aef93\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"00067\",\n        \"default_contracting_entity\": \"c7e5076d-e3c2-d0ce-b836-c286612909ba\",\n        \"property\": \"9203851d-8d23-e6df-2eb9-db5de0b43cbb\",\n        \"commercial_area\": \"-075279197718529\",\n        \"commercial_usage_ratio\": \"000000006289.\",\n        \"cost_element_tree_template\": \"62bb3866-c17e-a846-d4e1-e4f880c48d5a\",\n        \"effective_floor_area\": \"+000000773803120.82480627\",\n        \"estimated_end_date\": \"1970-05-03\",\n        \"estimated_start_date\": \"2007-05-30\",\n        \"gross_floor_area\": \"00087596485750977\",\n        \"gross_volume\": \"000000000834725392558\",\n        \"is_active\": true,\n        \"project_usage\": \"NON_COMMERCIAL_USAGE\",\n        \"rental_area\": \"06013.0995028\",\n        \"residential_area\": \"00022265313586033867\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 355.0001549352766\n      }\n    },\n    {\n      \"id\": \"3401a156-a2a0-bda0-7459-e930d1def0da\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"+14.0\",\n        \"default_contracting_entity\": \"4370f8bc-bb46-43f3-805b-04da85dfc6ab\",\n        \"property\": \"24691e4c-c0ba-dd77-5394-f930423ef6fc\",\n        \"commercial_area\": \"0005071.64310699\",\n        \"commercial_usage_ratio\": \"+0000000006751962724694\",\n        \"cost_element_tree_template\": \"ecabee34-24af-6538-403a-4e9af0a9efa0\",\n        \"effective_floor_area\": \"-1.24938662\",\n        \"estimated_end_date\": \"1992-06-09\",\n        \"estimated_start_date\": \"1952-02-12\",\n        \"gross_floor_area\": \"+000000000350426120\",\n        \"gross_volume\": \"-000000000295133.80217380\",\n        \"is_active\": true,\n        \"project_usage\": \"COMMERCIAL_USAGE\",\n        \"rental_area\": \"0000031.17\",\n        \"residential_area\": \"-00021982605209831\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 5412,\n        \"key_1\": 2429.312665679917\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc7ff263-0182-4f82-9805-2ba7b7f5afa1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1346909f-ddbd-47ca-a468-a546ee53bdf4",
+          "name": "Update Project",
+          "request": {
+            "name": "Update Project",
+            "description": {},
+            "url": {
+              "path": [
+                "projects",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"commercial_area\": \"<number>\",\n      \"commercial_usage_ratio\": \"<number>\",\n      \"default_contracting_entity\": \"<uuid>\",\n      \"default_tax_rate\": \"<number>\",\n      \"description\": \"<string>\",\n      \"effective_floor_area\": \"<number>\",\n      \"estimated_end_date\": \"<date>\",\n      \"estimated_start_date\": \"<date>\",\n      \"gross_floor_area\": \"<number>\",\n      \"gross_volume\": \"<number>\",\n      \"identifier\": \"<string>\",\n      \"name\": \"<string>\",\n      \"project_usage\": \"<string>\",\n      \"rental_area\": \"<number>\",\n      \"residential_area\": \"<number>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0b3b1e8e-64d0-4c6b-bef6-d8910617ebf5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"commercial_area\": 4883.727303710932,\n      \"commercial_usage_ratio\": 9800.301944106679,\n      \"default_contracting_entity\": \"765c8da6-cf24-eee1-f312-98fc5f4722dc\",\n      \"default_tax_rate\": 8824.872810755665,\n      \"description\": \"string\",\n      \"effective_floor_area\": 4076.875201996861,\n      \"estimated_end_date\": \"2001-11-30\",\n      \"estimated_start_date\": \"1953-08-16\",\n      \"gross_floor_area\": 3383.8596127975375,\n      \"gross_volume\": 3410.896613636912,\n      \"identifier\": \"string\",\n      \"name\": \"string\",\n      \"project_usage\": \"NON_COMMERCIAL_USAGE\",\n      \"rental_area\": 3747.864945331175,\n      \"residential_area\": 529.8092396459342\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"dfac0ad4-05ac-67ea-2ea2-f282a0e6c945\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"identifier\": \"string\",\n      \"description\": \"string\",\n      \"default_tax_rate\": \"00000044059727.796114\",\n      \"default_contracting_entity\": \"cad5d383-c3e9-127d-35c0-d92863f77c41\",\n      \"property\": \"e193475c-4ea6-e161-9eb9-857f3847ca69\",\n      \"commercial_area\": \"-02684.329151\",\n      \"commercial_usage_ratio\": \"+0000.8483\",\n      \"cost_element_tree_template\": \"55dbd1c0-d91c-2b61-c773-c29359392a54\",\n      \"effective_floor_area\": \"000000000550947440\",\n      \"estimated_end_date\": \"2008-09-29\",\n      \"estimated_start_date\": \"2019-07-25\",\n      \"gross_floor_area\": \"+004797007753423\",\n      \"gross_volume\": \"-000731.9\",\n      \"is_active\": true,\n      \"project_usage\": \"NON_COMMERCIAL_USAGE\",\n      \"rental_area\": \"-00000737.485785165\",\n      \"residential_area\": \"+0000027006846.6375503042\",\n      \"use_cost_elements\": false\n    },\n    \"relationships\": {\n      \"key_0\": 7916,\n      \"key_1\": 2470.1291884552334\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"74aac03b-b150-8297-1a91-92b46a3aef93\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"00067\",\n        \"default_contracting_entity\": \"c7e5076d-e3c2-d0ce-b836-c286612909ba\",\n        \"property\": \"9203851d-8d23-e6df-2eb9-db5de0b43cbb\",\n        \"commercial_area\": \"-075279197718529\",\n        \"commercial_usage_ratio\": \"000000006289.\",\n        \"cost_element_tree_template\": \"62bb3866-c17e-a846-d4e1-e4f880c48d5a\",\n        \"effective_floor_area\": \"+000000773803120.82480627\",\n        \"estimated_end_date\": \"1970-05-03\",\n        \"estimated_start_date\": \"2007-05-30\",\n        \"gross_floor_area\": \"00087596485750977\",\n        \"gross_volume\": \"000000000834725392558\",\n        \"is_active\": true,\n        \"project_usage\": \"NON_COMMERCIAL_USAGE\",\n        \"rental_area\": \"06013.0995028\",\n        \"residential_area\": \"00022265313586033867\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 355.0001549352766\n      }\n    },\n    {\n      \"id\": \"3401a156-a2a0-bda0-7459-e930d1def0da\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"+14.0\",\n        \"default_contracting_entity\": \"4370f8bc-bb46-43f3-805b-04da85dfc6ab\",\n        \"property\": \"24691e4c-c0ba-dd77-5394-f930423ef6fc\",\n        \"commercial_area\": \"0005071.64310699\",\n        \"commercial_usage_ratio\": \"+0000000006751962724694\",\n        \"cost_element_tree_template\": \"ecabee34-24af-6538-403a-4e9af0a9efa0\",\n        \"effective_floor_area\": \"-1.24938662\",\n        \"estimated_end_date\": \"1992-06-09\",\n        \"estimated_start_date\": \"1952-02-12\",\n        \"gross_floor_area\": \"+000000000350426120\",\n        \"gross_volume\": \"-000000000295133.80217380\",\n        \"is_active\": true,\n        \"project_usage\": \"COMMERCIAL_USAGE\",\n        \"rental_area\": \"0000031.17\",\n        \"residential_area\": \"-00021982605209831\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 5412,\n        \"key_1\": 2429.312665679917\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "757113f3-9c1f-45cf-9cbe-0537b169cc29",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"commercial_area\": 4883.727303710932,\n      \"commercial_usage_ratio\": 9800.301944106679,\n      \"default_contracting_entity\": \"765c8da6-cf24-eee1-f312-98fc5f4722dc\",\n      \"default_tax_rate\": 8824.872810755665,\n      \"description\": \"string\",\n      \"effective_floor_area\": 4076.875201996861,\n      \"estimated_end_date\": \"2001-11-30\",\n      \"estimated_start_date\": \"1953-08-16\",\n      \"gross_floor_area\": 3383.8596127975375,\n      \"gross_volume\": 3410.896613636912,\n      \"identifier\": \"string\",\n      \"name\": \"string\",\n      \"project_usage\": \"NON_COMMERCIAL_USAGE\",\n      \"rental_area\": 3747.864945331175,\n      \"residential_area\": 529.8092396459342\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f061d43-23ad-4711-b89a-f4bd14dbd806",
+          "name": "Get Projects By Property",
+          "request": {
+            "name": "Get Projects By Property",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":property_id",
+                "projects",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "property_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "42c79ad9-6c1a-49ea-8103-f7b30d29cb02",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":property_id",
+                    "projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "property_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"a0313b1c-b2e5-fa51-4b9d-aabde35553dd\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"0023945.9\",\n        \"default_contracting_entity\": \"2e4d0a0d-574f-86a2-8a16-ab5a786ae65f\",\n        \"property\": \"14247a77-8ec9-4898-7367-dd50eecd3378\",\n        \"commercial_area\": \"-003204.8\",\n        \"commercial_usage_ratio\": \"0375\",\n        \"cost_element_tree_template\": \"7ffa4688-da7a-6e3f-06a5-413d7db898ec\",\n        \"effective_floor_area\": \"00406087\",\n        \"estimated_end_date\": \"1982-10-09\",\n        \"estimated_start_date\": \"1954-01-21\",\n        \"gross_floor_area\": \"0000000006592706386\",\n        \"gross_volume\": \"00000000048532447.98847255\",\n        \"is_active\": true,\n        \"project_usage\": \"COMMERCIAL_USAGE\",\n        \"rental_area\": \"001334736.466242839\",\n        \"residential_area\": \"+007311.9\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 6773.299743058995\n      }\n    },\n    {\n      \"id\": \"c976ccde-1f5e-9e86-2831-c821a5023754\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"0000000008818\",\n        \"default_contracting_entity\": \"91c75f0b-ea9e-5f71-5a30-b7088b9fa78d\",\n        \"property\": \"794b7ebf-3b81-d02a-7a46-4377885ebfe9\",\n        \"commercial_area\": \"+08379746164\",\n        \"commercial_usage_ratio\": \"+0000000000499\",\n        \"cost_element_tree_template\": \"6a22c43a-afe5-fe75-43cc-5d42c25f46c6\",\n        \"effective_floor_area\": \"-0000000002971985.177168582\",\n        \"estimated_end_date\": \"1972-05-03\",\n        \"estimated_start_date\": \"1980-05-17\",\n        \"gross_floor_area\": \"000\",\n        \"gross_volume\": \"0000000000484656163518919\",\n        \"is_active\": true,\n        \"project_usage\": \"COMMERCIAL_USAGE\",\n        \"rental_area\": \"000000596743391582\",\n        \"residential_area\": \"00000001493625768.63\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"3924dacb-83f5-205f-e8f7-c5a7a8f5e6d1\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"+00000000008844144820511650\",\n        \"default_contracting_entity\": \"a7acffa1-fa99-e6c5-f262-2bae931c2fe3\",\n        \"property\": \"9ec682f1-4cff-ee46-2948-59b6e2da2649\",\n        \"commercial_area\": \"00000086296.764010\",\n        \"commercial_usage_ratio\": \"00000083\",\n        \"cost_element_tree_template\": \"809a97f4-48bf-f6db-a12f-3ffeb578b45a\",\n        \"effective_floor_area\": \"+0000245848.50123\",\n        \"estimated_end_date\": \"2007-03-30\",\n        \"estimated_start_date\": \"1949-10-02\",\n        \"gross_floor_area\": \"+000079005\",\n        \"gross_volume\": \"000000587377900.663\",\n        \"is_active\": true,\n        \"project_usage\": \"MIXED_USAGE\",\n        \"rental_area\": \"000000000054449674\",\n        \"residential_area\": \"-0002528\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": 5205,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"e058806f-7506-ceb7-ed37-9637959dcbf1\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"identifier\": \"string\",\n        \"description\": \"string\",\n        \"default_tax_rate\": \"+83629.11\",\n        \"default_contracting_entity\": \"55548b56-6402-f4a9-a4af-ea9832333c4c\",\n        \"property\": \"a65e8e80-29d9-5269-c503-a173ea2a2528\",\n        \"commercial_area\": \"0000000009.5551\",\n        \"commercial_usage_ratio\": \"-00004.1875\",\n        \"cost_element_tree_template\": \"5822ec3d-c663-bcbe-8f6c-7d56e19d5c10\",\n        \"effective_floor_area\": \"+0000000000988.\",\n        \"estimated_end_date\": \"1949-07-05\",\n        \"estimated_start_date\": \"1961-01-10\",\n        \"gross_floor_area\": \"-0068369264648\",\n        \"gross_volume\": \"-000000012407361.48881\",\n        \"is_active\": true,\n        \"project_usage\": \"MIXED_USAGE\",\n        \"rental_area\": \"+000310109874.3326\",\n        \"residential_area\": \"00082263\",\n        \"use_cost_elements\": false\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 5179.819798006611\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9fb7a25-edea-48d0-bfcb-fd5388bddec5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":property_id",
+                    "projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "property_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "13b426d9-2eae-495d-8742-d6c653ee6438",
+    "name": "CAPEX Annual Consumption Project API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

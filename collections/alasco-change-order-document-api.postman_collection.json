@@ -1,0 +1,1019 @@
+{
+  "item": [
+    {
+      "id": "c5922679-dec1-485e-8d09-651dabe260f3",
+      "name": "Change Order Document",
+      "description": {
+        "content": "A **Change Order Document** is a file attached to a **Change Order** (for example the amendment offer or supporting evidence). You can upload and download them; a document left unlinked is removed automatically after a grace period.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1a4642b8-c15c-4ca4-80dd-9056501f9c4b",
+          "name": "Get Change Order Documents",
+          "request": {
+            "name": "Get Change Order Documents",
+            "description": {},
+            "url": {
+              "path": [
+                "change_orders",
+                ":change_order_id",
+                "documents",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: | :---: |\n| `document_type` |   |   |   | x | x |\n| `uploaded_at` | x | x | x |   |   |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "change_order_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3db6335a-9a58-44c6-84ab-4ae8132a9ca0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"d4c17a91-578d-4671-214e-b29fa8d7eec7\",\n      \"attributes\": {\n        \"document_type\": \"CHANGE_ORDER_OFFER\",\n        \"filename\": \"string\",\n        \"uploaded_at\": \"1959-12-19T16:56:36.701Z\"\n      },\n      \"links\": {\n        \"self\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/\",\n        \"download\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download/\",\n        \"download_annotated\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download-annotated/\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      },\n      \"type\": \"CHANGE_ORDER_DOCUMENT\"\n    },\n    {\n      \"id\": \"f151d9f2-4ad3-c419-f733-80382f94ce33\",\n      \"attributes\": {\n        \"document_type\": \"CHANGE_ORDER\",\n        \"filename\": \"string\",\n        \"uploaded_at\": \"2008-01-23T17:59:04.505Z\"\n      },\n      \"links\": {\n        \"self\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/\",\n        \"download\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download/\",\n        \"download_annotated\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download-annotated/\"\n      },\n      \"relationships\": {\n        \"key_0\": false\n      },\n      \"type\": \"CHANGE_ORDER_DOCUMENT\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"d5135971-3693-0986-29dd-4b0126b2eab0\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": 8426.743471876916\n      }\n    },\n    {\n      \"id\": \"a78527a5-1f45-044b-1255-47e90427e161\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 5009\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7a4de62-c3ae-46b5-84d0-f1a787e41d5f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c05d678-1cbb-4f04-802b-8edd7c7c3611",
+          "name": "Create Change Order Document",
+          "request": {
+            "name": "Create Change Order Document",
+            "description": {},
+            "url": {
+              "path": [
+                "change_orders",
+                ":change_order_id",
+                "documents",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "change_order_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "document_type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Available values / Verfügbare Werte:\n\n| Value | English | Deutsch |\n| --- | --- | --- |\n| `CHANGE_ORDER_OFFER` | Change order offer | Nachtragsangebot |\n| `ATTACHMENT` | Attachment | Anhang |\n| `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |\n| `AUDITED_CHANGE_ORDER` | Audited change order | Nachtragsprüfung |\n| `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |\n| `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |\n| `VALUATIONS` | Valuations | Aufmaß |\n| `PLANS` | Plans | Planunterlagen |\n| `CHANGE_ORDER` | Change order | Nachtragsbeauftragung |\n| `PROTOCOL` | Protocol | Protokoll |\n| `OTHER` | Other | Sonstiges |"
+                },
+                {
+                  "key": "upload",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) \nThe file to submit. The file must be a valid PDF.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fa2f9da8-1001-43a6-8870-369b7651f1c7",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Available values / Verfügbare Werte:\n\n| Value | English | Deutsch |\n| --- | --- | --- |\n| `CHANGE_ORDER_OFFER` | Change order offer | Nachtragsangebot |\n| `ATTACHMENT` | Attachment | Anhang |\n| `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |\n| `AUDITED_CHANGE_ORDER` | Audited change order | Nachtragsprüfung |\n| `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |\n| `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |\n| `VALUATIONS` | Valuations | Aufmaß |\n| `PLANS` | Plans | Planunterlagen |\n| `CHANGE_ORDER` | Change order | Nachtragsbeauftragung |\n| `PROTOCOL` | Protocol | Protokoll |\n| `OTHER` | Other | Sonstiges |",
+                        "type": "text/plain"
+                      },
+                      "key": "document_type",
+                      "value": "CHANGE_ORDER_OFFER",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "upload",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"b67628ad-820b-efec-77b5-db74cd2beb7e\",\n    \"attributes\": {\n      \"document_type\": \"VALUATIONS\",\n      \"filename\": \"string\",\n      \"uploaded_at\": \"1997-02-05T06:36:43.117Z\"\n    },\n    \"links\": {\n      \"self\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/\",\n      \"download\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download/\",\n      \"download_annotated\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download-annotated/\"\n    },\n    \"relationships\": {\n      \"key_0\": 9385.935260909955,\n      \"key_1\": 5377.333375328421,\n      \"key_2\": 3716.3900534958607\n    },\n    \"type\": \"CHANGE_ORDER_DOCUMENT\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"7f732348-a9ef-8cbb-4e9d-c93340381228\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 975\n      }\n    },\n    {\n      \"id\": \"735c0052-4733-95a2-a535-45660cec4f12\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef203e73-4bea-4dd0-9e74-d80408655d69",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Available values / Verfügbare Werte:\n\n| Value | English | Deutsch |\n| --- | --- | --- |\n| `CHANGE_ORDER_OFFER` | Change order offer | Nachtragsangebot |\n| `ATTACHMENT` | Attachment | Anhang |\n| `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |\n| `AUDITED_CHANGE_ORDER` | Audited change order | Nachtragsprüfung |\n| `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |\n| `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |\n| `VALUATIONS` | Valuations | Aufmaß |\n| `PLANS` | Plans | Planunterlagen |\n| `CHANGE_ORDER` | Change order | Nachtragsbeauftragung |\n| `PROTOCOL` | Protocol | Protokoll |\n| `OTHER` | Other | Sonstiges |",
+                        "type": "text/plain"
+                      },
+                      "key": "document_type",
+                      "value": "CHANGE_ORDER_OFFER",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "upload",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5cbf927-392a-4407-82b6-2a5df8f9e02e",
+          "name": "Get Change Order Document",
+          "request": {
+            "name": "Get Change Order Document",
+            "description": {},
+            "url": {
+              "path": [
+                "change_orders",
+                ":change_order_id",
+                "documents",
+                ":document_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "change_order_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f867872-2224-401c-b3a8-5cbc43885cbd",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ":document_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"b67628ad-820b-efec-77b5-db74cd2beb7e\",\n    \"attributes\": {\n      \"document_type\": \"VALUATIONS\",\n      \"filename\": \"string\",\n      \"uploaded_at\": \"1997-02-05T06:36:43.117Z\"\n    },\n    \"links\": {\n      \"self\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/\",\n      \"download\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download/\",\n      \"download_annotated\": \"https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download-annotated/\"\n    },\n    \"relationships\": {\n      \"key_0\": 9385.935260909955,\n      \"key_1\": 5377.333375328421,\n      \"key_2\": 3716.3900534958607\n    },\n    \"type\": \"CHANGE_ORDER_DOCUMENT\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"7f732348-a9ef-8cbb-4e9d-c93340381228\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 975\n      }\n    },\n    {\n      \"id\": \"735c0052-4733-95a2-a535-45660cec4f12\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1183598-0a61-4bb0-9287-99118e03a3e5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ":document_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb1fca98-8e1d-4bab-9b6d-de0a53f041c5",
+          "name": "Download Annotated Change Order Document",
+          "request": {
+            "name": "Download Annotated Change Order Document",
+            "description": {},
+            "url": {
+              "path": [
+                "change_orders",
+                ":change_order_id",
+                "documents",
+                ":document_id",
+                "download-annotated",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "change_order_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "91b09ddb-af02-4ffb-9fa8-0659d2ff06c6",
+              "name": "\nReturns the document with annotations if available, otherwise returns the original document.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ":document_id",
+                    "download-annotated",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a8c1c639-8d64-4da4-ac71-95907ae708e6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ":document_id",
+                    "download-annotated",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9eaaa12e-a8cb-4fe2-895e-49d349d309d1",
+          "name": "Download Change Order Document",
+          "request": {
+            "name": "Download Change Order Document",
+            "description": {},
+            "url": {
+              "path": [
+                "change_orders",
+                ":change_order_id",
+                "documents",
+                ":document_id",
+                "download",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "change_order_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8f86f1f7-c3cf-4372-8150-e9912029b202",
+              "name": "\nRedirect to the temporary download link\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ":document_id",
+                    "download",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9631ce86-fdf8-4720-a6fc-cbf87be44ae7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":change_order_id",
+                    "documents",
+                    ":document_id",
+                    "download",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "change_order_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dc9ef15e-7883-4535-9f38-07eeae17af10",
+    "name": "CAPEX Annual Consumption Change Order Document API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

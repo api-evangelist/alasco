@@ -1,0 +1,1209 @@
+{
+  "item": [
+    {
+      "id": "2c9278e2-4d59-457e-b7dd-c1413e1c15b4",
+      "name": "Invoice Tag",
+      "description": {
+        "content": "An **Invoice Tag** is a coloured label (with a name unique per account) you assign to **Invoices** for organisation and filtering. Tags can be created, updated and deleted, and assigned to or removed from invoices.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "675ae31d-ccb9-4f91-9c07-b90691478979",
+          "name": "Get Tags By Invoice",
+          "request": {
+            "name": "Get Tags By Invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "tags",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "27cbec9f-eb5e-4205-b96b-91267ecd7c91",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "tags",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"0d544cc9-6004-a573-bec1-f744face7f8d\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"BLUE\"\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 8786,\n        \"key_2\": 6327\n      }\n    },\n    {\n      \"id\": \"060d76ab-b300-dfce-3bdd-fe22964e1688\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"ORANGE\"\n      },\n      \"relationships\": {\n        \"key_0\": 4316.765923422765,\n        \"key_1\": false\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e8808d5c-65c2-359c-d739-cb14d5c9c340\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"RED\"\n      },\n      \"relationships\": {\n        \"key_0\": 4079,\n        \"key_1\": 5280\n      }\n    },\n    {\n      \"id\": \"957d9335-cb52-af96-4b03-3835d98616fe\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"GREEN\"\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 801\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1fd1189-879b-4f2f-9240-bedd09b517ea",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "tags",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6217af3f-cd96-408c-9cbe-500fb19bd00f",
+          "name": "Assign Tag",
+          "request": {
+            "name": "Assign Tag",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "tags",
+                "assign",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"tag_id\": \"<uuid>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "92251058-6ff6-4da6-a7a3-89f7563c2870",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "tags",
+                    "assign",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"tag_id\": \"ba1cd87d-ebb6-032f-d602-4b99392bff6b\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"56a941cd-b008-0e15-f888-5993de0226a8\",\n    \"attributes\": {\n      \"date_created\": \"2007-02-01T02:21:27.218Z\",\n      \"invoice_process_state\": \"NEW\",\n      \"is_reverse_charge\": true,\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"80ec4b6f-9060-4998-4d2b-51c854275452\",\n      \"date_approved\": \"1955-04-29T21:21:30.971Z\",\n      \"date_discount\": \"2008-01-23\",\n      \"date_due\": \"2024-02-12\",\n      \"date_posted\": \"1955-09-03\",\n      \"date_received\": \"1997-10-31\",\n      \"discounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"installment_number\": 1577,\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"INSTALLMENT\",\n      \"payment_amount_gross\": {\n        \"amount\": \"123.123456789012\",\n        \"currency\": \"EUR\"\n      },\n      \"payment_comment\": \"string\",\n      \"payment_created\": \"1975-07-23T23:13:00.121Z\",\n      \"payment_date\": \"1951-05-23\",\n      \"unaudited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"undiscounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": true\n    },\n    \"type\": \"INVOICE\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"ae25938d-2350-004d-3f61-02e774d7c4a1\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": true,\n        \"key_2\": true\n      }\n    },\n    {\n      \"id\": \"091c3061-a9af-f87c-3c2a-afe88b0beb54\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 3398,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85169e5c-f050-4f0f-98d7-1065a533be68",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "tags",
+                    "assign",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"tag_id\": \"ba1cd87d-ebb6-032f-d602-4b99392bff6b\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1c653a3-7cc7-4888-ad56-6fd8e37e7820",
+          "name": "Unassign Tag",
+          "request": {
+            "name": "Unassign Tag",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "tags",
+                "unassign",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"tag_id\": \"<uuid>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c56e74ed-85cb-48b1-98f4-0452ce2e4386",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "tags",
+                    "unassign",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"tag_id\": \"ba1cd87d-ebb6-032f-d602-4b99392bff6b\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"56a941cd-b008-0e15-f888-5993de0226a8\",\n    \"attributes\": {\n      \"date_created\": \"2007-02-01T02:21:27.218Z\",\n      \"invoice_process_state\": \"NEW\",\n      \"is_reverse_charge\": true,\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"80ec4b6f-9060-4998-4d2b-51c854275452\",\n      \"date_approved\": \"1955-04-29T21:21:30.971Z\",\n      \"date_discount\": \"2008-01-23\",\n      \"date_due\": \"2024-02-12\",\n      \"date_posted\": \"1955-09-03\",\n      \"date_received\": \"1997-10-31\",\n      \"discounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"installment_number\": 1577,\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"INSTALLMENT\",\n      \"payment_amount_gross\": {\n        \"amount\": \"123.123456789012\",\n        \"currency\": \"EUR\"\n      },\n      \"payment_comment\": \"string\",\n      \"payment_created\": \"1975-07-23T23:13:00.121Z\",\n      \"payment_date\": \"1951-05-23\",\n      \"unaudited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"undiscounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": true\n    },\n    \"type\": \"INVOICE\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"ae25938d-2350-004d-3f61-02e774d7c4a1\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": true,\n        \"key_2\": true\n      }\n    },\n    {\n      \"id\": \"091c3061-a9af-f87c-3c2a-afe88b0beb54\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 3398,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52faf15a-42c7-4499-87d3-372e17d95ca4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "tags",
+                    "unassign",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"tag_id\": \"ba1cd87d-ebb6-032f-d602-4b99392bff6b\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b8aaa94-add3-49b5-9f98-76389448c0d6",
+          "name": "Get Tags",
+          "request": {
+            "name": "Get Tags",
+            "description": {},
+            "url": {
+              "path": [
+                "tags",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "17201e08-61b1-4a25-b939-77eded58fb63",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"0d544cc9-6004-a573-bec1-f744face7f8d\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"BLUE\"\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 8786,\n        \"key_2\": 6327\n      }\n    },\n    {\n      \"id\": \"060d76ab-b300-dfce-3bdd-fe22964e1688\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"ORANGE\"\n      },\n      \"relationships\": {\n        \"key_0\": 4316.765923422765,\n        \"key_1\": false\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e8808d5c-65c2-359c-d739-cb14d5c9c340\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"RED\"\n      },\n      \"relationships\": {\n        \"key_0\": 4079,\n        \"key_1\": 5280\n      }\n    },\n    {\n      \"id\": \"957d9335-cb52-af96-4b03-3835d98616fe\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"GREEN\"\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 801\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58c437b5-fa2a-4563-a60f-085cbd7a1612",
+          "name": "Create Tag",
+          "request": {
+            "name": "Create Tag",
+            "description": {},
+            "url": {
+              "path": [
+                "tags",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"color\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "282b204f-6fa4-4122-81b4-dcc2b18c33dc",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"color\": \"RED\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"271a7c37-7d4d-4f2f-bb27-81aca0ca7c9b\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"color\": \"BLUE\"\n    },\n    \"relationships\": {\n      \"key_0\": false,\n      \"key_1\": false,\n      \"key_2\": 7663,\n      \"key_3\": \"string\",\n      \"key_4\": 3457\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"73cf4611-8e62-8403-493b-304c18178eec\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"UNSPECIFIED\"\n      },\n      \"relationships\": {\n        \"key_0\": 8968.789659942144,\n        \"key_1\": \"string\",\n        \"key_2\": 7780.622769963254,\n        \"key_3\": 9751\n      }\n    },\n    {\n      \"id\": \"5e7c4ccb-b6e0-5727-c57b-7ce07065261c\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"GREEN\"\n      },\n      \"relationships\": {\n        \"key_0\": 5897.8394944961465\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8a36323-ab0e-40d0-87b7-432416550b76",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"color\": \"RED\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8a70f2c-c01b-406c-93fd-4ba064da45b9",
+          "name": "Delete Tag",
+          "request": {
+            "name": "Delete Tag",
+            "description": {},
+            "url": {
+              "path": [
+                "tags",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "80ac2a47-3152-454c-a6ec-4ac5fb77d2a9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "14804642-047f-4da6-bb51-2675a0177f66",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2303354-58da-4c1e-a49c-2af483b65ab8",
+          "name": "Update Tag",
+          "request": {
+            "name": "Update Tag",
+            "description": {},
+            "url": {
+              "path": [
+                "tags",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"color\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1145104e-15ae-4e80-ba49-39dd25822563",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"color\": \"BLUE\",\n      \"name\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"271a7c37-7d4d-4f2f-bb27-81aca0ca7c9b\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"color\": \"BLUE\"\n    },\n    \"relationships\": {\n      \"key_0\": false,\n      \"key_1\": false,\n      \"key_2\": 7663,\n      \"key_3\": \"string\",\n      \"key_4\": 3457\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"73cf4611-8e62-8403-493b-304c18178eec\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"UNSPECIFIED\"\n      },\n      \"relationships\": {\n        \"key_0\": 8968.789659942144,\n        \"key_1\": \"string\",\n        \"key_2\": 7780.622769963254,\n        \"key_3\": 9751\n      }\n    },\n    {\n      \"id\": \"5e7c4ccb-b6e0-5727-c57b-7ce07065261c\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"color\": \"GREEN\"\n      },\n      \"relationships\": {\n        \"key_0\": 5897.8394944961465\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4230a80e-235a-46da-ac0a-d8faaea6bad0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tags",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"color\": \"BLUE\",\n      \"name\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b1fa17c4-d55a-4c3d-98d5-cbad49efdd39",
+    "name": "CAPEX Annual Consumption Invoice Tag API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

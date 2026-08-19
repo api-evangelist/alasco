@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Tenant Consumption Links API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tenant Consumption Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Tenant Consumption Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/tenant-consumption-links/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Tenant Consumption Link"
+        },
+        {
+          "info": {
+            "name": "Delete Tenant Consumption Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alasco.de/capex/v1/tenant-consumption-links/",
+            "params": [
+              {
+                "name": "external_tenant_id",
+                "value": "",
+                "type": "query",
+                "description": "External ID of the tenant."
+              },
+              {
+                "name": "annual_consumption_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the annual consumption entry."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Tenant Consumption Link"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

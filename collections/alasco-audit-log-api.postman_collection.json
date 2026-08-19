@@ -1,0 +1,368 @@
+{
+  "item": [
+    {
+      "id": "f35d0739-0c8f-4495-9efb-f82abfa7b114",
+      "name": "Audit Log",
+      "description": {
+        "content": "The **Audit Log** is a read-only account-level trail of changes. A raw audit feed reports table-level inserts, updates and deletes, and a user audit feed reports user- and API-triggered changes; both are queried over a bounded time range (up to 24 hours).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d697c5aa-ef17-4171-8f2e-b469f54759b4",
+          "name": "Get Events",
+          "request": {
+            "name": "Get Events",
+            "description": {},
+            "url": {
+              "path": [
+                "raw-audit",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d35e04a3-f4ee-453a-ad36-c66ef2e1a76e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "raw-audit",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"3774432d-cfdd-e159-95e1-28918665ce23\",\n      \"attributes\": {\n        \"op\": \"INSERT\",\n        \"transaction_id\": \"6cdabde9-fe8f-a724-549a-b00469f13580\",\n        \"user_id\": 5233,\n        \"user_data\": {\n          \"key_0\": false\n        },\n        \"table_schema\": \"string\",\n        \"table_name\": \"string\",\n        \"entity_id\": 9080,\n        \"record\": {\n          \"key_0\": 7593,\n          \"key_1\": false,\n          \"key_2\": 7277\n        },\n        \"record_diff\": {\n          \"key_0\": \"string\",\n          \"key_1\": 2035,\n          \"key_2\": false\n        },\n        \"ts\": \"1958-06-25T02:46:00.563Z\",\n        \"origin\": \"LEGACY\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      },\n      \"type\": \"AUDIT_LOG\"\n    },\n    {\n      \"id\": \"5ea1ef1f-fd51-d60c-5a02-b16c5c30a14e\",\n      \"attributes\": {\n        \"op\": \"DELETE\",\n        \"transaction_id\": \"ec754a5d-74ea-6ddd-0ae5-ff4a3c0a7314\",\n        \"user_id\": 8879,\n        \"user_data\": {\n          \"key_0\": false,\n          \"key_1\": true,\n          \"key_2\": \"string\"\n        },\n        \"table_schema\": \"string\",\n        \"table_name\": \"string\",\n        \"entity_id\": 7143,\n        \"record\": {\n          \"key_0\": \"string\"\n        },\n        \"record_diff\": {\n          \"key_0\": false,\n          \"key_1\": 8189,\n          \"key_2\": false\n        },\n        \"ts\": \"2017-05-06T02:40:15.880Z\",\n        \"origin\": \"PUBLIC_API\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      },\n      \"type\": \"AUDIT_LOG\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"93148493-65be-6302-b665-e2c3d9b78f1c\",\n      \"type\": \"TENANT\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 5753\n      }\n    },\n    {\n      \"id\": \"2d5d5c6d-3cb4-1cc2-4556-ee03897ca84c\",\n      \"type\": \"FILE\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 850,\n        \"key_2\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18cd179a-d0c3-44d5-84cb-2cde368174b6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "raw-audit",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5950ad73-cc62-49cf-80ad-93bd98b81df7",
+          "name": "Get User Events",
+          "request": {
+            "name": "Get User Events",
+            "description": {},
+            "url": {
+              "path": [
+                "raw-user-audit",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e8f4022a-03ec-4274-85ea-91a6b4101653",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "raw-user-audit",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 9705,\n      \"attributes\": {\n        \"op\": \"DELETE\",\n        \"actor\": \"SYSTEM\",\n        \"transaction_id\": \"ea591b76-de02-f103-4d63-346f485a4e15\",\n        \"user_id\": 7934,\n        \"user_data\": {\n          \"key_0\": 7784.175137674354,\n          \"key_1\": \"string\",\n          \"key_2\": 1878.8775119964384\n        },\n        \"table_name\": \"string\",\n        \"entity_id\": \"32354fa5-c30f-0372-ce13-37dd89202924\",\n        \"old\": {\n          \"key_0\": \"string\"\n        },\n        \"new\": {\n          \"key_0\": 2036,\n          \"key_1\": 4189.044147964859,\n          \"key_2\": false\n        },\n        \"record_diff\": {\n          \"key_0\": 1249.430634737847,\n          \"key_1\": 9329.92749979085,\n          \"key_2\": 7643,\n          \"key_3\": \"string\"\n        },\n        \"ts\": \"2005-02-13T06:12:58.013Z\",\n        \"description\": \"string\",\n        \"event_type\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": true\n      },\n      \"type\": \"USER_AUDIT_LOG\"\n    },\n    {\n      \"id\": 2049,\n      \"attributes\": {\n        \"op\": \"PASSWORD_CHANGE_FAILED\",\n        \"actor\": \"USER\",\n        \"transaction_id\": \"4f65fccf-4c86-a0c8-b1ff-05bc0ef44a07\",\n        \"user_id\": 5580,\n        \"user_data\": {\n          \"key_0\": \"string\",\n          \"key_1\": 8699\n        },\n        \"table_name\": \"string\",\n        \"entity_id\": \"fc43925d-45c9-5125-835d-a9967d2cb5db\",\n        \"old\": {\n          \"key_0\": false\n        },\n        \"new\": {\n          \"key_0\": true,\n          \"key_1\": \"string\",\n          \"key_2\": 8259,\n          \"key_3\": 4433.202554904427\n        },\n        \"record_diff\": {\n          \"key_0\": 8062.528021948392\n        },\n        \"ts\": \"2025-01-26T00:59:12.910Z\",\n        \"description\": \"string\",\n        \"event_type\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 3924.564101463166,\n        \"key_1\": 1204\n      },\n      \"type\": \"USER_AUDIT_LOG\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": 589,\n      \"attributes\": {\n        \"op\": \"PASSWORD_CHANGE_FAILED\",\n        \"actor\": \"SYSTEM\",\n        \"transaction_id\": \"a61f568b-3840-e870-c17a-41b8c094ea99\",\n        \"user_id\": 9110,\n        \"user_data\": {\n          \"key_0\": 108\n        },\n        \"table_name\": \"string\",\n        \"entity_id\": \"5d48ede3-e1ce-e257-6a1c-58e57751403c\",\n        \"old\": {\n          \"key_0\": false,\n          \"key_1\": 7471\n        },\n        \"new\": {\n          \"key_0\": 1660.0371510484135\n        },\n        \"record_diff\": {\n          \"key_0\": false,\n          \"key_1\": 6344.356710342863\n        },\n        \"ts\": \"1996-08-30T11:06:06.168Z\",\n        \"description\": \"string\",\n        \"event_type\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 4285,\n        \"key_1\": true\n      },\n      \"type\": \"USER_AUDIT_LOG\"\n    },\n    {\n      \"id\": 9898,\n      \"attributes\": {\n        \"op\": \"UPDATE\",\n        \"actor\": \"USER\",\n        \"transaction_id\": \"f02d8e35-0dfe-4f81-86ab-a21a457a61b0\",\n        \"user_id\": 7068,\n        \"user_data\": {\n          \"key_0\": true,\n          \"key_1\": 5773.487424879533,\n          \"key_2\": 1525.5144225520346\n        },\n        \"table_name\": \"string\",\n        \"entity_id\": \"006fb616-7ad6-a28b-af91-6c2c7352c986\",\n        \"old\": {\n          \"key_0\": 8788.899623838759\n        },\n        \"new\": {\n          \"key_0\": true,\n          \"key_1\": true,\n          \"key_2\": \"string\",\n          \"key_3\": 4805\n        },\n        \"record_diff\": {\n          \"key_0\": \"string\",\n          \"key_1\": 1187\n        },\n        \"ts\": \"1972-02-21T22:44:33.621Z\",\n        \"description\": \"string\",\n        \"event_type\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 1804\n      },\n      \"type\": \"USER_AUDIT_LOG\"\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34745ae8-8658-45b0-b45e-ac26f9fe0734",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "raw-user-audit",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a8343b47-8335-4406-bc74-674f39342fa3",
+    "name": "CAPEX Annual Consumption Audit Log API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

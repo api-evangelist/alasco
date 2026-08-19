@@ -1,0 +1,536 @@
+{
+  "item": [
+    {
+      "id": "cb63ec7a-28a8-4028-b81c-23d2d4feaf50",
+      "name": "Consumption Intervals",
+      "description": {
+        "content": "A **Consumption Interval** is a consumption total for a period (start to end date) for a meter. Intervals are created individually or in bulk - all-or-nothing (`/bulk/`) or per-item (`/bulk-partial/`) - with upsert semantics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d69ff0c7-67e6-467b-a069-6e508d3ba28d",
+          "name": "Create Consumption Interval",
+          "request": {
+            "name": "Create Consumption Interval",
+            "description": {},
+            "url": {
+              "path": [
+                "consumption-intervals",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"external_meter_id\": \"<string>\",\n      \"start_date\": \"<date>\",\n      \"end_date\": \"<date>\",\n      \"consumption_value\": \"<number>\",\n      \"batch_info_uuid\": \"<uuid>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "259745f8-0b60-47c5-bd14-7cef223ac194",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption-intervals",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"external_meter_id\": \"123XYZ\",\n      \"start_date\": \"2007-03-25\",\n      \"end_date\": \"1948-05-27\",\n      \"consumption_value\": 7318.318180868493,\n      \"batch_info_uuid\": \"74dfa0d1-872f-5a16-7f96-37446099c9d7\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"e363393b-4a70-3f03-3ebd-05857f146acd\",\n    \"attributes\": {\n      \"start_date\": \"1954-09-03\",\n      \"end_date\": \"1976-09-08\",\n      \"consumption_value\": \"084646.52\"\n    },\n    \"relationships\": {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": true\n    },\n    \"type\": \"CONSUMPTION_INTERVAL\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"73c604c3-7a50-6c32-ae40-451505cacc5f\",\n      \"type\": \"BUILDING\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"6276efed-4ee8-88fe-1ee4-8b75b6bc4c56\",\n      \"type\": \"CONSUMPTION_INTERVAL\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b2f952f-5cb5-4228-8c28-2f4435e9e58c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption-intervals",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"external_meter_id\": \"123XYZ\",\n      \"start_date\": \"2007-03-25\",\n      \"end_date\": \"1948-05-27\",\n      \"consumption_value\": 7318.318180868493,\n      \"batch_info_uuid\": \"74dfa0d1-872f-5a16-7f96-37446099c9d7\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15b42e60-60cd-4db2-9aa3-2eec267656e8",
+          "name": "Bulk Create Consumption Intervals Partial",
+          "request": {
+            "name": "Bulk Create Consumption Intervals Partial",
+            "description": {},
+            "url": {
+              "path": [
+                "consumption-intervals",
+                "bulk-partial",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"external_meter_id\": \"<string>\",\n        \"start_date\": \"<date>\",\n        \"end_date\": \"<date>\",\n        \"consumption_value\": \"<number>\",\n        \"batch_info_uuid\": \"<uuid>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"external_meter_id\": \"<string>\",\n        \"start_date\": \"<date>\",\n        \"end_date\": \"<date>\",\n        \"consumption_value\": \"<number>\",\n        \"batch_info_uuid\": \"<uuid>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "498624fd-28db-44ea-9c34-a7a7ac56da31",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption-intervals",
+                    "bulk-partial",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"external_meter_id\": \"123XYZ\",\n        \"start_date\": \"1987-03-05\",\n        \"end_date\": \"1950-10-30\",\n        \"consumption_value\": 8772.666508045668,\n        \"batch_info_uuid\": \"0d1a3523-6be3-aa32-c363-b49f643b8a22\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"external_meter_id\": \"123XYZ\",\n        \"start_date\": \"1997-12-28\",\n        \"end_date\": \"1986-06-19\",\n        \"consumption_value\": 6603.2223007274915,\n        \"batch_info_uuid\": \"b7fb73fb-58cc-b6e2-151a-4f17ffb82977\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"created\": [\n      {\n        \"external_meter_id\": \"string\",\n        \"id\": \"3ee52dea-4756-dbdc-3266-4ca143f4f1a0\"\n      },\n      {\n        \"external_meter_id\": \"string\",\n        \"id\": \"561f58bb-ce72-b269-fb70-314706367492\"\n      }\n    ],\n    \"updated\": [\n      {\n        \"external_meter_id\": \"string\",\n        \"id\": \"0ed742c8-535a-79c3-fc67-26b1e3868b96\"\n      },\n      {\n        \"external_meter_id\": \"string\",\n        \"id\": \"4b30b30e-bf39-b942-25f4-405f39678d6e\"\n      }\n    ],\n    \"errors\": [\n      {\n        \"index\": 7612,\n        \"attributes\": {\n          \"external_meter_id\": \"123XYZ\",\n          \"start_date\": \"1965-05-10\",\n          \"end_date\": \"1958-10-20\",\n          \"consumption_value\": \"00000000005772263975653\",\n          \"batch_info_uuid\": \"6d478f8c-45bc-80ad-7df0-dc532dabd135\"\n        },\n        \"detail\": [\n          {\n            \"loc\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"msg\": \"string\",\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"loc\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"msg\": \"string\",\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"index\": 9016,\n        \"attributes\": {\n          \"external_meter_id\": \"123XYZ\",\n          \"start_date\": \"1989-09-06\",\n          \"end_date\": \"2009-04-07\",\n          \"consumption_value\": \"+000000005915623.6291489346\",\n          \"batch_info_uuid\": \"03ca9b0c-eb0a-f5ff-4c8b-ccdabbfc7188\"\n        },\n        \"detail\": [\n          {\n            \"loc\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"msg\": \"string\",\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"loc\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"msg\": \"string\",\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ],\n    \"type\": \"CONSUMPTION_INTERVAL\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1865f3b1-4d57-a871-3948-8f0b7b264913\",\n      \"type\": \"AUDIT_LOG\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": 4819\n      }\n    },\n    {\n      \"id\": \"bdff6e48-8714-032a-b0dc-ea25cf9f5ccf\",\n      \"type\": \"FILE_EXTERNAL_ID\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e654be04-6990-4bb9-b39b-e88c65f283ac",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption-intervals",
+                    "bulk-partial",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"external_meter_id\": \"123XYZ\",\n        \"start_date\": \"1987-03-05\",\n        \"end_date\": \"1950-10-30\",\n        \"consumption_value\": 8772.666508045668,\n        \"batch_info_uuid\": \"0d1a3523-6be3-aa32-c363-b49f643b8a22\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"external_meter_id\": \"123XYZ\",\n        \"start_date\": \"1997-12-28\",\n        \"end_date\": \"1986-06-19\",\n        \"consumption_value\": 6603.2223007274915,\n        \"batch_info_uuid\": \"b7fb73fb-58cc-b6e2-151a-4f17ffb82977\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a13f4b07-0022-4002-bca8-2fcc547825a9",
+          "name": "Bulk Create Consumption Intervals",
+          "request": {
+            "name": "Bulk Create Consumption Intervals",
+            "description": {},
+            "url": {
+              "path": [
+                "consumption-intervals",
+                "bulk",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"external_meter_id\": \"<string>\",\n        \"start_date\": \"<date>\",\n        \"end_date\": \"<date>\",\n        \"consumption_value\": \"<number>\",\n        \"batch_info_uuid\": \"<uuid>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"external_meter_id\": \"<string>\",\n        \"start_date\": \"<date>\",\n        \"end_date\": \"<date>\",\n        \"consumption_value\": \"<number>\",\n        \"batch_info_uuid\": \"<uuid>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf043bc5-fbfa-4257-be54-cba4e6332467",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption-intervals",
+                    "bulk",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"external_meter_id\": \"123XYZ\",\n        \"start_date\": \"1987-03-05\",\n        \"end_date\": \"1950-10-30\",\n        \"consumption_value\": 8772.666508045668,\n        \"batch_info_uuid\": \"0d1a3523-6be3-aa32-c363-b49f643b8a22\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"external_meter_id\": \"123XYZ\",\n        \"start_date\": \"1997-12-28\",\n        \"end_date\": \"1986-06-19\",\n        \"consumption_value\": 6603.2223007274915,\n        \"batch_info_uuid\": \"b7fb73fb-58cc-b6e2-151a-4f17ffb82977\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"created\": [\n      {\n        \"external_meter_id\": \"string\",\n        \"id\": \"82054ab2-2861-1f10-1c2c-a3f412d9293b\"\n      },\n      {\n        \"external_meter_id\": \"string\",\n        \"id\": \"cd691e5c-ea2a-f667-8b95-2aa77dbf9fe3\"\n      }\n    ],\n    \"updated\": [\n      {\n        \"external_meter_id\": \"string\",\n        \"id\": \"9819610a-1b94-a74c-f10e-d2a99629a877\"\n      },\n      {\n        \"external_meter_id\": \"string\",\n        \"id\": \"ccaa946c-0596-daaa-bb53-b344abfec4c1\"\n      }\n    ],\n    \"type\": \"CONSUMPTION_INTERVAL\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1f5c15a8-8070-3601-307a-5436f9d4c74e\",\n      \"type\": \"UTILITY_DATA_BATCH_INFO\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 3156.6948561494,\n        \"key_1\": true\n      }\n    },\n    {\n      \"id\": \"0e28972c-78eb-0c16-b57f-5f7bde884005\",\n      \"type\": \"BUILDING\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7071.279891105071,\n        \"key_2\": 3120.1887935669415\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a131336b-d927-4a51-9841-8d77ea7abefe",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption-intervals",
+                    "bulk",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"external_meter_id\": \"123XYZ\",\n        \"start_date\": \"1987-03-05\",\n        \"end_date\": \"1950-10-30\",\n        \"consumption_value\": 8772.666508045668,\n        \"batch_info_uuid\": \"0d1a3523-6be3-aa32-c363-b49f643b8a22\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"external_meter_id\": \"123XYZ\",\n        \"start_date\": \"1997-12-28\",\n        \"end_date\": \"1986-06-19\",\n        \"consumption_value\": 6603.2223007274915,\n        \"batch_info_uuid\": \"b7fb73fb-58cc-b6e2-151a-4f17ffb82977\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c0f8ec46-14b2-4019-8a24-dc7375713d05",
+    "name": "CAPEX Annual Consumption Consumption Intervals API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

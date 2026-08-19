@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Outright Sale API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Outright Sale",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Outright Sales",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/reporting/outright_sales/",
+            "params": [
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n* `is`: Expects one value\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |   |\n| `name` | x | x |   |   |   |   |   |   |\n| `identifier` | x | x |   |   |   |   |   |   |\n| `total_planned_revenues.net` |   |   | x | x | x |   |   | x |\n| `total_planned_revenues.tax` |   |   | x | x | x |   |   | x |\n| `total_recorded_payments.net` |   |   | x | x | x |   |   | x |\n| `total_recorded_payments.tax` |   |   | x | x | x |   |   | x |\n| `project` |   |   |   |   |   | x | x |   |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Outright Sales"
+        },
+        {
+          "info": {
+            "name": "Get Outright Sale Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/reporting/outright_sales/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Outright Sale Details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

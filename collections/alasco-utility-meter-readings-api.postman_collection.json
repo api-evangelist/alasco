@@ -1,0 +1,590 @@
+{
+  "item": [
+    {
+      "id": "78c4446f-a694-4547-a25b-7e11b6107d29",
+      "name": "Utility Meter Readings",
+      "description": {
+        "content": "A **Utility Meter Reading** is a timestamped meter value. Readings are written individually or in bulk (upsert), keyed by the meter's external id, and feed the derived consumption figures.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "78e334b3-83b9-47fd-9f41-e721d8e170f2",
+          "name": "Create Utility Meter Reading",
+          "request": {
+            "name": "Create Utility Meter Reading",
+            "description": {},
+            "url": {
+              "path": [
+                "buildings",
+                ":building_uuid",
+                "utility-meters",
+                ":meter_uuid",
+                "readings",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "building_uuid",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meter_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"reading_value\": \"<number>\",\n      \"reading_timestamp\": \"<dateTime>\",\n      \"batch_info_uuid\": \"<uuid>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43723360-1af4-49a8-8ef7-3ced1f6c71c1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ":building_uuid",
+                    "utility-meters",
+                    ":meter_uuid",
+                    "readings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "building_uuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meter_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"reading_value\": 9547.22704981273,\n      \"reading_timestamp\": \"2024-01-01T00:00:00Z\",\n      \"batch_info_uuid\": \"41cdeedf-a194-85bb-bedd-288295d2f017\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"0eb3eaf5-fc74-7144-1d90-a002ca6e25be\",\n    \"attributes\": {\n      \"reading_value\": \"53637994.4421958889\",\n      \"reading_timestamp\": \"2024-01-01T00:00:00Z\"\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"UTILITY_METER_READING\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"02158407-6594-c9ba-4cff-851a827a4d52\",\n      \"type\": \"DOCUMENT_EVENT\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 9796\n      }\n    },\n    {\n      \"id\": \"d2a03716-5e02-4e53-80ac-8c3b4773d054\",\n      \"type\": \"TENANT\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": true,\n        \"key_2\": 7648.897917673733\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44753f1e-3748-4abc-ba4b-514edb6f85ca",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ":building_uuid",
+                    "utility-meters",
+                    ":meter_uuid",
+                    "readings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "building_uuid",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meter_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"reading_value\": 9547.22704981273,\n      \"reading_timestamp\": \"2024-01-01T00:00:00Z\",\n      \"batch_info_uuid\": \"41cdeedf-a194-85bb-bedd-288295d2f017\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5ab1625-36a3-4689-a30e-0dbc23a0fcb6",
+          "name": "Create Utility Meter Reading With External Id",
+          "request": {
+            "name": "Create Utility Meter Reading With External Id",
+            "description": {},
+            "url": {
+              "path": [
+                "meter-readings",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"reading_value\": \"<number>\",\n      \"reading_timestamp\": \"<dateTime>\",\n      \"external_meter_id\": \"<string>\",\n      \"batch_info_uuid\": \"<uuid>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dffd9425-6d72-4f1a-a22b-78f2e84551c1",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meter-readings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"reading_value\": 6314.630084862319,\n      \"reading_timestamp\": \"2024-01-01T00:00:00Z\",\n      \"external_meter_id\": \"123XYZ\",\n      \"batch_info_uuid\": \"f085e7b8-43dc-80ac-97fc-a0936a57005c\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"0eb3eaf5-fc74-7144-1d90-a002ca6e25be\",\n    \"attributes\": {\n      \"reading_value\": \"53637994.4421958889\",\n      \"reading_timestamp\": \"2024-01-01T00:00:00Z\"\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"UTILITY_METER_READING\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"02158407-6594-c9ba-4cff-851a827a4d52\",\n      \"type\": \"DOCUMENT_EVENT\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 9796\n      }\n    },\n    {\n      \"id\": \"d2a03716-5e02-4e53-80ac-8c3b4773d054\",\n      \"type\": \"TENANT\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": true,\n        \"key_2\": 7648.897917673733\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e923205-06da-4f4d-8bc4-aca92cfeb966",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meter-readings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"reading_value\": 6314.630084862319,\n      \"reading_timestamp\": \"2024-01-01T00:00:00Z\",\n      \"external_meter_id\": \"123XYZ\",\n      \"batch_info_uuid\": \"f085e7b8-43dc-80ac-97fc-a0936a57005c\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00ffe14c-af0e-437c-8862-9cd05a45518c",
+          "name": "Bulk Create Utility Meter Readings",
+          "request": {
+            "name": "Bulk Create Utility Meter Readings",
+            "description": {},
+            "url": {
+              "path": [
+                "meter-readings",
+                "bulk",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"reading_value\": \"<number>\",\n        \"reading_timestamp\": \"<dateTime>\",\n        \"external_meter_id\": \"<string>\",\n        \"batch_info_uuid\": \"<uuid>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"reading_value\": \"<number>\",\n        \"reading_timestamp\": \"<dateTime>\",\n        \"external_meter_id\": \"<string>\",\n        \"batch_info_uuid\": \"<uuid>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb538d3a-f1b8-4e6c-b19a-aea3169e317e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meter-readings",
+                    "bulk",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"reading_value\": 2426.139955287331,\n        \"reading_timestamp\": \"2024-01-01T00:00:00Z\",\n        \"external_meter_id\": \"123XYZ\",\n        \"batch_info_uuid\": \"2ac357fe-9ddf-3fba-6e91-a90113449adc\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"reading_value\": 3528.990723686162,\n        \"reading_timestamp\": \"2024-01-01T00:00:00Z\",\n        \"external_meter_id\": \"123XYZ\",\n        \"batch_info_uuid\": \"9c4ae4f0-971a-c1ff-d14c-1b573f8fa257\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"created\": [\n      {\n        \"id\": \"a3363564-df48-e326-a595-874f4c9039de\",\n        \"external_meter_id\": \"string\"\n      },\n      {\n        \"id\": \"af510fa1-729e-e2ef-d2e6-3985d4647ba9\",\n        \"external_meter_id\": \"string\"\n      }\n    ],\n    \"updated\": [\n      {\n        \"id\": \"e4c466b9-359b-1b5f-afe4-d626b15b78c8\",\n        \"external_meter_id\": \"string\"\n      },\n      {\n        \"id\": \"9b853546-e98d-3b0b-7a26-bd0088a3b54c\",\n        \"external_meter_id\": \"string\"\n      }\n    ],\n    \"type\": \"UTILITY_METER_READING\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"0503cd8a-c6d4-7a05-c20e-dc3c714e5dea\",\n      \"type\": \"UTILITY_DATA_BATCH_INFO\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"c60d014f-ed14-8858-9095-759a3edea005\",\n      \"type\": \"BUILDING\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 656.3829239032715,\n        \"key_1\": 8852.743652490593,\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95482f81-df8c-47d6-9703-5fd98718691c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meter-readings",
+                    "bulk",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"reading_value\": 2426.139955287331,\n        \"reading_timestamp\": \"2024-01-01T00:00:00Z\",\n        \"external_meter_id\": \"123XYZ\",\n        \"batch_info_uuid\": \"2ac357fe-9ddf-3fba-6e91-a90113449adc\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"reading_value\": 3528.990723686162,\n        \"reading_timestamp\": \"2024-01-01T00:00:00Z\",\n        \"external_meter_id\": \"123XYZ\",\n        \"batch_info_uuid\": \"9c4ae4f0-971a-c1ff-d14c-1b573f8fa257\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f82a1d12-c3fd-4c66-969f-7e1392ce19f3",
+    "name": "CAPEX Annual Consumption Utility Meter Readings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

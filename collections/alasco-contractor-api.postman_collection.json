@@ -1,0 +1,1094 @@
+{
+  "item": [
+    {
+      "id": "ed327a2e-23e2-45e9-8c85-176befc90aa2",
+      "name": "Contractor",
+      "description": {
+        "content": "A **Contractor** is a supplier engaged to carry out contracted work, holding master data such as its identifier, VAT ID and bank details. A contractor can hold many **Contracts**, its tax-waiver document can be uploaded and downloaded, and contractors can be created and updated through the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9db752d1-35df-461a-b680-7286e7472396",
+          "name": "Get Contractors",
+          "request": {
+            "name": "Get Contractors",
+            "description": {},
+            "url": {
+              "path": [
+                "contractors",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: |\n| `id` |   |   | x | x |\n| `name` | x | x |   |   |\n| `iban` | x | x |   |   |\n| `bic` | x | x |   |   |\n| `vat_id` | x | x |   |   |\n| `contact_person_name` | x | x |   |   |\n| `contact_person_phone_number` | x | x |   |   |\n| `contact_person_email` | x | x |   |   |\n| `address` | x | x |   |   |\n| `tax_id` | x | x |   |   |\n| `tax_authority` |   |   | x | x |\n| `identifier` | x | x |   |   |\n| `asset (CapEx only)` |   |   | x | x |\n| `project (FinCon only)` |   |   | x | x |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a867ae44-c9dc-4363-8a4f-4f1a9041e999",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"f635aeeb-1646-1934-7046-9953f58d4bcd\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 8352,\n        \"tax_authority\": \"SCHLESWIG_HOLSTEIN\",\n        \"tax_waiver\": {\n          \"security_number\": \"string\",\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": 5002\n      }\n    },\n    {\n      \"id\": \"27ccadae-9b3b-4aae-734d-29b3215ad705\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 6718,\n        \"tax_authority\": \"SCHLESWIG_HOLSTEIN\",\n        \"tax_waiver\": {\n          \"security_number\": \"string\",\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 4932.153078260274,\n        \"key_1\": 9718.753139372906\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e97c8957-8318-28d9-6625-66e8ea3c70b4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 7571,\n        \"tax_authority\": \"BERLIN\",\n        \"tax_waiver\": {\n          \"security_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 861,\n        \"key_1\": 7952,\n        \"key_2\": 9718.987203592176\n      }\n    },\n    {\n      \"id\": \"57c8a436-913a-e7c2-d1d8-e71e01a0dc1a\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 4720,\n        \"tax_authority\": \"SAXONY\",\n        \"tax_waiver\": {\n          \"security_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c83523d4-96fa-417b-b475-19c467e3dbc2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87b3c12c-e931-4de7-a4c3-f2a924937e44",
+          "name": "Create Contractor",
+          "request": {
+            "name": "Create Contractor",
+            "description": {},
+            "url": {
+              "path": [
+                "contractors",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"accounts_payable_number\": \"<integer>\",\n      \"address\": \"<string>\",\n      \"bic\": \"<string>\",\n      \"city\": \"<string>\",\n      \"contact_person_email\": \"<string>\",\n      \"contact_person_name\": \"<string>\",\n      \"contact_person_phone_number\": \"<string>\",\n      \"country\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"identifier\": \"<string>\",\n      \"tax_authority\": \"<string>\",\n      \"tax_id\": \"<string>\",\n      \"tax_waiver\": {\n        \"security_number\": \"<string>\"\n      },\n      \"vat_id\": \"<string>\",\n      \"zip_code\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f1670da7-0a17-44b1-a445-0315a18a400a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"accounts_payable_number\": 9262,\n      \"address\": \"string\",\n      \"bic\": \"string\",\n      \"city\": \"string\",\n      \"contact_person_email\": \"string\",\n      \"contact_person_name\": \"string\",\n      \"contact_person_phone_number\": \"string\",\n      \"country\": \"DK\",\n      \"iban\": \"string\",\n      \"identifier\": \"string\",\n      \"tax_authority\": \"LOWER_SAXONY\",\n      \"tax_id\": \"string\",\n      \"tax_waiver\": {\n        \"security_number\": \"string\"\n      },\n      \"vat_id\": \"string\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"8f7fca64-7850-2fdf-3bcb-eb33d0c960c8\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"iban\": \"string\",\n      \"bic\": \"string\",\n      \"vat_id\": \"string\",\n      \"contact_person_name\": \"string\",\n      \"contact_person_phone_number\": \"string\",\n      \"contact_person_email\": \"string\",\n      \"tax_id\": \"string\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"identifier\": \"string\",\n      \"accounts_payable_number\": 2808,\n      \"tax_authority\": \"THURINGIA\",\n      \"tax_waiver\": {\n        \"security_number\": \"string\",\n        \"filename\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"valid_until\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"key_0\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"91293ab4-e9ca-d04e-1e94-b9131bda3e44\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 4241,\n        \"tax_authority\": \"HAMBURG\",\n        \"tax_waiver\": {\n          \"security_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"b8216963-6b33-7667-4642-b27e2307b1d2\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 1307,\n        \"tax_authority\": \"RHEINLAND_PALATINATE\",\n        \"tax_waiver\": {\n          \"security_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 6235.1663974259745,\n        \"key_1\": 9375.301992643796\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09037a41-61cc-47e5-afaa-7bbef3094785",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"accounts_payable_number\": 9262,\n      \"address\": \"string\",\n      \"bic\": \"string\",\n      \"city\": \"string\",\n      \"contact_person_email\": \"string\",\n      \"contact_person_name\": \"string\",\n      \"contact_person_phone_number\": \"string\",\n      \"country\": \"DK\",\n      \"iban\": \"string\",\n      \"identifier\": \"string\",\n      \"tax_authority\": \"LOWER_SAXONY\",\n      \"tax_id\": \"string\",\n      \"tax_waiver\": {\n        \"security_number\": \"string\"\n      },\n      \"vat_id\": \"string\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08d99d80-9e41-458a-8098-2aa020c43ef4",
+          "name": "Get Contractor Details",
+          "request": {
+            "name": "Get Contractor Details",
+            "description": {},
+            "url": {
+              "path": [
+                "contractors",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ac2aca60-bcb2-4c4a-ba6e-4279ae001163",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"8f7fca64-7850-2fdf-3bcb-eb33d0c960c8\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"iban\": \"string\",\n      \"bic\": \"string\",\n      \"vat_id\": \"string\",\n      \"contact_person_name\": \"string\",\n      \"contact_person_phone_number\": \"string\",\n      \"contact_person_email\": \"string\",\n      \"tax_id\": \"string\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"identifier\": \"string\",\n      \"accounts_payable_number\": 2808,\n      \"tax_authority\": \"THURINGIA\",\n      \"tax_waiver\": {\n        \"security_number\": \"string\",\n        \"filename\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"valid_until\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"key_0\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"91293ab4-e9ca-d04e-1e94-b9131bda3e44\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 4241,\n        \"tax_authority\": \"HAMBURG\",\n        \"tax_waiver\": {\n          \"security_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"b8216963-6b33-7667-4642-b27e2307b1d2\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 1307,\n        \"tax_authority\": \"RHEINLAND_PALATINATE\",\n        \"tax_waiver\": {\n          \"security_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 6235.1663974259745,\n        \"key_1\": 9375.301992643796\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b99f80c8-2060-4329-8968-5a4326acf173",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a4d0158-f415-4d51-b4d7-bfb610faac16",
+          "name": "Update Contractor",
+          "request": {
+            "name": "Update Contractor",
+            "description": {},
+            "url": {
+              "path": [
+                "contractors",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"accounts_payable_number\": \"<integer>\",\n      \"address\": \"<string>\",\n      \"bic\": \"<string>\",\n      \"city\": \"<string>\",\n      \"contact_person_email\": \"<string>\",\n      \"contact_person_name\": \"<string>\",\n      \"contact_person_phone_number\": \"<string>\",\n      \"country\": \"<string>\",\n      \"iban\": \"<string>\",\n      \"identifier\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tax_authority\": \"<string>\",\n      \"tax_id\": \"<string>\",\n      \"tax_waiver\": {\n        \"security_number\": \"<string>\"\n      },\n      \"vat_id\": \"<string>\",\n      \"zip_code\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a9f9da23-3b80-454d-b256-c3cf18ac2230",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"accounts_payable_number\": 2080,\n      \"address\": \"string\",\n      \"bic\": \"string\",\n      \"city\": \"string\",\n      \"contact_person_email\": \"string\",\n      \"contact_person_name\": \"string\",\n      \"contact_person_phone_number\": \"string\",\n      \"country\": \"PT\",\n      \"iban\": \"string\",\n      \"identifier\": \"string\",\n      \"name\": \"string\",\n      \"tax_authority\": \"HAMBURG\",\n      \"tax_id\": \"string\",\n      \"tax_waiver\": {\n        \"security_number\": \"string\"\n      },\n      \"vat_id\": \"string\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"8f7fca64-7850-2fdf-3bcb-eb33d0c960c8\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"iban\": \"string\",\n      \"bic\": \"string\",\n      \"vat_id\": \"string\",\n      \"contact_person_name\": \"string\",\n      \"contact_person_phone_number\": \"string\",\n      \"contact_person_email\": \"string\",\n      \"tax_id\": \"string\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"identifier\": \"string\",\n      \"accounts_payable_number\": 2808,\n      \"tax_authority\": \"THURINGIA\",\n      \"tax_waiver\": {\n        \"security_number\": \"string\",\n        \"filename\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"valid_until\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"key_0\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"91293ab4-e9ca-d04e-1e94-b9131bda3e44\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 4241,\n        \"tax_authority\": \"HAMBURG\",\n        \"tax_waiver\": {\n          \"security_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"b8216963-6b33-7667-4642-b27e2307b1d2\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"iban\": \"string\",\n        \"bic\": \"string\",\n        \"vat_id\": \"string\",\n        \"contact_person_name\": \"string\",\n        \"contact_person_phone_number\": \"string\",\n        \"contact_person_email\": \"string\",\n        \"tax_id\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"country\": \"string\",\n        \"identifier\": \"string\",\n        \"accounts_payable_number\": 1307,\n        \"tax_authority\": \"RHEINLAND_PALATINATE\",\n        \"tax_waiver\": {\n          \"security_number\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"valid_until\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 6235.1663974259745,\n        \"key_1\": 9375.301992643796\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a540954-9eec-40b4-8bc2-3cc528e2784f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"accounts_payable_number\": 2080,\n      \"address\": \"string\",\n      \"bic\": \"string\",\n      \"city\": \"string\",\n      \"contact_person_email\": \"string\",\n      \"contact_person_name\": \"string\",\n      \"contact_person_phone_number\": \"string\",\n      \"country\": \"PT\",\n      \"iban\": \"string\",\n      \"identifier\": \"string\",\n      \"name\": \"string\",\n      \"tax_authority\": \"HAMBURG\",\n      \"tax_id\": \"string\",\n      \"tax_waiver\": {\n        \"security_number\": \"string\"\n      },\n      \"vat_id\": \"string\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0bba840-5975-468d-a095-91fe119db464",
+          "name": "Download Tax Waiver",
+          "request": {
+            "name": "Download Tax Waiver",
+            "description": {},
+            "url": {
+              "path": [
+                "contractors",
+                ":id",
+                "download-tax-waiver",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "69b88718-8b65-4737-a23d-63baf9ed3617",
+              "name": "\nRedirect to the temporary download link\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":id",
+                    "download-tax-waiver",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "539a2274-588d-42ed-b4bc-72e7d7a89b13",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":id",
+                    "download-tax-waiver",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb576edb-ebb3-423f-98c1-75de700dd097",
+          "name": "Upload Tax Waiver",
+          "request": {
+            "name": "Upload Tax Waiver",
+            "description": {},
+            "url": {
+              "path": [
+                "contractors",
+                ":id",
+                "upload-tax-waiver",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "upload",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) \nThe file to submit. The file must be a valid PDF.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b7d8fd48-c7b0-4691-9b5c-a599d25ba40b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":id",
+                    "upload-tax-waiver",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "upload",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"filename\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"7f1b392e-2687-5564-730f-145cc87e1805\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 6266,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"9227a35a-cdc8-596c-de94-db09e13a5eaf\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba91e06e-a774-426b-b418-3d1ee8c59a56",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contractors",
+                    ":id",
+                    "upload-tax-waiver",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "upload",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c0b6538a-8b35-4d0f-a175-b5e7d0adf571",
+    "name": "CAPEX Annual Consumption Contractor API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

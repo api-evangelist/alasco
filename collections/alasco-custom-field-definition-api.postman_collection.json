@@ -1,0 +1,364 @@
+{
+  "item": [
+    {
+      "id": "60e5ab89-483a-455f-8f69-3e23bb2a9fd0",
+      "name": "Custom Field Definition",
+      "description": {
+        "content": "A **Custom Field Definition** describes a custom field - its name, type and which object it applies to (contract or project). Definitions are configured in Alasco and are read-only through this API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a8a7f5d5-5981-4f2e-8302-0a9a110d3d27",
+          "name": "Get Custom Field Definitions",
+          "request": {
+            "name": "Get Custom Field Definitions",
+            "description": {},
+            "url": {
+              "path": [
+                "custom_field_definitions",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: |\n| `id` |   |   | x | x |\n| `name` | x | x |   |   |\n| `description` | x | x |   |   |\n| `export_name` | x | x |   |   |\n| `field_type` |   |   | x | x |\n| `unit` |   |   | x | x |\n| `object_type` |   |   | x | x |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d696553e-9594-41fc-a133-2fe2c1a1fef6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom_field_definitions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"a2a44e24-dc61-340e-9211-0923b914b02d\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"export_name\": \"string\",\n        \"field_type\": \"INTEGER\",\n        \"unit\": \"NO_UNIT\",\n        \"description\": \"string\",\n        \"object_type\": \"CONTRACT\"\n      },\n      \"relationships\": {\n        \"key_0\": 1835,\n        \"key_1\": 114,\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"id\": \"91422bb8-659e-b7ef-c12d-ab8cba77e578\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"export_name\": \"string\",\n        \"field_type\": \"INTEGER\",\n        \"unit\": \"NO_UNIT\",\n        \"description\": \"string\",\n        \"object_type\": \"CONTRACT\"\n      },\n      \"relationships\": {\n        \"key_0\": 8469,\n        \"key_1\": true\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"de288275-e60b-dcc6-441b-d0784a844cdc\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"export_name\": \"string\",\n        \"field_type\": \"INTEGER\",\n        \"unit\": \"NO_UNIT\",\n        \"description\": \"string\",\n        \"object_type\": \"CONTRACT\"\n      },\n      \"relationships\": {\n        \"key_0\": 8757.440212027643,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"9de1a8ef-b279-c24f-aa0e-732d8a1b7dc0\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"export_name\": \"string\",\n        \"field_type\": \"INTEGER\",\n        \"unit\": \"NO_UNIT\",\n        \"description\": \"string\",\n        \"object_type\": \"CONTRACT\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 8004.277822692585\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0caade41-d58d-4910-8f80-9a25b52973c3",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom_field_definitions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8c5fe3a-a0d4-4b1e-b351-7b32b7436709",
+          "name": "Get Custom Field Definition Details",
+          "request": {
+            "name": "Get Custom Field Definition Details",
+            "description": {},
+            "url": {
+              "path": [
+                "custom_field_definitions",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1f7a3e3f-f2ab-4011-a46f-0f9ea4d45dad",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom_field_definitions",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"a117d949-bf87-a523-7508-5611112ef931\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"export_name\": \"string\",\n      \"field_type\": \"INTEGER\",\n      \"unit\": \"NO_UNIT\",\n      \"description\": \"string\",\n      \"object_type\": \"CONTRACT\"\n    },\n    \"relationships\": {\n      \"key_0\": 2260\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"70adce53-0820-9ed5-801d-c60170d45f42\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"export_name\": \"string\",\n        \"field_type\": \"INTEGER\",\n        \"unit\": \"NO_UNIT\",\n        \"description\": \"string\",\n        \"object_type\": \"CONTRACT\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"29102476-18a9-f42a-324b-f42a227c685c\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"export_name\": \"string\",\n        \"field_type\": \"INTEGER\",\n        \"unit\": \"NO_UNIT\",\n        \"description\": \"string\",\n        \"object_type\": \"CONTRACT\"\n      },\n      \"relationships\": {\n        \"key_0\": 9350\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c8e1cec-22c9-4b04-8089-02e88e7ad58c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "custom_field_definitions",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "331e13fc-10a1-4584-acf6-4ca1e60dcd76",
+    "name": "CAPEX Annual Consumption Custom Field Definition API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

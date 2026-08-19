@@ -1,0 +1,723 @@
+{
+  "item": [
+    {
+      "id": "21ff9e82-df74-4221-a0db-fc3e209c73f8",
+      "name": "Contracting Entity",
+      "description": {
+        "content": "A **Contracting Entity** is the legal entity on your side that commissions contracts, holding company and commercial-register details. Names are unique per account, and entities can be created and updated through the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2d4d808f-f6c3-4320-b5d4-35d41c0585d0",
+          "name": "Get Contracting Entities",
+          "request": {
+            "name": "Get Contracting Entities",
+            "description": {},
+            "url": {
+              "path": [
+                "contracting_entities",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: |\n| `id` |   |   | x | x |\n| `name` | x | x |   |   |\n| `address` | x | x |   |   |\n| `city` | x | x |   |   |\n| `zip_code` | x | x |   |   |\n| `tax_authority` |   |   | x | x |\n| `tax_id` | x | x |   |   |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "95efd824-8e12-422e-b431-282dac0ef1b2",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"e6227191-3ab6-650e-3cd4-9d97ba7acae4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"SAXONY\"\n      },\n      \"relationships\": {\n        \"key_0\": 1695.9201260297918\n      }\n    },\n    {\n      \"id\": \"8cfee075-66ea-87c9-92fb-21198bf6d84b\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"BERLIN\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"40a80dd9-ea4a-ee62-d020-1fd0b3f1adaa\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"HESSE\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 2736.2547273987893,\n        \"key_2\": 4590,\n        \"key_3\": 1459\n      }\n    },\n    {\n      \"id\": \"1b6b57d6-1d2b-9143-82db-dfe99c247442\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"LOWER_SAXONY\"\n      },\n      \"relationships\": {\n        \"key_0\": 3338,\n        \"key_1\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b49b3a3-5bb6-41e8-800b-e52e9ce7b1ca",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dd54825-2715-4188-8fdd-e33df9535a54",
+          "name": "Create Contracting Entity",
+          "request": {
+            "name": "Create Contracting Entity",
+            "description": {},
+            "url": {
+              "path": [
+                "contracting_entities",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"commercial_register_number\": \"\",\n      \"commercial_register_type\": \"\",\n      \"email\": \"\",\n      \"managing_directors\": \"\",\n      \"register_court\": \"\",\n      \"tax_authority\": \"<string>\",\n      \"tax_id\": \"<string>\",\n      \"vat_id\": \"\",\n      \"website\": \"\",\n      \"zip_code\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "835ae859-ce74-4d6b-b58b-005ca40ae5b6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"commercial_register_number\": \"\",\n      \"commercial_register_type\": \"\",\n      \"email\": \"\",\n      \"managing_directors\": \"\",\n      \"register_court\": \"\",\n      \"tax_authority\": \"BAVARIA\",\n      \"tax_id\": \"string\",\n      \"vat_id\": \"\",\n      \"website\": \"\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"39a3c200-5c33-4a48-4d72-6a65fdda0b65\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"tax_id\": \"string\",\n      \"managing_directors\": \"string\",\n      \"commercial_register_type\": \"string\",\n      \"commercial_register_number\": \"string\",\n      \"register_court\": \"string\",\n      \"vat_id\": \"string\",\n      \"email\": \"string\",\n      \"website\": \"string\",\n      \"tax_authority\": \"NORTH_RHINE_WESTPHALIA\"\n    },\n    \"relationships\": {\n      \"key_0\": 4502,\n      \"key_1\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"078ca444-0da1-fc2b-cc7d-36a8bfdb35ee\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"BADEN_WUERTTEMBERG\"\n      },\n      \"relationships\": {\n        \"key_0\": 153.21370022774562,\n        \"key_1\": 2745.0951771871255\n      }\n    },\n    {\n      \"id\": \"2287254f-7818-f175-479e-1e8dadc60dc4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"BERLIN\"\n      },\n      \"relationships\": {\n        \"key_0\": 6931.462091188369,\n        \"key_1\": false,\n        \"key_2\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55fe0d1d-ea56-4173-ab9c-576712beefc5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"commercial_register_number\": \"\",\n      \"commercial_register_type\": \"\",\n      \"email\": \"\",\n      \"managing_directors\": \"\",\n      \"register_court\": \"\",\n      \"tax_authority\": \"BAVARIA\",\n      \"tax_id\": \"string\",\n      \"vat_id\": \"\",\n      \"website\": \"\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4dc97da3-0e04-4c50-956e-203581192f1f",
+          "name": "Get Contracting Entity Details",
+          "request": {
+            "name": "Get Contracting Entity Details",
+            "description": {},
+            "url": {
+              "path": [
+                "contracting_entities",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "40daa58d-9390-48f4-b51b-c9073fbcf79c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"39a3c200-5c33-4a48-4d72-6a65fdda0b65\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"tax_id\": \"string\",\n      \"managing_directors\": \"string\",\n      \"commercial_register_type\": \"string\",\n      \"commercial_register_number\": \"string\",\n      \"register_court\": \"string\",\n      \"vat_id\": \"string\",\n      \"email\": \"string\",\n      \"website\": \"string\",\n      \"tax_authority\": \"NORTH_RHINE_WESTPHALIA\"\n    },\n    \"relationships\": {\n      \"key_0\": 4502,\n      \"key_1\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"078ca444-0da1-fc2b-cc7d-36a8bfdb35ee\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"BADEN_WUERTTEMBERG\"\n      },\n      \"relationships\": {\n        \"key_0\": 153.21370022774562,\n        \"key_1\": 2745.0951771871255\n      }\n    },\n    {\n      \"id\": \"2287254f-7818-f175-479e-1e8dadc60dc4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"BERLIN\"\n      },\n      \"relationships\": {\n        \"key_0\": 6931.462091188369,\n        \"key_1\": false,\n        \"key_2\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c8cc26b-2b72-42b7-bc91-145fefa1d8de",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3071367d-8061-4300-8676-abb2d579029d",
+          "name": "Update Contracting Entity",
+          "request": {
+            "name": "Update Contracting Entity",
+            "description": {},
+            "url": {
+              "path": [
+                "contracting_entities",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"commercial_register_number\": \"\",\n      \"commercial_register_type\": \"\",\n      \"email\": \"\",\n      \"managing_directors\": \"\",\n      \"name\": \"<string>\",\n      \"register_court\": \"\",\n      \"tax_authority\": \"<string>\",\n      \"tax_id\": \"<string>\",\n      \"vat_id\": \"\",\n      \"website\": \"\",\n      \"zip_code\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d0afd1a1-aa9a-4d0f-a112-38d22d57ea55",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"commercial_register_number\": \"\",\n      \"commercial_register_type\": \"\",\n      \"email\": \"\",\n      \"managing_directors\": \"\",\n      \"name\": \"string\",\n      \"register_court\": \"\",\n      \"tax_authority\": \"MECKLENBURG_VORPOMMERN\",\n      \"tax_id\": \"string\",\n      \"vat_id\": \"\",\n      \"website\": \"\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"39a3c200-5c33-4a48-4d72-6a65fdda0b65\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"tax_id\": \"string\",\n      \"managing_directors\": \"string\",\n      \"commercial_register_type\": \"string\",\n      \"commercial_register_number\": \"string\",\n      \"register_court\": \"string\",\n      \"vat_id\": \"string\",\n      \"email\": \"string\",\n      \"website\": \"string\",\n      \"tax_authority\": \"NORTH_RHINE_WESTPHALIA\"\n    },\n    \"relationships\": {\n      \"key_0\": 4502,\n      \"key_1\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"078ca444-0da1-fc2b-cc7d-36a8bfdb35ee\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"BADEN_WUERTTEMBERG\"\n      },\n      \"relationships\": {\n        \"key_0\": 153.21370022774562,\n        \"key_1\": 2745.0951771871255\n      }\n    },\n    {\n      \"id\": \"2287254f-7818-f175-479e-1e8dadc60dc4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"tax_id\": \"string\",\n        \"managing_directors\": \"string\",\n        \"commercial_register_type\": \"string\",\n        \"commercial_register_number\": \"string\",\n        \"register_court\": \"string\",\n        \"vat_id\": \"string\",\n        \"email\": \"string\",\n        \"website\": \"string\",\n        \"tax_authority\": \"BERLIN\"\n      },\n      \"relationships\": {\n        \"key_0\": 6931.462091188369,\n        \"key_1\": false,\n        \"key_2\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8015ccab-3cfa-4793-be52-46f83805abd8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracting_entities",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"commercial_register_number\": \"\",\n      \"commercial_register_type\": \"\",\n      \"email\": \"\",\n      \"managing_directors\": \"\",\n      \"name\": \"string\",\n      \"register_court\": \"\",\n      \"tax_authority\": \"MECKLENBURG_VORPOMMERN\",\n      \"tax_id\": \"string\",\n      \"vat_id\": \"\",\n      \"website\": \"\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "27f2efed-fce0-4eac-8216-77c4f1841ac6",
+    "name": "CAPEX Annual Consumption Contracting Entity API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

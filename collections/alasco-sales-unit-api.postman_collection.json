@@ -1,0 +1,370 @@
+{
+  "item": [
+    {
+      "id": "9d057c26-7bea-475f-9be4-43e565c4120b",
+      "name": "Sales Unit",
+      "description": {
+        "content": "Read-only reporting view of sales units, showing listed and sold prices.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d28e98c4-bfdd-4c1a-adf5-5aa6466805bf",
+          "name": "Get Sales Units",
+          "request": {
+            "name": "Get Sales Units",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "sales_units",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n* `is`: Expects one value\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |   |\n| `name` | x | x |   |   |   |   |   |   |\n| `status` |   |   |   |   |   | x | x |   |\n| `selling_date` |   |   | x | x | x |   |   | x |\n| `sold_price.net` |   |   | x | x | x |   |   | x |\n| `sold_price.tax` |   |   | x | x | x |   |   | x |\n| `listed_price.net` |   |   | x | x | x |   |   | x |\n| `listed_price.tax` |   |   | x | x | x |   |   | x |\n| `project` |   |   |   |   |   | x | x |   |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "72b058f8-a935-468e-a327-632ada7a3933",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "sales_units",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"9eb511c4-4308-891f-11c1-004d5337ca4c\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"status\": \"OPEN\",\n        \"selling_date\": \"1987-05-07\",\n        \"sold_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"listed_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"project\": \"fdff1f86-ef4b-76b6-fc60-fa5612e46318\"\n      },\n      \"relationships\": {\n        \"key_0\": 4514.940038490052,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"1658a904-f939-898a-fd03-1039bae6ef73\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"status\": \"OPEN\",\n        \"selling_date\": \"2024-12-08\",\n        \"sold_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"listed_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"project\": \"4bd9cb25-69f8-644a-fc82-7dc43046aa2d\"\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": 9946,\n        \"key_2\": \"string\"\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"f9eccd8e-7127-058e-9ed6-ea01e920ce04\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"status\": \"OPEN\",\n        \"selling_date\": \"1995-12-01\",\n        \"sold_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"listed_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"project\": \"309b5eec-3c20-7179-723b-7afd6d82fd3b\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"70f41f51-3955-df0d-02a4-7d9ad43f9abe\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"status\": \"OPEN\",\n        \"selling_date\": \"2012-02-27\",\n        \"sold_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"listed_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"project\": \"cfb19ef7-5997-621d-571d-018c9ee93582\"\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 2283.9160590395823,\n        \"key_2\": 302\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0516d7d5-0e0d-4f37-919c-6c71d6a1622e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "sales_units",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7dcef082-958e-46bc-b5f8-eaafca5318ac",
+          "name": "Get Sales Unit Details",
+          "request": {
+            "name": "Get Sales Unit Details",
+            "description": {},
+            "url": {
+              "path": [
+                "reporting",
+                "sales_units",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ce924d83-adde-4e13-914f-acbd166b5620",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "sales_units",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"38974e95-d4db-6d10-efc5-2d07cb8afbf6\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"status\": \"OPEN\",\n      \"selling_date\": \"1947-12-05\",\n      \"sold_price\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"listed_price\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"project\": \"7d631785-1548-3609-a183-6f6f3a52a884\"\n    },\n    \"relationships\": {\n      \"key_0\": 588,\n      \"key_1\": 5257,\n      \"key_2\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"66ea6eda-e642-1e39-35b4-80ede1175eba\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"status\": \"OPEN\",\n        \"selling_date\": \"1962-04-14\",\n        \"sold_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"listed_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"project\": \"06813278-c244-fbf5-2cff-7b967d3a6c5d\"\n      },\n      \"relationships\": {\n        \"key_0\": 4168,\n        \"key_1\": false,\n        \"key_2\": \"string\"\n      }\n    },\n    {\n      \"id\": \"cb5228ba-df8b-b48d-ef00-79018e1e1517\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"status\": \"OPEN\",\n        \"selling_date\": \"1997-05-16\",\n        \"sold_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"listed_price\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"project\": \"67bc1c86-dc7c-228d-2669-da813ce72f76\"\n      },\n      \"relationships\": {\n        \"key_0\": 6233.166614215408,\n        \"key_1\": \"string\",\n        \"key_2\": true,\n        \"key_3\": 1013.6614670982991\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c96b1a5b-c42b-4b46-b086-08795f119285",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "sales_units",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1d790ed0-8bb7-47e5-b169-490442cf8285",
+    "name": "CAPEX Annual Consumption Sales Unit API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1904 @@
+{
+  "item": [
+    {
+      "id": "09bf9a66-019f-4148-a41b-fa50598fd908",
+      "name": "Invoice",
+      "description": {
+        "content": "An **Invoice** is a contractor's request for payment that moves through states from `NEW` to `PAID`. Submitting an invoice against an **Asset** creates it in `NEW`, linked only to the asset's project; to process it you must link it to a **Contract** (which, in CapEx, belongs to a **Measure**). Invoices carry audited and approved amounts, **Documents** and **Tags**, and you can register their payment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b83e4f67-964d-4afa-a8b4-4f14e23ff4b7",
+          "name": "Submit Invoice",
+          "request": {
+            "name": "Submit Invoice",
+            "description": {
+              "content": "This endpoint supports submitting new invoices. Before using this endpoint, please reach out the the support team to make sure, everything is properly set up.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "assets",
+                ":id",
+                "submit-invoice",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) \nThe file to submit. The file must be a valid PDF.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "baa65e60-4e1a-4b3b-9e38-7ac7b9fc0039",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "submit-invoice",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"bd717188-fc58-0f7a-fff0-50b8bcea6cb5\",\n    \"attributes\": {\n      \"date_created\": \"1988-08-26T11:35:12.106Z\",\n      \"invoice_process_state\": \"NEW\",\n      \"is_reverse_charge\": false,\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"0ee432f7-80fc-a203-c8d5-e860c1a48e96\",\n      \"date_approved\": \"1991-03-31T04:59:37.872Z\",\n      \"date_discount\": \"2017-04-01\",\n      \"date_due\": \"1988-10-08\",\n      \"date_posted\": \"1985-08-10\",\n      \"date_received\": \"1974-12-07\",\n      \"discounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"installment_number\": 6396,\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"RECURRING\",\n      \"payment_amount_gross\": {\n        \"amount\": \"123.123456789012\",\n        \"currency\": \"EUR\"\n      },\n      \"payment_comment\": \"string\",\n      \"payment_created\": \"1957-12-08T01:39:38.570Z\",\n      \"payment_date\": \"1983-03-24\",\n      \"unaudited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"undiscounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"INVOICE\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1c6ab548-fb54-4433-bf4c-b6556d12d6e4\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 9222\n      }\n    },\n    {\n      \"id\": \"55055200-875c-7619-3460-1f6401b58c95\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 7084.677987005116\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c670314-1719-480a-91dd-76d8d440fe06",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    ":id",
+                    "submit-invoice",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64af1c17-32f2-4caf-b691-60e31248fc23",
+          "name": "Get Invoices By Contract",
+          "request": {
+            "name": "Get Invoices By Contract",
+            "description": {},
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id",
+                "invoices",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "39505b82-b36b-4860-8cff-534929df6ff6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "invoices",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"c5cd05cb-9fbd-84e5-fa07-e94176f66205\",\n      \"attributes\": {\n        \"date_created\": \"1965-03-15T03:42:12.584Z\",\n        \"invoice_process_state\": \"NEW\",\n        \"is_reverse_charge\": true,\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"cash_discount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"e9e2f80b-20c4-13bc-9e25-299068f2ac71\",\n        \"date_approved\": \"1986-08-24T16:53:02.766Z\",\n        \"date_discount\": \"2021-01-26\",\n        \"date_due\": \"2001-02-07\",\n        \"date_posted\": \"1956-03-02\",\n        \"date_received\": \"2025-01-22\",\n        \"discounted_approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"external_identifier\": \"string\",\n        \"installment_number\": 7022,\n        \"internal_identifier\": \"string\",\n        \"invoice_type\": \"SINGLE\",\n        \"payment_amount_gross\": {\n          \"amount\": \"123.123456789012\",\n          \"currency\": \"EUR\"\n        },\n        \"payment_comment\": \"string\",\n        \"payment_created\": \"1948-10-27T08:29:36.850Z\",\n        \"payment_date\": \"2026-08-06\",\n        \"unaudited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"undiscounted_approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 4517\n      },\n      \"type\": \"INVOICE\"\n    },\n    {\n      \"id\": \"685eb4ab-c578-7813-4110-fba25c0a1cd0\",\n      \"attributes\": {\n        \"date_created\": \"1987-05-18T06:17:16.085Z\",\n        \"invoice_process_state\": \"NEW\",\n        \"is_reverse_charge\": true,\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"cash_discount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"6697727e-5ed3-bd9d-72d9-93f2fe9836ef\",\n        \"date_approved\": \"1953-07-31T23:31:50.735Z\",\n        \"date_discount\": \"1948-12-23\",\n        \"date_due\": \"1955-01-30\",\n        \"date_posted\": \"1955-04-19\",\n        \"date_received\": \"1992-10-27\",\n        \"discounted_approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"external_identifier\": \"string\",\n        \"installment_number\": 5597,\n        \"internal_identifier\": \"string\",\n        \"invoice_type\": \"RECURRING\",\n        \"payment_amount_gross\": {\n          \"amount\": \"123.123456789012\",\n          \"currency\": \"EUR\"\n        },\n        \"payment_comment\": \"string\",\n        \"payment_created\": \"1961-08-22T12:20:10.509Z\",\n        \"payment_date\": \"1983-02-17\",\n        \"unaudited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"undiscounted_approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 8475.62640754525,\n        \"key_1\": 208.74080858076405,\n        \"key_2\": true\n      },\n      \"type\": \"INVOICE\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"cbec19ee-87f9-5b4d-4378-c87bfc050fee\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"8c896b73-978f-a955-e581-2ca3b141f235\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08bf3bab-3664-4593-9f76-0927cbad6a09",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "invoices",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26b166a2-0ca5-4829-9585-925037947ace",
+          "name": "Get Invoices",
+          "request": {
+            "name": "Get Invoices",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[internal_identifier.exact]=invoice_123`.\nThose filters can be combined and multiple values are separated using commas,\nfor example `filter[internal_identifier.exact]=invoice123&filter[external_identifier.exact]=internal_invoice`.\n\nCurrently supported operations are\n* `contains`: Expects one value\n* `exact`: Expects one value\n* `greater_than_equal`: Expects one value\n* `in`: Expects one or multiple values\n* `less_than_equal`: Expects one value\n* `range`: Expects two values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` |  `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |  |   |   |   | x | x |\n| `external_identifier` | x | x |   |   |   |   |   |\n| `internal_identifier` | x | x |   |   |   |   |   |\n| `date_posted` | x |  | x | x | x |   |   |\n| `date_due` | x |  | x | x | x |   |   |\n| `date_received` | x |  | x | x | x |   |   |\n| `date_approved` |   |  | x | x | x |   |   |\n| `payment_created` |   |  | x | x | x |   |   |\n| `date_created` |   |  | x | x | x |   |   |\n| `invoice_type` |   |  |   |   |   | x | x |\n| `invoice_process_state` |   |  |   |   |   | x | x |\n| `payment_date` | x |  | x | x | x |   |   |\n| `unaudited_amount` |   |  | x | x | x |   |   |\n| `discounted_approved_amount` |   |   | x | x | x |   |   |\n| `undiscounted_approved_amount` |   |  | x | x | x |   |   |\n| `cash_discount` |   |   | x | x | x |   |   |\n| `audited_amount` |   |   | x | x | x |   |   |\n| `tags` |   |  |   |   |   | x | x |\n| `contract` |   |  |   |   |   | x | x |\n\nMoney attributes can be filtered on both, net and tax values. An example to filter for the net amount of\n`unaudited_amount` would be `filter[unaudited_amount.net.greater_than_equal]=1000.00`.\nDatetime attributes should be filtered by proper datetime arguments, e.g. `filter[date_created.gte]=2022-08-05T15:04:07`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameter.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n* contract\n* contract.contractor\n* contract.contract_unit\n* contract.contract_unit.project\n* contract.contract_unit.project.property\n\ne.g. `include=contract,contract.contractor,contract.contract_unit,contract.contract_unit.project,contract.contract_unit.project.property`\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a3b310f3-09ba-4c6c-b48f-74ef6a4c8695",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"c5cd05cb-9fbd-84e5-fa07-e94176f66205\",\n      \"attributes\": {\n        \"date_created\": \"1965-03-15T03:42:12.584Z\",\n        \"invoice_process_state\": \"NEW\",\n        \"is_reverse_charge\": true,\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"cash_discount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"e9e2f80b-20c4-13bc-9e25-299068f2ac71\",\n        \"date_approved\": \"1986-08-24T16:53:02.766Z\",\n        \"date_discount\": \"2021-01-26\",\n        \"date_due\": \"2001-02-07\",\n        \"date_posted\": \"1956-03-02\",\n        \"date_received\": \"2025-01-22\",\n        \"discounted_approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"external_identifier\": \"string\",\n        \"installment_number\": 7022,\n        \"internal_identifier\": \"string\",\n        \"invoice_type\": \"SINGLE\",\n        \"payment_amount_gross\": {\n          \"amount\": \"123.123456789012\",\n          \"currency\": \"EUR\"\n        },\n        \"payment_comment\": \"string\",\n        \"payment_created\": \"1948-10-27T08:29:36.850Z\",\n        \"payment_date\": \"2026-08-06\",\n        \"unaudited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"undiscounted_approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 4517\n      },\n      \"type\": \"INVOICE\"\n    },\n    {\n      \"id\": \"685eb4ab-c578-7813-4110-fba25c0a1cd0\",\n      \"attributes\": {\n        \"date_created\": \"1987-05-18T06:17:16.085Z\",\n        \"invoice_process_state\": \"NEW\",\n        \"is_reverse_charge\": true,\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"cash_discount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"6697727e-5ed3-bd9d-72d9-93f2fe9836ef\",\n        \"date_approved\": \"1953-07-31T23:31:50.735Z\",\n        \"date_discount\": \"1948-12-23\",\n        \"date_due\": \"1955-01-30\",\n        \"date_posted\": \"1955-04-19\",\n        \"date_received\": \"1992-10-27\",\n        \"discounted_approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"external_identifier\": \"string\",\n        \"installment_number\": 5597,\n        \"internal_identifier\": \"string\",\n        \"invoice_type\": \"RECURRING\",\n        \"payment_amount_gross\": {\n          \"amount\": \"123.123456789012\",\n          \"currency\": \"EUR\"\n        },\n        \"payment_comment\": \"string\",\n        \"payment_created\": \"1961-08-22T12:20:10.509Z\",\n        \"payment_date\": \"1983-02-17\",\n        \"unaudited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"undiscounted_approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        }\n      },\n      \"relationships\": {\n        \"key_0\": 8475.62640754525,\n        \"key_1\": 208.74080858076405,\n        \"key_2\": true\n      },\n      \"type\": \"INVOICE\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"cbec19ee-87f9-5b4d-4378-c87bfc050fee\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"8c896b73-978f-a955-e581-2ca3b141f235\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7d80458-50fe-4ca4-9bf7-ad303e554495",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c65ee7c5-3387-4596-874d-89661a2b4a2e",
+          "name": "Add Paid Invoice",
+          "request": {
+            "name": "Add Paid Invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                "add-paid-invoice",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"audited_amount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"cash_discount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"date_approved\": \"<date>\",\n      \"date_discount\": \"<date>\",\n      \"date_due\": \"<date>\",\n      \"date_posted\": \"<date>\",\n      \"date_received\": \"<date>\",\n      \"discounted_approved_amount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"external_identifier\": \"<string>\",\n      \"invoice_type\": \"<string>\",\n      \"paid_amount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"payment_date\": \"<date>\",\n      \"unaudited_amount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"internal_identifier\": \"\",\n      \"payment_comment\": \"<string>\"\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"type\": \"<string>\",\n          \"id\": \"<uuid>\"\n        }\n      }\n    },\n    \"type\": \"INVOICE\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6abe9a29-232e-44c9-8956-03807e7f82af",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    "add-paid-invoice",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"audited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"date_approved\": \"1961-02-11\",\n      \"date_discount\": \"1955-02-09\",\n      \"date_due\": \"1949-05-06\",\n      \"date_posted\": \"2023-07-16\",\n      \"date_received\": \"1993-06-21\",\n      \"discounted_approved_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"invoice_type\": \"SINGLE\",\n      \"paid_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"payment_date\": \"1976-12-11\",\n      \"unaudited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"internal_identifier\": \"\",\n      \"payment_comment\": \"string\"\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"type\": \"string\",\n          \"id\": \"438d58b5-86f3-7ef3-0d9f-6d93e352252e\"\n        }\n      }\n    },\n    \"type\": \"INVOICE\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"bd717188-fc58-0f7a-fff0-50b8bcea6cb5\",\n    \"attributes\": {\n      \"date_created\": \"1988-08-26T11:35:12.106Z\",\n      \"invoice_process_state\": \"NEW\",\n      \"is_reverse_charge\": false,\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"0ee432f7-80fc-a203-c8d5-e860c1a48e96\",\n      \"date_approved\": \"1991-03-31T04:59:37.872Z\",\n      \"date_discount\": \"2017-04-01\",\n      \"date_due\": \"1988-10-08\",\n      \"date_posted\": \"1985-08-10\",\n      \"date_received\": \"1974-12-07\",\n      \"discounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"installment_number\": 6396,\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"RECURRING\",\n      \"payment_amount_gross\": {\n        \"amount\": \"123.123456789012\",\n        \"currency\": \"EUR\"\n      },\n      \"payment_comment\": \"string\",\n      \"payment_created\": \"1957-12-08T01:39:38.570Z\",\n      \"payment_date\": \"1983-03-24\",\n      \"unaudited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"undiscounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"INVOICE\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1c6ab548-fb54-4433-bf4c-b6556d12d6e4\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 9222\n      }\n    },\n    {\n      \"id\": \"55055200-875c-7619-3460-1f6401b58c95\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 7084.677987005116\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3165937-44ef-4ec4-9383-5046e5c73c1f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    "add-paid-invoice",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"audited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"date_approved\": \"1961-02-11\",\n      \"date_discount\": \"1955-02-09\",\n      \"date_due\": \"1949-05-06\",\n      \"date_posted\": \"2023-07-16\",\n      \"date_received\": \"1993-06-21\",\n      \"discounted_approved_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"invoice_type\": \"SINGLE\",\n      \"paid_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"payment_date\": \"1976-12-11\",\n      \"unaudited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"internal_identifier\": \"\",\n      \"payment_comment\": \"string\"\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"type\": \"string\",\n          \"id\": \"438d58b5-86f3-7ef3-0d9f-6d93e352252e\"\n        }\n      }\n    },\n    \"type\": \"INVOICE\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46344b11-b6f7-4308-9ad1-556d26c47803",
+          "name": "Delete Paid Invoice",
+          "request": {
+            "name": "Delete Paid Invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e969721a-7461-464e-a71b-720b1198310e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1d366e66-ebc1-47f4-b5cb-bbb43f780f7d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff863d80-9d09-4ce6-b3a9-9f92ae3f5da9",
+          "name": "Get Invoice Details",
+          "request": {
+            "name": "Get Invoice Details",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameter.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n* contract\n* contract.contractor\n* contract.contract_unit\n* contract.contract_unit.project\n* contract.contract_unit.project.property\n\ne.g. `include=contract,contract.contractor,contract.contract_unit,contract.contract_unit.project,contract.contract_unit.project.property`\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7ab658bc-15d9-4344-a2c6-0e3bb8f0dd67",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"bd717188-fc58-0f7a-fff0-50b8bcea6cb5\",\n    \"attributes\": {\n      \"date_created\": \"1988-08-26T11:35:12.106Z\",\n      \"invoice_process_state\": \"NEW\",\n      \"is_reverse_charge\": false,\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"0ee432f7-80fc-a203-c8d5-e860c1a48e96\",\n      \"date_approved\": \"1991-03-31T04:59:37.872Z\",\n      \"date_discount\": \"2017-04-01\",\n      \"date_due\": \"1988-10-08\",\n      \"date_posted\": \"1985-08-10\",\n      \"date_received\": \"1974-12-07\",\n      \"discounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"installment_number\": 6396,\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"RECURRING\",\n      \"payment_amount_gross\": {\n        \"amount\": \"123.123456789012\",\n        \"currency\": \"EUR\"\n      },\n      \"payment_comment\": \"string\",\n      \"payment_created\": \"1957-12-08T01:39:38.570Z\",\n      \"payment_date\": \"1983-03-24\",\n      \"unaudited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"undiscounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"INVOICE\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1c6ab548-fb54-4433-bf4c-b6556d12d6e4\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 9222\n      }\n    },\n    {\n      \"id\": \"55055200-875c-7619-3460-1f6401b58c95\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 7084.677987005116\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5abe40fc-c438-4c40-aab6-f23ea7a5065d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77647610-347c-48d0-b473-768267289208",
+          "name": "Register Payment",
+          "request": {
+            "name": "Register Payment",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":id",
+                "register-payment",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"payment_date\": \"<date>\",\n      \"payment_amount_gross\": \"<number>\",\n      \"payment_comment\": \"<string>\"\n    },\n    \"type\": \"PAYMENT_DETAILS\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4effaddd-c12e-44d0-a3fd-066c78dd933b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    "register-payment",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"payment_date\": \"1966-05-13\",\n      \"payment_amount_gross\": 4896.964222907461,\n      \"payment_comment\": \"string\"\n    },\n    \"type\": \"PAYMENT_DETAILS\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"bd717188-fc58-0f7a-fff0-50b8bcea6cb5\",\n    \"attributes\": {\n      \"date_created\": \"1988-08-26T11:35:12.106Z\",\n      \"invoice_process_state\": \"NEW\",\n      \"is_reverse_charge\": false,\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"0ee432f7-80fc-a203-c8d5-e860c1a48e96\",\n      \"date_approved\": \"1991-03-31T04:59:37.872Z\",\n      \"date_discount\": \"2017-04-01\",\n      \"date_due\": \"1988-10-08\",\n      \"date_posted\": \"1985-08-10\",\n      \"date_received\": \"1974-12-07\",\n      \"discounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"installment_number\": 6396,\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"RECURRING\",\n      \"payment_amount_gross\": {\n        \"amount\": \"123.123456789012\",\n        \"currency\": \"EUR\"\n      },\n      \"payment_comment\": \"string\",\n      \"payment_created\": \"1957-12-08T01:39:38.570Z\",\n      \"payment_date\": \"1983-03-24\",\n      \"unaudited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"undiscounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"INVOICE\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1c6ab548-fb54-4433-bf4c-b6556d12d6e4\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 9222\n      }\n    },\n    {\n      \"id\": \"55055200-875c-7619-3460-1f6401b58c95\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 7084.677987005116\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e7de84b-9f80-46ae-bf1a-a6eabe2ca7cb",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    "register-payment",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"payment_date\": \"1966-05-13\",\n      \"payment_amount_gross\": 4896.964222907461,\n      \"payment_comment\": \"string\"\n    },\n    \"type\": \"PAYMENT_DETAILS\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0de9e189-f306-454c-b3d9-5c27cdae013c",
+          "name": "Update New",
+          "request": {
+            "name": "Update New",
+            "description": {
+              "content": "This endpoint supports updating a selection of fields of invoices.\nTo avoid inconsistencies, this is only possible for invoices in status New.\nFurthermore, when using two workflows steps for complete details, the invoice has to be in the first step (Optional Complete Details).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                ":id",
+                "update-new",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"date_discount\": \"<date>\",\n      \"date_due\": \"<date>\",\n      \"date_posted\": \"<date>\",\n      \"date_received\": \"<date>\",\n      \"external_identifier\": \"<string>\",\n      \"internal_identifier\": \"<string>\",\n      \"invoice_type\": \"<string>\",\n      \"unaudited_amount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      }\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"type\": \"INVOICE\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31623e89-57bb-415d-9db0-aa6bbf5a435d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    "update-new",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"ee46bfcc-2437-f62c-9188-eff222854dc7\",\n    \"attributes\": {\n      \"date_discount\": \"1994-11-02\",\n      \"date_due\": \"1958-12-24\",\n      \"date_posted\": \"1981-04-03\",\n      \"date_received\": \"1983-02-04\",\n      \"external_identifier\": \"string\",\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"INSTALLMENT\",\n      \"unaudited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"type\": \"INVOICE\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"bd717188-fc58-0f7a-fff0-50b8bcea6cb5\",\n    \"attributes\": {\n      \"date_created\": \"1988-08-26T11:35:12.106Z\",\n      \"invoice_process_state\": \"NEW\",\n      \"is_reverse_charge\": false,\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"0ee432f7-80fc-a203-c8d5-e860c1a48e96\",\n      \"date_approved\": \"1991-03-31T04:59:37.872Z\",\n      \"date_discount\": \"2017-04-01\",\n      \"date_due\": \"1988-10-08\",\n      \"date_posted\": \"1985-08-10\",\n      \"date_received\": \"1974-12-07\",\n      \"discounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"installment_number\": 6396,\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"RECURRING\",\n      \"payment_amount_gross\": {\n        \"amount\": \"123.123456789012\",\n        \"currency\": \"EUR\"\n      },\n      \"payment_comment\": \"string\",\n      \"payment_created\": \"1957-12-08T01:39:38.570Z\",\n      \"payment_date\": \"1983-03-24\",\n      \"unaudited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"undiscounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"INVOICE\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1c6ab548-fb54-4433-bf4c-b6556d12d6e4\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 9222\n      }\n    },\n    {\n      \"id\": \"55055200-875c-7619-3460-1f6401b58c95\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 7084.677987005116\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fd3d64d-08d1-4f48-8ec0-f90a02eafd0c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    "update-new",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"ee46bfcc-2437-f62c-9188-eff222854dc7\",\n    \"attributes\": {\n      \"date_discount\": \"1994-11-02\",\n      \"date_due\": \"1958-12-24\",\n      \"date_posted\": \"1981-04-03\",\n      \"date_received\": \"1983-02-04\",\n      \"external_identifier\": \"string\",\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"INSTALLMENT\",\n      \"unaudited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"type\": \"INVOICE\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f703f853-336c-45e5-b389-42ff4b953ebd",
+          "name": "Update Paid Invoice",
+          "request": {
+            "name": "Update Paid Invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":id",
+                "update-paid-invoice",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"audited_amount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"cash_discount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"date_approved\": \"<date>\",\n      \"date_discount\": \"<date>\",\n      \"date_due\": \"<date>\",\n      \"date_posted\": \"<date>\",\n      \"date_received\": \"<date>\",\n      \"discounted_approved_amount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"external_identifier\": \"<string>\",\n      \"invoice_type\": \"<string>\",\n      \"paid_amount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"payment_date\": \"<date>\",\n      \"unaudited_amount\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"internal_identifier\": \"\",\n      \"payment_comment\": \"<string>\"\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"type\": \"INVOICE\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9a8ab7f2-0380-4795-92e2-bb0724f934eb",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    "update-paid-invoice",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"a0295ab2-27b2-81e1-2521-627f668cc7b0\",\n    \"attributes\": {\n      \"audited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"date_approved\": \"1977-05-24\",\n      \"date_discount\": \"1976-06-06\",\n      \"date_due\": \"1946-12-15\",\n      \"date_posted\": \"1987-08-04\",\n      \"date_received\": \"1987-10-11\",\n      \"discounted_approved_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"invoice_type\": \"SINGLE\",\n      \"paid_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"payment_date\": \"1980-03-21\",\n      \"unaudited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"internal_identifier\": \"\",\n      \"payment_comment\": \"string\"\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"type\": \"INVOICE\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"bd717188-fc58-0f7a-fff0-50b8bcea6cb5\",\n    \"attributes\": {\n      \"date_created\": \"1988-08-26T11:35:12.106Z\",\n      \"invoice_process_state\": \"NEW\",\n      \"is_reverse_charge\": false,\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"0ee432f7-80fc-a203-c8d5-e860c1a48e96\",\n      \"date_approved\": \"1991-03-31T04:59:37.872Z\",\n      \"date_discount\": \"2017-04-01\",\n      \"date_due\": \"1988-10-08\",\n      \"date_posted\": \"1985-08-10\",\n      \"date_received\": \"1974-12-07\",\n      \"discounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"installment_number\": 6396,\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"RECURRING\",\n      \"payment_amount_gross\": {\n        \"amount\": \"123.123456789012\",\n        \"currency\": \"EUR\"\n      },\n      \"payment_comment\": \"string\",\n      \"payment_created\": \"1957-12-08T01:39:38.570Z\",\n      \"payment_date\": \"1983-03-24\",\n      \"unaudited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"undiscounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"INVOICE\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1c6ab548-fb54-4433-bf4c-b6556d12d6e4\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 9222\n      }\n    },\n    {\n      \"id\": \"55055200-875c-7619-3460-1f6401b58c95\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 7084.677987005116\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a19d8a2b-a303-4fc3-bae2-82d88c5333b8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":id",
+                    "update-paid-invoice",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"a0295ab2-27b2-81e1-2521-627f668cc7b0\",\n    \"attributes\": {\n      \"audited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"date_approved\": \"1977-05-24\",\n      \"date_discount\": \"1976-06-06\",\n      \"date_due\": \"1946-12-15\",\n      \"date_posted\": \"1987-08-04\",\n      \"date_received\": \"1987-10-11\",\n      \"discounted_approved_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"invoice_type\": \"SINGLE\",\n      \"paid_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"payment_date\": \"1980-03-21\",\n      \"unaudited_amount\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"internal_identifier\": \"\",\n      \"payment_comment\": \"string\"\n    },\n    \"relationships\": {\n      \"contract\": {\n        \"data\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"type\": \"INVOICE\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9e7cd58-a833-4239-9639-c06e72c9bec0",
+          "name": "Submit Invoice",
+          "request": {
+            "name": "Submit Invoice",
+            "description": {
+              "content": "This endpoint supports submitting new invoices. Before using this endpoint, please reach out the the support team to make sure, everything is properly set up.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":id",
+                "submit-invoice",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) \nThe file to submit. The file must be a valid PDF.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cabbe0c1-6ddc-4147-9a09-fd1cb808ebda",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id",
+                    "submit-invoice",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"bd717188-fc58-0f7a-fff0-50b8bcea6cb5\",\n    \"attributes\": {\n      \"date_created\": \"1988-08-26T11:35:12.106Z\",\n      \"invoice_process_state\": \"NEW\",\n      \"is_reverse_charge\": false,\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"cash_discount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"0ee432f7-80fc-a203-c8d5-e860c1a48e96\",\n      \"date_approved\": \"1991-03-31T04:59:37.872Z\",\n      \"date_discount\": \"2017-04-01\",\n      \"date_due\": \"1988-10-08\",\n      \"date_posted\": \"1985-08-10\",\n      \"date_received\": \"1974-12-07\",\n      \"discounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"external_identifier\": \"string\",\n      \"installment_number\": 6396,\n      \"internal_identifier\": \"string\",\n      \"invoice_type\": \"RECURRING\",\n      \"payment_amount_gross\": {\n        \"amount\": \"123.123456789012\",\n        \"currency\": \"EUR\"\n      },\n      \"payment_comment\": \"string\",\n      \"payment_created\": \"1957-12-08T01:39:38.570Z\",\n      \"payment_date\": \"1983-03-24\",\n      \"unaudited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"undiscounted_approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      }\n    },\n    \"relationships\": {\n      \"key_0\": \"string\"\n    },\n    \"type\": \"INVOICE\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"1c6ab548-fb54-4433-bf4c-b6556d12d6e4\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 9222\n      }\n    },\n    {\n      \"id\": \"55055200-875c-7619-3460-1f6401b58c95\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 7084.677987005116\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5abe813-0dcc-4343-9e43-8498247e955a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":id",
+                    "submit-invoice",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "00208093-243e-4414-9968-ecd4214b6c51",
+    "name": "CAPEX Annual Consumption Invoice API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

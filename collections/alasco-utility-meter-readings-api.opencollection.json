@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Utility Meter Readings API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Utility Meter Readings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Utility Meter Reading",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/buildings/:building_uuid/utility-meters/:meter_uuid/readings/",
+            "params": [
+              {
+                "name": "building_uuid",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "meter_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Utility Meter Reading"
+        },
+        {
+          "info": {
+            "name": "Create Utility Meter Reading With External Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/meter-readings/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Utility Meter Reading With External Id"
+        },
+        {
+          "info": {
+            "name": "Bulk Create Utility Meter Readings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/meter-readings/bulk/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk Create Utility Meter Readings"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

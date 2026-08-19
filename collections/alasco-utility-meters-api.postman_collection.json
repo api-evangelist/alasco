@@ -1,0 +1,896 @@
+{
+  "item": [
+    {
+      "id": "6d98b58a-bbc8-4cef-9209-52d81821b1f4",
+      "name": "Utility Meters",
+      "description": {
+        "content": "A **Utility Meter** measures consumption (electricity, gas, water, heating or cooling) for a **Building**. Meters are created and updated through the API, identified by your `external_id`, and own their **Readings** and consumption data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "530e5585-67c5-4346-b4d9-2ec616c8ff8b",
+          "name": "Get Utility Meters",
+          "request": {
+            "name": "Get Utility Meters",
+            "description": {},
+            "url": {
+              "path": [
+                "buildings",
+                ":building_uuid",
+                "utility-meters",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "building_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c87fe1f9-678a-4ed4-91d3-e94399bc851a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ":building_uuid",
+                    "utility-meters",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "building_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"9b8aa884-2814-a726-321a-09b7e841e663\",\n      \"attributes\": {\n        \"serial\": \"string\",\n        \"description\": \"string\",\n        \"external_id\": \"string\",\n        \"units\": \"MEGAJOULES\",\n        \"category\": \"WATER\",\n        \"sub_category\": \"COLD_WATER\",\n        \"heating_system\": \"OIL\",\n        \"cooling_system\": \"LOCAL_DISTRICT\",\n        \"multiplication_factor\": \"+0000000089.108200590\",\n        \"custom_conversion_factor\": \"+009767963247093050\",\n        \"activation_date\": \"1980-05-18\",\n        \"deactivation_date\": \"1952-08-04\",\n        \"procured_by\": \"LANDLORD\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      },\n      \"type\": \"UTILITY_METER\"\n    },\n    {\n      \"id\": \"01eb2cc3-0103-c2c6-76f2-96262b2f176c\",\n      \"attributes\": {\n        \"serial\": \"string\",\n        \"description\": \"string\",\n        \"external_id\": \"string\",\n        \"units\": \"CUBIC_METERS\",\n        \"category\": \"WATER\",\n        \"sub_category\": \"COLD_WATER\",\n        \"heating_system\": \"WOOD_CHIPS\",\n        \"cooling_system\": \"DISTRICT\",\n        \"multiplication_factor\": \"000000000310544603\",\n        \"custom_conversion_factor\": \"+0000000000679495467\",\n        \"activation_date\": \"1999-04-20\",\n        \"deactivation_date\": \"1993-11-15\",\n        \"procured_by\": \"LANDLORD\"\n      },\n      \"relationships\": {\n        \"key_0\": 4850.395008399461,\n        \"key_1\": 6222.743898469794\n      },\n      \"type\": \"UTILITY_METER\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"fb058cf3-1b7f-1224-1cc2-175b274abcf2\",\n      \"type\": \"USER_AUDIT_LOG\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 713.7112160358672\n      }\n    },\n    {\n      \"id\": \"8fecbc8f-0810-2816-a53a-203218ca0bc0\",\n      \"type\": \"CONSUMPTION_INTERVAL\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43115234-f269-4817-8f02-9bf7236ae3be",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ":building_uuid",
+                    "utility-meters",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "building_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82ffb30d-5ce4-4a01-9ca0-6fe087876685",
+          "name": "Add Utility Meter",
+          "request": {
+            "name": "Add Utility Meter",
+            "description": {},
+            "url": {
+              "path": [
+                "utility-meters",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"external_building_id\": \"<string>\",\n      \"meter_id\": \"<string>\",\n      \"units\": \"<string>\",\n      \"category\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"activation_date\": \"<date>\",\n      \"batch_info_uuid\": \"<uuid>\",\n      \"cooling_system\": \"<string>\",\n      \"custom_conversion_factor\": \"<number>\",\n      \"deactivation_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"heating_system\": \"<string>\",\n      \"multiplication_factor\": \"<number>\",\n      \"procured_by\": \"LANDLORD\",\n      \"sub_category\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f2b8d6fe-16bb-41c5-87a6-a4c20b0b8ff3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "utility-meters",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"external_building_id\": \"string\",\n      \"meter_id\": \"string\",\n      \"units\": \"BRITISH_THERMAL_UNITS\",\n      \"category\": \"WATER\",\n      \"external_id\": \"string\",\n      \"activation_date\": \"2003-10-12\",\n      \"batch_info_uuid\": \"39cb0abb-6820-d563-0645-2e0661d6766b\",\n      \"cooling_system\": \"LOCAL_DISTRICT\",\n      \"custom_conversion_factor\": 7697.283350204722,\n      \"deactivation_date\": \"1988-08-19\",\n      \"description\": \"string\",\n      \"heating_system\": \"ELECTRICITY\",\n      \"multiplication_factor\": 5605.856474000278,\n      \"procured_by\": \"LANDLORD\",\n      \"sub_category\": \"COLD_WATER\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"d11b2ea8-384e-3ddc-f211-3c975a840648\",\n    \"attributes\": {\n      \"serial\": \"string\",\n      \"description\": \"string\",\n      \"external_id\": \"string\",\n      \"units\": \"MEGAWATT_HOURS\",\n      \"category\": \"ELECTRICITY\",\n      \"sub_category\": \"COLD_WATER\",\n      \"heating_system\": \"ELECTRICITY\",\n      \"cooling_system\": \"DISTRICT\",\n      \"multiplication_factor\": \"+00064\",\n      \"custom_conversion_factor\": \"0000000005866480\",\n      \"activation_date\": \"1981-09-08\",\n      \"deactivation_date\": \"1998-05-15\",\n      \"procured_by\": \"LANDLORD\"\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": 825,\n      \"key_2\": false\n    },\n    \"type\": \"UTILITY_METER\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"16f8ddab-436a-3fed-5e61-e20add72d2f5\",\n      \"type\": \"UTILITY_METER_READING\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"af28e6d1-d3f9-313a-eb62-18c45aa38932\",\n      \"type\": \"USER_AUDIT_LOG\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 3770.7199425457584,\n        \"key_1\": false,\n        \"key_2\": 9866,\n        \"key_3\": false\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa04adae-d4e7-4d0f-b8e8-13dad6541a9d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "utility-meters",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"external_building_id\": \"string\",\n      \"meter_id\": \"string\",\n      \"units\": \"BRITISH_THERMAL_UNITS\",\n      \"category\": \"WATER\",\n      \"external_id\": \"string\",\n      \"activation_date\": \"2003-10-12\",\n      \"batch_info_uuid\": \"39cb0abb-6820-d563-0645-2e0661d6766b\",\n      \"cooling_system\": \"LOCAL_DISTRICT\",\n      \"custom_conversion_factor\": 7697.283350204722,\n      \"deactivation_date\": \"1988-08-19\",\n      \"description\": \"string\",\n      \"heating_system\": \"ELECTRICITY\",\n      \"multiplication_factor\": 5605.856474000278,\n      \"procured_by\": \"LANDLORD\",\n      \"sub_category\": \"COLD_WATER\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57323437-7a68-4d24-b9d1-80ea9929db11",
+          "name": "Bulk Add Utility Meter Import Partial",
+          "request": {
+            "name": "Bulk Add Utility Meter Import Partial",
+            "description": {},
+            "url": {
+              "path": [
+                "utility-meters",
+                "bulk-import-partial",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"address\": \"<string>\",\n        \"meter_id\": \"<string>\",\n        \"units\": \"<string>\",\n        \"category\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"cooling_system\": \"<string>\",\n        \"description\": \"<string>\",\n        \"heating_system\": \"<string>\",\n        \"multiplication_factor\": \"<number>\",\n        \"sub_category\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"address\": \"<string>\",\n        \"meter_id\": \"<string>\",\n        \"units\": \"<string>\",\n        \"category\": \"<string>\",\n        \"external_id\": \"<string>\",\n        \"cooling_system\": \"<string>\",\n        \"description\": \"<string>\",\n        \"heating_system\": \"<string>\",\n        \"multiplication_factor\": \"<number>\",\n        \"sub_category\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b0e6f463-d4e3-4b0d-aeee-ee67fd78b733",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "utility-meters",
+                    "bulk-import-partial",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"address\": \"string\",\n        \"meter_id\": \"string\",\n        \"units\": \"GIGAJOULES\",\n        \"category\": \"HEATING\",\n        \"external_id\": \"string\",\n        \"cooling_system\": \"LOCAL_DISTRICT\",\n        \"description\": \"string\",\n        \"heating_system\": \"GAS\",\n        \"multiplication_factor\": 8140.537649765427,\n        \"sub_category\": \"HOT_WATER\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"address\": \"string\",\n        \"meter_id\": \"string\",\n        \"units\": \"CUBIC_METERS\",\n        \"category\": \"HEATING\",\n        \"external_id\": \"string\",\n        \"cooling_system\": \"DISTRICT\",\n        \"description\": \"string\",\n        \"heating_system\": \"OIL\",\n        \"multiplication_factor\": 8638.212299753672,\n        \"sub_category\": \"HOT_WATER\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"created\": [\n      {\n        \"id\": 4271,\n        \"attributes\": {\n          \"serial\": \"string\",\n          \"description\": \"string\",\n          \"external_id\": \"string\",\n          \"address\": \"string\",\n          \"units\": \"KILOWATT_HOURS\",\n          \"category\": \"HEATING\",\n          \"sub_category\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"heating_system\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"multiplication_factor\": \"36684.047258\",\n          \"status\": \"ASSIGNED\"\n        },\n        \"relationships\": {\n          \"key_0\": true,\n          \"key_1\": false\n        },\n        \"type\": \"UTILITY_METER_IMPORT\"\n      },\n      {\n        \"id\": 7573,\n        \"attributes\": {\n          \"serial\": \"string\",\n          \"description\": \"string\",\n          \"external_id\": \"string\",\n          \"address\": \"string\",\n          \"units\": \"BRITISH_THERMAL_UNITS\",\n          \"category\": \"WATER\",\n          \"sub_category\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"heating_system\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"multiplication_factor\": \"+000022654286298\",\n          \"status\": \"REJECTED\"\n        },\n        \"relationships\": {\n          \"key_0\": \"string\",\n          \"key_1\": 6193.827652391444,\n          \"key_2\": false\n        },\n        \"type\": \"UTILITY_METER_IMPORT\"\n      }\n    ],\n    \"errors\": [\n      {\n        \"index\": 8175,\n        \"attributes\": {\n          \"address\": \"string\",\n          \"meter_id\": \"string\",\n          \"units\": \"KILOWATT_HOURS\",\n          \"category\": \"WATER\",\n          \"external_id\": \"string\",\n          \"cooling_system\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"heating_system\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"multiplication_factor\": \"1\",\n          \"sub_category\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"detail\": [\n          {\n            \"loc\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"msg\": \"string\",\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"loc\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"msg\": \"string\",\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"index\": 3815,\n        \"attributes\": {\n          \"address\": \"string\",\n          \"meter_id\": \"string\",\n          \"units\": \"CUBIC_METERS\",\n          \"category\": \"ELECTRICITY\",\n          \"external_id\": \"string\",\n          \"cooling_system\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": \"string\",\n          \"heating_system\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"multiplication_factor\": \"1\",\n          \"sub_category\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"detail\": [\n          {\n            \"loc\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"msg\": \"string\",\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"loc\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"msg\": \"string\",\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ],\n    \"type\": \"UTILITY_METER_IMPORT\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e8f412cc-7d84-1206-1e75-2fdf553c8db4\",\n      \"type\": \"USER_AUDIT_LOG\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 9064.192654408636,\n        \"key_2\": true,\n        \"key_3\": true\n      }\n    },\n    {\n      \"id\": \"dd9effff-bb56-64a5-dd8f-bf233f565436\",\n      \"type\": \"ANNUAL_CONSUMPTION\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbd04b30-c385-4158-9f33-c7388256b8ff",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "utility-meters",
+                    "bulk-import-partial",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"address\": \"string\",\n        \"meter_id\": \"string\",\n        \"units\": \"GIGAJOULES\",\n        \"category\": \"HEATING\",\n        \"external_id\": \"string\",\n        \"cooling_system\": \"LOCAL_DISTRICT\",\n        \"description\": \"string\",\n        \"heating_system\": \"GAS\",\n        \"multiplication_factor\": 8140.537649765427,\n        \"sub_category\": \"HOT_WATER\"\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"attributes\": {\n        \"address\": \"string\",\n        \"meter_id\": \"string\",\n        \"units\": \"CUBIC_METERS\",\n        \"category\": \"HEATING\",\n        \"external_id\": \"string\",\n        \"cooling_system\": \"DISTRICT\",\n        \"description\": \"string\",\n        \"heating_system\": \"OIL\",\n        \"multiplication_factor\": 8638.212299753672,\n        \"sub_category\": \"HOT_WATER\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3fc978a-e8e6-42fb-8dfc-b150d175bf08",
+          "name": "Add Utility Meter Import",
+          "request": {
+            "name": "Add Utility Meter Import",
+            "description": {},
+            "url": {
+              "path": [
+                "utility-meters",
+                "import",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"address\": \"<string>\",\n      \"meter_id\": \"<string>\",\n      \"units\": \"<string>\",\n      \"category\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"cooling_system\": \"<string>\",\n      \"description\": \"<string>\",\n      \"heating_system\": \"<string>\",\n      \"multiplication_factor\": \"<number>\",\n      \"sub_category\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "420db484-96aa-4c48-979b-572c31d89256",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "utility-meters",
+                    "import",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"address\": \"string\",\n      \"meter_id\": \"string\",\n      \"units\": \"BRITISH_THERMAL_UNITS\",\n      \"category\": \"ELECTRICITY\",\n      \"external_id\": \"string\",\n      \"cooling_system\": \"DISTRICT\",\n      \"description\": \"string\",\n      \"heating_system\": \"ELECTRICITY\",\n      \"multiplication_factor\": 9433.115138528656,\n      \"sub_category\": \"COLD_WATER\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": 2037,\n    \"attributes\": {\n      \"serial\": \"string\",\n      \"description\": \"string\",\n      \"external_id\": \"string\",\n      \"address\": \"string\",\n      \"units\": \"BRITISH_THERMAL_UNITS\",\n      \"category\": \"HEATING\",\n      \"sub_category\": \"COLD_WATER\",\n      \"heating_system\": \"ELECTRICITY\",\n      \"multiplication_factor\": \"-000000000.85\",\n      \"status\": \"CREATED\"\n    },\n    \"relationships\": {\n      \"key_0\": 719.9233580010456,\n      \"key_1\": 7505.953355952423\n    },\n    \"type\": \"UTILITY_METER_IMPORT\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"dff7c00b-fdf6-3dc4-246c-6f572f8bb75f\",\n      \"type\": \"FILE\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 3464.1626878426714,\n        \"key_1\": \"string\",\n        \"key_2\": 6031\n      }\n    },\n    {\n      \"id\": \"6ac59841-2935-5ea4-99fb-d06a31ea03fc\",\n      \"type\": \"FILE_EXTERNAL_ID\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": false\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "53b6fde9-b8b7-4736-8fbd-134fad314829",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "utility-meters",
+                    "import",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"address\": \"string\",\n      \"meter_id\": \"string\",\n      \"units\": \"BRITISH_THERMAL_UNITS\",\n      \"category\": \"ELECTRICITY\",\n      \"external_id\": \"string\",\n      \"cooling_system\": \"DISTRICT\",\n      \"description\": \"string\",\n      \"heating_system\": \"ELECTRICITY\",\n      \"multiplication_factor\": 9433.115138528656,\n      \"sub_category\": \"COLD_WATER\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b967ae77-00e3-4d76-8472-eaa4fe7356c1",
+          "name": "Update Utility Meter",
+          "request": {
+            "name": "Update Utility Meter",
+            "description": {},
+            "url": {
+              "path": [
+                "utility-meters",
+                ":meter_external_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "meter_external_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"activation_date\": \"<date>\",\n      \"cooling_system\": \"<string>\",\n      \"custom_conversion_factor\": \"<number>\",\n      \"deactivation_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"external_id\": \"<string>\",\n      \"heating_system\": \"<string>\",\n      \"multiplication_factor\": \"<number>\",\n      \"procured_by\": \"<string>\",\n      \"serial\": \"<string>\",\n      \"sub_category\": \"<string>\",\n      \"units\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6ef8e065-87f7-4081-9ce6-0825d685db82",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "utility-meters",
+                    ":meter_external_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "meter_external_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"activation_date\": \"2011-04-19\",\n      \"cooling_system\": \"LOCAL_DISTRICT\",\n      \"custom_conversion_factor\": 4146.2775544694205,\n      \"deactivation_date\": \"2024-11-06\",\n      \"description\": \"string\",\n      \"external_id\": \"string\",\n      \"heating_system\": \"HEAT_PUMP\",\n      \"multiplication_factor\": 6735.409491139453,\n      \"procured_by\": \"TENANT\",\n      \"serial\": \"string\",\n      \"sub_category\": \"HOT_WATER\",\n      \"units\": \"GIGAJOULES\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"d11b2ea8-384e-3ddc-f211-3c975a840648\",\n    \"attributes\": {\n      \"serial\": \"string\",\n      \"description\": \"string\",\n      \"external_id\": \"string\",\n      \"units\": \"MEGAWATT_HOURS\",\n      \"category\": \"ELECTRICITY\",\n      \"sub_category\": \"COLD_WATER\",\n      \"heating_system\": \"ELECTRICITY\",\n      \"cooling_system\": \"DISTRICT\",\n      \"multiplication_factor\": \"+00064\",\n      \"custom_conversion_factor\": \"0000000005866480\",\n      \"activation_date\": \"1981-09-08\",\n      \"deactivation_date\": \"1998-05-15\",\n      \"procured_by\": \"LANDLORD\"\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": 825,\n      \"key_2\": false\n    },\n    \"type\": \"UTILITY_METER\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"16f8ddab-436a-3fed-5e61-e20add72d2f5\",\n      \"type\": \"UTILITY_METER_READING\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"af28e6d1-d3f9-313a-eb62-18c45aa38932\",\n      \"type\": \"USER_AUDIT_LOG\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 3770.7199425457584,\n        \"key_1\": false,\n        \"key_2\": 9866,\n        \"key_3\": false\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cbc70e7-cbb7-4307-993b-bbcbd8d5e54e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "utility-meters",
+                    ":meter_external_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "meter_external_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"activation_date\": \"2011-04-19\",\n      \"cooling_system\": \"LOCAL_DISTRICT\",\n      \"custom_conversion_factor\": 4146.2775544694205,\n      \"deactivation_date\": \"2024-11-06\",\n      \"description\": \"string\",\n      \"external_id\": \"string\",\n      \"heating_system\": \"HEAT_PUMP\",\n      \"multiplication_factor\": 6735.409491139453,\n      \"procured_by\": \"TENANT\",\n      \"serial\": \"string\",\n      \"sub_category\": \"HOT_WATER\",\n      \"units\": \"GIGAJOULES\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "23f51223-a3ff-495d-b4c2-3aa7b52bfb77",
+    "name": "CAPEX Annual Consumption Utility Meters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

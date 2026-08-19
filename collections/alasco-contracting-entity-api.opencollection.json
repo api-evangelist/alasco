@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Contracting Entity API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contracting Entity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Contracting Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contracting_entities/",
+            "params": [
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: |\n| `id` |   |   | x | x |\n| `name` | x | x |   |   |\n| `address` | x | x |   |   |\n| `city` | x | x |   |   |\n| `zip_code` | x | x |   |   |\n| `tax_authority` |   |   | x | x |\n| `tax_id` | x | x |   |   |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Contracting Entities"
+        },
+        {
+          "info": {
+            "name": "Create Contracting Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/contracting_entities/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Contracting Entity"
+        },
+        {
+          "info": {
+            "name": "Get Contracting Entity Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contracting_entities/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Contracting Entity Details"
+        },
+        {
+          "info": {
+            "name": "Update Contracting Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.alasco.de/capex/v1/contracting_entities/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Contracting Entity"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

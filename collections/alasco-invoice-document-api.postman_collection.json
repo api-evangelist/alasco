@@ -1,0 +1,1019 @@
+{
+  "item": [
+    {
+      "id": "bcb96d00-8485-4aaa-b34f-4a28ef21762f",
+      "name": "Invoice Document",
+      "description": {
+        "content": "An **Invoice Document** is a file attached to an **Invoice**, such as the invoice PDF or supporting evidence. At least one document is required before an invoice can be checked; documents can be uploaded, downloaded and, under certain conditions, deleted.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa19ac14-179e-408b-877b-7a58d831faac",
+          "name": "Get Invoice Documents",
+          "request": {
+            "name": "Get Invoice Documents",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "documents",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: | :---: |\n| `document_type` |   |   |   | x | x |\n| `uploaded_at` | x | x | x |   |   |\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "56ee1360-8f5c-4493-ae2c-dbc2d75d8713",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"482428e5-2272-560f-4977-ddc383a6908f\",\n      \"attributes\": {\n        \"filename\": \"string\",\n        \"uploaded_at\": \"1970-12-08T03:52:23.197Z\",\n        \"document_type\": \"INVOICE\"\n      },\n      \"links\": {\n        \"self\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/\",\n        \"download\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download/\",\n        \"download_annotated\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download-annotated/\"\n      },\n      \"relationships\": {\n        \"key_0\": 3545,\n        \"key_1\": true,\n        \"key_2\": 2177,\n        \"key_3\": 514.2219329756858,\n        \"key_4\": 7048.883598782184\n      },\n      \"type\": \"INVOICE_DOCUMENT\"\n    },\n    {\n      \"id\": \"738833e0-938d-aaab-d9ab-5965f5abe069\",\n      \"attributes\": {\n        \"filename\": \"string\",\n        \"uploaded_at\": \"1983-06-24T22:25:57.161Z\",\n        \"document_type\": \"INVOICE\"\n      },\n      \"links\": {\n        \"self\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/\",\n        \"download\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download/\",\n        \"download_annotated\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download-annotated/\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 8009\n      },\n      \"type\": \"INVOICE_DOCUMENT\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"3894449f-68c2-dd03-272d-be1f265e9518\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": true\n      }\n    },\n    {\n      \"id\": \"f561f9dc-d634-c0f8-f9d9-829efb8dd52c\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 937.514085421468\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51c2b608-f3fe-4243-af00-b3652cdc626a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79499a3f-e5a8-4905-bf6f-aeae6fde7c53",
+          "name": "Create Invoice Document",
+          "request": {
+            "name": "Create Invoice Document",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "documents",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "document_type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Available values / Verfügbare Werte:\n\n| Value | English | Deutsch |\n| --- | --- | --- |\n| `INVOICE` | Invoice | Rechnung |\n| `ATTACHMENT` | Attachment | Anhang |\n| `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |\n| `AUDITED_INVOICE` | Audited invoice | Prüfrechnung |\n| `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |\n| `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |\n| `VALUATIONS` | Valuations | Aufmaß |\n| `PLANS` | Plans | Planunterlagen |\n| `REVISED_INVOICE` | Revised invoice | Korrekturrechnung |\n| `PAYMENT_CERTIFICATE` | Payment certificate | Zahlungsnachweis |\n| `PROTOCOL` | Protocol | Protokoll |\n| `OTHER` | Other | Sonstiges |"
+                },
+                {
+                  "key": "upload",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) \nThe file to submit. The file must be a valid PDF.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "52095f11-45cb-415d-b759-99e7ed854e94",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Available values / Verfügbare Werte:\n\n| Value | English | Deutsch |\n| --- | --- | --- |\n| `INVOICE` | Invoice | Rechnung |\n| `ATTACHMENT` | Attachment | Anhang |\n| `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |\n| `AUDITED_INVOICE` | Audited invoice | Prüfrechnung |\n| `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |\n| `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |\n| `VALUATIONS` | Valuations | Aufmaß |\n| `PLANS` | Plans | Planunterlagen |\n| `REVISED_INVOICE` | Revised invoice | Korrekturrechnung |\n| `PAYMENT_CERTIFICATE` | Payment certificate | Zahlungsnachweis |\n| `PROTOCOL` | Protocol | Protokoll |\n| `OTHER` | Other | Sonstiges |",
+                        "type": "text/plain"
+                      },
+                      "key": "document_type",
+                      "value": "VALUATIONS",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "upload",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"159a40aa-7a56-7613-a80c-7d48085bd79d\",\n    \"attributes\": {\n      \"filename\": \"string\",\n      \"uploaded_at\": \"1996-07-16T17:55:09.515Z\",\n      \"document_type\": \"INVOICE\"\n    },\n    \"links\": {\n      \"self\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/\",\n      \"download\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download/\",\n      \"download_annotated\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download-annotated/\"\n    },\n    \"relationships\": {\n      \"key_0\": 2118\n    },\n    \"type\": \"INVOICE_DOCUMENT\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"fa760584-4868-8ab7-0f67-1c0a4cd94001\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 5976,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"6ba8acad-3de8-f829-8e24-244b144aa3ff\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": true,\n        \"key_2\": \"string\",\n        \"key_3\": 4205.003968502157\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "131e023d-18c6-4f5f-8ab8-9ad2aeecb875",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Available values / Verfügbare Werte:\n\n| Value | English | Deutsch |\n| --- | --- | --- |\n| `INVOICE` | Invoice | Rechnung |\n| `ATTACHMENT` | Attachment | Anhang |\n| `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |\n| `AUDITED_INVOICE` | Audited invoice | Prüfrechnung |\n| `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |\n| `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |\n| `VALUATIONS` | Valuations | Aufmaß |\n| `PLANS` | Plans | Planunterlagen |\n| `REVISED_INVOICE` | Revised invoice | Korrekturrechnung |\n| `PAYMENT_CERTIFICATE` | Payment certificate | Zahlungsnachweis |\n| `PROTOCOL` | Protocol | Protokoll |\n| `OTHER` | Other | Sonstiges |",
+                        "type": "text/plain"
+                      },
+                      "key": "document_type",
+                      "value": "VALUATIONS",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) \nThe file to submit. The file must be a valid PDF.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "upload",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e8bdf53-d106-4cbd-9526-e2bca8b07c97",
+          "name": "Get Invoice Document",
+          "request": {
+            "name": "Get Invoice Document",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "documents",
+                ":document_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a0a7fb3a-11b9-465d-a161-1e48264d7ac3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ":document_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"159a40aa-7a56-7613-a80c-7d48085bd79d\",\n    \"attributes\": {\n      \"filename\": \"string\",\n      \"uploaded_at\": \"1996-07-16T17:55:09.515Z\",\n      \"document_type\": \"INVOICE\"\n    },\n    \"links\": {\n      \"self\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/\",\n      \"download\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download/\",\n      \"download_annotated\": \"https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download-annotated/\"\n    },\n    \"relationships\": {\n      \"key_0\": 2118\n    },\n    \"type\": \"INVOICE_DOCUMENT\"\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"fa760584-4868-8ab7-0f67-1c0a4cd94001\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 5976,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"6ba8acad-3de8-f829-8e24-244b144aa3ff\",\n      \"type\": \"string\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": true,\n        \"key_2\": \"string\",\n        \"key_3\": 4205.003968502157\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df7fa80d-916a-4093-8174-1698810f902d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ":document_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9736cc9-2f6c-4fd1-be92-e8e5018d67b5",
+          "name": "Download Annotated Invoice Document",
+          "request": {
+            "name": "Download Annotated Invoice Document",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "documents",
+                ":document_id",
+                "download-annotated",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "df30a2e4-d77d-4ef1-a072-9b057d76c643",
+              "name": "\nReturns the document with annotations if available, otherwise returns the original document.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ":document_id",
+                    "download-annotated",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b4955b12-562e-4366-9c57-649ccae6aa3e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ":document_id",
+                    "download-annotated",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e5b501f-9ff4-4df0-b72a-812eb5a426bc",
+          "name": "Download Invoice Document",
+          "request": {
+            "name": "Download Invoice Document",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "documents",
+                ":document_id",
+                "download",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "document_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7d1f497d-3627-457f-9ff2-9e65e8a3f16d",
+              "name": "\nRedirect to the temporary download link\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ":document_id",
+                    "download",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b4c38962-d0a4-451a-8acf-9d1a2a27caeb",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "documents",
+                    ":document_id",
+                    "download",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "document_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bd6014a2-e998-4352-9882-fe8943c33cac",
+    "name": "CAPEX Annual Consumption Invoice Document API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

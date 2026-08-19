@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Utility Meters API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Utility Meters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Utility Meters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/buildings/:building_uuid/utility-meters/",
+            "params": [
+              {
+                "name": "building_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Utility Meters"
+        },
+        {
+          "info": {
+            "name": "Add Utility Meter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/utility-meters/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add Utility Meter"
+        },
+        {
+          "info": {
+            "name": "Bulk Add Utility Meter Import Partial",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/utility-meters/bulk-import-partial/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk Add Utility Meter Import Partial"
+        },
+        {
+          "info": {
+            "name": "Add Utility Meter Import",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/utility-meters/import/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add Utility Meter Import"
+        },
+        {
+          "info": {
+            "name": "Update Utility Meter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.alasco.de/capex/v1/utility-meters/:meter_external_id/",
+            "params": [
+              {
+                "name": "meter_external_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Utility Meter"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

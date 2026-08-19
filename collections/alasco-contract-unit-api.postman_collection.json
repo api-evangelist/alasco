@@ -1,0 +1,723 @@
+{
+  "item": [
+    {
+      "id": "feb98df6-4fd2-466a-894e-d6e0191fe828",
+      "name": "Contract Unit",
+      "description": {
+        "content": "A **Contract Unit** is a budget package within a **Project** (the FinCon counterpart of a CapEx Measure), carrying an initial budget and a lifecycle **state**. **Contracts** are assigned to a contract unit, and **Budget Shifts** move budget between units. Contract units can be created and updated through the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0fd43562-7264-4f30-a566-a8676eea79f5",
+          "name": "Get Contract Units",
+          "request": {
+            "name": "Get Contract Units",
+            "description": {},
+            "url": {
+              "path": [
+                "contract_units",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: |\n| `id` |   |   | x | x |\n| `name` | x | x |   |   |\n| `state` |   |   | x | x |\n| `project` |   |   | x | x |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "91f80334-f326-4239-a163-74f131cb5d7f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"f72647a3-6b4f-5ead-4b61-4db156ffabbf\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"f2ca19be-b3e9-6ce3-0590-76e2b4d62a2d\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 6138.216215738018,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"30e4226e-d5dd-c2a3-365a-254ba00ff9a6\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"953d23fc-54e0-2a89-b180-af45589cf0fc\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 5106.585544595149\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e87fa2bf-3c97-179f-5f07-ff1c3a9610ce\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"dba06712-ed0c-ca5d-dd3a-dfc78a8ba7ef\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 386.1953154178832,\n        \"key_1\": 1017.3889587738727,\n        \"key_2\": 2767\n      }\n    },\n    {\n      \"id\": \"9c4d9863-46a7-6378-b531-6efea0befad6\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"a1ae8f19-a1a9-b022-41fe-afc31c32562c\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 5198.651228032313,\n        \"key_1\": 7860\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e2da8a8-441f-49e5-95fd-39b26ee67a5f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6696fb43-e02e-40a9-996b-c0f522d500ee",
+          "name": "Create Contract Unit",
+          "request": {
+            "name": "Create Contract Unit",
+            "description": {},
+            "url": {
+              "path": [
+                "contract_units",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"description\": \"\",\n      \"initial_budget\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"state\": \"BUDGETED\"\n    },\n    \"relationships\": {\n      \"project\": {\n        \"data\": {\n          \"type\": \"<string>\",\n          \"id\": \"<uuid>\"\n        }\n      }\n    },\n    \"type\": \"CONTRACT_UNIT\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "760b2b86-fd80-45b0-bced-9a400feb13de",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"name\": \"string\",\n      \"description\": \"\",\n      \"initial_budget\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"state\": \"BUDGETED\"\n    },\n    \"relationships\": {\n      \"project\": {\n        \"data\": {\n          \"type\": \"string\",\n          \"id\": \"83dc031d-2cb5-6801-372b-43a95b93b64b\"\n        }\n      }\n    },\n    \"type\": \"CONTRACT_UNIT\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"52ae4422-f013-bc0e-0640-fcd0e4d8ed31\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"project\": \"580f64d2-219f-a02f-8bbd-4eb3a880426c\",\n      \"name\": \"string\",\n      \"state\": \"BUDGETED\",\n      \"description\": \"string\"\n    },\n    \"relationships\": {\n      \"key_0\": 1719.551028382793,\n      \"key_1\": 8606,\n      \"key_2\": false\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"b0f2bd1e-cc2d-5ee2-c847-4f6399fa370d\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"7f197832-81e6-8278-fbc8-11f4d3be0684\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"a3fca3ae-7f39-bad7-6e38-aa41eef5e115\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"87396abf-f874-3432-2cfa-1d2de8ce8033\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 9038,\n        \"key_1\": 5594.159848161227,\n        \"key_2\": true,\n        \"key_3\": 5178\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7e981a9-ca3a-4637-96f9-541ff539b29f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"name\": \"string\",\n      \"description\": \"\",\n      \"initial_budget\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"state\": \"BUDGETED\"\n    },\n    \"relationships\": {\n      \"project\": {\n        \"data\": {\n          \"type\": \"string\",\n          \"id\": \"83dc031d-2cb5-6801-372b-43a95b93b64b\"\n        }\n      }\n    },\n    \"type\": \"CONTRACT_UNIT\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ec73ec7-56ba-48f8-bf89-1f34b9e63c56",
+          "name": "Get Contract Unit Details",
+          "request": {
+            "name": "Get Contract Unit Details",
+            "description": {},
+            "url": {
+              "path": [
+                "contract_units",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bdac0f9c-a6be-4b5a-bf10-5b3bb994ee5d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"52ae4422-f013-bc0e-0640-fcd0e4d8ed31\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"project\": \"580f64d2-219f-a02f-8bbd-4eb3a880426c\",\n      \"name\": \"string\",\n      \"state\": \"BUDGETED\",\n      \"description\": \"string\"\n    },\n    \"relationships\": {\n      \"key_0\": 1719.551028382793,\n      \"key_1\": 8606,\n      \"key_2\": false\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"b0f2bd1e-cc2d-5ee2-c847-4f6399fa370d\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"7f197832-81e6-8278-fbc8-11f4d3be0684\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"a3fca3ae-7f39-bad7-6e38-aa41eef5e115\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"87396abf-f874-3432-2cfa-1d2de8ce8033\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 9038,\n        \"key_1\": 5594.159848161227,\n        \"key_2\": true,\n        \"key_3\": 5178\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "049cb79e-7357-4fc6-81ea-6a51c8449366",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "427fc6d0-0d11-4fd2-9210-e49d66c599d0",
+          "name": "Patch Contract Unit",
+          "request": {
+            "name": "Patch Contract Unit",
+            "description": {},
+            "url": {
+              "path": [
+                "contract_units",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"attributes\": {\n      \"description\": \"<string>\",\n      \"initial_budget\": {\n        \"net\": \"<string>\",\n        \"tax\": \"<string>\"\n      },\n      \"name\": \"<string>\",\n      \"state\": \"<string>\"\n    },\n    \"type\": \"CONTRACT_UNIT\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "649032e6-aecd-4c32-935a-175632c9349a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"ebbbbc12-d923-6da5-e3bc-79439d2ab576\",\n    \"attributes\": {\n      \"description\": \"string\",\n      \"initial_budget\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"name\": \"string\",\n      \"state\": \"FINANCING\"\n    },\n    \"type\": \"CONTRACT_UNIT\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"52ae4422-f013-bc0e-0640-fcd0e4d8ed31\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"project\": \"580f64d2-219f-a02f-8bbd-4eb3a880426c\",\n      \"name\": \"string\",\n      \"state\": \"BUDGETED\",\n      \"description\": \"string\"\n    },\n    \"relationships\": {\n      \"key_0\": 1719.551028382793,\n      \"key_1\": 8606,\n      \"key_2\": false\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"b0f2bd1e-cc2d-5ee2-c847-4f6399fa370d\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"7f197832-81e6-8278-fbc8-11f4d3be0684\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"a3fca3ae-7f39-bad7-6e38-aa41eef5e115\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"project\": \"87396abf-f874-3432-2cfa-1d2de8ce8033\",\n        \"name\": \"string\",\n        \"state\": \"BUDGETED\",\n        \"description\": \"string\"\n      },\n      \"relationships\": {\n        \"key_0\": 9038,\n        \"key_1\": 5594.159848161227,\n        \"key_2\": true,\n        \"key_3\": 5178\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38556934-c574-4450-9eb0-c99c6899e85f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contract_units",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"id\": \"ebbbbc12-d923-6da5-e3bc-79439d2ab576\",\n    \"attributes\": {\n      \"description\": \"string\",\n      \"initial_budget\": {\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"name\": \"string\",\n      \"state\": \"FINANCING\"\n    },\n    \"type\": \"CONTRACT_UNIT\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "119c0734-6b68-4370-8ffe-88ea85fab81e",
+    "name": "CAPEX Annual Consumption Contract Unit API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

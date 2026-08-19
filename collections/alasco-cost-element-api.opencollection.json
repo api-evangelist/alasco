@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Cost Element API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cost Element",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Cost Elements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/cost_elements/",
+            "params": [
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: |\n| `id` |   |   | x | x |\n| `name` | x | x |   |   |\n| `description` | x | x |   |   |\n| `cost_category` |   |   | x | x |\n| `parent` |   |   | x | x |\n| `cost_element_tree_template` |   |   | x | x |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Cost Elements"
+        },
+        {
+          "info": {
+            "name": "Get Cost Element",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/cost_elements/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Cost Element"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

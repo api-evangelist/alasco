@@ -1,0 +1,531 @@
+{
+  "item": [
+    {
+      "id": "7a3bf1e7-7e0e-40da-9c1a-06b5c19d2056",
+      "name": "Cost Element Tree Template",
+      "description": {
+        "content": "A **Cost Element Tree Template** is a reusable hierarchy of **Cost Elements** that defines a project's cost structure. A template can back many **Projects**, can be created and updated through the API, and can be deleted only when no project uses it.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7917403b-4f59-48cd-9e0c-4c1d35549d35",
+          "name": "Get Cost Element Tree Templates",
+          "request": {
+            "name": "Get Cost Element Tree Templates",
+            "description": {},
+            "url": {
+              "path": [
+                "cost_element_tree_templates",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |\n| `name` | x | x |   |   |   |   |   |\n| `description` | x | x |   |   |   |   |   |\n| `created_at` |   |   | x | x | x |   |   |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "68c48e96-7578-4f2f-85fa-76e23a81e2cc",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_element_tree_templates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"cfaee6a4-8f18-433c-b24b-d5c53a62a125\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"created_at\": \"2001-12-18T10:18:24.616Z\"\n      },\n      \"relationships\": {\n        \"key_0\": 4099,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"aede50b6-520d-2601-c73d-ebf4126b6f7c\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"created_at\": \"1999-02-17T00:41:20.444Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"33653a90-658c-b24e-5bbb-94d316e831b2\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"created_at\": \"1965-05-17T02:05:25.792Z\"\n      },\n      \"relationships\": {\n        \"key_0\": 4178.35308769686\n      }\n    },\n    {\n      \"id\": \"85dfa161-a79a-3981-6609-bbeb0a33e9e5\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"created_at\": \"2011-06-06T04:46:25.393Z\"\n      },\n      \"relationships\": {\n        \"key_0\": 4963,\n        \"key_1\": 8641.659710508915\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad90db7d-4753-4d8d-993b-55c12bcd4c82",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_element_tree_templates",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61148222-7c1d-422a-8c01-8af6a1b18d3e",
+          "name": "Get Cost Element Tree Template",
+          "request": {
+            "name": "Get Cost Element Tree Template",
+            "description": {},
+            "url": {
+              "path": [
+                "cost_element_tree_templates",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7e75e518-fcf0-42fd-9fbd-285adc954ab5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_element_tree_templates",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"65a2c08d-3b4c-237a-819d-9500714d4bd2\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"created_at\": \"1950-04-13T09:32:18.455Z\"\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": 4865.034767048259,\n      \"key_2\": 6961.671741417989\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\",\n        \"key_4\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"bd05f993-6cc6-e65f-6cae-514433cb7ca2\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"created_at\": \"2005-11-20T21:53:00.526Z\"\n      },\n      \"relationships\": {\n        \"key_0\": 3230.2693938094185,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"3575e698-8978-a42b-0a0c-94cdb0c00658\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"created_at\": \"1980-07-14T06:57:16.829Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bc27966-8cb8-4ecf-972d-2f233e95df32",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_element_tree_templates",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77788a7c-b752-4576-80c8-7eedfe2af4ff",
+          "name": "Get Cost Elements By Tree Template",
+          "request": {
+            "name": "Get Cost Elements By Tree Template",
+            "description": {},
+            "url": {
+              "path": [
+                "cost_element_tree_templates",
+                ":id",
+                "cost_elements",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "12ca6256-b43f-4db7-b3b9-8bfa044d1988",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_element_tree_templates",
+                    ":id",
+                    "cost_elements",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"294920b1-0511-9b41-8032-b6c12cb75dd0\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"SALES_MARKETING\",\n        \"description\": \"string\",\n        \"parent\": \"bcee3d16-56e2-4bb7-5670-14d5cf0310e7\",\n        \"cost_element_tree_template\": \"15100346-b4a1-36fc-f019-001897ce7109\"\n      },\n      \"relationships\": {\n        \"key_0\": 4509.733042181296,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"2a4a7384-2714-e3f5-add6-e2ad28eaf234\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"RESERVE\",\n        \"description\": \"string\",\n        \"parent\": \"bd290047-de4d-9e9a-7ae6-27fec6cdaa22\",\n        \"cost_element_tree_template\": \"9c3f0d91-6c39-3726-a931-9e2776478241\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"2d0bfbef-25d4-0962-1248-cb2929af0489\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"CLEARANCE_AND_DEVELOPMENT\",\n        \"description\": \"string\",\n        \"parent\": \"04a499b0-653d-85a4-a94c-5d4a08450754\",\n        \"cost_element_tree_template\": \"9dd7be30-2417-7fe2-e79b-efb85ad169a4\"\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"c8109128-0cef-7ca9-9f56-0b0b405f0606\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"SALES_MARKETING\",\n        \"description\": \"string\",\n        \"parent\": \"16e0ea1b-0af5-9c84-77ad-48a56a910d49\",\n        \"cost_element_tree_template\": \"de104637-c2b2-82ba-133d-692fd33e7cac\"\n      },\n      \"relationships\": {\n        \"key_0\": 1314.4924726035479\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ffb4363-a44a-4423-bb06-313c12c2d13f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_element_tree_templates",
+                    ":id",
+                    "cost_elements",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "514cf813-d01a-4be2-810d-8b7e68487c5f",
+    "name": "CAPEX Annual Consumption Cost Element Tree Template API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

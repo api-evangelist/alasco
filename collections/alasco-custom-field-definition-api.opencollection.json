@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Custom Field Definition API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Field Definition",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Custom Field Definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/custom_field_definitions/",
+            "params": [
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: |\n| `id` |   |   | x | x |\n| `name` | x | x |   |   |\n| `description` | x | x |   |   |\n| `export_name` | x | x |   |   |\n| `field_type` |   |   | x | x |\n| `unit` |   |   | x | x |\n| `object_type` |   |   | x | x |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Custom Field Definitions"
+        },
+        {
+          "info": {
+            "name": "Get Custom Field Definition Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/custom_field_definitions/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Custom Field Definition Details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,294 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Invoice API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoice",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/assets/:id/submit-invoice/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint supports submitting new invoices. Before using this endpoint, please reach out the the support team to make sure, everything is properly set up."
+        },
+        {
+          "info": {
+            "name": "Get Invoices By Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contracts/:contract_id/invoices/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Invoices By Contract"
+        },
+        {
+          "info": {
+            "name": "Get Invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/invoices/",
+            "params": [
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[internal_identifier.exact]=invoice_123`.\nThose filters can be combined and multiple values are separated using commas,\nfor example `filter[internal_identifier.exact]=invoice123&filter[external_identifier.exact]=internal_invoice`.\n\nCurrently supported operations are\n* `contains`: Expects one value\n* `exact`: Expects one value\n* `greater_than_equal`: Expects one value\n* `in`: Expects one or multiple values\n* `less_than_equal`: Expects one value\n* `range`: Expects two values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` |  `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |  |   |   |   | x | x |\n| `external_identifier` | x | x |   |   |   |   |   |\n| `internal_identifier` | x | x |   |   |   |   |   |\n| `date_posted` | x |  | x | x | x |   |   |\n| `date_due` | x |  | x | x | x |   |   |\n| `date_received` | x |  | x | x | x |   |   |\n| `date_approved` |   |  | x | x | x |   |   |\n| `payment_created` |   |  | x | x | x |   |   |\n| `date_created` |   |  | x | x | x |   |   |\n| `invoice_type` |   |  |   |   |   | x | x |\n| `invoice_process_state` |   |  |   |   |   | x | x |\n| `payment_date` | x |  | x | x | x |   |   |\n| `unaudited_amount` |   |  | x | x | x |   |   |\n| `discounted_approved_amount` |   |   | x | x | x |   |   |\n| `undiscounted_approved_amount` |   |  | x | x | x |   |   |\n| `cash_discount` |   |   | x | x | x |   |   |\n| `audited_amount` |   |   | x | x | x |   |   |\n| `tags` |   |  |   |   |   | x | x |\n| `contract` |   |  |   |   |   | x | x |\n\nMoney attributes can be filtered on both, net and tax values. An example to filter for the net amount of\n`unaudited_amount` would be `filter[unaudited_amount.net.greater_than_equal]=1000.00`.\nDatetime attributes should be filtered by proper datetime arguments, e.g. `filter[date_created.gte]=2022-08-05T15:04:07`\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameter.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n* contract\n* contract.contractor\n* contract.contract_unit\n* contract.contract_unit.project\n* contract.contract_unit.project.property\n\ne.g. `include=contract,contract.contractor,contract.contract_unit,contract.contract_unit.project,contract.contract_unit.project.property`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Invoices"
+        },
+        {
+          "info": {
+            "name": "Add Paid Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/invoices/add-paid-invoice/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add Paid Invoice"
+        },
+        {
+          "info": {
+            "name": "Get Invoice Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/invoices/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameter.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n* contract\n* contract.contractor\n* contract.contract_unit\n* contract.contract_unit.project\n* contract.contract_unit.project.property\n\ne.g. `include=contract,contract.contractor,contract.contract_unit,contract.contract_unit.project,contract.contract_unit.project.property`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Invoice Details"
+        },
+        {
+          "info": {
+            "name": "Delete Paid Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.alasco.de/capex/v1/invoices/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Paid Invoice"
+        },
+        {
+          "info": {
+            "name": "Register Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/invoices/:id/register-payment/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Register Payment"
+        },
+        {
+          "info": {
+            "name": "Update New",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/invoices/:id/update-new/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint supports updating a selection of fields of invoices.\nTo avoid inconsistencies, this is only possible for invoices in status New.\nFurthermore, when using two workflows steps for complete details, the invoice has to be in the first step (Optional Complete Details)."
+        },
+        {
+          "info": {
+            "name": "Update Paid Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/invoices/:id/update-paid-invoice/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Paid Invoice"
+        },
+        {
+          "info": {
+            "name": "Submit Invoice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/projects/:id/submit-invoice/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint supports submitting new invoices. Before using this endpoint, please reach out the the support team to make sure, everything is properly set up."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

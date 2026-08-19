@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Change Order API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Change Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Change Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/change_orders/",
+            "params": [
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n* `is`: Expects one value\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |   |\n| `name` | x | x |   |   |   |   |   |   |\n| `identifier` | x | x |   |   |   |   |   |   |\n| `contract` |   |   |   |   |   | x | x |   |\n| `project` |   |   |   |   |   | x | x |   |\n| `acknowledged_at` |   |   | x | x | x |   |   |   |\n| `declined_at` |   |   | x | x | x |   |   |   |\n| `approved_amount.net` |   |   | x | x | x |   |   | x |\n| `approved_amount.tax` |   |   | x | x | x |   |   | x |\n| `audited_amount.net` |   |   | x | x | x |   |   | x |\n| `audited_amount.tax` |   |   | x | x | x |   |   | x |\n| `change_order_date` |   |   | x | x | x |   |   | x |\n| `claimed_amount.net` |   |   | x | x | x |   |   | x |\n| `claimed_amount.tax` |   |   | x | x | x |   |   | x |\n| `state` |   |   |   |   |   | x | x |   |\n| `basis_of_claim` |   |   |   |   |   | x | x |   |\n| `other_basis_of_claim` | x | x |   |   |   |   |   |   |\n| `trigger` |   |   |   |   |   | x | x |   |\n| `other_trigger` | x | x |   |   |   |   |   |   |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Change Orders"
+        },
+        {
+          "info": {
+            "name": "Get Change Order Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/change_orders/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Change Order Details"
+        },
+        {
+          "info": {
+            "name": "Get Change Orders By Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contracts/:contract_id/change_orders/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Change Orders By Contract"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

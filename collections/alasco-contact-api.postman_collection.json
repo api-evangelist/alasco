@@ -1,0 +1,723 @@
+{
+  "item": [
+    {
+      "id": "b0c0fc93-818b-483f-a16c-3371c01ee87a",
+      "name": "Contact",
+      "description": {
+        "content": "A **Contact** is a person or organisation used in invoicing and correspondence, with name, address and contact details. Contacts can be created and updated through the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf576089-989b-4d99-9345-e314d345ea9b",
+          "name": "Get Contacts",
+          "request": {
+            "name": "Get Contacts",
+            "description": {},
+            "url": {
+              "path": [
+                "contacts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |\n| `type` |   |   |   |   |   | x | x |\n| `salutation` |   |   |   |   |   | x | x |\n| `title` |   |   |   |   |   | x | x |\n| `first_name` | x | x |   |   |   |   |   |\n| `last_name` | x | x |   |   |   |   |   |\n| `description` | x | x |   |   |   |   |   |\n| `address` | x | x |   |   |   |   |   |\n| `zip_code` | x | x |   |   |   |   |   |\n| `city` | x | x |   |   |   |   |   |\n| `email` | x | x |   |   |   |   |   |\n| `phone_number` | x | x |   |   |   |   |   |\n| `date_created` |   |   | x | x | x |   |   |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8d20928c-0fd2-4477-b0d6-5bd9c28a080c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"3dec7f4f-bf48-bcbe-d7ef-e6528eed4507\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"1976-11-01T22:40:30.730Z\"\n      },\n      \"relationships\": {\n        \"key_0\": 1716.7681246896639\n      }\n    },\n    {\n      \"id\": \"3b4d09c3-7bb5-3d45-e23c-125fc0b3c798\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"2004-04-20T01:06:23.683Z\"\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"b2d381f6-f1e3-767a-0a4a-63c9c8d02282\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"1964-03-18T02:39:34.888Z\"\n      },\n      \"relationships\": {\n        \"key_0\": 4290.506449964277,\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"de56f6ea-e381-8ed7-77a2-cc214b430ffb\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"2000-06-06T20:00:01.281Z\"\n      },\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": 5963,\n        \"key_2\": 5765,\n        \"key_3\": 8385\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3eefb73-3f7f-4633-8c8c-5a59bd2672ec",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75a240b4-3a4e-45e4-a63c-c26f064b07c7",
+          "name": "Create Contact",
+          "request": {
+            "name": "Create Contact",
+            "description": {},
+            "url": {
+              "path": [
+                "contacts",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"date_created\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"email\": \"<string>\",\n      \"name\": \"<string>\",\n      \"phone_number\": \"<string>\",\n      \"salutation\": \"NOT_SPECIFIED\",\n      \"title\": \"<string>\",\n      \"zip_code\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c209f30-d4fe-4db8-a522-b8e213b3b5bc",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"type\": \"COMMERCIAL\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"date_created\": \"1947-05-27T07:46:21.035Z\",\n      \"description\": \"string\",\n      \"email\": \"string\",\n      \"name\": \"string\",\n      \"phone_number\": \"string\",\n      \"salutation\": \"NOT_SPECIFIED\",\n      \"title\": \"PROF_DR\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"120cd7d7-6239-bec2-79af-f9deff971faa\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"type\": \"COMMERCIAL\",\n      \"name\": \"string\",\n      \"salutation\": \"NOT_SPECIFIED\",\n      \"title\": \"NO_TITLE\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"phone_number\": \"string\",\n      \"email\": \"string\",\n      \"description\": \"string\",\n      \"date_created\": \"1971-02-22T05:50:27.774Z\"\n    },\n    \"relationships\": {\n      \"key_0\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"29c33a58-9a61-d594-405d-806689dd2589\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"1978-10-11T23:08:57.845Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"a7a6d9b3-a5d9-f005-ce5f-ff0d126e18b4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"2001-02-25T21:58:49.975Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9de4a109-0fa3-465a-915d-17fe40ce35b2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"type\": \"COMMERCIAL\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"date_created\": \"1947-05-27T07:46:21.035Z\",\n      \"description\": \"string\",\n      \"email\": \"string\",\n      \"name\": \"string\",\n      \"phone_number\": \"string\",\n      \"salutation\": \"NOT_SPECIFIED\",\n      \"title\": \"PROF_DR\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ffa7e19-1a3a-4de9-a97f-0fbbd2b1de2d",
+          "name": "Get Contact Details",
+          "request": {
+            "name": "Get Contact Details",
+            "description": {},
+            "url": {
+              "path": [
+                "contacts",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a0ef04b9-de1d-4ff4-912e-ffa735fdb92f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"120cd7d7-6239-bec2-79af-f9deff971faa\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"type\": \"COMMERCIAL\",\n      \"name\": \"string\",\n      \"salutation\": \"NOT_SPECIFIED\",\n      \"title\": \"NO_TITLE\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"phone_number\": \"string\",\n      \"email\": \"string\",\n      \"description\": \"string\",\n      \"date_created\": \"1971-02-22T05:50:27.774Z\"\n    },\n    \"relationships\": {\n      \"key_0\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"29c33a58-9a61-d594-405d-806689dd2589\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"1978-10-11T23:08:57.845Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"a7a6d9b3-a5d9-f005-ce5f-ff0d126e18b4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"2001-02-25T21:58:49.975Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bb8db4a-c220-4bc7-a613-471b9d916374",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cda116f4-797e-4606-bbf0-db358d78e82b",
+          "name": "Update Contact",
+          "request": {
+            "name": "Update Contact",
+            "description": {},
+            "url": {
+              "path": [
+                "contacts",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"address\": \"<string>\",\n      \"city\": \"<string>\",\n      \"date_created\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"email\": \"<string>\",\n      \"first_name\": \"<string>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"phone_number\": \"<string>\",\n      \"salutation\": \"NOT_SPECIFIED\",\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"zip_code\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "902421be-4666-406f-ad8b-ee4225e1f72e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"date_created\": \"1951-01-24T01:04:01.295Z\",\n      \"description\": \"string\",\n      \"email\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"name\": \"string\",\n      \"phone_number\": \"string\",\n      \"salutation\": \"NOT_SPECIFIED\",\n      \"title\": \"PROF\",\n      \"type\": \"PRIVATE\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"120cd7d7-6239-bec2-79af-f9deff971faa\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"type\": \"COMMERCIAL\",\n      \"name\": \"string\",\n      \"salutation\": \"NOT_SPECIFIED\",\n      \"title\": \"NO_TITLE\",\n      \"address\": \"string\",\n      \"zip_code\": \"string\",\n      \"city\": \"string\",\n      \"phone_number\": \"string\",\n      \"email\": \"string\",\n      \"description\": \"string\",\n      \"date_created\": \"1971-02-22T05:50:27.774Z\"\n    },\n    \"relationships\": {\n      \"key_0\": true\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"29c33a58-9a61-d594-405d-806689dd2589\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"1978-10-11T23:08:57.845Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    },\n    {\n      \"id\": \"a7a6d9b3-a5d9-f005-ce5f-ff0d126e18b4\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"type\": \"COMMERCIAL\",\n        \"name\": \"string\",\n        \"salutation\": \"NOT_SPECIFIED\",\n        \"title\": \"NO_TITLE\",\n        \"address\": \"string\",\n        \"zip_code\": \"string\",\n        \"city\": \"string\",\n        \"phone_number\": \"string\",\n        \"email\": \"string\",\n        \"description\": \"string\",\n        \"date_created\": \"2001-02-25T21:58:49.975Z\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2fc5d717-b272-43d1-80a8-d0d356610a18",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contacts",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"date_created\": \"1951-01-24T01:04:01.295Z\",\n      \"description\": \"string\",\n      \"email\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"name\": \"string\",\n      \"phone_number\": \"string\",\n      \"salutation\": \"NOT_SPECIFIED\",\n      \"title\": \"PROF\",\n      \"type\": \"PRIVATE\",\n      \"zip_code\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e3d6ec80-2360-4b5c-9552-9e484f99c7d3",
+    "name": "CAPEX Annual Consumption Contact API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

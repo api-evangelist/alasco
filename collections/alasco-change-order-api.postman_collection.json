@@ -1,0 +1,548 @@
+{
+  "item": [
+    {
+      "id": "0466315a-084e-474e-b8b1-517ec970fceb",
+      "name": "Change Order",
+      "description": {
+        "content": "A **Change Order** is a formal amendment to a **Contract** - a cost or scope change - carrying claimed, audited and approved amounts and an approval state. Change orders are read-only through this API and can hold **Documents**.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "677b0471-b1e3-48e0-ba9c-12a844e1a2e2",
+          "name": "Get Change Orders",
+          "request": {
+            "name": "Get Change Orders",
+            "description": {},
+            "url": {
+              "path": [
+                "change_orders",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n* `is`: Expects one value\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |   |\n| `name` | x | x |   |   |   |   |   |   |\n| `identifier` | x | x |   |   |   |   |   |   |\n| `contract` |   |   |   |   |   | x | x |   |\n| `project` |   |   |   |   |   | x | x |   |\n| `acknowledged_at` |   |   | x | x | x |   |   |   |\n| `declined_at` |   |   | x | x | x |   |   |   |\n| `approved_amount.net` |   |   | x | x | x |   |   | x |\n| `approved_amount.tax` |   |   | x | x | x |   |   | x |\n| `audited_amount.net` |   |   | x | x | x |   |   | x |\n| `audited_amount.tax` |   |   | x | x | x |   |   | x |\n| `change_order_date` |   |   | x | x | x |   |   | x |\n| `claimed_amount.net` |   |   | x | x | x |   |   | x |\n| `claimed_amount.tax` |   |   | x | x | x |   |   | x |\n| `state` |   |   |   |   |   | x | x |   |\n| `basis_of_claim` |   |   |   |   |   | x | x |   |\n| `other_basis_of_claim` | x | x |   |   |   |   |   |   |\n| `trigger` |   |   |   |   |   | x | x |   |\n| `other_trigger` | x | x |   |   |   |   |   |   |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "65236c28-6e84-44c3-a190-7f22002c434a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"c72cfa92-cdb2-d285-2a47-14020743ede9\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"1952-04-09T10:47:57.764Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"QUANTITY_CHANGE\",\n        \"change_order_date\": \"1995-04-08\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"d859d409-bd6a-01e6-3dec-554c8763f36f\",\n        \"declined_at\": \"1953-07-18T16:26:00.348Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"OPEN\",\n        \"trigger\": \"OTHER\",\n        \"weighting_factor\": 1022.6039259931174\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 5735\n      }\n    },\n    {\n      \"id\": \"2d4bb85b-5562-3762-ed20-9c3566e2f498\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"1961-07-03T10:35:30.207Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"SERVICE_CHANGE\",\n        \"change_order_date\": \"2021-04-22\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"b5ee0d5b-e748-29c2-d102-6ec4a6aac17f\",\n        \"declined_at\": \"1972-09-04T01:24:48.181Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"REJECTED\",\n        \"trigger\": \"OTHER\",\n        \"weighting_factor\": 6896.895392466758\n      },\n      \"relationships\": {\n        \"key_0\": 3791.9494891554173,\n        \"key_1\": 804,\n        \"key_2\": false\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e61d1898-77a7-aa9a-65ab-1718f84d3cbd\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"2012-06-13T12:56:01.854Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"SERVICE_WITHOUT_CONTRACT\",\n        \"change_order_date\": \"1991-08-20\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"f942a49d-efb2-1f4f-ec44-1c05e8ba286c\",\n        \"declined_at\": \"1954-10-21T21:21:53.735Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"ACKNOWLEDGED\",\n        \"trigger\": \"OTHER\",\n        \"weighting_factor\": 7677.932174500825\n      },\n      \"relationships\": {\n        \"key_0\": 5729.076316238343\n      }\n    },\n    {\n      \"id\": \"a96cbd46-1aed-3fea-3adc-14abc162a5f7\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"1977-03-13T20:31:00.703Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"PERFORMANCE_PERIOD_EXTENSION\",\n        \"change_order_date\": \"1957-10-31\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"e0dc6024-dcd2-790c-56d9-ea7af15b7cf5\",\n        \"declined_at\": \"1992-08-15T19:22:49.199Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"ACKNOWLEDGED\",\n        \"trigger\": \"USER_TENANT\",\n        \"weighting_factor\": 2535.5702893615116\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e0c2d96-f655-470b-9256-ac9a9e069940",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "195cd3a7-b988-4ffd-8daa-efc57dcdf34d",
+          "name": "Get Change Order Details",
+          "request": {
+            "name": "Get Change Order Details",
+            "description": {},
+            "url": {
+              "path": [
+                "change_orders",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5d570204-8e5a-4008-ba94-1fe0e2f5d1d7",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"a337bca3-4680-c2e6-8425-3ed649190a0e\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"acknowledged_at\": \"2014-03-25T00:01:39.610Z\",\n      \"approved_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"audited_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"basis_of_claim\": \"SERVICE_WITHOUT_CONTRACT\",\n      \"change_order_date\": \"1962-08-17\",\n      \"claimed_amount\": {\n        \"currency\": \"EUR\",\n        \"net\": \"123.123456789012\",\n        \"tax\": \"123.123456789012\"\n      },\n      \"contract\": \"1a2b6c55-150b-52f8-027f-441bdd7ff97f\",\n      \"declined_at\": \"2014-09-15T22:26:24.756Z\",\n      \"identifier\": \"string\",\n      \"name\": \"string\",\n      \"other_basis_of_claim\": \"string\",\n      \"other_trigger\": \"string\",\n      \"state\": \"OPEN\",\n      \"trigger\": \"CONSTRUCTION_SUPERVISION\",\n      \"weighting_factor\": 5974.857413969088\n    },\n    \"relationships\": {\n      \"key_0\": 8117,\n      \"key_1\": 8976.182784504195,\n      \"key_2\": 5865.376412409897,\n      \"key_3\": \"string\"\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"bd17b0ab-2ec3-194f-746f-691ce1156bef\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"2017-02-07T09:03:11.651Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"OTHER\",\n        \"change_order_date\": \"1949-10-13\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"48d45f57-ff71-9a65-97df-f0baac15ec7c\",\n        \"declined_at\": \"1970-08-01T20:40:11.632Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"OPEN\",\n        \"trigger\": \"OTHER\",\n        \"weighting_factor\": 2120.4605503259645\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"210af907-3025-11ee-351f-0a117e01d7a0\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"2010-06-23T04:55:42.857Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"ADDITIONAL_SERVICE\",\n        \"change_order_date\": \"2026-03-28\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"70e467b6-3732-dee9-b8cc-d840cb24f1e0\",\n        \"declined_at\": \"2025-01-31T19:50:30.553Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"ACKNOWLEDGED\",\n        \"trigger\": \"USER_TENANT\",\n        \"weighting_factor\": 2247.328843618324\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": false\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d09b63a-a7fa-457f-b169-23e5cddf4a2c",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "change_orders",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b44c3a14-0d5c-4119-bc09-97c378135fda",
+          "name": "Get Change Orders By Contract",
+          "request": {
+            "name": "Get Change Orders By Contract",
+            "description": {},
+            "url": {
+              "path": [
+                "contracts",
+                ":contract_id",
+                "change_orders",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "contract_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "419916ba-9b70-4919-a893-15f13744fb04",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "change_orders",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"c72cfa92-cdb2-d285-2a47-14020743ede9\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"1952-04-09T10:47:57.764Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"QUANTITY_CHANGE\",\n        \"change_order_date\": \"1995-04-08\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"d859d409-bd6a-01e6-3dec-554c8763f36f\",\n        \"declined_at\": \"1953-07-18T16:26:00.348Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"OPEN\",\n        \"trigger\": \"OTHER\",\n        \"weighting_factor\": 1022.6039259931174\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 5735\n      }\n    },\n    {\n      \"id\": \"2d4bb85b-5562-3762-ed20-9c3566e2f498\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"1961-07-03T10:35:30.207Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"SERVICE_CHANGE\",\n        \"change_order_date\": \"2021-04-22\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"b5ee0d5b-e748-29c2-d102-6ec4a6aac17f\",\n        \"declined_at\": \"1972-09-04T01:24:48.181Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"REJECTED\",\n        \"trigger\": \"OTHER\",\n        \"weighting_factor\": 6896.895392466758\n      },\n      \"relationships\": {\n        \"key_0\": 3791.9494891554173,\n        \"key_1\": 804,\n        \"key_2\": false\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"e61d1898-77a7-aa9a-65ab-1718f84d3cbd\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"2012-06-13T12:56:01.854Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"SERVICE_WITHOUT_CONTRACT\",\n        \"change_order_date\": \"1991-08-20\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"f942a49d-efb2-1f4f-ec44-1c05e8ba286c\",\n        \"declined_at\": \"1954-10-21T21:21:53.735Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"ACKNOWLEDGED\",\n        \"trigger\": \"OTHER\",\n        \"weighting_factor\": 7677.932174500825\n      },\n      \"relationships\": {\n        \"key_0\": 5729.076316238343\n      }\n    },\n    {\n      \"id\": \"a96cbd46-1aed-3fea-3adc-14abc162a5f7\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"acknowledged_at\": \"1977-03-13T20:31:00.703Z\",\n        \"approved_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"audited_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"basis_of_claim\": \"PERFORMANCE_PERIOD_EXTENSION\",\n        \"change_order_date\": \"1957-10-31\",\n        \"claimed_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"contract\": \"e0dc6024-dcd2-790c-56d9-ea7af15b7cf5\",\n        \"declined_at\": \"1992-08-15T19:22:49.199Z\",\n        \"identifier\": \"string\",\n        \"name\": \"string\",\n        \"other_basis_of_claim\": \"string\",\n        \"other_trigger\": \"string\",\n        \"state\": \"ACKNOWLEDGED\",\n        \"trigger\": \"USER_TENANT\",\n        \"weighting_factor\": 2535.5702893615116\n      },\n      \"relationships\": {\n        \"key_0\": true\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27b7d2f6-1e12-4f8e-925b-1251ac6eff27",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "contracts",
+                    ":contract_id",
+                    "change_orders",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "contract_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0be25f79-2a6a-4739-a891-cc9194d2fb96",
+    "name": "CAPEX Annual Consumption Change Order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

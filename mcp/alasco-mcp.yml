@@ -10,9 +10,8 @@ server:
   launched: '2026-05-15'
 authentication:
   type: oauth2
-  description: >-
-    Log in with your Alasco account; the MCP client acts on your behalf with your
-    own access rights and Alasco permissions. Admin role currently required.
+  description: Log in with your Alasco account; the MCP client acts on your behalf with your own access
+    rights and Alasco permissions. Admin role currently required.
   oauth:
     issuer: https://mcp.alasco.de
     authorization_server: https://mcp.alasco.de/.well-known/oauth-authorization-server
@@ -30,9 +29,6 @@ compatible_clients:
 - Cursor
 - Langdock
 - n8n
-# Capability areas the server exposes as MCP tools (from developer.alasco.de/mcp.html).
-# Exact tool names are not published; available tools depend on enabled products,
-# account access, and Alasco permissions.
 capability_areas:
 - name: Project setup data
   covers: projects, properties, tags, custom fields, cost element tree templates
@@ -44,6 +40,12 @@ capability_areas:
   covers: opportunities, calculations, analysis
 - name: Report Builder
   covers: create, edit, render templates and reports
-notes: >-
-  Official hosted, remote MCP server operated by Alasco. Exposes Public API product
-  capabilities (FinCon, CapEx, ESG) as Model Context Protocol tools over authenticated HTTP.
+notes: Official hosted, remote MCP server operated by Alasco. Exposes Public API product capabilities
+  (FinCon, CapEx, ESG) as Model Context Protocol tools over authenticated HTTP.
+deployment:
+  mode: remote
+  endpoint: https://mcp.alasco.de
+  verified: probed
+  probe: wall
+  checked: '2026-08-12'
+  source: catalog MCP census

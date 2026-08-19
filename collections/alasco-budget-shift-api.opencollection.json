@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Budget Shift API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Budget Shift",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Budget Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/budget_shifts/",
+            "params": [
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nCurrently available objects are:\n\n* project\n* source_contract_unit\n* target_contract_unit\n\ne.g. `include=project,source_contract_unit,target_contract_unit`\n"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `in` | `not_in` |\n| :--- | :---: | :---: |\n| `id` | x | x |\n| `source_contract_unit` | x | x |\n| `target_contract_unit` | x | x |\n| `project` | x | x |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Budget Shifts"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

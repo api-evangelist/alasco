@@ -1,0 +1,302 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Contract API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contract",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Contracts By Contracting Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contracting_entities/:contracting_entity_id/contracts/",
+            "params": [
+              {
+                "name": "contracting_entity_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Contracts By Contracting Entity"
+        },
+        {
+          "info": {
+            "name": "Get Contracts By Contractor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contractors/:contractor_id/contracts/",
+            "params": [
+              {
+                "name": "contractor_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Contracts By Contractor"
+        },
+        {
+          "info": {
+            "name": "Get Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contracts/",
+            "params": [
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n* `is`: Expects one value\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` | `is` |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| `id` |   |   |   |   |   | x | x |   |\n| `name` | x | x |   |   |   |   |   |   |\n| `contract_number` | x | x |   |   |   |   |   |   |\n| `cost_center` | x | x |   |   |   |   |   |   |\n| `status` |   |   |   |   |   | x | x |   |\n| `contracting_entity` |   |   |   |   |   | x | x |   |\n| `contractor` |   |   |   |   |   | x | x |   |\n| `project` |   |   |   |   |   | x | x |   |\n| `date_created` |   |   | x | x | x |   |   |   |\n| `date_contract` |   |   | x | x | x |   |   | x |\n| `contract_type` |   |   |   |   |   | x | x |   |\n| `is_reverse_charge` |   |   |   |   |   |   |   | x |\n| `measure (CapEx only)` |   |   |   |   |   | x | x |   |\n| `contract_unit (FinCon only)` |   |   |   |   |   | x | x |   |\n| `custom_fields.<uuid> (Operation depends on custom field type)` | x | x | x | x | x | x | x | x |\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Contracts"
+        },
+        {
+          "info": {
+            "name": "Create Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/contracts/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Contract"
+        },
+        {
+          "info": {
+            "name": "Get Contract Terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contracts/:contract_id/contract_terms/",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Contract Terms"
+        },
+        {
+          "info": {
+            "name": "Get Contract Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contracts/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Contract Details"
+        },
+        {
+          "info": {
+            "name": "Update Contract",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.alasco.de/capex/v1/contracts/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Contract"
+        },
+        {
+          "info": {
+            "name": "Get Contracts By Measure",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/measures/:id/contracts/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\nContains links to related objects.\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Contracts By Measure"
+        },
+        {
+          "info": {
+            "name": "Get Contracts By Contract Unit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/contract_units/:contract_unit_id/contracts/",
+            "params": [
+              {
+                "name": "contract_unit_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cursor[position]",
+                "value": "",
+                "type": "query",
+                "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can get related objects by specifying them separated by comma as a GET `include` parameters.\nIn case of non-direct relation include parameter should be a relationship path - a dot-separated list of\nrelationship names.\nCurrently available objects are:\n\n* contractor\n* contracting_entity\n* contract_unit\n* contract_unit.project\n* contract_unit.project.property\n\ne.g. `include=contractor,contracting_entity,contract_unit,contract_unit.project,contract_unit.project.property`\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Contracts By Contract Unit"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

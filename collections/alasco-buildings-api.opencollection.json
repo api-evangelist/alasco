@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Buildings API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Buildings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Buildings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/buildings/",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "\n        Optional, comma-separated list of entities to include in the building attributes.\n        "
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Buildings"
+        },
+        {
+          "info": {
+            "name": "Get Analysis Result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/buildings/:building_uuid/analysis-result/",
+            "params": [
+              {
+                "name": "building_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Analysis Result"
+        },
+        {
+          "info": {
+            "name": "Get Custom Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/buildings/:building_uuid/custom-data/",
+            "params": [
+              {
+                "name": "building_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Custom Data"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,209 @@
+{
+  "item": [
+    {
+      "id": "4cc13623-1934-48fc-931a-f2bec10ba1be",
+      "name": "Cash Outflow Cost Element View",
+      "description": {
+        "content": "Read-only reporting view of actual cash outflows (paid invoices) allocated per **Cost Element**.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "de08818f-f655-4bd9-ade2-21a2c1961b3f",
+          "name": "Get Cash Outflow Cost Element View",
+          "request": {
+            "name": "Get Cash Outflow Cost Element View",
+            "description": {
+              "content": "(BETA!) This endpoint is in a testing phase and the response payload may change. Returns cash outflow nodes for a single project in a cost element view.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reporting",
+                "cash_outflow",
+                "cost_elements",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` |\n| :--- | :---: |\n| `project` | x |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0609e460-a162-4baa-8ff9-94ccb569bdb4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "cash_outflow",
+                    "cost_elements",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"509d3e12-5949-09aa-3bd0-8379cf516ffc\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"node_type\": \"FINANCING_CONTRACT_UNIT\",\n        \"label\": \"string\",\n        \"start_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"total_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"children\": [\n          \"7b344d9f-7085-a676-c921-296a36baad49\",\n          \"56a58da0-af64-1f0d-12be-6028b12972b5\"\n        ],\n        \"project\": \"cf4fb6b2-390e-9e84-a532-f1fa23228e46\",\n        \"amounts\": [\n          {\n            \"month\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"month\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"contract\": \"5b986c31-c1c7-668d-1123-22b533acc529\",\n        \"contract_unit\": \"da9cd665-ce07-0aea-cee4-72302fe6c718\",\n        \"cost_element\": \"01a634db-0498-0ee2-1215-c3bcdb542598\",\n        \"cost_element_tree_template\": \"1ef8102b-8abd-152c-a584-b297f34be567\",\n        \"financing_contract\": \"625b078b-c2c4-0e96-3764-7d135d42c764\"\n      },\n      \"relationships\": {\n        \"key_0\": 1240\n      }\n    },\n    {\n      \"id\": \"b2321f5e-c183-7946-56b0-641162c2a8ca\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"node_type\": \"FINANCING_CONTRACT_UNIT\",\n        \"label\": \"string\",\n        \"start_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"total_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"children\": [\n          \"dd04ffb3-93db-bb7a-b1f6-53845c7133f0\",\n          \"9063c94f-878c-be4f-849c-42475a94b161\"\n        ],\n        \"project\": \"57852023-e7e3-cec8-2b5c-2eba38291cf6\",\n        \"amounts\": [\n          {\n            \"month\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"month\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"contract\": \"ff3974be-07c1-df74-3c09-fdb27f6273fa\",\n        \"contract_unit\": \"3d2b9493-52f1-e9fc-e23e-32edadd754f4\",\n        \"cost_element\": \"3e41cca6-9a17-0ae3-d2a7-3393962b3645\",\n        \"cost_element_tree_template\": \"14adfbc0-7963-17bf-dcef-8fcc5f7a2c6e\",\n        \"financing_contract\": \"723899e8-2cad-9cad-4434-86e2b588884f\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": false,\n        \"key_2\": 5619.417112730775\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"3d6f43aa-991e-4e3f-3f2e-afb59e46f6f8\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"node_type\": \"FINANCING_CONTRACT_UNIT\",\n        \"label\": \"string\",\n        \"start_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"total_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"children\": [\n          \"c748d0f0-a6ef-843d-ca2d-bbe6d5225288\",\n          \"e873002f-1c98-6243-a787-5616921fe16c\"\n        ],\n        \"project\": \"dbadec62-5322-206b-fdfc-e489e84c7b14\",\n        \"amounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"contract\": \"ad2fd328-841f-fae3-ac73-8883673eb322\",\n        \"contract_unit\": \"ec41eeeb-4fa1-fcd1-24cb-c0d845f056bb\",\n        \"cost_element\": \"dbcc320b-51b3-dcf1-7d59-87f3520678d2\",\n        \"cost_element_tree_template\": \"1293c9fa-f1e8-26ab-eba6-10fefd053c28\",\n        \"financing_contract\": \"b6a019e5-408e-0eca-5c14-b8a1823b6c88\"\n      },\n      \"relationships\": {\n        \"key_0\": 8100\n      }\n    },\n    {\n      \"id\": \"625a9a88-ee64-7845-7d1d-ad41a1ac6167\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"node_type\": \"UNLINKED_CONTRACT_UNITS_PARENT\",\n        \"label\": \"string\",\n        \"start_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"total_amount\": {\n          \"currency\": \"EUR\",\n          \"net\": \"123.123456789012\",\n          \"tax\": \"123.123456789012\"\n        },\n        \"children\": [\n          \"f04a6129-d291-1e90-ba30-b05b5a3a8655\",\n          \"54f79ceb-c3bb-8d37-4626-8323d7c2da0f\"\n        ],\n        \"project\": \"700bbf1d-d654-abe6-a473-e94344d2705b\",\n        \"amounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"contract\": \"e86dcc9e-c348-91d8-1f01-70d4ce35966a\",\n        \"contract_unit\": \"8d31363a-edf8-bcf2-a972-2fc363e04da8\",\n        \"cost_element\": \"d7698c30-c58a-4535-4763-2fe992dec011\",\n        \"cost_element_tree_template\": \"2385b21d-9f64-b2ab-3ecc-baf3195affc3\",\n        \"financing_contract\": \"bccfd421-4d85-1bec-0482-3492209f423e\"\n      },\n      \"relationships\": {\n        \"key_0\": 4911\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e57dc75-f500-4871-bf72-044fce92a3cb",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reporting",
+                    "cash_outflow",
+                    "cost_elements",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "14d330ea-d3ba-4170-a514-419c31035029",
+    "name": "CAPEX Annual Consumption Cash Outflow Cost Element View API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

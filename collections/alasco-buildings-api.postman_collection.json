@@ -1,0 +1,520 @@
+{
+  "item": [
+    {
+      "id": "c64d847a-e1aa-4809-a0b2-788f8672a25b",
+      "name": "Buildings",
+      "description": {
+        "content": "A **Building** is a property in your Alasco asset register and the anchor for ESG data - its **Utility Meters**, **Tenants** and **Documents** all attach to it. Buildings are read-only here, identified by a UUID (and an `external_building_id` used when creating related records); each also exposes its custom data and latest CO2 analysis result.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a0aa350-bb65-4081-8411-381bcbbfa8cf",
+          "name": "Get Buildings",
+          "request": {
+            "name": "Get Buildings",
+            "description": {},
+            "url": {
+              "path": [
+                "buildings",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "",
+                  "description": "\n        Optional, comma-separated list of entities to include in the building attributes.\n        "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "63548012-6c94-49e3-ac54-4fca17885ec8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "energy_certificates,building_certificates"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"dffbdcd5-f3c4-e504-b7d3-82ce4ead4fe3\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"external_id\": \"string\",\n        \"external_asset_id\": \"string\",\n        \"building_specification\": {\n          \"gross_external_area\": \"09204448.\",\n          \"gross_internal_area\": \"000000000030808689\"\n        },\n        \"building_certificates\": [\n          {\n            \"level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schema\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issued_at\": \"2004-11-20\",\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"valid_until\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schema\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issued_at\": \"2001-06-29\",\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"valid_until\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"energy_certificates\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"is_residential\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"efficiency_class\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end_energy_heating\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end_energy_electricity\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"primary_energy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"primary_energy_non_renewable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"co2_emissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issued_at\": \"1959-06-20\",\n            \"valid_until\": \"1973-06-30\"\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"is_residential\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"efficiency_class\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end_energy_heating\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end_energy_electricity\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"primary_energy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"primary_energy_non_renewable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"co2_emissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issued_at\": \"1988-11-02\",\n            \"valid_until\": \"2005-06-08\"\n          }\n        ]\n      },\n      \"relationships\": {\n        \"key_0\": 7332.662712023898,\n        \"key_1\": false\n      },\n      \"type\": \"BUILDING\"\n    },\n    {\n      \"id\": \"93b85eb8-a8fd-0a00-cd27-9f997179e48d\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"external_id\": \"string\",\n        \"external_asset_id\": \"string\",\n        \"building_specification\": {\n          \"gross_external_area\": \"-0000000000695338554566429\",\n          \"gross_internal_area\": \"+000000000007738380\"\n        },\n        \"building_certificates\": [\n          {\n            \"level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schema\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issued_at\": \"1953-12-13\",\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"valid_until\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schema\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issued_at\": \"1953-12-12\",\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"valid_until\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"energy_certificates\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"is_residential\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"efficiency_class\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end_energy_heating\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end_energy_electricity\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"primary_energy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"primary_energy_non_renewable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"co2_emissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issued_at\": \"1981-05-07\",\n            \"valid_until\": \"1989-08-12\"\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"is_residential\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"efficiency_class\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end_energy_heating\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"end_energy_electricity\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"primary_energy\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"primary_energy_non_renewable\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"co2_emissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issued_at\": \"1964-08-23\",\n            \"valid_until\": \"2000-03-13\"\n          }\n        ]\n      },\n      \"relationships\": {\n        \"key_0\": 1073.2776064451311,\n        \"key_1\": 5659.398292073562,\n        \"key_2\": 69.5441367399352\n      },\n      \"type\": \"BUILDING\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"a34aac82-21cc-f6dd-d423-79056ac32548\",\n      \"type\": \"ANNUAL_CONSUMPTION\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"e0828bf9-956c-30f9-e64f-c69a4776bb20\",\n      \"type\": \"UTILITY_METER_READING\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 6570\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abc473aa-1bc6-4eef-ba13-6cfd312630f9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "energy_certificates,building_certificates"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84eb6d90-0b03-41f1-a738-ac8b97f3eaa5",
+          "name": "Get Analysis Result",
+          "request": {
+            "name": "Get Analysis Result",
+            "description": {},
+            "url": {
+              "path": [
+                "buildings",
+                ":building_uuid",
+                "analysis-result",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "building_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fdbb22ec-c263-46b1-98f8-84d9254ea54a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ":building_uuid",
+                    "analysis-result",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "building_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"0faa0709-9c03-f750-752d-15838173ac3a\",\n    \"attributes\": {\n      \"year\": 8199,\n      \"co2_intensity\": \"0000000000033520472\",\n      \"energy_intensity\": \"00000000317617953.9260411225\",\n      \"final_energy_intensity\": \"+000000989804.972738\",\n      \"primary_energy_intensity\": \"00000000006211\",\n      \"total_emissions\": \"000006799515\",\n      \"total_consumption\": \"+0000054662053\",\n      \"total_energy_generated\": \"00214881043.\",\n      \"self_supply_rate\": \"000000979340141774\",\n      \"scope_1_emissions\": \"961096956.1943830964\",\n      \"scope_2_emissions\": \"-00000000843959814\",\n      \"scope_3_emissions\": \"0000000494215901.47961\"\n    },\n    \"relationships\": {\n      \"key_0\": false,\n      \"key_1\": 5269.10386639944\n    },\n    \"type\": \"ANALYSIS_RESULT\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d644074-2d59-4b63-af6e-d06c1b910c4d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ":building_uuid",
+                    "analysis-result",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "building_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bad9451c-a2bb-44fa-a4a3-3b2ba59fae80",
+          "name": "Get Custom Data",
+          "request": {
+            "name": "Get Custom Data",
+            "description": {},
+            "url": {
+              "path": [
+                "buildings",
+                ":building_uuid",
+                "custom-data",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "building_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "71ef5d0a-8283-4494-b253-d6f27b775eae",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ":building_uuid",
+                    "custom-data",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "building_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"b34d2945-fe87-2268-5419-aecad24e8a20\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"field_instances\": [\n          {\n            \"name\": \"string\",\n            \"field_id\": \"cfec8280-b338-771b-e2d7-075367894520\",\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"string\",\n            \"field_id\": \"49d6c36b-a340-62c4-4760-4beddd841fed\",\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"relationships\": {\n        \"key_0\": true,\n        \"key_1\": \"string\",\n        \"key_2\": false\n      },\n      \"type\": \"CUSTOM_DATA_GROUP_INSTANCE\"\n    },\n    {\n      \"id\": \"c0d89016-d863-5f88-3ad8-e3a5a5274e7d\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"field_instances\": [\n          {\n            \"name\": \"string\",\n            \"field_id\": \"9bb6fa34-0f3b-06c9-f39a-0726fc0be873\",\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"string\",\n            \"field_id\": \"ac8036dc-b29c-f3d2-d21c-857e2e4016d8\",\n            \"year\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"relationships\": {\n        \"key_0\": true\n      },\n      \"type\": \"CUSTOM_DATA_GROUP_INSTANCE\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "732b4a92-c563-45dc-bcca-378c56743157",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buildings",
+                    ":building_uuid",
+                    "custom-data",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "building_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "92196a41-5aa6-489b-8ada-408107fafa45",
+    "name": "CAPEX Annual Consumption Buildings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

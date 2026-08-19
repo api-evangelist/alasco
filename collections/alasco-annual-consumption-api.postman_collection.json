@@ -1,0 +1,413 @@
+{
+  "item": [
+    {
+      "id": "8057dc3d-1c9c-4aa6-b753-d44b7ec1ae90",
+      "name": "Annual Consumption",
+      "description": {
+        "content": "**Annual Consumption** is the system-computed consumption per meter and calendar year, including emission factors and tenant allocations. The figures are derived from readings rather than written directly; you can read them and update the market-based emission factor.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4eaf2dc7-75d2-4a3e-9def-480000d19c4c",
+          "name": "Get Annual Consumption",
+          "request": {
+            "name": "Get Annual Consumption",
+            "description": {},
+            "url": {
+              "path": [
+                "consumption",
+                "annual",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "external_building_id",
+                  "value": "<string>",
+                  "description": "(Required) External ID of the building."
+                },
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "(Required) The calendar year to retrieve consumption for."
+                },
+                {
+                  "disabled": false,
+                  "key": "external_meter_id",
+                  "value": "<string>",
+                  "description": "Optional. Filter results to the consumption entry for a specific meter, identified by its external ID. Filtering by null is not supported- omit this parameter to get all entries."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "db5900df-3487-4a44-8931-bbdd9a8b3b2d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption",
+                    "annual",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_building_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "year",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "external_meter_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"b6b51a40-2ac6-0708-2669-712f285d8459\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"year\": 1161,\n        \"category\": \"COOLING\",\n        \"source\": \"estimate\",\n        \"procured_by\": \"LANDLORD\",\n        \"consumption\": \"9190936497139656\",\n        \"units\": \"CUBIC_METERS\",\n        \"completeness\": \"00000000096824.732955090\",\n        \"heating_system\": \"OIL\",\n        \"cooling_system\": \"LOCAL_DISTRICT\",\n        \"emission_factor\": {\n          \"location_based\": \"-000000000.73215\",\n          \"market_based\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"external_meter_id\": \"string\",\n        \"tenants\": [\n          {\n            \"external_id\": \"string\",\n            \"name\": \"string\"\n          },\n          {\n            \"external_id\": \"string\",\n            \"name\": \"string\"\n          }\n        ]\n      },\n      \"relationships\": {\n        \"key_0\": 8370,\n        \"key_1\": \"string\",\n        \"key_2\": 8756\n      },\n      \"type\": \"ANNUAL_CONSUMPTION\"\n    },\n    {\n      \"id\": \"d2320585-7dc8-e5a1-5449-7373d56619f4\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"year\": 814,\n        \"category\": \"COOLING\",\n        \"source\": \"manualEntry\",\n        \"procured_by\": \"LANDLORD\",\n        \"consumption\": \"00000000001395180.052074373\",\n        \"units\": \"BRITISH_THERMAL_UNITS\",\n        \"completeness\": \"-4035796.23039567\",\n        \"heating_system\": \"UNKNOWN\",\n        \"cooling_system\": \"DISTRICT\",\n        \"emission_factor\": {\n          \"location_based\": \"0000000404335387312617\",\n          \"market_based\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"external_meter_id\": \"string\",\n        \"tenants\": [\n          {\n            \"external_id\": \"string\",\n            \"name\": \"string\"\n          },\n          {\n            \"external_id\": \"string\",\n            \"name\": \"string\"\n          }\n        ]\n      },\n      \"relationships\": {\n        \"key_0\": false\n      },\n      \"type\": \"ANNUAL_CONSUMPTION\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"5c7d4ec2-6927-895c-b52e-7f48ea69a582\",\n      \"type\": \"UTILITY_DATA_BATCH_INFO\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": false,\n        \"key_1\": false\n      }\n    },\n    {\n      \"id\": \"eb2d94c2-ebf8-0162-6ca5-995c1011b90b\",\n      \"type\": \"TENANT_CONSUMPTION_LINK\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 3871,\n        \"key_1\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0adb6429-749d-4b9c-8e68-bc4a53989729",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption",
+                    "annual",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "external_building_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "year",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "external_meter_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3ab1c35-34aa-4700-a542-1544c6b923f7",
+          "name": "Update Annual Consumption",
+          "request": {
+            "name": "Update Annual Consumption",
+            "description": {},
+            "url": {
+              "path": [
+                "consumption",
+                "annual",
+                ":annual_consumption_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "annual_consumption_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"is_renewable\": \"<boolean>\",\n      \"market_based_emission_factor\": \"<number>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6115d0bb-4e1e-474b-81f9-5f548f4b6a40",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption",
+                    "annual",
+                    ":annual_consumption_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "annual_consumption_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"is_renewable\": false,\n      \"market_based_emission_factor\": 4034.8383616279416\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"c247e8fe-0d0e-f434-4bc3-50c569aeff82\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"year\": 5172,\n      \"category\": \"COOLING\",\n      \"source\": \"estimate\",\n      \"procured_by\": \"TENANT\",\n      \"consumption\": \"+00000000031\",\n      \"units\": \"KILOJOULES\",\n      \"completeness\": \"4406967.908\",\n      \"heating_system\": \"OIL\",\n      \"cooling_system\": \"LOCAL_DISTRICT\",\n      \"emission_factor\": {\n        \"location_based\": \"+000000000345\",\n        \"market_based\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"external_meter_id\": \"string\",\n      \"tenants\": [\n        {\n          \"external_id\": \"string\",\n          \"name\": \"string\"\n        },\n        {\n          \"external_id\": \"string\",\n          \"name\": \"string\"\n        }\n      ]\n    },\n    \"relationships\": {\n      \"key_0\": 3861,\n      \"key_1\": true,\n      \"key_2\": \"string\"\n    },\n    \"type\": \"ANNUAL_CONSUMPTION\"\n  },\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"ad29257c-9920-404f-4280-c00cf1e3d4b7\",\n      \"type\": \"TENANT_ATTACHMENT\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 7636,\n        \"key_1\": \"string\",\n        \"key_2\": 4929.514170094155\n      }\n    },\n    {\n      \"id\": \"da6801d3-f423-7864-9ef2-f6df3ce1b91f\",\n      \"type\": \"UTILITY_METER_READING\",\n      \"attributes\": {},\n      \"relationships\": {\n        \"key_0\": 1060,\n        \"key_1\": 8272.263820007569\n      }\n    }\n  ],\n  \"links\": {\n    \"next\": \"string\",\n    \"prev\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "111c9787-18ee-4182-bc9f-418ad02e9064",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "consumption",
+                    "annual",
+                    ":annual_consumption_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "annual_consumption_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"string\",\n    \"attributes\": {\n      \"is_renewable\": false,\n      \"market_based_emission_factor\": 4034.8383616279416\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5b098b94-2819-408f-9960-46fb82717b32",
+    "name": "CAPEX Annual Consumption API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

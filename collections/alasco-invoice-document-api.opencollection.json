@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption Invoice Document API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoice Document",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Invoice Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/invoices/:invoice_id/documents/",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter[attribute.operation]",
+                "value": "",
+                "type": "query",
+                "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `less_than_equal`: Expects one value\n* `greater_than_equal`: Expects one value\n* `range`: Expects two values\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `less_than_equal` | `greater_than_equal` | `range` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: | :---: |\n| `document_type` |   |   |   | x | x |\n| `uploaded_at` | x | x | x |   |   |\n"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Invoice Documents"
+        },
+        {
+          "info": {
+            "name": "Create Invoice Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.alasco.de/capex/v1/invoices/:invoice_id/documents/",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Invoice Document"
+        },
+        {
+          "info": {
+            "name": "Get Invoice Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/invoices/:invoice_id/documents/:document_id/",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Invoice Document"
+        },
+        {
+          "info": {
+            "name": "Download Annotated Invoice Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/invoices/:invoice_id/documents/:document_id/download-annotated/",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download Annotated Invoice Document"
+        },
+        {
+          "info": {
+            "name": "Download Invoice Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/invoices/:invoice_id/documents/:document_id/download/",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download Invoice Document"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

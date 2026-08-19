@@ -1,0 +1,361 @@
+{
+  "item": [
+    {
+      "id": "af0025b2-9bb5-4f34-9cb3-2b7f1df0e687",
+      "name": "Cost Element",
+      "description": {
+        "content": "A **Cost Element** is a node in a hierarchical cost structure (a cost group) belonging to a **Cost Element Tree Template**. Cost elements classify a project's budget and costs and can be created and updated through the API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ba3ead78-3ae6-401d-b423-3b16d2bd2a0c",
+          "name": "Get Cost Elements",
+          "request": {
+            "name": "Get Cost Elements",
+            "description": {},
+            "url": {
+              "path": [
+                "cost_elements",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor[position]",
+                  "value": "<string>",
+                  "description": "\nList endpoint responses are paginated in the Alasco API. By calling the endpoint without the\npagination parameter you will receive the first page. If not all elements fit on one page there will\nbe a `next` link provided in the response's `links` object. By calling this link you will receive\nthe next page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[attribute.operation]",
+                  "value": "<string>",
+                  "description": "\nYou can filter on certain attributes by specifying them as a GET parameter along\nwith an operation, e.g. `filter[name.exact]=abc`.\n\nCurrently supported operations are:\n* `exact`: Expects one value\n* `contains`: Expects one value\n* `in`: Expects one or multiple values\n* `not_in`: Expects one or multiple values\n\nThe following attributes support filtering:\n\n| **Attribute** | `exact` | `contains` | `in` | `not_in` |\n| :--- | :---: | :---: | :---: | :---: |\n| `id` |   |   | x | x |\n| `name` | x | x |   |   |\n| `description` | x | x |   |   |\n| `cost_category` |   |   | x | x |\n| `parent` |   |   | x | x |\n| `cost_element_tree_template` |   |   | x | x |\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f4c85e0a-af83-4e9f-abc3-743c5f67f53e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_elements",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"3d3ec935-a662-3c4b-b5e1-cc2b4651e66c\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"CLEARANCE_AND_DEVELOPMENT\",\n        \"description\": \"string\",\n        \"parent\": \"efb93550-b4d7-6e7f-be7e-e2894c5f7ee4\",\n        \"cost_element_tree_template\": \"ec8a98a1-4044-83e7-27f7-ff5e4bd3cf7e\"\n      },\n      \"relationships\": {\n        \"key_0\": 463\n      }\n    },\n    {\n      \"id\": \"b1cee165-51ca-ed26-fb6f-18ab969feb26\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"TENANT_IMPROVEMENT\",\n        \"description\": \"string\",\n        \"parent\": \"848907fa-c5f2-6a56-42bd-b584e68cceb2\",\n        \"cost_element_tree_template\": \"6b1148e4-57d4-1aec-ec0d-3c1547735425\"\n      },\n      \"relationships\": {\n        \"key_0\": 2275.5909232785552,\n        \"key_1\": 5025,\n        \"key_2\": 1469\n      }\n    }\n  ],\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"61b64fe0-97a8-40f2-953e-cf64ce6a18cf\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"SITE\",\n        \"description\": \"string\",\n        \"parent\": \"9ee9522f-883d-2d33-1385-559463e1c7f1\",\n        \"cost_element_tree_template\": \"13000d77-d5bb-df8b-50bc-da3b9307874d\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\"\n      }\n    },\n    {\n      \"id\": \"020b4af6-c278-749a-9fb0-1fab4a6722f2\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"RESERVE\",\n        \"description\": \"string\",\n        \"parent\": \"01c46448-d2f8-fe54-7419-074a5eca219a\",\n        \"cost_element_tree_template\": \"c27ddbb0-d039-d6f2-1841-5705d1161960\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 8421.621969962336,\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b875965a-0e90-4ad3-be68-d7f9160820c2",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_elements",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor[position]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[attribute.operation]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0bad9b5-3e51-412b-af19-5b1081f473a2",
+          "name": "Get Cost Element",
+          "request": {
+            "name": "Get Cost Element",
+            "description": {},
+            "url": {
+              "path": [
+                "cost_elements",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-KEY"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b852a195-2e37-4b6e-b066-ed2ffe772c7a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_elements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"acb95216-1aef-02d6-2c4a-0b7799e54efd\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"cost_category\": \"MAINTENANCE\",\n      \"description\": \"string\",\n      \"parent\": \"9423da58-fbed-e988-4d7d-4a5009df27c6\",\n      \"cost_element_tree_template\": \"89d4f6da-b028-230e-cb74-5668ef24ae52\"\n    },\n    \"relationships\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": 2962.186837899795\n    }\n  },\n  \"errors\": [\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    },\n    {\n      \"detail\": \"string\",\n      \"source\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"status\": \"string\",\n      \"title\": \"string\"\n    }\n  ],\n  \"included\": [\n    {\n      \"id\": \"67df715a-7ed6-4463-3d0d-a40f31c6318f\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"CLEARANCE_AND_DEVELOPMENT\",\n        \"description\": \"string\",\n        \"parent\": \"614b51b4-9792-1e65-ad41-dea778fa59c0\",\n        \"cost_element_tree_template\": \"a8d9939f-9911-3566-1f89-44882cb7c9fc\"\n      },\n      \"relationships\": {\n        \"key_0\": 4633,\n        \"key_1\": true\n      }\n    },\n    {\n      \"id\": \"42bd8e8d-c3e0-7413-05ea-8dc00d9d04e5\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"cost_category\": \"STRUCTURE_SERVICES\",\n        \"description\": \"string\",\n        \"parent\": \"ea8c7058-0637-8122-1404-f69ee4b086f6\",\n        \"cost_element_tree_template\": \"042693d2-15f4-ab6e-3e11-8350ca69167f\"\n      },\n      \"relationships\": {\n        \"key_0\": \"string\",\n        \"key_1\": 3152.063758354142,\n        \"key_2\": \"string\",\n        \"key_3\": 3930\n      }\n    }\n  ],\n  \"links\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\",\n    \"key_4\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cc3a750-b2fe-433a-9c06-4d4c5c6f7983",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cost_elements",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.alasco.de/capex/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4639c02a-b81a-45ef-934c-5b0d34c195fa",
+    "name": "CAPEX Annual Consumption Cost Element API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\n## Introduction\n\nThe **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.\n\nStarting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.\n\nFor getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.\n\nThe base URL for all endpoints is:\n`https://api.alasco.de/capex/v1`\n\nThe CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.\n\n### Domain model\n\nObjects relate as follows (each `→` is a navigable sub-resource):\n\n- **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.\n- **Contractor** and **Contracting Entity** → **Contracts**.\n- **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.\n- **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).\n\n### CAPEX API Overview\n\nThe CAPEX API provides endpoints to:\n- Retrieve and manage invoices, invoice tags, and invoice documents\n- Retrieve assets, contracts, contractors, and measures\n\nThe CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.\n",
+      "type": "text/plain"
+    }
+  }
+}

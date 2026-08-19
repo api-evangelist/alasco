@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CAPEX Annual Consumption API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Annual Consumption",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Annual Consumption",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.alasco.de/capex/v1/consumption/annual/",
+            "params": [
+              {
+                "name": "external_building_id",
+                "value": "",
+                "type": "query",
+                "description": "External ID of the building."
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "The calendar year to retrieve consumption for."
+              },
+              {
+                "name": "external_meter_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional. Filter results to the consumption entry for a specific meter, identified by its external ID. Filtering by null is not supported- omit this parameter to get all entries."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Annual Consumption"
+        },
+        {
+          "info": {
+            "name": "Update Annual Consumption",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.alasco.de/capex/v1/consumption/annual/:annual_consumption_id/",
+            "params": [
+              {
+                "name": "annual_consumption_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-KEY",
+              "value": "{{X-API-KEY}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Annual Consumption"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
