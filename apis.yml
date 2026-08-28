@@ -10,6 +10,18 @@ description: >-
   consumption data). Alasco exposes a REST Public API that follows JSON:API principles, plus
   an official hosted MCP server for AI-agent integrations. It is ISO/IEC 27001 certified and
   serves institutional real-estate firms including Hines, JLL, and Ardian.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
