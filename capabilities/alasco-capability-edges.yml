@@ -3,7 +3,7 @@ provider: Alasco
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
-- Software & Technology
+- Real Estate
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -13,36 +13,34 @@ capability_model:
   notice: NOTICE
 edge_count: 3
 edges:
-- tag: Annual Consumption
-  spec_file: alasco-annual-consumption-api-openapi.yml
-  capability_id: BC-740.20
-  capability_id_l1: BC-740
-  capability_name: Climate & Carbon Management
-  confidence: 0.78
-  evidence: GET /consumption/annual/ "Get Annual Consumption"; schemas EmissionFactorAttributes, AnnualConsumptionMarketBasedEmissionUpdate,
-    HeatingSystem, CoolingSystem, Utility
-  reason: Captures and updates annual energy/utility consumption with emission factors and market-based
-    emissions per building — carbon footprint accounting for a real-estate portfolio, i.e. climate & carbon
-    management.
+- tag: Utility Meter Readings
+  spec_file: alasco-utility-meter-readings-api-openapi.yml
+  capability_id: BC-4940.60
+  capability_id_l1: BC-4940
+  capability_name: Property Energy & Sustainability Operations
+  confidence: 0.75
+  evidence: POST /buildings/{building_uuid}/utility-meters/{meter_uuid}/readings/ 'Create Utility Meter
+    Reading', 'Bulk Create Utility Meter Readings'
+  reason: Capture of utility meter readings against building meters is property-level energy/water consumption
+    operations, the substrate of energy and sustainability management for buildings.
+- tag: Utility Meters
+  spec_file: alasco-utility-meters-api-openapi.yml
+  capability_id: BC-4940.60
+  capability_id_l1: BC-4940
+  capability_name: Property Energy & Sustainability Operations
+  confidence: 0.75
+  evidence: GET /buildings/{building_uuid}/utility-meters/ 'Get Utility Meters', POST /utility-meters/
+    'Add Utility Meter', schemas CoolingSystem, Units, SubCategory
+  reason: Registry and import of building utility meters (with energy/cooling categorisation) supports
+    property-level energy, water and sub-metering operations.
 - tag: Invoice
   spec_file: alasco-invoice-api-openapi.yml
   capability_id: BC-200.20
   capability_id_l1: BC-200
   capability_name: Accounts Payable Management
-  confidence: 0.75
-  evidence: POST /invoices/add-paid-invoice/ 'Add Paid Invoice'; POST /invoices/{id}/register-payment/
-    'Register Payment'; GET /contracts/{contract_id}/invoices/
-  reason: Incoming contractor invoices linked to contracts, with submission, approval state (InvoiceProcessState)
-    and payment registration — classic accounts payable invoice processing in a construction cost-control
-    context.
-- tag: Contract
-  spec_file: alasco-contract-api-openapi.yml
-  capability_id: BC-500.20
-  capability_id_l1: BC-500
-  capability_name: Procurement Contract Management
   confidence: 0.7
-  evidence: GET /contractors/{contractor_id}/contracts/ "Get Contracts By Contractor"; GET /contracts/{contract_id}/contract_terms/
-    "Get Contract Terms"; CreateContractAttributes
-  reason: Full lifecycle CRUD over contracts held with contractors (supply side) and contracting entities,
-    including contract terms — this is procurement/construction contract lifecycle management rather than
-    sales contracting. Some ambiguity with generic BC-150.10 Contract Management, hence 0.7.
+  evidence: '"Submit Invoice", "Add Paid Invoice", "Register Payment", "Update Paid Invoice", "Get Invoices
+    By Contract"; schemas InvoicePayment, InvoiceProcessState'
+  reason: Incoming (contractor/vendor) invoice capture, approval workflow state and payment registration
+    against contracts — payables-side invoice processing within construction cost control. Direction of
+    the invoice is inferred from contract linkage, hence 0.7.
