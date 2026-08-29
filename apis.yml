@@ -819,6 +819,9 @@ apis:
   - type: APIReference
     url: https://developer.alasco.de/esg.html
 common:
+- type: CapabilityMap
+  url: capabilities/alasco-capability-edges.yml
+  name: Alasco Business Capability Map
 - type: Overlay
   url: overlays/alasco-capex-overlay.yaml
 - type: Website

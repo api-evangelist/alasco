@@ -1,0 +1,48 @@
+slug: alasco
+provider: Alasco
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Annual Consumption
+  spec_file: alasco-annual-consumption-api-openapi.yml
+  capability_id: BC-740.20
+  capability_id_l1: BC-740
+  capability_name: Climate & Carbon Management
+  confidence: 0.78
+  evidence: GET /consumption/annual/ "Get Annual Consumption"; schemas EmissionFactorAttributes, AnnualConsumptionMarketBasedEmissionUpdate,
+    HeatingSystem, CoolingSystem, Utility
+  reason: Captures and updates annual energy/utility consumption with emission factors and market-based
+    emissions per building — carbon footprint accounting for a real-estate portfolio, i.e. climate & carbon
+    management.
+- tag: Invoice
+  spec_file: alasco-invoice-api-openapi.yml
+  capability_id: BC-200.20
+  capability_id_l1: BC-200
+  capability_name: Accounts Payable Management
+  confidence: 0.75
+  evidence: POST /invoices/add-paid-invoice/ 'Add Paid Invoice'; POST /invoices/{id}/register-payment/
+    'Register Payment'; GET /contracts/{contract_id}/invoices/
+  reason: Incoming contractor invoices linked to contracts, with submission, approval state (InvoiceProcessState)
+    and payment registration — classic accounts payable invoice processing in a construction cost-control
+    context.
+- tag: Contract
+  spec_file: alasco-contract-api-openapi.yml
+  capability_id: BC-500.20
+  capability_id_l1: BC-500
+  capability_name: Procurement Contract Management
+  confidence: 0.7
+  evidence: GET /contractors/{contractor_id}/contracts/ "Get Contracts By Contractor"; GET /contracts/{contract_id}/contract_terms/
+    "Get Contract Terms"; CreateContractAttributes
+  reason: Full lifecycle CRUD over contracts held with contractors (supply side) and contracting entities,
+    including contract terms — this is procurement/construction contract lifecycle management rather than
+    sales contracting. Some ambiguity with generic BC-150.10 Contract Management, hence 0.7.
