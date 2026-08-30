@@ -3,7 +3,7 @@ provider: Alasco
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
-- Real Estate
+- Infrastructure
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -11,36 +11,47 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 3
+edge_count: 4
 edges:
-- tag: Utility Meter Readings
-  spec_file: alasco-utility-meter-readings-api-openapi.yml
-  capability_id: BC-4940.60
-  capability_id_l1: BC-4940
-  capability_name: Property Energy & Sustainability Operations
+- tag: Change Order
+  spec_file: alasco-change-order-api-openapi.yml
+  capability_id: BC-5030.50
+  capability_id_l1: BC-5030
+  capability_name: Variations & Claims Management
+  confidence: 0.8
+  evidence: GET /contracts/{contract_id}/change_orders/ 'Get Change Orders By Contract'; schemas 'ChangeOrderState',
+    'BasisOfClaim', 'Trigger'
+  reason: Change orders raised against construction contracts, with basis of claim, trigger and approval
+    state — this is variations and claims management under infrastructure/construction contracts.
+- tag: Contract
+  spec_file: alasco-contract-api-openapi.yml
+  capability_id: BC-5030.30
+  capability_id_l1: BC-5030
+  capability_name: Contract Administration
+  confidence: 0.8
+  evidence: POST /contracts/ 'Create Contract'; GET /contracts/{contract_id}/contract_terms/ 'Get Contract
+    Terms'; 'Get Contracts By Contractor'; 'Get Contracts By Measure'
+  reason: Full lifecycle of construction contracts held with contractors and contracting entities, including
+    terms and general/contract rules — administration of infrastructure delivery contracts.
+- tag: Annual Consumption
+  spec_file: alasco-annual-consumption-api-openapi.yml
+  capability_id: BC-740.20
+  capability_id_l1: BC-740
+  capability_name: Climate & Carbon Management
   confidence: 0.75
-  evidence: POST /buildings/{building_uuid}/utility-meters/{meter_uuid}/readings/ 'Create Utility Meter
-    Reading', 'Bulk Create Utility Meter Readings'
-  reason: Capture of utility meter readings against building meters is property-level energy/water consumption
-    operations, the substrate of energy and sustainability management for buildings.
-- tag: Utility Meters
-  spec_file: alasco-utility-meters-api-openapi.yml
-  capability_id: BC-4940.60
-  capability_id_l1: BC-4940
-  capability_name: Property Energy & Sustainability Operations
-  confidence: 0.75
-  evidence: GET /buildings/{building_uuid}/utility-meters/ 'Get Utility Meters', POST /utility-meters/
-    'Add Utility Meter', schemas CoolingSystem, Units, SubCategory
-  reason: Registry and import of building utility meters (with energy/cooling categorisation) supports
-    property-level energy, water and sub-metering operations.
+  evidence: GET /consumption/annual/ 'Get Annual Consumption'; schemas 'AnnualConsumptionMarketBasedEmissionUpdate',
+    'EmissionFactorAttributes', 'MarketBasedFactorAttributes', 'HeatingSystem', 'Utility'
+  reason: Operations read and update annual energy/utility consumption records carrying emission factors
+    and market-based emission values for buildings — i.e. carbon footprint accounting on the real-estate
+    portfolio, which is Climate & Carbon Management rather than any financial capability.
 - tag: Invoice
   spec_file: alasco-invoice-api-openapi.yml
   capability_id: BC-200.20
   capability_id_l1: BC-200
   capability_name: Accounts Payable Management
-  confidence: 0.7
-  evidence: '"Submit Invoice", "Add Paid Invoice", "Register Payment", "Update Paid Invoice", "Get Invoices
-    By Contract"; schemas InvoicePayment, InvoiceProcessState'
-  reason: Incoming (contractor/vendor) invoice capture, approval workflow state and payment registration
-    against contracts — payables-side invoice processing within construction cost control. Direction of
-    the invoice is inferred from contract linkage, hence 0.7.
+  confidence: 0.75
+  evidence: POST /invoices/add-paid-invoice/, POST /invoices/{id}/register-payment/ Register Payment,
+    GET /contracts/{contract_id}/invoices/
+  reason: Operations submit invoices against projects/contracts, record paid invoices and register payments
+    — inbound (payable) invoice processing and payment recording, i.e. accounts payable operations in
+    a construction cost-control context.
