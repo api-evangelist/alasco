@@ -24,15 +24,16 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: unknown
-  onboarding: self-serve
+  onboarding: unknown
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Unknown
+  confidence: low
   source:
   - authentication
-  generated: '2026-07-22'
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://cdn.prod.website-files.com/656ef2eb27ad41897248f866/6a50ff4e64f5c6a6cb6d2dd5_Alasco_Logo_Full_Blue%20(1).svg
 url: https://raw.githubusercontent.com/api-evangelist/alasco/refs/heads/main/apis.yml
