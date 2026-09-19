@@ -47,6 +47,9 @@ x-tier-reason: public-api-with-mcp
 specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-17'
+x-docs-platform: redocly
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-17
 tags:
 - Company
 - Ai Enterprise Software
@@ -122,6 +125,8 @@ apis:
   humanURL: https://developer.alasco.de/fincon.html
   baseURL: https://api.alasco.de/fincon/v1
   tags:
+  - Audit Logs
+  tags_raw:
   - Audit Log
   properties:
   - type: OpenAPI
@@ -551,6 +556,8 @@ apis:
   humanURL: https://developer.alasco.de/fincon.html
   baseURL: https://api.alasco.de/fincon/v1
   tags:
+  - Invoices
+  tags_raw:
   - Invoice
   properties:
   - type: OpenAPI
