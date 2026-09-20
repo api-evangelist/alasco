@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 4
+edge_count: 6
 edges:
 - tag: Change Order
   spec_file: alasco-change-order-api-openapi.yml
@@ -55,3 +55,25 @@ edges:
   reason: Operations submit invoices against projects/contracts, record paid invoices and register payments
     — inbound (payable) invoice processing and payment recording, i.e. accounts payable operations in
     a construction cost-control context.
+- tag: Utility Meter Readings
+  spec_file: alasco-utility-meter-readings-api-openapi.yml
+  capability_id: BC-4940.60
+  capability_id_l1: BC-4940
+  capability_name: Property Energy & Sustainability Operations
+  confidence: 0.75
+  evidence: POST /buildings/{building_uuid}/utility-meters/{meter_uuid}/readings/ 'Create Utility Meter
+    Reading', 'Bulk Create Utility Meter Readings'
+  reason: Capture of utility meter readings against building meters is property-level energy/water consumption
+    operations, the substrate of energy and sustainability management for buildings.
+  recovered_from: vertical-real-estate-edges.json
+- tag: Utility Meters
+  spec_file: alasco-utility-meters-api-openapi.yml
+  capability_id: BC-4940.60
+  capability_id_l1: BC-4940
+  capability_name: Property Energy & Sustainability Operations
+  confidence: 0.75
+  evidence: GET /buildings/{building_uuid}/utility-meters/ 'Get Utility Meters', POST /utility-meters/
+    'Add Utility Meter', schemas CoolingSystem, Units, SubCategory
+  reason: Registry and import of building utility meters (with energy/cooling categorisation) supports
+    property-level energy, water and sub-metering operations.
+  recovered_from: vertical-real-estate-edges.json
