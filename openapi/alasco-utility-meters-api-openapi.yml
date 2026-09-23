@@ -1,61 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '
-
-    ## Introduction
+  description: '## Introduction
 
 
-    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
-
-
-    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
-
-
-    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
-
-
-    The base URL for all endpoints is:
-
-    `https://api.alasco.de/capex/v1`
-
-
-    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
-
-
-    ### Domain model
-
-
-    Objects relate as follows (each `→` is a navigable sub-resource):
-
-
-    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
-
-    - **Contractor** and **Contracting Entity** → **Contracts**.
-
-    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
-
-    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
-
-
-    ### CAPEX API Overview
-
-
-    The CAPEX API provides endpoints to:
-
-    - Retrieve and manage invoices, invoice tags, and invoice documents
-
-    - Retrieve assets, contracts, contractors, and measures
-
-
-    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
-
-    '
-  title: CAPEX Annual Consumption Utility Meters API
+    You can use the Alasco API to integrate your application with Alasco.'
+  title: ESG Utility Meters API
   version: '1.0'
   x-logo:
     url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
 servers:
-- url: https://api.alasco.de/capex/v1
+- url: https://api.alasco.de/esg/v1
 tags:
 - description: A **Utility Meter** measures consumption (electricity, gas, water, heating or cooling) for a **Building**. Meters are created and updated through the API, identified by your `external_id`, and own their **Readings** and consumption data.
   name: Utility Meters
@@ -211,46 +165,128 @@ paths:
       - Utility Meters
 components:
   schemas:
-    HeatingSystem:
-      enum:
-      - ELECTRICITY
-      - OIL
-      - GAS
-      - DISTRICT_HEATING
-      - WOOD_CHIPS
-      - WOOD_PELLETS
-      - HEAT_PUMP
-      - UNKNOWN
-      title: HeatingSystem
-      type: string
-    Units:
-      enum:
-      - CUBIC_METERS
-      - KILOWATT_HOURS
-      - MEGAWATT_HOURS
-      - KILOJOULES
-      - MEGAJOULES
-      - GIGAJOULES
-      - BRITISH_THERMAL_UNITS
-      title: Units
-      type: string
-    alasco__ivy__public__api__utilities__utility_meter_imports__BulkError:
+    Links:
       properties:
-        attributes:
-          $ref: '#/components/schemas/UtilityMeterImportWrite-Output'
-        detail:
-          items:
-            $ref: '#/components/schemas/alasco__ivy__public__api__utilities__utility_meter_imports__ErrorDetail'
-          title: Detail
-          type: array
-        index:
-          title: Index
-          type: integer
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
       required:
-      - index
-      - attributes
-      - detail
-      title: BulkError
+      - next
+      - prev
+      title: Links
+      type: object
+    UtilityMeterImportAttributes:
+      properties:
+        address:
+          description: '**Address** · **Adresse**'
+          title: Address
+          type: string
+        category:
+          $ref: '#/components/schemas/Utility'
+          description: '**Category** · **Kategorie**'
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Description** · **Beschreibung**'
+          title: Description
+        external_id:
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+          type: string
+        heating_system:
+          anyOf:
+          - $ref: '#/components/schemas/HeatingSystem'
+          - type: 'null'
+          description: '**Heating system** · **Heizsystem**'
+        multiplication_factor:
+          description: '**Multiplication factor** · **Multiplikationsfaktor**'
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Multiplication Factor
+          type: string
+        serial:
+          description: '**Serial number** · **Seriennummer**'
+          title: Serial
+          type: string
+        status:
+          $ref: '#/components/schemas/UtilityMeterImportStatus'
+          description: '**Status** · **Status**'
+        sub_category:
+          anyOf:
+          - $ref: '#/components/schemas/SubCategory'
+          - type: 'null'
+          description: '**Sub-category** · **Unterkategorie**'
+        units:
+          $ref: '#/components/schemas/Units'
+          description: '**Units** · **Einheiten**'
+      required:
+      - serial
+      - description
+      - external_id
+      - address
+      - units
+      - category
+      - sub_category
+      - heating_system
+      - multiplication_factor
+      - status
+      title: UtilityMeterImportAttributes
+      type: object
+    UtilityMeterImportWrite-Output:
+      properties:
+        address:
+          title: Address
+          type: string
+        category:
+          $ref: '#/components/schemas/Utility'
+        cooling_system:
+          anyOf:
+          - $ref: '#/components/schemas/CoolingSystem'
+          - type: 'null'
+          description: "\n        Required if category = 'COOLING'.\n        "
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        external_id:
+          title: External Id
+          type: string
+        heating_system:
+          anyOf:
+          - $ref: '#/components/schemas/HeatingSystem'
+          - type: 'null'
+          description: "\n        Required if category = 'HEATING'.\n        "
+        meter_id:
+          title: Meter Id
+          type: string
+        multiplication_factor:
+          default: '1'
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Multiplication Factor
+          type: string
+        sub_category:
+          anyOf:
+          - $ref: '#/components/schemas/SubCategory'
+          - type: 'null'
+          description: "\n        Required if category = 'WATER'.\n        "
+        units:
+          $ref: '#/components/schemas/Units'
+          description: "\n        If category = 'WATER', then units must only be 'CUBIC_METERS'.\n        "
+      required:
+      - address
+      - meter_id
+      - units
+      - category
+      - external_id
+      title: UtilityMeterImportWrite
       type: object
     UtilityMeterPatchPayload:
       properties:
@@ -260,54 +296,6 @@ components:
       - data
       title: UtilityMeterPatchPayload
       type: object
-    BulkPartialUtilityMeterImportResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/BulkPartialUtilityMeterImportData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: BulkPartialUtilityMeterImportResponse
-      type: object
-    UtilityMeterPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/UtilityMeterCreatePayloadData'
-      required:
-      - data
-      title: UtilityMeterPayload
-      type: object
-    UtilityMeterImportPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/UtilityMeterImportCreatePayloadData'
-      required:
-      - data
-      title: UtilityMeterImportPayload
-      type: object
-    ProcuredBy:
-      enum:
-      - LANDLORD
-      - TENANT
-      title: ProcuredBy
-      type: string
     UtilityMeterImportData:
       properties:
         attributes:
@@ -331,92 +319,19 @@ components:
       - attributes
       title: UtilityMeterImportData
       type: object
-    Links:
-      properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
-      required:
-      - next
-      - prev
-      title: Links
-      type: object
-    UtilityMeterImportCreateErrorCode:
+    ProcuredBy:
       enum:
-      - ALA-4001
-      - ALA-4002
-      - ALA-4003
-      - ALA-4004
-      - ALA-4005
-      - ALA-4006
-      - ALA-4007
-      title: UtilityMeterImportCreateErrorCode
+      - LANDLORD
+      - TENANT
+      title: ProcuredBy
       type: string
-    BulkPartialUtilityMeterImportData:
+    UtilityMeterImportPayload:
       properties:
-        created:
-          items:
-            $ref: '#/components/schemas/UtilityMeterImportData'
-          title: Created
-          type: array
-        errors:
-          items:
-            $ref: '#/components/schemas/alasco__ivy__public__api__utilities__utility_meter_imports__BulkError'
-          title: Errors
-          type: array
-        type:
-          const: UTILITY_METER_IMPORT
-          default: UTILITY_METER_IMPORT
-          title: Type
-          type: string
+        data:
+          $ref: '#/components/schemas/UtilityMeterImportCreatePayloadData'
       required:
-      - created
-      - errors
-      title: BulkPartialUtilityMeterImportData
-      type: object
-    CoolingSystem:
-      enum:
-      - DISTRICT
-      - LOCAL_DISTRICT
-      title: CoolingSystem
-      type: string
-    Error:
-      properties:
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
+      - data
+      title: UtilityMeterImportPayload
       type: object
     UtilityMeterPatchAttributes:
       properties:
@@ -491,49 +406,118 @@ components:
           - type: 'null'
       title: UtilityMeterPatchAttributes
       type: object
-    ValidationError:
+    BulkPartialUtilityMeterImportResponse:
       properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
+        data:
+          $ref: '#/components/schemas/BulkPartialUtilityMeterImportData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: BulkPartialUtilityMeterImportResponse
+      type: object
+    HeatingSystem:
+      enum:
+      - ELECTRICITY
+      - OIL
+      - GAS
+      - DISTRICT_HEATING
+      - WOOD_CHIPS
+      - WOOD_PELLETS
+      - HEAT_PUMP
+      - UNKNOWN
+      title: HeatingSystem
+      type: string
+    UtilityMeterImportCreatePayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterImportWrite-Input'
         type:
-          title: Error Type
+          const: UTILITY_METER_IMPORT
+          title: Type
           type: string
       required:
-      - loc
-      - msg
       - type
-      title: ValidationError
+      - attributes
+      title: UtilityMeterImportCreatePayloadData
       type: object
-    alasco__ivy__public__api__utilities__utility_meter_imports__ErrorDetail:
+    UtilityMeterPatchPayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterPatchAttributes'
+        type:
+          const: UTILITY_METER
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: UtilityMeterPatchPayloadData
+      type: object
+    Error:
       properties:
         code:
-          $ref: '#/components/schemas/UtilityMeterImportCreateErrorCode'
-        loc:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    alasco__ivy__public__api__utilities__utility_meter_imports__BulkError:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterImportWrite-Output'
+        detail:
           items:
-            type: string
-          title: Loc
+            $ref: '#/components/schemas/alasco__ivy__public__api__utilities__utility_meter_imports__ErrorDetail'
+          title: Detail
           type: array
-        msg:
-          title: Msg
-          type: string
+        index:
+          title: Index
+          type: integer
       required:
-      - loc
-      - msg
-      - code
-      title: ErrorDetail
+      - index
+      - attributes
+      - detail
+      title: BulkError
       type: object
     UtilityMeterWrite:
       properties:
@@ -618,6 +602,38 @@ components:
       - external_id
       title: UtilityMeterWrite
       type: object
+    CoolingSystem:
+      enum:
+      - DISTRICT
+      - LOCAL_DISTRICT
+      title: CoolingSystem
+      type: string
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
     UtilityMeterCreatePayloadData:
       properties:
         attributes:
@@ -630,114 +646,6 @@ components:
       - type
       - attributes
       title: UtilityMeterCreatePayloadData
-      type: object
-    Utility:
-      enum:
-      - HEATING
-      - ELECTRICITY
-      - WATER
-      - COOLING
-      title: Utility
-      type: string
-    UtilityMeterImportWrite-Output:
-      properties:
-        address:
-          title: Address
-          type: string
-        category:
-          $ref: '#/components/schemas/Utility'
-        cooling_system:
-          anyOf:
-          - $ref: '#/components/schemas/CoolingSystem'
-          - type: 'null'
-          description: "\n        Required if category = 'COOLING'.\n        "
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        external_id:
-          title: External Id
-          type: string
-        heating_system:
-          anyOf:
-          - $ref: '#/components/schemas/HeatingSystem'
-          - type: 'null'
-          description: "\n        Required if category = 'HEATING'.\n        "
-        meter_id:
-          title: Meter Id
-          type: string
-        multiplication_factor:
-          default: '1'
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Multiplication Factor
-          type: string
-        sub_category:
-          anyOf:
-          - $ref: '#/components/schemas/SubCategory'
-          - type: 'null'
-          description: "\n        Required if category = 'WATER'.\n        "
-        units:
-          $ref: '#/components/schemas/Units'
-          description: "\n        If category = 'WATER', then units must only be 'CUBIC_METERS'.\n        "
-      required:
-      - address
-      - meter_id
-      - units
-      - category
-      - external_id
-      title: UtilityMeterImportWrite
-      type: object
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
-    UtilityMeterListResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/UtilityMeterData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: UtilityMeterListResponse
       type: object
     UtilityMeterResponse:
       properties:
@@ -765,63 +673,22 @@ components:
       - data
       title: UtilityMeterResponse
       type: object
-    UtilityMeterImportAttributes:
+    UtilityMeterPayload:
       properties:
-        address:
-          description: '**Address** · **Adresse**'
-          title: Address
-          type: string
-        category:
-          $ref: '#/components/schemas/Utility'
-          description: '**Category** · **Kategorie**'
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Description** · **Beschreibung**'
-          title: Description
-        external_id:
-          description: '**External ID** · **Externe ID**'
-          title: External Id
-          type: string
-        heating_system:
-          anyOf:
-          - $ref: '#/components/schemas/HeatingSystem'
-          - type: 'null'
-          description: '**Heating system** · **Heizsystem**'
-        multiplication_factor:
-          description: '**Multiplication factor** · **Multiplikationsfaktor**'
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Multiplication Factor
-          type: string
-        serial:
-          description: '**Serial number** · **Seriennummer**'
-          title: Serial
-          type: string
-        status:
-          $ref: '#/components/schemas/UtilityMeterImportStatus'
-          description: '**Status** · **Status**'
-        sub_category:
-          anyOf:
-          - $ref: '#/components/schemas/SubCategory'
-          - type: 'null'
-          description: '**Sub-category** · **Unterkategorie**'
-        units:
-          $ref: '#/components/schemas/Units'
-          description: '**Units** · **Einheiten**'
+        data:
+          $ref: '#/components/schemas/UtilityMeterCreatePayloadData'
       required:
-      - serial
-      - description
-      - external_id
-      - address
-      - units
-      - category
-      - sub_category
-      - heating_system
-      - multiplication_factor
-      - status
-      title: UtilityMeterImportAttributes
+      - data
+      title: UtilityMeterPayload
       type: object
+    Utility:
+      enum:
+      - HEATING
+      - ELECTRICITY
+      - WATER
+      - COOLING
+      title: Utility
+      type: string
     UtilityMeterImportBulkPayload:
       properties:
         data:
@@ -832,131 +699,6 @@ components:
       required:
       - data
       title: UtilityMeterImportBulkPayload
-      type: object
-    UtilityMeterImportStatus:
-      enum:
-      - IMPORTED
-      - ASSIGNED
-      - CREATED
-      - REJECTED
-      title: UtilityMeterImportStatus
-      type: string
-    UtilityMeterImportWrite-Input:
-      properties:
-        address:
-          title: Address
-          type: string
-        category:
-          $ref: '#/components/schemas/Utility'
-        cooling_system:
-          anyOf:
-          - $ref: '#/components/schemas/CoolingSystem'
-          - type: 'null'
-          description: "\n        Required if category = 'COOLING'.\n        "
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        external_id:
-          title: External Id
-          type: string
-        heating_system:
-          anyOf:
-          - $ref: '#/components/schemas/HeatingSystem'
-          - type: 'null'
-          description: "\n        Required if category = 'HEATING'.\n        "
-        meter_id:
-          title: Meter Id
-          type: string
-        multiplication_factor:
-          anyOf:
-          - exclusiveMinimum: 0.0
-            type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          default: '1'
-          title: Multiplication Factor
-        sub_category:
-          anyOf:
-          - $ref: '#/components/schemas/SubCategory'
-          - type: 'null'
-          description: "\n        Required if category = 'WATER'.\n        "
-        units:
-          $ref: '#/components/schemas/Units'
-          description: "\n        If category = 'WATER', then units must only be 'CUBIC_METERS'.\n        "
-      required:
-      - address
-      - meter_id
-      - units
-      - category
-      - external_id
-      title: UtilityMeterImportWrite
-      type: object
-    SubCategory:
-      enum:
-      - COLD_WATER
-      - HOT_WATER
-      title: SubCategory
-      type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    UtilityMeterData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/UtilityMeterAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: UTILITY_METER
-          default: UTILITY_METER
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: UtilityMeterData
-      type: object
-    UtilityMeterPatchPayloadData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/UtilityMeterPatchAttributes'
-        type:
-          const: UTILITY_METER
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: UtilityMeterPatchPayloadData
-      type: object
-    UtilityMeterImportCreatePayloadData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/UtilityMeterImportWrite-Input'
-        type:
-          const: UTILITY_METER_IMPORT
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: UtilityMeterImportCreatePayloadData
       type: object
     UtilityMeterImportResponse:
       properties:
@@ -983,30 +725,6 @@ components:
       required:
       - data
       title: UtilityMeterImportResponse
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
-      required:
-      - id
-      - type
-      title: BaseDataSchema
       type: object
     UtilityMeterAttributes:
       properties:
@@ -1092,8 +810,244 @@ components:
       - deactivation_date
       title: UtilityMeterAttributes
       type: object
+    UtilityMeterImportCreateErrorCode:
+      enum:
+      - ALA-4001
+      - ALA-4002
+      - ALA-4003
+      - ALA-4004
+      - ALA-4005
+      - ALA-4006
+      - ALA-4007
+      title: UtilityMeterImportCreateErrorCode
+      type: string
+    Units:
+      enum:
+      - CUBIC_METERS
+      - KILOWATT_HOURS
+      - MEGAWATT_HOURS
+      - KILOJOULES
+      - MEGAJOULES
+      - GIGAJOULES
+      - BRITISH_THERMAL_UNITS
+      title: Units
+      type: string
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    BulkPartialUtilityMeterImportData:
+      properties:
+        created:
+          items:
+            $ref: '#/components/schemas/UtilityMeterImportData'
+          title: Created
+          type: array
+        errors:
+          items:
+            $ref: '#/components/schemas/alasco__ivy__public__api__utilities__utility_meter_imports__BulkError'
+          title: Errors
+          type: array
+        type:
+          const: UTILITY_METER_IMPORT
+          default: UTILITY_METER_IMPORT
+          title: Type
+          type: string
+      required:
+      - created
+      - errors
+      title: BulkPartialUtilityMeterImportData
+      type: object
+    alasco__ivy__public__api__utilities__utility_meter_imports__ErrorDetail:
+      properties:
+        code:
+          $ref: '#/components/schemas/UtilityMeterImportCreateErrorCode'
+        loc:
+          items:
+            type: string
+          title: Loc
+          type: array
+        msg:
+          title: Msg
+          type: string
+      required:
+      - loc
+      - msg
+      - code
+      title: ErrorDetail
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    SubCategory:
+      enum:
+      - COLD_WATER
+      - HOT_WATER
+      title: SubCategory
+      type: string
+    UtilityMeterImportStatus:
+      enum:
+      - IMPORTED
+      - ASSIGNED
+      - CREATED
+      - REJECTED
+      title: UtilityMeterImportStatus
+      type: string
+    UtilityMeterImportWrite-Input:
+      properties:
+        address:
+          title: Address
+          type: string
+        category:
+          $ref: '#/components/schemas/Utility'
+        cooling_system:
+          anyOf:
+          - $ref: '#/components/schemas/CoolingSystem'
+          - type: 'null'
+          description: "\n        Required if category = 'COOLING'.\n        "
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        external_id:
+          title: External Id
+          type: string
+        heating_system:
+          anyOf:
+          - $ref: '#/components/schemas/HeatingSystem'
+          - type: 'null'
+          description: "\n        Required if category = 'HEATING'.\n        "
+        meter_id:
+          title: Meter Id
+          type: string
+        multiplication_factor:
+          anyOf:
+          - exclusiveMinimum: 0.0
+            type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          default: '1'
+          title: Multiplication Factor
+        sub_category:
+          anyOf:
+          - $ref: '#/components/schemas/SubCategory'
+          - type: 'null'
+          description: "\n        Required if category = 'WATER'.\n        "
+        units:
+          $ref: '#/components/schemas/Units'
+          description: "\n        If category = 'WATER', then units must only be 'CUBIC_METERS'.\n        "
+      required:
+      - address
+      - meter_id
+      - units
+      - category
+      - external_id
+      title: UtilityMeterImportWrite
+      type: object
+    UtilityMeterListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/UtilityMeterData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: UtilityMeterListResponse
+      type: object
+    UtilityMeterData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: UTILITY_METER
+          default: UTILITY_METER
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: UtilityMeterData
+      type: object
   securitySchemes:
-    API Key:
+    API_Key:
       description: '
 
         The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
@@ -1104,7 +1058,7 @@ components:
       in: header
       name: X-API-KEY
       type: apiKey
-    API Token:
+    API_Token:
       description: '
 
         In addition to an API key, one has to specify an API token. There can be one or more tokens in use

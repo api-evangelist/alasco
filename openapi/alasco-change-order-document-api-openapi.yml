@@ -1,61 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '
-
-    ## Introduction
-
-
-    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
-
-
-    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
-
-
-    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
-
-
-    The base URL for all endpoints is:
-
-    `https://api.alasco.de/capex/v1`
-
-
-    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
-
-
-    ### Domain model
-
-
-    Objects relate as follows (each `→` is a navigable sub-resource):
-
-
-    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
-
-    - **Contractor** and **Contracting Entity** → **Contracts**.
-
-    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
-
-    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
-
-
-    ### CAPEX API Overview
-
-
-    The CAPEX API provides endpoints to:
-
-    - Retrieve and manage invoices, invoice tags, and invoice documents
-
-    - Retrieve assets, contracts, contractors, and measures
-
-
-    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
-
-    '
-  title: CAPEX Annual Consumption Change Order Document API
+  title: Alasco Change Order Document API
   version: '1.0'
   x-logo:
     url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+  description: 'Operations tagged Change Order Document across 2 of this provider''s published API definitions: alasco-capex-openapi.json, alasco-fincon-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.alasco.de/capex/v1
+- url: https://api.alasco.de/fincon/v1
 tags:
 - description: A **Change Order Document** is a file attached to a **Change Order** (for example the amendment offer or supporting evidence). You can upload and download them; a document left unlinked is removed automatically after a grace period.
   name: Change Order Document
@@ -197,6 +149,8 @@ paths:
       summary: Create Change Order Document
       tags:
       - Change Order Document
+    servers:
+    - url: https://api.alasco.de/capex/v1
   /change_orders/{change_order_id}/documents/{document_id}/:
     get:
       operationId: get_change_order_document_change_orders__change_order_id__documents__document_id___get
@@ -234,6 +188,8 @@ paths:
       summary: Get Change Order Document
       tags:
       - Change Order Document
+    servers:
+    - url: https://api.alasco.de/capex/v1
   /change_orders/{change_order_id}/documents/{document_id}/download-annotated/:
     get:
       operationId: download_annotated_change_order_document_change_orders__change_order_id__documents__document_id__download_annotated__get
@@ -271,6 +227,8 @@ paths:
       summary: Download Annotated Change Order Document
       tags:
       - Change Order Document
+    servers:
+    - url: https://api.alasco.de/capex/v1
   /change_orders/{change_order_id}/documents/{document_id}/download/:
     get:
       operationId: download_change_order_document_change_orders__change_order_id__documents__document_id__download__get
@@ -308,16 +266,35 @@ paths:
       summary: Download Change Order Document
       tags:
       - Change Order Document
+    servers:
+    - url: https://api.alasco.de/capex/v1
 components:
   schemas:
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
           type: array
-      title: HTTPValidationError
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
     ChangeOrderDocumentDataLinks:
       properties:
@@ -341,6 +318,37 @@ components:
       - download
       - download_annotated
       title: ChangeOrderDocumentDataLinks
+      type: object
+    ChangeOrderDocumentResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/ChangeOrderDocumentData'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: ChangeOrderDocumentResponse
       type: object
     ChangeOrderDocumentData:
       properties:
@@ -378,26 +386,40 @@ components:
       - links
       title: ChangeOrderDocumentData
       type: object
-    ChangeOrderDocumentType:
-      description: 'Change order documents can be of different types such as `CHANGE_ORDER_OFFER`, `ATTACHMENT`, `COVERSHEET_EXTERNAL`,
-
-        `AUDITED_CHANGE_ORDER`, `INTERNAL_CORRESPONDENCE`, `EXTERNAL_CORRESPONDENCE`, `VALUATIONS`, `PLANS`,
-
-        `CHANGE_ORDER`, `PROTOCOL` and `OTHER`.'
-      enum:
-      - CHANGE_ORDER_OFFER
-      - ATTACHMENT
-      - COVERSHEET_EXTERNAL
-      - AUDITED_CHANGE_ORDER
-      - INTERNAL_CORRESPONDENCE
-      - EXTERNAL_CORRESPONDENCE
-      - VALUATIONS
-      - PLANS
-      - CHANGE_ORDER
-      - PROTOCOL
-      - OTHER
-      title: ChangeOrderDocumentType
-      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
     Body_create_change_order_document_change_orders__change_order_id__documents__post:
       properties:
         document_type:
@@ -444,31 +466,6 @@ components:
       - upload
       title: Body_create_change_order_document_change_orders__change_order_id__documents__post
       type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
     Error:
       properties:
         detail:
@@ -495,31 +492,39 @@ components:
           title: Title
       title: Error
       type: object
-    ValidationError:
+    ChangeOrderDocumentListResponse:
       properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
+        data:
           items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
+            $ref: '#/components/schemas/ChangeOrderDocumentData'
+          title: Data
           type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - data
+      title: ChangeOrderDocumentListResponse
       type: object
     ChangeOrderDocumentAttributes:
       properties:
@@ -571,73 +576,28 @@ components:
       - uploaded_at
       title: ChangeOrderDocumentAttributes
       type: object
-    ChangeOrderDocumentResponse:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/ChangeOrderDocumentData'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: ChangeOrderDocumentResponse
-      type: object
-    ChangeOrderDocumentListResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ChangeOrderDocumentData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      required:
-      - data
-      title: ChangeOrderDocumentListResponse
-      type: object
+    ChangeOrderDocumentType:
+      description: 'Change order documents can be of different types such as `CHANGE_ORDER_OFFER`, `ATTACHMENT`, `COVERSHEET_EXTERNAL`,
+
+        `AUDITED_CHANGE_ORDER`, `INTERNAL_CORRESPONDENCE`, `EXTERNAL_CORRESPONDENCE`, `VALUATIONS`, `PLANS`,
+
+        `CHANGE_ORDER`, `PROTOCOL` and `OTHER`.'
+      enum:
+      - CHANGE_ORDER_OFFER
+      - ATTACHMENT
+      - COVERSHEET_EXTERNAL
+      - AUDITED_CHANGE_ORDER
+      - INTERNAL_CORRESPONDENCE
+      - EXTERNAL_CORRESPONDENCE
+      - VALUATIONS
+      - PLANS
+      - CHANGE_ORDER
+      - PROTOCOL
+      - OTHER
+      title: ChangeOrderDocumentType
+      type: string
   securitySchemes:
-    API Key:
+    API_Key:
       description: '
 
         The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
@@ -648,7 +608,7 @@ components:
       in: header
       name: X-API-KEY
       type: apiKey
-    API Token:
+    API_Token:
       description: '
 
         In addition to an API key, one has to specify an API token. There can be one or more tokens in use
@@ -665,3 +625,6 @@ components:
       in: header
       name: X-API-TOKEN
       type: apiKey
+x-refined-from:
+- alasco-capex-openapi.json
+- alasco-fincon-openapi.json

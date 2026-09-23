@@ -1,61 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '
-
-    ## Introduction
-
-
-    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
-
-
-    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
-
-
-    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
-
-
-    The base URL for all endpoints is:
-
-    `https://api.alasco.de/capex/v1`
-
-
-    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
-
-
-    ### Domain model
-
-
-    Objects relate as follows (each `→` is a navigable sub-resource):
-
-
-    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
-
-    - **Contractor** and **Contracting Entity** → **Contracts**.
-
-    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
-
-    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
-
-
-    ### CAPEX API Overview
-
-
-    The CAPEX API provides endpoints to:
-
-    - Retrieve and manage invoices, invoice tags, and invoice documents
-
-    - Retrieve assets, contracts, contractors, and measures
-
-
-    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
-
-    '
-  title: CAPEX Annual Consumption Invoice Tag API
+  title: Alasco Invoice Tag API
   version: '1.0'
   x-logo:
     url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+  description: 'Operations tagged Invoice Tag across 2 of this provider''s published API definitions: alasco-capex-openapi.json, alasco-fincon-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.alasco.de/capex/v1
+- url: https://api.alasco.de/fincon/v1
 tags:
 - description: An **Invoice Tag** is a coloured label (with a name unique per account) you assign to **Invoices** for organisation and filtering. Tags can be created, updated and deleted, and assigned to or removed from invoices.
   name: Invoice Tag
@@ -90,6 +42,8 @@ paths:
       summary: Get Tags By Invoice
       tags:
       - Invoice Tag
+    servers:
+    - url: https://api.alasco.de/capex/v1
   /invoices/{invoice_id}/tags/assign/:
     post:
       operationId: assign_tag_invoices__invoice_id__tags_assign__post
@@ -126,6 +80,8 @@ paths:
       summary: Assign Tag
       tags:
       - Invoice Tag
+    servers:
+    - url: https://api.alasco.de/capex/v1
   /invoices/{invoice_id}/tags/unassign/:
     post:
       operationId: unassign_tag_invoices__invoice_id__tags_unassign__post
@@ -162,6 +118,8 @@ paths:
       summary: Unassign Tag
       tags:
       - Invoice Tag
+    servers:
+    - url: https://api.alasco.de/capex/v1
   /tags/:
     get:
       operationId: get_tags_tags__get
@@ -205,6 +163,8 @@ paths:
       summary: Create Tag
       tags:
       - Invoice Tag
+    servers:
+    - url: https://api.alasco.de/capex/v1
   /tags/{id}/:
     delete:
       operationId: delete_tag_tags__id___delete
@@ -266,183 +226,10 @@ paths:
       summary: Update Tag
       tags:
       - Invoice Tag
+    servers:
+    - url: https://api.alasco.de/capex/v1
 components:
   schemas:
-    TagColorTokenOut:
-      enum:
-      - BLUE
-      - GREEN
-      - RED
-      - ORANGE
-      - UNSPECIFIED
-      title: TagColorTokenOut
-      type: string
-    Data_TagAttributes_Literal_TAG__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TagAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: TAG
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[TagAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
-      type: object
-    InvoiceProcessState:
-      description: 'The invoice process state represents the state of the invoice in its workflow.
-
-        A `NEW` invoice has not been processed by any user.
-
-        An invoice in state `DETAILS_ENTERED` means that all the required details
-
-        have been entered.
-
-        After the formal verification step has been completed, the invoice is in state `FORMALLY_CHECKED`.
-
-        As soon as the first manual approval step has been completed, the invoice enters state `CHECKED`.
-
-        An invoice is `APPROVED` when all required approvals have been given.
-
-        Finally, when the payment for an invoice is registered, it enters state `PAID`.'
-      enum:
-      - NEW
-      - DETAILS_ENTERED
-      - CHECKED
-      - APPROVED
-      - PAID
-      title: InvoiceProcessState
-      type: string
-    ListResponse_TagAttributes_Literal_TAG__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[TagAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
-      type: object
-    Payload_TagUpdateAttributes_Literal_TAG__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TagUpdateAttributes'
-        type:
-          const: TAG
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[TagUpdateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
-      type: object
-    TagAttributes:
-      properties:
-        color:
-          $ref: '#/components/schemas/TagColorTokenOut'
-          description: '**Tag color** · **Tag-Farbe**'
-        name:
-          description: '**Tag name** · **Tag-Name**'
-          title: Name
-          type: string
-      required:
-      - name
-      - color
-      title: TagAttributes
-      type: object
-    Response_TagAttributes_Literal_TAG__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[TagAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
-      type: object
-    TagCreateAttributes:
-      properties:
-        color:
-          anyOf:
-          - $ref: '#/components/schemas/TagColorTokenIn'
-          - type: 'null'
-          description: '**Tag color** · **Tag-Farbe**'
-        name:
-          description: '**Tag name** · **Tag-Name**'
-          minLength: 1
-          title: Name
-          type: string
-      required:
-      - name
-      title: TagCreateAttributes
-      type: object
     InvoiceAttributes:
       properties:
         audited_amount:
@@ -727,216 +514,6 @@ components:
       - is_reverse_charge
       title: InvoiceAttributes
       type: object
-    InvoiceData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/InvoiceAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - contract:
-              data:
-                id: 1aae03bc-96d8-47b6-9a8b-07f190400e62
-                type: CONTRACT
-            documents:
-              links:
-                related: https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/
-          title: Relationships
-        type:
-          default: INVOICE
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: InvoiceData
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Request_TagUpdateAttributes_Literal_TAG__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_TagUpdateAttributes_Literal_TAG__'
-      required:
-      - data
-      title: 'Request[TagUpdateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
-      type: object
-    InvoiceType:
-      description: The invoice type.
-      enum:
-      - SINGLE
-      - ADVANCE
-      - INSTALLMENT
-      - PARTIAL_FINAL
-      - FINAL
-      - RETAINAGE_PAYOUT
-      - RECURRING
-      title: InvoiceType
-      type: string
-    Payload_TagAssignAttributes_Literal_TAG__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TagAssignAttributes'
-        type:
-          const: TAG
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[TagAssignAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
-      type: object
-    InvoiceResponse:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/InvoiceData'
-          - $ref: '#/components/schemas/InvoiceCreatedData'
-          - type: 'null'
-          title: Data
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: InvoiceResponse
-      type: object
-    InvoiceCreatedData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/InvoiceBasicAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          default: INVOICE
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: InvoiceCreatedData
-      type: object
-    Payload_TagCreateAttributes_Literal_TAG__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TagCreateAttributes'
-        type:
-          const: TAG
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[TagCreateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    TagAssignAttributes:
-      properties:
-        tag_id:
-          description: '**Tag ID** · **Tag-ID**'
-          format: uuid
-          title: Tag Id
-          type: string
-      required:
-      - tag_id
-      title: TagAssignAttributes
-      type: object
     InvoiceBasicAttributes:
       properties:
         date_created:
@@ -979,6 +556,396 @@ components:
       - invoice_process_state
       title: InvoiceBasicAttributes
       type: object
+    Data_TagAttributes_Literal_TAG__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TagAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: TAG
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[TagAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    InvoiceData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/InvoiceAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - contract:
+              data:
+                id: 1aae03bc-96d8-47b6-9a8b-07f190400e62
+                type: CONTRACT
+            documents:
+              links:
+                related: https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/
+          title: Relationships
+        type:
+          default: INVOICE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: InvoiceData
+      type: object
+    TagUpdateAttributes:
+      properties:
+        color:
+          anyOf:
+          - $ref: '#/components/schemas/TagColorTokenIn'
+          - type: 'null'
+          description: '**Tag color** · **Tag-Farbe**'
+        name:
+          anyOf:
+          - minLength: 1
+            type: string
+          - type: 'null'
+          description: '**Tag name** · **Tag-Name**'
+          title: Name
+      title: TagUpdateAttributes
+      type: object
+    TagAttributes:
+      properties:
+        color:
+          $ref: '#/components/schemas/TagColorTokenOut'
+          description: '**Tag color** · **Tag-Farbe**'
+        name:
+          description: '**Tag name** · **Tag-Name**'
+          title: Name
+          type: string
+      required:
+      - name
+      - color
+      title: TagAttributes
+      type: object
+    TagColorTokenIn:
+      enum:
+      - BLUE
+      - GREEN
+      - RED
+      - ORANGE
+      title: TagColorTokenIn
+      type: string
+    Payload_TagUpdateAttributes_Literal_TAG__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TagUpdateAttributes'
+        type:
+          const: TAG
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[TagUpdateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    ListResponse_TagAttributes_Literal_TAG__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[TagAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    Request_TagCreateAttributes_Literal_TAG__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_TagCreateAttributes_Literal_TAG__'
+      required:
+      - data
+      title: 'Request[TagCreateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    Response_TagAttributes_Literal_TAG__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_TagAttributes_Literal_TAG__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[TagAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    Request_TagUpdateAttributes_Literal_TAG__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_TagUpdateAttributes_Literal_TAG__'
+      required:
+      - data
+      title: 'Request[TagUpdateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    Payload_TagCreateAttributes_Literal_TAG__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TagCreateAttributes'
+        type:
+          const: TAG
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[TagCreateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Payload_TagAssignAttributes_Literal_TAG__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TagAssignAttributes'
+        type:
+          const: TAG
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[TagAssignAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    Request_TagAssignAttributes_Literal_TAG__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_TagAssignAttributes_Literal_TAG__'
+      required:
+      - data
+      title: 'Request[TagAssignAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
+      type: object
+    TagAssignAttributes:
+      properties:
+        tag_id:
+          description: '**Tag ID** · **Tag-ID**'
+          format: uuid
+          title: Tag Id
+          type: string
+      required:
+      - tag_id
+      title: TagAssignAttributes
+      type: object
+    InvoiceResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/InvoiceData'
+          - $ref: '#/components/schemas/InvoiceCreatedData'
+          - type: 'null'
+          title: Data
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: InvoiceResponse
+      type: object
+    TagColorTokenOut:
+      enum:
+      - BLUE
+      - GREEN
+      - RED
+      - ORANGE
+      - UNSPECIFIED
+      title: TagColorTokenOut
+      type: string
+    TagCreateAttributes:
+      properties:
+        color:
+          anyOf:
+          - $ref: '#/components/schemas/TagColorTokenIn'
+          - type: 'null'
+          description: '**Tag color** · **Tag-Farbe**'
+        name:
+          description: '**Tag name** · **Tag-Name**'
+          minLength: 1
+          title: Name
+          type: string
+      required:
+      - name
+      title: TagCreateAttributes
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    InvoiceProcessState:
+      description: 'The invoice process state represents the state of the invoice in its workflow.
+
+        A `NEW` invoice has not been processed by any user.
+
+        An invoice in state `DETAILS_ENTERED` means that all the required details
+
+        have been entered.
+
+        After the formal verification step has been completed, the invoice is in state `FORMALLY_CHECKED`.
+
+        As soon as the first manual approval step has been completed, the invoice enters state `CHECKED`.
+
+        An invoice is `APPROVED` when all required approvals have been given.
+
+        Finally, when the payment for an invoice is registered, it enters state `PAID`.'
+      enum:
+      - NEW
+      - DETAILS_ENTERED
+      - CHECKED
+      - APPROVED
+      - PAID
+      title: InvoiceProcessState
+      type: string
     BaseDataSchema:
       properties:
         attributes:
@@ -1004,48 +971,79 @@ components:
       - type
       title: BaseDataSchema
       type: object
-    Request_TagAssignAttributes_Literal_TAG__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_TagAssignAttributes_Literal_TAG__'
-      required:
-      - data
-      title: 'Request[TagAssignAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
-      type: object
-    Request_TagCreateAttributes_Literal_TAG__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_TagCreateAttributes_Literal_TAG__'
-      required:
-      - data
-      title: 'Request[TagCreateAttributes, Literal[<ResourceType.TAG: ''TAG''>]]'
-      type: object
-    TagColorTokenIn:
+    InvoiceType:
+      description: The invoice type.
       enum:
-      - BLUE
-      - GREEN
-      - RED
-      - ORANGE
-      title: TagColorTokenIn
+      - SINGLE
+      - ADVANCE
+      - INSTALLMENT
+      - PARTIAL_FINAL
+      - FINAL
+      - RETAINAGE_PAYOUT
+      - RECURRING
+      title: InvoiceType
       type: string
-    TagUpdateAttributes:
+    InvoiceCreatedData:
       properties:
-        color:
+        attributes:
+          $ref: '#/components/schemas/InvoiceBasicAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
           anyOf:
-          - $ref: '#/components/schemas/TagColorTokenIn'
+          - additionalProperties: true
+            type: object
           - type: 'null'
-          description: '**Tag color** · **Tag-Farbe**'
-        name:
+          title: Relationships
+        type:
+          default: INVOICE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: InvoiceCreatedData
+      type: object
+    InvoiceData_2:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/InvoiceAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
           anyOf:
-          - minLength: 1
-            type: string
+          - additionalProperties: true
+            type: object
           - type: 'null'
-          description: '**Tag name** · **Tag-Name**'
-          title: Name
-      title: TagUpdateAttributes
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - contract:
+              data:
+                id: 1aae03bc-96d8-47b6-9a8b-07f190400e62
+                type: CONTRACT
+            documents:
+              links:
+                related: https://api.alasco.de/fincon/v1/invoices/<invoice_id>/documents/
+          title: Relationships
+        type:
+          default: INVOICE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: InvoiceData
       type: object
   securitySchemes:
-    API Key:
+    API_Key:
       description: '
 
         The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
@@ -1056,7 +1054,7 @@ components:
       in: header
       name: X-API-KEY
       type: apiKey
-    API Token:
+    API_Token:
       description: '
 
         In addition to an API key, one has to specify an API token. There can be one or more tokens in use
@@ -1073,3 +1071,6 @@ components:
       in: header
       name: X-API-TOKEN
       type: apiKey
+x-refined-from:
+- alasco-capex-openapi.json
+- alasco-fincon-openapi.json

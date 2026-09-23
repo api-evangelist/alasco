@@ -1,61 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '
-
-    ## Introduction
+  description: '## Introduction
 
 
-    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
-
-
-    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
-
-
-    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
-
-
-    The base URL for all endpoints is:
-
-    `https://api.alasco.de/capex/v1`
-
-
-    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
-
-
-    ### Domain model
-
-
-    Objects relate as follows (each `→` is a navigable sub-resource):
-
-
-    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
-
-    - **Contractor** and **Contracting Entity** → **Contracts**.
-
-    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
-
-    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
-
-
-    ### CAPEX API Overview
-
-
-    The CAPEX API provides endpoints to:
-
-    - Retrieve and manage invoices, invoice tags, and invoice documents
-
-    - Retrieve assets, contracts, contractors, and measures
-
-
-    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
-
-    '
-  title: CAPEX Annual Consumption API
+    You can use the Alasco API to integrate your application with Alasco.'
+  title: ESG Annual Consumption API
   version: '1.0'
   x-logo:
     url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
 servers:
-- url: https://api.alasco.de/capex/v1
+- url: https://api.alasco.de/esg/v1
 tags:
 - description: '**Annual Consumption** is the system-computed consumption per meter and calendar year, including emission factors and tenant allocations. The figures are derived from readings rather than written directly; you can read them and update the market-based emission factor.'
   name: Annual Consumption
@@ -147,6 +101,22 @@ paths:
       - Annual Consumption
 components:
   schemas:
+    AnnualConsumptionMarketBasedEmissionUpdate:
+      properties:
+        is_renewable:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Renewable
+        market_based_emission_factor:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          title: Market Based Emission Factor
+      title: AnnualConsumptionMarketBasedEmissionUpdate
+      type: object
     AnnualConsumptionResponse:
       properties:
         data:
@@ -173,71 +143,6 @@ components:
       - data
       title: AnnualConsumptionResponse
       type: object
-    HeatingSystem:
-      enum:
-      - ELECTRICITY
-      - OIL
-      - GAS
-      - DISTRICT_HEATING
-      - WOOD_CHIPS
-      - WOOD_PELLETS
-      - HEAT_PUMP
-      - UNKNOWN
-      title: HeatingSystem
-      type: string
-    Units:
-      enum:
-      - CUBIC_METERS
-      - KILOWATT_HOURS
-      - MEGAWATT_HOURS
-      - KILOJOULES
-      - MEGAJOULES
-      - GIGAJOULES
-      - BRITISH_THERMAL_UNITS
-      title: Units
-      type: string
-    AnnualConsumptionPatchPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/AnnualConsumptionPatchPayloadData'
-      required:
-      - data
-      title: AnnualConsumptionPatchPayload
-      type: object
-    AnnualConsumptionPatchPayloadData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/AnnualConsumptionMarketBasedEmissionUpdate'
-        type:
-          const: ANNUAL_CONSUMPTION
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: AnnualConsumptionPatchPayloadData
-      type: object
-    TenantSummaryAttributes:
-      properties:
-        external_id:
-          description: '**External tenant ID** · **Externe Mieter-ID**'
-          title: External Id
-          type: string
-        name:
-          description: '**Name** · **Name**'
-          title: Name
-          type: string
-      required:
-      - external_id
-      - name
-      title: TenantSummaryAttributes
-      type: object
-    ProcuredBy:
-      enum:
-      - LANDLORD
-      - TENANT
-      title: ProcuredBy
-      type: string
     Links:
       properties:
         next:
@@ -255,152 +160,6 @@ components:
       - prev
       title: Links
       type: object
-    EmissionFactorAttributes:
-      properties:
-        location_based:
-          description: '**Location-based** · **Standortbasiert**'
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Location Based
-          type: string
-        market_based:
-          anyOf:
-          - $ref: '#/components/schemas/MarketBasedFactorAttributes'
-          - type: 'null'
-          description: '**Market-based** · **Marktbasiert**'
-      required:
-      - location_based
-      - market_based
-      title: EmissionFactorAttributes
-      type: object
-    CoolingSystem:
-      enum:
-      - DISTRICT
-      - LOCAL_DISTRICT
-      title: CoolingSystem
-      type: string
-    Error:
-      properties:
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    ConsumptionSource:
-      enum:
-      - meter
-      - estimate
-      - manualEntry
-      title: ConsumptionSource
-      type: string
-    AnnualConsumptionListResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AnnualConsumptionData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: AnnualConsumptionListResponse
-      type: object
-    Utility:
-      enum:
-      - HEATING
-      - ELECTRICITY
-      - WATER
-      - COOLING
-      title: Utility
-      type: string
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
     AnnualConsumptionAttributes:
       properties:
         category:
@@ -484,72 +243,34 @@ components:
       - tenants
       title: AnnualConsumptionAttributes
       type: object
-    MarketBasedFactorAttributes:
+    AnnualConsumptionListResponse:
       properties:
-        is_renewable:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          description: '**Is renewable** · **Erneuerbar**'
-          title: Is Renewable
-        value:
-          description: '**Value** · **Wert**'
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Value
-          type: string
-      required:
-      - value
-      - is_renewable
-      title: MarketBasedFactorAttributes
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
+        data:
           items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
+            $ref: '#/components/schemas/AnnualConsumptionData'
+          title: Data
           type: array
-      title: HTTPValidationError
-      type: object
-    AnnualConsumptionMarketBasedEmissionUpdate:
-      properties:
-        is_renewable:
+        errors:
           anyOf:
-          - type: boolean
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
           - type: 'null'
-          title: Is Renewable
-        market_based_emission_factor:
+          title: Errors
+        included:
           anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
           - type: 'null'
-          title: Market Based Emission Factor
-      title: AnnualConsumptionMarketBasedEmissionUpdate
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
+          title: Included
+        links:
           anyOf:
-          - {}
+          - $ref: '#/components/schemas/Links'
           - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
       required:
-      - id
-      - type
-      title: BaseDataSchema
+      - data
+      title: AnnualConsumptionListResponse
       type: object
     AnnualConsumptionData:
       properties:
@@ -575,8 +296,241 @@ components:
       - attributes
       title: AnnualConsumptionData
       type: object
+    ConsumptionSource:
+      enum:
+      - meter
+      - estimate
+      - manualEntry
+      title: ConsumptionSource
+      type: string
+    EmissionFactorAttributes:
+      properties:
+        location_based:
+          description: '**Location-based** · **Standortbasiert**'
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Location Based
+          type: string
+        market_based:
+          anyOf:
+          - $ref: '#/components/schemas/MarketBasedFactorAttributes'
+          - type: 'null'
+          description: '**Market-based** · **Marktbasiert**'
+      required:
+      - location_based
+      - market_based
+      title: EmissionFactorAttributes
+      type: object
+    HeatingSystem:
+      enum:
+      - ELECTRICITY
+      - OIL
+      - GAS
+      - DISTRICT_HEATING
+      - WOOD_CHIPS
+      - WOOD_PELLETS
+      - HEAT_PUMP
+      - UNKNOWN
+      title: HeatingSystem
+      type: string
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    TenantSummaryAttributes:
+      properties:
+        external_id:
+          description: '**External tenant ID** · **Externe Mieter-ID**'
+          title: External Id
+          type: string
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+      required:
+      - external_id
+      - name
+      title: TenantSummaryAttributes
+      type: object
+    MarketBasedFactorAttributes:
+      properties:
+        is_renewable:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: '**Is renewable** · **Erneuerbar**'
+          title: Is Renewable
+        value:
+          description: '**Value** · **Wert**'
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Value
+          type: string
+      required:
+      - value
+      - is_renewable
+      title: MarketBasedFactorAttributes
+      type: object
+    CoolingSystem:
+      enum:
+      - DISTRICT
+      - LOCAL_DISTRICT
+      title: CoolingSystem
+      type: string
+    AnnualConsumptionPatchPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/AnnualConsumptionPatchPayloadData'
+      required:
+      - data
+      title: AnnualConsumptionPatchPayload
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Utility:
+      enum:
+      - HEATING
+      - ELECTRICITY
+      - WATER
+      - COOLING
+      title: Utility
+      type: string
+    Units:
+      enum:
+      - CUBIC_METERS
+      - KILOWATT_HOURS
+      - MEGAWATT_HOURS
+      - KILOJOULES
+      - MEGAJOULES
+      - GIGAJOULES
+      - BRITISH_THERMAL_UNITS
+      title: Units
+      type: string
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    AnnualConsumptionPatchPayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/AnnualConsumptionMarketBasedEmissionUpdate'
+        type:
+          const: ANNUAL_CONSUMPTION
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: AnnualConsumptionPatchPayloadData
+      type: object
+    ProcuredBy:
+      enum:
+      - LANDLORD
+      - TENANT
+      title: ProcuredBy
+      type: string
   securitySchemes:
-    API Key:
+    API_Key:
       description: '
 
         The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
@@ -587,7 +541,7 @@ components:
       in: header
       name: X-API-KEY
       type: apiKey
-    API Token:
+    API_Token:
       description: '
 
         In addition to an API key, one has to specify an API token. There can be one or more tokens in use

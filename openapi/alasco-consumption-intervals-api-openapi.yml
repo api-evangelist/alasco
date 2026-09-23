@@ -1,61 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '
-
-    ## Introduction
+  description: '## Introduction
 
 
-    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
-
-
-    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
-
-
-    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
-
-
-    The base URL for all endpoints is:
-
-    `https://api.alasco.de/capex/v1`
-
-
-    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
-
-
-    ### Domain model
-
-
-    Objects relate as follows (each `→` is a navigable sub-resource):
-
-
-    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
-
-    - **Contractor** and **Contracting Entity** → **Contracts**.
-
-    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
-
-    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
-
-
-    ### CAPEX API Overview
-
-
-    The CAPEX API provides endpoints to:
-
-    - Retrieve and manage invoices, invoice tags, and invoice documents
-
-    - Retrieve assets, contracts, contractors, and measures
-
-
-    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
-
-    '
-  title: CAPEX Annual Consumption Consumption Intervals API
+    You can use the Alasco API to integrate your application with Alasco.'
+  title: ESG Consumption Intervals API
   version: '1.0'
   x-logo:
     url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
 servers:
-- url: https://api.alasco.de/capex/v1
+- url: https://api.alasco.de/esg/v1
 tags:
 - description: A **Consumption Interval** is a consumption total for a period (start to end date) for a meter. Intervals are created individually or in bulk - all-or-nothing (`/bulk/`) or per-item (`/bulk-partial/`) - with upsert semantics.
   name: Consumption Intervals
@@ -146,6 +100,34 @@ paths:
       - Consumption Intervals
 components:
   schemas:
+    BulkPartialConsumptionIntervalData:
+      properties:
+        created:
+          items:
+            $ref: '#/components/schemas/ProcessedConsumptionInterval'
+          title: Created
+          type: array
+        errors:
+          items:
+            $ref: '#/components/schemas/alasco__ivy__public__api__utilities__consumption_intervals__BulkError'
+          title: Errors
+          type: array
+        type:
+          const: CONSUMPTION_INTERVAL
+          default: CONSUMPTION_INTERVAL
+          title: Type
+          type: string
+        updated:
+          items:
+            $ref: '#/components/schemas/ProcessedConsumptionInterval'
+          title: Updated
+          type: array
+      required:
+      - created
+      - updated
+      - errors
+      title: BulkPartialConsumptionIntervalData
+      type: object
     BulkConsumptionIntervalData:
       properties:
         created:
@@ -167,6 +149,147 @@ components:
       - created
       - updated
       title: BulkConsumptionIntervalData
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    ConsumptionIntervalResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ConsumptionIntervalData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: ConsumptionIntervalResponse
+      type: object
+    BulkConsumptionIntervalResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/BulkConsumptionIntervalData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: BulkConsumptionIntervalResponse
+      type: object
+    BulkConsumptionIntervalPayload:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ConsumptionIntervalPayloadData'
+          title: Data
+          type: array
+      required:
+      - data
+      title: BulkConsumptionIntervalPayload
+      type: object
+    alasco__ivy__public__api__utilities__consumption_intervals__BulkError:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ConsumptionIntervalWrite-Output'
+        detail:
+          items:
+            $ref: '#/components/schemas/alasco__ivy__public__api__utilities__consumption_intervals__ErrorDetail'
+          title: Detail
+          type: array
+        index:
+          title: Index
+          type: integer
+      required:
+      - index
+      - attributes
+      - detail
+      title: BulkError
+      type: object
+    ConsumptionIntervalCreateErrorCode:
+      enum:
+      - ALA-4001
+      - ALA-4002
+      - ALA-4003
+      - ALA-4004
+      - ALA-4005
+      - ALA-4006
+      - ALA-4007
+      - ALA-4008
+      title: ConsumptionIntervalCreateErrorCode
+      type: string
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
       type: object
     ConsumptionIntervalWrite-Input:
       properties:
@@ -206,145 +329,6 @@ components:
       - consumption_value
       title: ConsumptionIntervalWrite
       type: object
-    ConsumptionIntervalPayloadData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ConsumptionIntervalWrite-Input'
-        type:
-          const: CONSUMPTION_INTERVAL
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: ConsumptionIntervalPayloadData
-      type: object
-    Links:
-      properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
-      required:
-      - next
-      - prev
-      title: Links
-      type: object
-    alasco__ivy__public__api__utilities__consumption_intervals__BulkError:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ConsumptionIntervalWrite-Output'
-        detail:
-          items:
-            $ref: '#/components/schemas/alasco__ivy__public__api__utilities__consumption_intervals__ErrorDetail'
-          title: Detail
-          type: array
-        index:
-          title: Index
-          type: integer
-      required:
-      - index
-      - attributes
-      - detail
-      title: BulkError
-      type: object
-    ProcessedConsumptionInterval:
-      properties:
-        external_meter_id:
-          title: External Meter Id
-          type: string
-        id:
-          format: uuid
-          title: Id
-          type: string
-      required:
-      - external_meter_id
-      - id
-      title: ProcessedConsumptionInterval
-      type: object
-    Error:
-      properties:
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    BulkPartialConsumptionIntervalData:
-      properties:
-        created:
-          items:
-            $ref: '#/components/schemas/ProcessedConsumptionInterval'
-          title: Created
-          type: array
-        errors:
-          items:
-            $ref: '#/components/schemas/alasco__ivy__public__api__utilities__consumption_intervals__BulkError'
-          title: Errors
-          type: array
-        type:
-          const: CONSUMPTION_INTERVAL
-          default: CONSUMPTION_INTERVAL
-          title: Type
-          type: string
-        updated:
-          items:
-            $ref: '#/components/schemas/ProcessedConsumptionInterval'
-          title: Updated
-          type: array
-      required:
-      - created
-      - updated
-      - errors
-      title: BulkPartialConsumptionIntervalData
-      type: object
-    alasco__ivy__public__api__utilities__consumption_intervals__ErrorDetail:
-      properties:
-        code:
-          $ref: '#/components/schemas/ConsumptionIntervalCreateErrorCode'
-        loc:
-          items:
-            type: string
-          title: Loc
-          type: array
-        msg:
-          title: Msg
-          type: string
-      required:
-      - loc
-      - msg
-      - code
-      title: ErrorDetail
-      type: object
     ConsumptionIntervalData:
       properties:
         attributes:
@@ -368,6 +352,24 @@ components:
       - id
       - attributes
       title: ConsumptionIntervalData
+      type: object
+    alasco__ivy__public__api__utilities__consumption_intervals__ErrorDetail:
+      properties:
+        code:
+          $ref: '#/components/schemas/ConsumptionIntervalCreateErrorCode'
+        loc:
+          items:
+            type: string
+          title: Loc
+          type: array
+        msg:
+          title: Msg
+          type: string
+      required:
+      - loc
+      - msg
+      - code
+      title: ErrorDetail
       type: object
     ValidationError:
       properties:
@@ -394,120 +396,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    ConsumptionIntervalCreateErrorCode:
-      enum:
-      - ALA-4001
-      - ALA-4002
-      - ALA-4003
-      - ALA-4004
-      - ALA-4005
-      - ALA-4006
-      - ALA-4007
-      - ALA-4008
-      title: ConsumptionIntervalCreateErrorCode
-      type: string
-    ConsumptionIntervalResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/ConsumptionIntervalData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: ConsumptionIntervalResponse
-      type: object
-    BulkConsumptionIntervalPayload:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ConsumptionIntervalPayloadData'
-          title: Data
-          type: array
-      required:
-      - data
-      title: BulkConsumptionIntervalPayload
-      type: object
-    ConsumptionIntervalPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/ConsumptionIntervalPayloadData'
-      required:
-      - data
-      title: ConsumptionIntervalPayload
-      type: object
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
-    BulkConsumptionIntervalResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/BulkConsumptionIntervalData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: BulkConsumptionIntervalResponse
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
       type: object
     ConsumptionIntervalWrite-Output:
       properties:
@@ -544,6 +432,50 @@ components:
       - consumption_value
       title: ConsumptionIntervalWrite
       type: object
+    ConsumptionIntervalPayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ConsumptionIntervalWrite-Input'
+        type:
+          const: CONSUMPTION_INTERVAL
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: ConsumptionIntervalPayloadData
+      type: object
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     BulkPartialConsumptionIntervalResponse:
       properties:
         data:
@@ -570,29 +502,6 @@ components:
       - data
       title: BulkPartialConsumptionIntervalResponse
       type: object
-    ConsumptionIntervalAttributes:
-      properties:
-        consumption_value:
-          description: '**Consumption value** · **Verbrauchswert**'
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Consumption Value
-          type: string
-        end_date:
-          description: '**End date** · **Enddatum**'
-          format: date
-          title: End Date
-          type: string
-        start_date:
-          description: '**Start date** · **Startdatum**'
-          format: date
-          title: Start Date
-          type: string
-      required:
-      - start_date
-      - end_date
-      - consumption_value
-      title: ConsumptionIntervalAttributes
-      type: object
     BaseDataSchema:
       properties:
         attributes:
@@ -617,8 +526,53 @@ components:
       - type
       title: BaseDataSchema
       type: object
+    ConsumptionIntervalPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/ConsumptionIntervalPayloadData'
+      required:
+      - data
+      title: ConsumptionIntervalPayload
+      type: object
+    ConsumptionIntervalAttributes:
+      properties:
+        consumption_value:
+          description: '**Consumption value** · **Verbrauchswert**'
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Consumption Value
+          type: string
+        end_date:
+          description: '**End date** · **Enddatum**'
+          format: date
+          title: End Date
+          type: string
+        start_date:
+          description: '**Start date** · **Startdatum**'
+          format: date
+          title: Start Date
+          type: string
+      required:
+      - start_date
+      - end_date
+      - consumption_value
+      title: ConsumptionIntervalAttributes
+      type: object
+    ProcessedConsumptionInterval:
+      properties:
+        external_meter_id:
+          title: External Meter Id
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+      required:
+      - external_meter_id
+      - id
+      title: ProcessedConsumptionInterval
+      type: object
   securitySchemes:
-    API Key:
+    API_Key:
       description: '
 
         The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
@@ -629,7 +583,7 @@ components:
       in: header
       name: X-API-KEY
       type: apiKey
-    API Token:
+    API_Token:
       description: '
 
         In addition to an API key, one has to specify an API token. There can be one or more tokens in use

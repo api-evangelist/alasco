@@ -1,61 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '
-
-    ## Introduction
+  description: '## Introduction
 
 
-    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
-
-
-    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
-
-
-    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
-
-
-    The base URL for all endpoints is:
-
-    `https://api.alasco.de/capex/v1`
-
-
-    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
-
-
-    ### Domain model
-
-
-    Objects relate as follows (each `→` is a navigable sub-resource):
-
-
-    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
-
-    - **Contractor** and **Contracting Entity** → **Contracts**.
-
-    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
-
-    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
-
-
-    ### CAPEX API Overview
-
-
-    The CAPEX API provides endpoints to:
-
-    - Retrieve and manage invoices, invoice tags, and invoice documents
-
-    - Retrieve assets, contracts, contractors, and measures
-
-
-    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
-
-    '
-  title: CAPEX Annual Consumption Cash Outflow Cost Element View API
+    You can use the Alasco API to integrate your application with Alasco.'
+  title: FinCon Cash Outflow Cost Element View API
   version: '1.0'
   x-logo:
     url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
 servers:
-- url: https://api.alasco.de/capex/v1
+- url: https://api.alasco.de/fincon/v1
 tags:
 - description: Read-only reporting view of actual cash outflows (paid invoices) allocated per **Cost Element**.
   name: Cash Outflow Cost Element View
@@ -168,15 +122,6 @@ paths:
       - Cash Outflow Cost Element View
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     CashOutflowNodeAttributes:
       properties:
         amounts:
@@ -296,45 +241,6 @@ components:
       - project
       title: CashOutflowNodeAttributes
       type: object
-    ListResponse_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[CashOutflowNodeAttributes, Literal[<ResourceType.CASH_OUTFLOW_NODE: ''CASH_OUTFLOW_NODE''>]]'
-      type: object
     CashOutflowNodeType:
       enum:
       - COST_ELEMENT
@@ -347,32 +253,6 @@ components:
       - UNDISTRIBUTED_COST_ELEMENT_BUDGET
       title: CashOutflowNodeType
       type: string
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
     ValidationError:
       properties:
         ctx:
@@ -428,6 +308,80 @@ components:
       - attributes
       title: 'Data[CashOutflowNodeAttributes, Literal[<ResourceType.CASH_OUTFLOW_NODE: ''CASH_OUTFLOW_NODE''>]]'
       type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ListResponse_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[CashOutflowNodeAttributes, Literal[<ResourceType.CASH_OUTFLOW_NODE: ''CASH_OUTFLOW_NODE''>]]'
+      type: object
     MonthlyAmount:
       properties:
         amount:
@@ -480,7 +434,7 @@ components:
       title: MonthlyAmount
       type: object
   securitySchemes:
-    API Key:
+    API_Key:
       description: '
 
         The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
@@ -491,7 +445,7 @@ components:
       in: header
       name: X-API-KEY
       type: apiKey
-    API Token:
+    API_Token:
       description: '
 
         In addition to an API key, one has to specify an API token. There can be one or more tokens in use
@@ -508,3 +462,36 @@ components:
       in: header
       name: X-API-TOKEN
       type: apiKey
+x-tagGroups:
+- name: Core API
+  tags:
+  - Change Order
+  - Change Order Document
+  - Contact
+  - Contract
+  - Contract Document
+  - Contract Unit
+  - Contracting Entity
+  - Contractor
+  - Cost Element
+  - Cost Element Tree Template
+  - Custom Field
+  - Custom Field Definition
+  - Budget Shift
+  - Invoice
+  - Invoice Document
+  - Invoice Tag
+  - Project
+  - Property
+- name: Reporting API
+  tags:
+  - Contract Financials
+  - Contract Unit Financials
+  - Cash Outflow Cost Element View
+  - Cost Element Financials
+  - Cost Element Contract Financials
+  - Cost Element Contract Unit Financials
+  - Project Financials
+  - Outright Sale
+  - Rent Unit
+  - Sales Unit

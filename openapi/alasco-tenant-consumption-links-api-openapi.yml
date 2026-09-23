@@ -1,61 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '
-
-    ## Introduction
+  description: '## Introduction
 
 
-    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
-
-
-    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
-
-
-    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
-
-
-    The base URL for all endpoints is:
-
-    `https://api.alasco.de/capex/v1`
-
-
-    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
-
-
-    ### Domain model
-
-
-    Objects relate as follows (each `→` is a navigable sub-resource):
-
-
-    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
-
-    - **Contractor** and **Contracting Entity** → **Contracts**.
-
-    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
-
-    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
-
-
-    ### CAPEX API Overview
-
-
-    The CAPEX API provides endpoints to:
-
-    - Retrieve and manage invoices, invoice tags, and invoice documents
-
-    - Retrieve assets, contracts, contractors, and measures
-
-
-    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
-
-    '
-  title: CAPEX Annual Consumption Tenant Consumption Links API
+    You can use the Alasco API to integrate your application with Alasco.'
+  title: ESG Tenant Consumption Links API
   version: '1.0'
   x-logo:
     url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
 servers:
-- url: https://api.alasco.de/capex/v1
+- url: https://api.alasco.de/esg/v1
 tags:
 - description: A **Tenant Consumption Link** attributes a year's **Annual Consumption** to a **Tenant**. Links are created and deleted through the API by tenant external id and annual-consumption id (both must belong to the same building).
   name: Tenant Consumption Links
@@ -139,14 +93,83 @@ components:
       - annual_consumption_id
       title: TenantConsumptionLinkWrite
       type: object
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
           type: array
-      title: HTTPValidationError
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    TenantConsumptionLinkCreatePayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantConsumptionLinkWrite'
+        type:
+          const: TENANT_CONSUMPTION_LINK
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: TenantConsumptionLinkCreatePayloadData
       type: object
     TenantConsumptionLinkResponse:
       properties:
@@ -174,18 +197,14 @@ components:
       - data
       title: TenantConsumptionLinkResponse
       type: object
-    TenantConsumptionLinkCreatePayloadData:
+    HTTPValidationError:
       properties:
-        attributes:
-          $ref: '#/components/schemas/TenantConsumptionLinkWrite'
-        type:
-          const: TENANT_CONSUMPTION_LINK
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: TenantConsumptionLinkCreatePayloadData
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     BaseDataSchema:
       properties:
@@ -211,28 +230,6 @@ components:
       - type
       title: BaseDataSchema
       type: object
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
     Error:
       properties:
         code:
@@ -272,31 +269,21 @@ components:
       - data
       title: TenantConsumptionLinkPayload
       type: object
-    ValidationError:
+    TenantConsumptionLinkAttributes:
       properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
+        annual_consumption_id:
+          description: '**Annual consumption ID** · **Jahresverbrauch-ID**'
+          format: uuid
+          title: Annual Consumption Id
           type: string
-        type:
-          title: Error Type
+        external_tenant_id:
+          description: '**External tenant ID** · **Externe Mieter-ID**'
+          title: External Tenant Id
           type: string
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - external_tenant_id
+      - annual_consumption_id
+      title: TenantConsumptionLinkAttributes
       type: object
     TenantConsumptionLinkData:
       properties:
@@ -322,41 +309,8 @@ components:
       - attributes
       title: TenantConsumptionLinkData
       type: object
-    TenantConsumptionLinkAttributes:
-      properties:
-        annual_consumption_id:
-          description: '**Annual consumption ID** · **Jahresverbrauch-ID**'
-          format: uuid
-          title: Annual Consumption Id
-          type: string
-        external_tenant_id:
-          description: '**External tenant ID** · **Externe Mieter-ID**'
-          title: External Tenant Id
-          type: string
-      required:
-      - external_tenant_id
-      - annual_consumption_id
-      title: TenantConsumptionLinkAttributes
-      type: object
-    Links:
-      properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
-      required:
-      - next
-      - prev
-      title: Links
-      type: object
   securitySchemes:
-    API Key:
+    API_Key:
       description: '
 
         The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
@@ -367,7 +321,7 @@ components:
       in: header
       name: X-API-KEY
       type: apiKey
-    API Token:
+    API_Token:
       description: '
 
         In addition to an API key, one has to specify an API token. There can be one or more tokens in use

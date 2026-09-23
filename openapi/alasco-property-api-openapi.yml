@@ -1,61 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '
-
-    ## Introduction
+  description: '## Introduction
 
 
-    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
-
-
-    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
-
-
-    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
-
-
-    The base URL for all endpoints is:
-
-    `https://api.alasco.de/capex/v1`
-
-
-    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
-
-
-    ### Domain model
-
-
-    Objects relate as follows (each `→` is a navigable sub-resource):
-
-
-    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
-
-    - **Contractor** and **Contracting Entity** → **Contracts**.
-
-    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
-
-    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
-
-
-    ### CAPEX API Overview
-
-
-    The CAPEX API provides endpoints to:
-
-    - Retrieve and manage invoices, invoice tags, and invoice documents
-
-    - Retrieve assets, contracts, contractors, and measures
-
-
-    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
-
-    '
-  title: CAPEX Annual Consumption Property API
+    You can use the Alasco API to integrate your application with Alasco.'
+  title: FinCon Property API
   version: '1.0'
   x-logo:
     url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
 servers:
-- url: https://api.alasco.de/capex/v1
+- url: https://api.alasco.de/fincon/v1
 tags:
 - description: A **Property** is the real-estate asset a **Project** is carried out on, holding its address and location. A project references one property, and the same property can back several projects. Properties can be created and updated through the API.
   name: Property
@@ -311,60 +265,6 @@ paths:
       - Property
 components:
   schemas:
-    PropertyUpdateAttributes:
-      properties:
-        address:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**Address** · **Adresse**'
-          title: Address
-        city:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**City** · **Stadt**'
-          title: City
-        country:
-          anyOf:
-          - $ref: '#/components/schemas/CountryCodes'
-          - type: 'null'
-          description: '**Country** · **Land**'
-          examples:
-          - DE
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Property description** · **Beschreibung**'
-          title: Description
-        name:
-          anyOf:
-          - maxLength: 250
-            type: string
-          - type: 'null'
-          description: '**Property name** · **Immobilienname**'
-          title: Name
-        zip_code:
-          anyOf:
-          - maxLength: 12
-            type: string
-          - type: 'null'
-          description: '**Zip code** · **Postleitzahl**'
-          title: Zip Code
-      title: PropertyUpdateAttributes
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     Payload_PropertyUpdateAttributes_Literal_PROPERTY__:
       properties:
         attributes:
@@ -377,170 +277,6 @@ components:
       - type
       - attributes
       title: 'Payload[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
-      type: object
-    PropertyCreateAttributes:
-      properties:
-        address:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**Address** · **Adresse**'
-          title: Address
-        city:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**City** · **Stadt**'
-          title: City
-        country:
-          anyOf:
-          - $ref: '#/components/schemas/CountryCodes'
-          - type: 'null'
-          description: '**Country** · **Land**'
-          examples:
-          - DE
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Property description** · **Beschreibung**'
-          title: Description
-        name:
-          description: '**Property name** · **Immobilienname**'
-          maxLength: 250
-          title: Name
-          type: string
-        zip_code:
-          anyOf:
-          - maxLength: 12
-            type: string
-          - type: 'null'
-          description: '**Zip code** · **Postleitzahl**'
-          title: Zip Code
-      required:
-      - name
-      title: PropertyCreateAttributes
-      type: object
-    CountryCodes:
-      enum:
-      - AM
-      - AT
-      - BE
-      - BG
-      - CH
-      - CY
-      - CZ
-      - DE
-      - DK
-      - EE
-      - ES
-      - FI
-      - FR
-      - GB
-      - GE
-      - GR
-      - HR
-      - HU
-      - IE
-      - IT
-      - KZ
-      - LT
-      - LU
-      - LV
-      - MT
-      - MX
-      - NL
-      - 'NO'
-      - PL
-      - PT
-      - RO
-      - RS
-      - US
-      - UY
-      - SA
-      - SE
-      - SI
-      - SK
-      - TR
-      title: CountryCodes
-      type: string
-    Payload_PropertyCreateAttributes_Literal_PROPERTY__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/PropertyCreateAttributes'
-        type:
-          const: PROPERTY
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    Request_PropertyCreateAttributes_Literal_PROPERTY__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_PropertyCreateAttributes_Literal_PROPERTY__'
-      required:
-      - data
-      title: 'Request[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
-      type: object
-    Data_PropertyAttributes_Literal_PROPERTY__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/PropertyAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: PROPERTY
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
     ListResponse_PropertyAttributes_Literal_PROPERTY__:
       properties:
@@ -607,44 +343,145 @@ components:
       - type
       title: ValidationError
       type: object
-    Request_PropertyUpdateAttributes_Literal_PROPERTY__:
+    Payload_PropertyCreateAttributes_Literal_PROPERTY__:
       properties:
-        data:
-          $ref: '#/components/schemas/Payload_PropertyUpdateAttributes_Literal_PROPERTY__'
+        attributes:
+          $ref: '#/components/schemas/PropertyCreateAttributes'
+        type:
+          const: PROPERTY
+          title: Type
+          type: string
       required:
-      - data
-      title: 'Request[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      - type
+      - attributes
+      title: 'Payload[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
-    Response_PropertyAttributes_Literal_PROPERTY__:
+    PropertyUpdateAttributes:
       properties:
-        data:
+        address:
           anyOf:
-          - $ref: '#/components/schemas/Data_PropertyAttributes_Literal_PROPERTY__'
+          - maxLength: 255
+            type: string
           - type: 'null'
-        errors:
+          description: '**Address** · **Adresse**'
+          title: Address
+        city:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
+          - maxLength: 255
+            type: string
           - type: 'null'
-          title: Errors
-        included:
+          description: '**City** · **Stadt**'
+          title: City
+        country:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_PropertyAttributes_Literal_PROPERTY__'
-            type: array
+          - $ref: '#/components/schemas/CountryCodes'
           - type: 'null'
-          title: Included
-        links:
+          description: '**Country** · **Land**'
+          examples:
+          - DE
+        description:
           anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
+          - type: string
+          - type: 'null'
+          description: '**Property description** · **Beschreibung**'
+          title: Description
+        name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Property name** · **Immobilienname**'
+          title: Name
+        zip_code:
+          anyOf:
+          - maxLength: 12
+            type: string
+          - type: 'null'
+          description: '**Zip code** · **Postleitzahl**'
+          title: Zip Code
+      title: PropertyUpdateAttributes
+      type: object
+    Data_PropertyAttributes_Literal_PROPERTY__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/PropertyAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
             type: object
           - type: 'null'
-          title: Links
-      title: 'Response[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: PROPERTY
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      type: object
+    Request_PropertyCreateAttributes_Literal_PROPERTY__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_PropertyCreateAttributes_Literal_PROPERTY__'
+      required:
+      - data
+      title: 'Request[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      type: object
+    PropertyCreateAttributes:
+      properties:
+        address:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**Address** · **Adresse**'
+          title: Address
+        city:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**City** · **Stadt**'
+          title: City
+        country:
+          anyOf:
+          - $ref: '#/components/schemas/CountryCodes'
+          - type: 'null'
+          description: '**Country** · **Land**'
+          examples:
+          - DE
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Property description** · **Beschreibung**'
+          title: Description
+        name:
+          description: '**Property name** · **Immobilienname**'
+          maxLength: 250
+          title: Name
+          type: string
+        zip_code:
+          anyOf:
+          - maxLength: 12
+            type: string
+          - type: 'null'
+          description: '**Zip code** · **Postleitzahl**'
+          title: Zip Code
+      required:
+      - name
+      title: PropertyCreateAttributes
       type: object
     PropertyAttributes:
       properties:
@@ -692,8 +529,125 @@ components:
       - date_created
       title: PropertyAttributes
       type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    CountryCodes:
+      enum:
+      - AM
+      - AT
+      - BE
+      - BG
+      - CH
+      - CY
+      - CZ
+      - DE
+      - DK
+      - EE
+      - ES
+      - FI
+      - FR
+      - GB
+      - GE
+      - GR
+      - HR
+      - HU
+      - IE
+      - IT
+      - KZ
+      - LT
+      - LU
+      - LV
+      - MT
+      - MX
+      - NL
+      - 'NO'
+      - PL
+      - PT
+      - RO
+      - RS
+      - US
+      - UY
+      - SA
+      - SE
+      - SI
+      - SK
+      - TR
+      title: CountryCodes
+      type: string
+    Response_PropertyAttributes_Literal_PROPERTY__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_PropertyAttributes_Literal_PROPERTY__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_PropertyAttributes_Literal_PROPERTY__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      type: object
+    Request_PropertyUpdateAttributes_Literal_PROPERTY__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_PropertyUpdateAttributes_Literal_PROPERTY__'
+      required:
+      - data
+      title: 'Request[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      type: object
   securitySchemes:
-    API Key:
+    API_Key:
       description: '
 
         The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
@@ -704,7 +658,7 @@ components:
       in: header
       name: X-API-KEY
       type: apiKey
-    API Token:
+    API_Token:
       description: '
 
         In addition to an API key, one has to specify an API token. There can be one or more tokens in use
@@ -721,3 +675,36 @@ components:
       in: header
       name: X-API-TOKEN
       type: apiKey
+x-tagGroups:
+- name: Core API
+  tags:
+  - Change Order
+  - Change Order Document
+  - Contact
+  - Contract
+  - Contract Document
+  - Contract Unit
+  - Contracting Entity
+  - Contractor
+  - Cost Element
+  - Cost Element Tree Template
+  - Custom Field
+  - Custom Field Definition
+  - Budget Shift
+  - Invoice
+  - Invoice Document
+  - Invoice Tag
+  - Project
+  - Property
+- name: Reporting API
+  tags:
+  - Contract Financials
+  - Contract Unit Financials
+  - Cash Outflow Cost Element View
+  - Cost Element Financials
+  - Cost Element Contract Financials
+  - Cost Element Contract Unit Financials
+  - Project Financials
+  - Outright Sale
+  - Rent Unit
+  - Sales Unit

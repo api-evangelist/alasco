@@ -1,61 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  description: '
-
-    ## Introduction
-
-
-    The **CAPEX API** enables you to integrate your application with the CAPEX system. The CAPEX API is REST-based and follows JSON:API principles for structuring responses.
-
-
-    Starting from version 1.0, the API is stable. We are continuously improving our API, and new endpoints will be added. Any updates or changes within this major version will be backward-compatible and can be found in this documentation.
-
-
-    For getting access to the CAPEX API, please reach out to us at: `kontakt@alasco.de`.
-
-
-    The base URL for all endpoints is:
-
-    `https://api.alasco.de/capex/v1`
-
-
-    The CAPEX API supports compressed payloads. If you would like to make use of this, you have to specify the `Accept-Encoding` header. Supported encodings are `gzip` and `br`.
-
-
-    ### Domain model
-
-
-    Objects relate as follows (each `→` is a navigable sub-resource):
-
-
-    - **Assets** and **Measures** are the CapEx-specific top-level objects; a **Measure** → **Contracts**, and invoices are submitted against an **Asset**.
-
-    - **Contractor** and **Contracting Entity** → **Contracts**.
-
-    - **Contract** → **Change Orders**, **Invoices**, contract terms, **Documents** and **Custom Fields**.
-
-    - **Invoice** → **Documents** and **Tags** (Change Orders also carry **Documents**).
-
-
-    ### CAPEX API Overview
-
-
-    The CAPEX API provides endpoints to:
-
-    - Retrieve and manage invoices, invoice tags, and invoice documents
-
-    - Retrieve assets, contracts, contractors, and measures
-
-
-    The CAPEX API uses pagination. The page size is 100, and additional pages can be accessed using a `next` link.
-
-    '
-  title: CAPEX Annual Consumption Change Order API
+  title: Alasco Change Order API
   version: '1.0'
   x-logo:
     url: https://assets-global.website-files.com/656ef2eb27ad41897248f866/659eebec190ae7aaf4162f09_Logotype_Alasco_white_RGB%202.png
+  description: 'Operations tagged Change Order across 2 of this provider''s published API definitions: alasco-capex-openapi.json, alasco-fincon-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.alasco.de/capex/v1
+- url: https://api.alasco.de/fincon/v1
 tags:
 - description: A **Change Order** is a formal amendment to a **Contract** - a cost or scope change - carrying claimed, audited and approved amounts and an approval state. Change orders are read-only through this API and can hold **Documents**.
   name: Change Order
@@ -265,6 +217,8 @@ paths:
       summary: Get Change Orders
       tags:
       - Change Order
+    servers:
+    - url: https://api.alasco.de/capex/v1
   /change_orders/{id}/:
     get:
       operationId: get_change_order_details_change_orders__id___get
@@ -295,6 +249,8 @@ paths:
       summary: Get Change Order Details
       tags:
       - Change Order
+    servers:
+    - url: https://api.alasco.de/capex/v1
   /contracts/{contract_id}/change_orders/:
     get:
       operationId: get_change_orders_by_contract_contracts__contract_id__change_orders__get
@@ -355,8 +311,127 @@ paths:
       summary: Get Change Orders By Contract
       tags:
       - Change Order
+    servers:
+    - url: https://api.alasco.de/capex/v1
 components:
   schemas:
+    Trigger:
+      enum:
+      - CONTRACTING_ENTITY_BUILDING_OWNER
+      - USER_TENANT
+      - BUYER
+      - PLANNING
+      - CONSTRUCTION_SUPERVISION
+      - THIRD_PARTY_CONSTRUCTION_SECTIONS
+      - THIRD_PARTY_AUTHORITIES
+      - UNFORESEEABLE_EVENTS
+      - OTHER
+      title: Trigger
+      type: string
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Response_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
+      type: object
+    ChangeOrderState:
+      enum:
+      - OPEN
+      - DETAILS_ENTERED
+      - ACKNOWLEDGED
+      - REJECTED
+      title: ChangeOrderState
+      type: string
+    ListResponse_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
+      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -365,6 +440,61 @@ components:
           title: Detail
           type: array
       title: HTTPValidationError
+      type: object
+    Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ChangeOrderAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CHANGE_ORDER
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
       type: object
     ChangeOrderAttributes:
       properties:
@@ -577,19 +707,6 @@ components:
       - weighting_factor
       title: ChangeOrderAttributes
       type: object
-    Trigger:
-      enum:
-      - CONTRACTING_ENTITY_BUILDING_OWNER
-      - USER_TENANT
-      - BUYER
-      - PLANNING
-      - CONSTRUCTION_SUPERVISION
-      - THIRD_PARTY_CONSTRUCTION_SECTIONS
-      - THIRD_PARTY_AUTHORITIES
-      - UNFORESEEABLE_EVENTS
-      - OTHER
-      title: Trigger
-      type: string
     BasisOfClaim:
       enum:
       - QUANTITY_CHANGE
@@ -604,167 +721,8 @@ components:
       - OTHER
       title: BasisOfClaim
       type: string
-    Response_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ChangeOrderAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CHANGE_ORDER
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
-      type: object
-    ListResponse_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
-      type: object
-    ChangeOrderState:
-      enum:
-      - OPEN
-      - DETAILS_ENTERED
-      - ACKNOWLEDGED
-      - REJECTED
-      title: ChangeOrderState
-      type: string
   securitySchemes:
-    API Key:
+    API_Key:
       description: '
 
         The Alasco API uses a combination of API keys and API tokens to authenticate requests. The API key
@@ -775,7 +733,7 @@ components:
       in: header
       name: X-API-KEY
       type: apiKey
-    API Token:
+    API_Token:
       description: '
 
         In addition to an API key, one has to specify an API token. There can be one or more tokens in use
@@ -792,3 +750,6 @@ components:
       in: header
       name: X-API-TOKEN
       type: apiKey
+x-refined-from:
+- alasco-capex-openapi.json
+- alasco-fincon-openapi.json
