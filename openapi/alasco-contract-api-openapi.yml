@@ -887,78 +887,6 @@ paths:
     - url: https://api.alasco.de/fincon/v1
 components:
   schemas:
-    CalculationReference:
-      enum:
-      - deduction
-      - retainage
-      - cost_allocation
-      - guarantee
-      - insurance
-      title: CalculationReference
-      type: string
-    ContractDataCapex:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ReadContractAttributesCapEx'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - measures:
-              links:
-                related: https://api.alasco.de/capex/v1/contracts/<contract_id>/measures/
-          title: Relationships
-        type:
-          default: CONTRACT
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: ContractDataCapex
-      type: object
-    ContractTermsResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/ContractTermsData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      required:
-      - data
-      title: ContractTermsResponse
-      type: object
     ContractRulesAttributes:
       properties:
         input_value_from:
@@ -1001,138 +929,14 @@ components:
       - order_in_block
       title: ContractRulesAttributes
       type: object
-    ContractType:
+    CalculationReference:
       enum:
-      - MULTIPART
-      - STANDARD
-      - RECURRING
-      title: ContractType
-      type: string
-    ContractDetailsResponseCapex:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/ContractDataCapex'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: ContractDetailsResponseCapex
-      type: object
-    CreateContractRequestCapex:
-      properties:
-        data:
-          $ref: '#/components/schemas/CreateContractDataCapex'
-      required:
-      - data
-      title: CreateContractRequestCapex
-      type: object
-    ContractRelationshipAttributes:
-      properties:
-        id:
-          format: uuid
-          title: Id
-          type: string
-        type:
-          title: Type
-          type: string
-      required:
-      - type
-      - id
-      title: ContractRelationshipAttributes
-      type: object
-    ContractListResponseCapex:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ContractDataCapex'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: ContractListResponseCapex
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    ContractStatus:
-      enum:
-      - DRAFT
-      - ORDERED
-      - PARTIAL_COMPLETED
-      - COMPLETED
-      title: ContractStatus
+      - deduction
+      - retainage
+      - cost_allocation
+      - guarantee
+      - insurance
+      title: CalculationReference
       type: string
     UpdateContractData:
       properties:
@@ -1154,24 +958,6 @@ components:
       - id
       - attributes
       title: UpdateContractData
-      type: object
-    CreateContractRelationshipsCapex:
-      properties:
-        contracting_entity:
-          $ref: '#/components/schemas/ContractRelationshipData'
-          description: '**Contracting entity** · **Auftraggeber**'
-        contractor:
-          anyOf:
-          - $ref: '#/components/schemas/ContractRelationshipData'
-          - type: 'null'
-          description: '**Contractor ID** · **Auftragnehmer-ID**'
-        measure:
-          $ref: '#/components/schemas/ContractRelationshipData'
-          description: '**Measure ID** · **Maßnahmen-ID**'
-      required:
-      - contracting_entity
-      - measure
-      title: CreateContractRelationshipsCapex
       type: object
     ContractTermsAttributes:
       properties:
@@ -1214,6 +1000,377 @@ components:
       - calculation_block_order
       title: ContractTermsAttributes
       type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    CreateContractRelationshipsCapex:
+      properties:
+        contracting_entity:
+          $ref: '#/components/schemas/ContractRelationshipData'
+          description: '**Contracting entity** · **Auftraggeber**'
+        contractor:
+          anyOf:
+          - $ref: '#/components/schemas/ContractRelationshipData'
+          - type: 'null'
+          description: '**Contractor ID** · **Auftragnehmer-ID**'
+        measure:
+          $ref: '#/components/schemas/ContractRelationshipData'
+          description: '**Measure ID** · **Maßnahmen-ID**'
+      required:
+      - contracting_entity
+      - measure
+      title: CreateContractRelationshipsCapex
+      type: object
+    ContractDetailsResponseCapex:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/ContractDataCapex'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: ContractDetailsResponseCapex
+      type: object
+    ContractTermsResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractTermsData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      required:
+      - data
+      title: ContractTermsResponse
+      type: object
+    CreateContractDataCapex:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CreateContractAttributes'
+        relationships:
+          $ref: '#/components/schemas/CreateContractRelationshipsCapex'
+        type:
+          default: CONTRACT
+          title: Type
+          type: string
+      required:
+      - attributes
+      - relationships
+      title: CreateContractDataCapex
+      type: object
+    ContractDataCapex:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ReadContractAttributesCapEx'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - measures:
+              links:
+                related: https://api.alasco.de/capex/v1/contracts/<contract_id>/measures/
+          title: Relationships
+        type:
+          default: CONTRACT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: ContractDataCapex
+      type: object
+    UpdateContractRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/UpdateContractData'
+      required:
+      - data
+      title: UpdateContractRequest
+      type: object
+    ContractTermsData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractTermsAttributes'
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - contract:
+              data:
+                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
+                type: CONTRACT
+          title: Relationships
+        type:
+          default: CONTRACT_TERMS
+          title: Type
+          type: string
+      required:
+      - attributes
+      title: ContractTermsData
+      type: object
+    ReadContractAttributesCapEx:
+      properties:
+        amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contract amount** · **Auftragssumme**'
+          title: Amount
+        booking_account_number:
+          anyOf:
+          - maximum: 999999999.0
+            minimum: 1.0
+            type: integer
+          - type: 'null'
+          description: '**Booking account number** · **Buchungskontonummer**'
+          title: Booking Account Number
+        contract_number:
+          description: '**Contract number** · **Auftragsnummer**'
+          maxLength: 250
+          title: Contract Number
+          type: string
+        contract_type:
+          $ref: '#/components/schemas/ContractType'
+          description: '**Contract type** · **Auftragstyp**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `MULTIPART` | Multipart contract | Stufenauftrag |
+
+            | `STANDARD` | Standard contract | Standardauftrag |
+
+            | `RECURRING` | Recurring invoice | Dauerrechnung |'
+        contracting_entity:
+          description: '**Contracting entity** · **Auftraggeber**'
+          format: uuid
+          title: Contracting Entity
+          type: string
+        contractor:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**Contractor ID** · **Auftragnehmer-ID**'
+          title: Contractor
+        cost_center:
+          description: '**Cost center** · **Kostenstelle**'
+          maxLength: 100
+          title: Cost Center
+          type: string
+        date_contract:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Contract date** · **Auftragsdatum**'
+          title: Date Contract
+        date_created:
+          description: '**Date created** · **Erstellt am**'
+          format: date-time
+          title: Date Created
+          type: string
+        description:
+          description: '**Description** · **Beschreibung**'
+          title: Description
+          type: string
+        is_reverse_charge:
+          description: '**Is reverse charge?** · **Reverse Charge?**'
+          title: Is Reverse Charge
+          type: boolean
+        measure:
+          description: '**Measure ID** · **Maßnahmen-ID**'
+          format: uuid
+          title: Measure
+          type: string
+        name:
+          description: '**Contract name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+        reserve_amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Reserve amount** · **Rückstellungen**'
+          title: Reserve Amount
+        status:
+          $ref: '#/components/schemas/ContractStatus'
+          description: '**Status** · **Status**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `DRAFT` | Draft | Geplant |
+
+            | `ORDERED` | Ordered | Beauftragt |
+
+            | `PARTIAL_COMPLETED` | Partial completed | Teilschlussgerechnet |
+
+            | `COMPLETED` | Completed | Schlussgerechnet |'
+          examples:
+          - DRAFT
+      required:
+      - name
+      - date_contract
+      - contract_number
+      - cost_center
+      - description
+      - status
+      - is_reverse_charge
+      - date_created
+      - measure
+      - contracting_entity
+      - contract_type
+      title: ReadContractAttributesCapEx
+      type: object
+    ContractStatus:
+      enum:
+      - DRAFT
+      - ORDERED
+      - PARTIAL_COMPLETED
+      - COMPLETED
+      title: ContractStatus
+      type: string
+    ContractRelationshipData:
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractRelationshipAttributes'
+      required:
+      - data
+      title: ContractRelationshipData
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -1239,6 +1396,196 @@ components:
       - msg
       - type
       title: ValidationError
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ContractListResponseCapex:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ContractDataCapex'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: ContractListResponseCapex
+      type: object
+    ContractType:
+      enum:
+      - MULTIPART
+      - STANDARD
+      - RECURRING
+      title: ContractType
+      type: string
+    UpdateContractAttributes:
+      properties:
+        amount:
+          anyOf:
+          - properties:
+              currency:
+                description: '**Currency code** · **Währungscode**'
+                example: EUR
+                title: Currency code
+                type: string
+              net:
+                description: '**Net amount** · **Nettobetrag**'
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                description: '**Tax amount** · **Steuerbetrag**'
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Contract amount** · **Auftragssumme**'
+          title: Amount
+        booking_account_number:
+          anyOf:
+          - maximum: 999999999.0
+            minimum: 1.0
+            type: integer
+          - type: 'null'
+          description: '**Booking account number** · **Buchungskontonummer**'
+          title: Booking Account Number
+        contract_number:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Contract number** · **Auftragsnummer**'
+          title: Contract Number
+        cost_center:
+          anyOf:
+          - maxLength: 100
+            type: string
+          - type: 'null'
+          description: '**Cost center** · **Kostenstelle**'
+          title: Cost Center
+        date_contract:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Contract date** · **Auftragsdatum**'
+          title: Date Contract
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Description** · **Beschreibung**'
+          title: Description
+        name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Contract name** · **Name**'
+          title: Name
+        status:
+          $ref: '#/components/schemas/ContractStatus'
+          default: DRAFT
+          description: '**Status** · **Status**
+
+
+            Transitions are restricted to those currently allowed for the contract (depends on contract type, linked invoices, and completion rules). Multipart contracts cannot change status via the API, and a contractor must be set before the status can be anything other than DRAFT.
+
+
+            Statusübergänge sind auf die für den Auftrag aktuell zulässigen beschränkt (abhängig von Auftragstyp, verknüpften Rechnungen und Abschlussregeln). Mehrteilige Aufträge können den Status nicht über die API ändern, und es muss ein Auftragnehmer gesetzt sein, bevor der Status etwas anderes als DRAFT sein kann.
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `DRAFT` | Draft | Geplant |
+
+            | `ORDERED` | Ordered | Beauftragt |
+
+            | `PARTIAL_COMPLETED` | Partial completed | Teilschlussgerechnet |
+
+            | `COMPLETED` | Completed | Schlussgerechnet |'
+          examples:
+          - DRAFT
+      title: UpdateContractAttributes
+      type: object
+    UpdateContractRelationships:
+      properties:
+        contracting_entity:
+          anyOf:
+          - $ref: '#/components/schemas/ContractRelationshipData'
+          - type: 'null'
+          description: '**Contracting entity** · **Auftraggeber**'
+        contractor:
+          anyOf:
+          - $ref: '#/components/schemas/ContractRelationshipData'
+          - type: 'null'
+          description: '**Contractor ID** · **Auftragnehmer-ID**'
+      title: UpdateContractRelationships
+      type: object
+    CreateContractRequestCapex:
+      properties:
+        data:
+          $ref: '#/components/schemas/CreateContractDataCapex'
+      required:
+      - data
+      title: CreateContractRequestCapex
       type: object
     GeneralTermsAttributes:
       properties:
@@ -1448,366 +1795,37 @@ components:
       - is_reverse_charge
       title: CreateContractAttributes
       type: object
-    UpdateContractRelationships:
+    ContractRelationshipAttributes:
       properties:
-        contracting_entity:
-          anyOf:
-          - $ref: '#/components/schemas/ContractRelationshipData'
-          - type: 'null'
-          description: '**Contracting entity** · **Auftraggeber**'
-        contractor:
-          anyOf:
-          - $ref: '#/components/schemas/ContractRelationshipData'
-          - type: 'null'
-          description: '**Contractor ID** · **Auftragnehmer-ID**'
-      title: UpdateContractRelationships
-      type: object
-    ContractRelationshipData:
-      properties:
-        data:
-          $ref: '#/components/schemas/ContractRelationshipAttributes'
-      required:
-      - data
-      title: ContractRelationshipData
-      type: object
-    CreateContractDataCapex:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/CreateContractAttributes'
-        relationships:
-          $ref: '#/components/schemas/CreateContractRelationshipsCapex'
-        type:
-          default: CONTRACT
-          title: Type
-          type: string
-      required:
-      - attributes
-      - relationships
-      title: CreateContractDataCapex
-      type: object
-    UpdateContractRequest:
-      properties:
-        data:
-          $ref: '#/components/schemas/UpdateContractData'
-      required:
-      - data
-      title: UpdateContractRequest
-      type: object
-    ReadContractAttributesCapEx:
-      properties:
-        amount:
-          anyOf:
-          - properties:
-              currency:
-                description: '**Currency code** · **Währungscode**'
-                example: EUR
-                title: Currency code
-                type: string
-              net:
-                description: '**Net amount** · **Nettobetrag**'
-                example: '123.123456789012'
-                title: Net amount
-                type: string
-              tax:
-                description: '**Tax amount** · **Steuerbetrag**'
-                example: '123.123456789012'
-                title: Tax amount
-                type: string
-            type: object
-          - type: 'null'
-          description: '**Contract amount** · **Auftragssumme**'
-          title: Amount
-        booking_account_number:
-          anyOf:
-          - maximum: 999999999.0
-            minimum: 1.0
-            type: integer
-          - type: 'null'
-          description: '**Booking account number** · **Buchungskontonummer**'
-          title: Booking Account Number
-        contract_number:
-          description: '**Contract number** · **Auftragsnummer**'
-          maxLength: 250
-          title: Contract Number
-          type: string
-        contract_type:
-          $ref: '#/components/schemas/ContractType'
-          description: '**Contract type** · **Auftragstyp**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `MULTIPART` | Multipart contract | Stufenauftrag |
-
-            | `STANDARD` | Standard contract | Standardauftrag |
-
-            | `RECURRING` | Recurring invoice | Dauerrechnung |'
-        contracting_entity:
-          description: '**Contracting entity** · **Auftraggeber**'
-          format: uuid
-          title: Contracting Entity
-          type: string
-        contractor:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          description: '**Contractor ID** · **Auftragnehmer-ID**'
-          title: Contractor
-        cost_center:
-          description: '**Cost center** · **Kostenstelle**'
-          maxLength: 100
-          title: Cost Center
-          type: string
-        date_contract:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Contract date** · **Auftragsdatum**'
-          title: Date Contract
-        date_created:
-          description: '**Date created** · **Erstellt am**'
-          format: date-time
-          title: Date Created
-          type: string
-        description:
-          description: '**Description** · **Beschreibung**'
-          title: Description
-          type: string
-        is_reverse_charge:
-          description: '**Is reverse charge?** · **Reverse Charge?**'
-          title: Is Reverse Charge
-          type: boolean
-        measure:
-          description: '**Measure ID** · **Maßnahmen-ID**'
-          format: uuid
-          title: Measure
-          type: string
-        name:
-          description: '**Contract name** · **Name**'
-          maxLength: 250
-          title: Name
-          type: string
-        reserve_amount:
-          anyOf:
-          - properties:
-              currency:
-                description: '**Currency code** · **Währungscode**'
-                example: EUR
-                title: Currency code
-                type: string
-              net:
-                description: '**Net amount** · **Nettobetrag**'
-                example: '123.123456789012'
-                title: Net amount
-                type: string
-              tax:
-                description: '**Tax amount** · **Steuerbetrag**'
-                example: '123.123456789012'
-                title: Tax amount
-                type: string
-            type: object
-          - type: 'null'
-          description: '**Reserve amount** · **Rückstellungen**'
-          title: Reserve Amount
-        status:
-          $ref: '#/components/schemas/ContractStatus'
-          description: '**Status** · **Status**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `DRAFT` | Draft | Geplant |
-
-            | `ORDERED` | Ordered | Beauftragt |
-
-            | `PARTIAL_COMPLETED` | Partial completed | Teilschlussgerechnet |
-
-            | `COMPLETED` | Completed | Schlussgerechnet |'
-          examples:
-          - DRAFT
-      required:
-      - name
-      - date_contract
-      - contract_number
-      - cost_center
-      - description
-      - status
-      - is_reverse_charge
-      - date_created
-      - measure
-      - contracting_entity
-      - contract_type
-      title: ReadContractAttributesCapEx
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
         id:
           format: uuid
           title: Id
           type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
         type:
           title: Type
           type: string
       required:
-      - id
       - type
-      title: BaseDataSchema
+      - id
+      title: ContractRelationshipAttributes
       type: object
-    UpdateContractAttributes:
+    CreateContractRelationshipsFincon:
       properties:
-        amount:
+        contract_unit:
+          $ref: '#/components/schemas/ContractRelationshipData'
+          description: '**Contract unit ID** · **Vergabeeinheit-ID**'
+        contracting_entity:
+          $ref: '#/components/schemas/ContractRelationshipData'
+          description: '**Contracting entity** · **Auftraggeber**'
+        contractor:
           anyOf:
-          - properties:
-              currency:
-                description: '**Currency code** · **Währungscode**'
-                example: EUR
-                title: Currency code
-                type: string
-              net:
-                description: '**Net amount** · **Nettobetrag**'
-                example: '123.123456789012'
-                title: Net amount
-                type: string
-              tax:
-                description: '**Tax amount** · **Steuerbetrag**'
-                example: '123.123456789012'
-                title: Tax amount
-                type: string
-            type: object
+          - $ref: '#/components/schemas/ContractRelationshipData'
           - type: 'null'
-          description: '**Contract amount** · **Auftragssumme**'
-          title: Amount
-        booking_account_number:
-          anyOf:
-          - maximum: 999999999.0
-            minimum: 1.0
-            type: integer
-          - type: 'null'
-          description: '**Booking account number** · **Buchungskontonummer**'
-          title: Booking Account Number
-        contract_number:
-          anyOf:
-          - maxLength: 250
-            type: string
-          - type: 'null'
-          description: '**Contract number** · **Auftragsnummer**'
-          title: Contract Number
-        cost_center:
-          anyOf:
-          - maxLength: 100
-            type: string
-          - type: 'null'
-          description: '**Cost center** · **Kostenstelle**'
-          title: Cost Center
-        date_contract:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Contract date** · **Auftragsdatum**'
-          title: Date Contract
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Description** · **Beschreibung**'
-          title: Description
-        name:
-          anyOf:
-          - maxLength: 250
-            type: string
-          - type: 'null'
-          description: '**Contract name** · **Name**'
-          title: Name
-        status:
-          $ref: '#/components/schemas/ContractStatus'
-          default: DRAFT
-          description: '**Status** · **Status**
-
-
-            Transitions are restricted to those currently allowed for the contract (depends on contract type, linked invoices, and completion rules). Multipart contracts cannot change status via the API, and a contractor must be set before the status can be anything other than DRAFT.
-
-
-            Statusübergänge sind auf die für den Auftrag aktuell zulässigen beschränkt (abhängig von Auftragstyp, verknüpften Rechnungen und Abschlussregeln). Mehrteilige Aufträge können den Status nicht über die API ändern, und es muss ein Auftragnehmer gesetzt sein, bevor der Status etwas anderes als DRAFT sein kann.
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `DRAFT` | Draft | Geplant |
-
-            | `ORDERED` | Ordered | Beauftragt |
-
-            | `PARTIAL_COMPLETED` | Partial completed | Teilschlussgerechnet |
-
-            | `COMPLETED` | Completed | Schlussgerechnet |'
-          examples:
-          - DRAFT
-      title: UpdateContractAttributes
-      type: object
-    ContractTermsData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractTermsAttributes'
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - contract:
-              data:
-                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
-                type: CONTRACT
-          title: Relationships
-        type:
-          default: CONTRACT_TERMS
-          title: Type
-          type: string
+          description: '**Contractor ID** · **Auftragnehmer-ID**'
       required:
-      - attributes
-      title: ContractTermsData
+      - contracting_entity
+      - contract_unit
+      title: CreateContractRelationshipsFincon
       type: object
     ReadContractAttributesFincon:
       properties:
@@ -1967,6 +1985,45 @@ components:
       - contract_type
       title: ReadContractAttributesFincon
       type: object
+    ContractDetailsResponseFincon:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/ContractDataFincon'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: ContractDetailsResponseFincon
+      type: object
+    CreateContractRequestFincon:
+      properties:
+        data:
+          $ref: '#/components/schemas/CreateContractDataFincon'
+      required:
+      - data
+      title: CreateContractRequestFincon
+      type: object
     ContractListResponseFincon:
       properties:
         data:
@@ -2006,6 +2063,21 @@ components:
       - data
       title: ContractListResponseFincon
       type: object
+    CreateContractDataFincon:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CreateContractAttributes'
+        relationships:
+          $ref: '#/components/schemas/CreateContractRelationshipsFincon'
+        type:
+          default: CONTRACT
+          title: Type
+          type: string
+      required:
+      - attributes
+      - relationships
+      title: CreateContractDataFincon
+      type: object
     ContractDataFincon:
       properties:
         attributes:
@@ -2040,78 +2112,6 @@ components:
       - id
       - attributes
       title: ContractDataFincon
-      type: object
-    ContractDetailsResponseFincon:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/ContractDataFincon'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: ContractDetailsResponseFincon
-      type: object
-    CreateContractDataFincon:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/CreateContractAttributes'
-        relationships:
-          $ref: '#/components/schemas/CreateContractRelationshipsFincon'
-        type:
-          default: CONTRACT
-          title: Type
-          type: string
-      required:
-      - attributes
-      - relationships
-      title: CreateContractDataFincon
-      type: object
-    CreateContractRelationshipsFincon:
-      properties:
-        contract_unit:
-          $ref: '#/components/schemas/ContractRelationshipData'
-          description: '**Contract unit ID** · **Vergabeeinheit-ID**'
-        contracting_entity:
-          $ref: '#/components/schemas/ContractRelationshipData'
-          description: '**Contracting entity** · **Auftraggeber**'
-        contractor:
-          anyOf:
-          - $ref: '#/components/schemas/ContractRelationshipData'
-          - type: 'null'
-          description: '**Contractor ID** · **Auftragnehmer-ID**'
-      required:
-      - contracting_entity
-      - contract_unit
-      title: CreateContractRelationshipsFincon
-      type: object
-    CreateContractRequestFincon:
-      properties:
-        data:
-          $ref: '#/components/schemas/CreateContractDataFincon'
-      required:
-      - data
-      title: CreateContractRequestFincon
       type: object
   securitySchemes:
     API_Key:

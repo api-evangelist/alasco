@@ -110,33 +110,12 @@ paths:
       - Buildings
 components:
   schemas:
-    BuildingCertificateLevelRead:
-      properties:
-        id:
-          anyOf:
-          - $ref: '#/components/schemas/BREEAMLevel'
-          - $ref: '#/components/schemas/DGNBFullLevel'
-          - $ref: '#/components/schemas/DGNBWithoutBronzeLevel'
-          - $ref: '#/components/schemas/FitwelLevel'
-          - $ref: '#/components/schemas/LEEDLevel'
-          - $ref: '#/components/schemas/WELLHealthSafetyRatingLevel'
-          - $ref: '#/components/schemas/WiredScoreLevel'
-          title: Id
-        label:
-          title: Label
-          type: string
-      required:
-      - id
-      - label
-      title: BuildingCertificateLevelRead
-      type: object
-    CustomDataListResponse:
+    AnalysisResultResponse:
       properties:
         data:
-          items:
-            $ref: '#/components/schemas/CustomDataGroupData'
-          title: Data
-          type: array
+          anyOf:
+          - $ref: '#/components/schemas/AnalysisResultData'
+          - type: 'null'
         errors:
           anyOf:
           - items:
@@ -156,45 +135,98 @@ components:
           - type: 'null'
       required:
       - data
-      title: CustomDataListResponse
+      title: AnalysisResultResponse
       type: object
-    Links:
+    DGNBFullLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      - BRONZE
+      title: DGNBFullLevel
+      type: string
+    BuildingCertificateSchemaRead:
       properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
+        id:
+          $ref: '#/components/schemas/BuildingCertificateSchema'
+        label:
+          title: Label
+          type: string
       required:
-      - next
-      - prev
-      title: Links
+      - id
+      - label
+      title: BuildingCertificateSchemaRead
       type: object
-    DGNBWithoutBronzeLevel:
-      enum:
-      - PLATINUM
-      - GOLD
-      - SILVER
-      title: DGNBWithoutBronzeLevel
-      type: string
-    WiredScoreLevel:
-      enum:
-      - PLATINUM
-      - GOLD
-      - SILVER
-      - CERTIFIED
-      - UNDER_CERTIFICATION
-      title: WiredScoreLevel
-      type: string
-    AnalysisResultData:
+    BuildingSpecification:
+      properties:
+        gross_external_area:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Gross external area** · **Brutto-Außenfläche**'
+          title: Gross External Area
+        gross_internal_area:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Gross internal area** · **Brutto-Innenfläche**'
+          title: Gross Internal Area
+      required:
+      - gross_external_area
+      - gross_internal_area
+      title: BuildingSpecification
+      type: object
+    CustomDataFieldAttributes:
+      properties:
+        field_id:
+          description: '**Field ID** · **Feld-ID**'
+          format: uuid
+          title: Field Id
+          type: string
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+        value:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: '**Value** · **Wert**'
+          title: Value
+        year:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Year** · **Jahr**'
+          title: Year
+      required:
+      - name
+      - field_id
+      - year
+      - value
+      title: CustomDataFieldAttributes
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BaseDataSchema:
       properties:
         attributes:
-          $ref: '#/components/schemas/AnalysisResultAttributes'
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
         id:
           format: uuid
           title: Id
@@ -206,14 +238,11 @@ components:
           - type: 'null'
           title: Relationships
         type:
-          const: ANALYSIS_RESULT
-          default: ANALYSIS_RESULT
-          title: Type
-          type: string
+          $ref: '#/components/schemas/ResourceType'
       required:
       - id
-      - attributes
-      title: AnalysisResultData
+      - type
+      title: BaseDataSchema
       type: object
     CustomDataGroupAttributes:
       properties:
@@ -232,87 +261,19 @@ components:
       - field_instances
       title: CustomDataGroupAttributes
       type: object
-    BuildingAttributes:
-      properties:
-        building_certificates:
-          description: '**Building certificates** · **Gebäudezertifikate**
-
-
-            List of building certificates for the building, excluded if not explicitly requested.
-
-
-            Liste der Gebäudezertifikate des Gebäudes; nur enthalten, wenn ausdrücklich angefordert.'
-          items:
-            $ref: '#/components/schemas/BuildingCertificateRead'
-          title: Building Certificates
-          type: array
-        building_specification:
-          $ref: '#/components/schemas/BuildingSpecification'
-          description: '**Building specification** · **Gebäudespezifikation**'
-        energy_certificates:
-          description: '**Energy certificates** · **Energieausweise**
-
-
-            List of energy certificates for the building, excluded if not explicitly requested.
-
-
-            Liste der Energieausweise des Gebäudes; nur enthalten, wenn ausdrücklich angefordert.'
-          items:
-            $ref: '#/components/schemas/EnergyCertificateRead'
-          title: Energy Certificates
-          type: array
-        external_asset_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**External asset ID** · **Externe Asset-ID**'
-          title: External Asset Id
-        external_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**External ID** · **Externe ID**'
-          title: External Id
-        name:
-          description: '**Name** · **Name**'
-          title: Name
-          type: string
-      required:
-      - name
-      - external_id
-      - external_asset_id
-      - building_specification
-      title: BuildingAttributes
-      type: object
-    BuildingListResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/BuildingData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: BuildingListResponse
-      type: object
+    DGNBWithoutBronzeLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      title: DGNBWithoutBronzeLevel
+      type: string
+    EnergyCertificateType:
+      enum:
+      - CONSUMPTION
+      - DEMAND
+      title: EnergyCertificateType
+      type: string
     AnalysisResultAttributes:
       properties:
         co2_intensity:
@@ -411,94 +372,6 @@ components:
       - scope_3_emissions
       title: AnalysisResultAttributes
       type: object
-    Error:
-      properties:
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    EnergyCertificateType:
-      enum:
-      - CONSUMPTION
-      - DEMAND
-      title: EnergyCertificateType
-      type: string
-    BREEAMLevel:
-      enum:
-      - OUTSTANDING
-      - EXCELLENT
-      - VERY_GOOD
-      - GOOD
-      - PASS
-      - UNCLASSIFIED
-      title: BREEAMLevel
-      type: string
-    LEEDLevel:
-      enum:
-      - PLATINUM
-      - GOLD
-      - SILVER
-      - CERTIFIED
-      title: LEEDLevel
-      type: string
-    CustomDataFieldAttributes:
-      properties:
-        field_id:
-          description: '**Field ID** · **Feld-ID**'
-          format: uuid
-          title: Field Id
-          type: string
-        name:
-          description: '**Name** · **Name**'
-          title: Name
-          type: string
-        value:
-          anyOf:
-          - type: string
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          description: '**Value** · **Wert**'
-          title: Value
-        year:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          description: '**Year** · **Jahr**'
-          title: Year
-      required:
-      - name
-      - field_id
-      - year
-      - value
-      title: CustomDataFieldAttributes
-      type: object
     CustomDataGroupData:
       properties:
         attributes:
@@ -523,14 +396,6 @@ components:
       - attributes
       title: CustomDataGroupData
       type: object
-    DGNBFullLevel:
-      enum:
-      - PLATINUM
-      - GOLD
-      - SILVER
-      - BRONZE
-      title: DGNBFullLevel
-      type: string
     FitwelLevel:
       enum:
       - ONE_STAR
@@ -538,80 +403,81 @@ components:
       - THREE_STAR
       title: FitwelLevel
       type: string
-    ValidationError:
+    Links:
       properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    BuildingCertificateSchema:
-      enum:
-      - BREEAM_COMMUNITIES
-      - BREEAM_INFRASTRUCTURE
-      - BREEAM_NEW_CONSTRUCTION
-      - BREEAM_IN_USE
-      - BREEAM_REFURBISHMENT
-      - DGNB_EXISTING_BUILDINGS
-      - DGNB_BUILDINGS_IN_USE
-      - DGNB_NEW_CONSTRUCTION
-      - DGNB_RENOVATION
-      - FITWEL
-      - LEED_BDC_CSD_C
-      - LEED_BDC_CSD_PC
-      - LEED_BDC_NC_C
-      - LEED_BDC_NC_PC
-      - LEED_IDC_CI_C
-      - LEED_IDC_CI_PC
-      - LEED_OM_EB_C
-      - WELL_HEALTH_SAFETY_RATING
-      - WIRED_SCORE_OCCUPIED_BUILDINGS
-      - WIRED_SCORE_DEVELOPMENTS
-      title: BuildingCertificateSchema
-      type: string
-    BuildingData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/BuildingAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
+        next:
           anyOf:
-          - additionalProperties: true
-            type: object
+          - type: string
           - type: 'null'
-          title: Relationships
-        type:
-          const: BUILDING
-          default: BUILDING
-          title: Type
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    BuildingCertificateLevelRead:
+      properties:
+        id:
+          anyOf:
+          - $ref: '#/components/schemas/BREEAMLevel'
+          - $ref: '#/components/schemas/DGNBFullLevel'
+          - $ref: '#/components/schemas/DGNBWithoutBronzeLevel'
+          - $ref: '#/components/schemas/FitwelLevel'
+          - $ref: '#/components/schemas/LEEDLevel'
+          - $ref: '#/components/schemas/WELLHealthSafetyRatingLevel'
+          - $ref: '#/components/schemas/WiredScoreLevel'
+          title: Id
+        label:
+          title: Label
           type: string
       required:
       - id
-      - attributes
-      title: BuildingData
+      - label
+      title: BuildingCertificateLevelRead
       type: object
+    BuildingCertificateRead:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        issued_at:
+          format: date
+          title: Issued At
+          type: string
+        level:
+          $ref: '#/components/schemas/BuildingCertificateLevelRead'
+        schema:
+          $ref: '#/components/schemas/BuildingCertificateSchemaRead'
+        valid_until:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: Valid Until
+      required:
+      - level
+      - schema
+      - issued_at
+      - description
+      - valid_until
+      title: BuildingCertificateRead
+      type: object
+    WiredScoreLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      - CERTIFIED
+      - UNDER_CERTIFICATION
+      title: WiredScoreLevel
+      type: string
     EnergyCertificateRead:
       properties:
         co2_emissions:
@@ -683,63 +549,57 @@ components:
       - valid_until
       title: EnergyCertificateRead
       type: object
-    BuildingSpecification:
+    CustomDataListResponse:
       properties:
-        gross_external_area:
+        data:
+          items:
+            $ref: '#/components/schemas/CustomDataGroupData'
+          title: Data
+          type: array
+        errors:
           anyOf:
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
           - type: 'null'
-          description: '**Gross external area** · **Brutto-Außenfläche**'
-          title: Gross External Area
-        gross_internal_area:
+          title: Errors
+        included:
           anyOf:
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
+          - items: {}
+            type: array
           - type: 'null'
-          description: '**Gross internal area** · **Brutto-Innenfläche**'
-          title: Gross Internal Area
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
       required:
-      - gross_external_area
-      - gross_internal_area
-      title: BuildingSpecification
+      - data
+      title: CustomDataListResponse
       type: object
-    WELLHealthSafetyRatingLevel:
-      enum:
-      - PLATINUM
-      - GOLD
-      - SILVER
-      - BRONZE
-      title: WELLHealthSafetyRatingLevel
-      type: string
-    BuildingCertificateRead:
+    BuildingData:
       properties:
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        issued_at:
-          format: date
-          title: Issued At
+        attributes:
+          $ref: '#/components/schemas/BuildingAttributes'
+        id:
+          format: uuid
+          title: Id
           type: string
-        level:
-          $ref: '#/components/schemas/BuildingCertificateLevelRead'
-        schema:
-          $ref: '#/components/schemas/BuildingCertificateSchemaRead'
-        valid_until:
+        relationships:
           anyOf:
-          - format: date
-            type: string
+          - additionalProperties: true
+            type: object
           - type: 'null'
-          title: Valid Until
+          title: Relationships
+        type:
+          const: BUILDING
+          default: BUILDING
+          title: Type
+          type: string
       required:
-      - level
-      - schema
-      - issued_at
-      - description
-      - valid_until
-      title: BuildingCertificateRead
+      - id
+      - attributes
+      title: BuildingData
       type: object
     ResourceType:
       enum:
@@ -763,49 +623,10 @@ components:
       - TENANT_CONSUMPTION_LINK
       title: ResourceType
       type: string
-    AnalysisResultResponse:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/AnalysisResultData'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: AnalysisResultResponse
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    BaseDataSchema:
+    AnalysisResultData:
       properties:
         attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
+          $ref: '#/components/schemas/AnalysisResultAttributes'
         id:
           format: uuid
           title: Id
@@ -817,24 +638,203 @@ components:
           - type: 'null'
           title: Relationships
         type:
-          $ref: '#/components/schemas/ResourceType'
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    BuildingCertificateSchemaRead:
-      properties:
-        id:
-          $ref: '#/components/schemas/BuildingCertificateSchema'
-        label:
-          title: Label
+          const: ANALYSIS_RESULT
+          default: ANALYSIS_RESULT
+          title: Type
           type: string
       required:
       - id
-      - label
-      title: BuildingCertificateSchemaRead
+      - attributes
+      title: AnalysisResultData
       type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    BuildingListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/BuildingData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: BuildingListResponse
+      type: object
+    WELLHealthSafetyRatingLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      - BRONZE
+      title: WELLHealthSafetyRatingLevel
+      type: string
+    BuildingAttributes:
+      properties:
+        building_certificates:
+          description: '**Building certificates** · **Gebäudezertifikate**
+
+
+            List of building certificates for the building, excluded if not explicitly requested.
+
+
+            Liste der Gebäudezertifikate des Gebäudes; nur enthalten, wenn ausdrücklich angefordert.'
+          items:
+            $ref: '#/components/schemas/BuildingCertificateRead'
+          title: Building Certificates
+          type: array
+        building_specification:
+          $ref: '#/components/schemas/BuildingSpecification'
+          description: '**Building specification** · **Gebäudespezifikation**'
+        energy_certificates:
+          description: '**Energy certificates** · **Energieausweise**
+
+
+            List of energy certificates for the building, excluded if not explicitly requested.
+
+
+            Liste der Energieausweise des Gebäudes; nur enthalten, wenn ausdrücklich angefordert.'
+          items:
+            $ref: '#/components/schemas/EnergyCertificateRead'
+          title: Energy Certificates
+          type: array
+        external_asset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**External asset ID** · **Externe Asset-ID**'
+          title: External Asset Id
+        external_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+      required:
+      - name
+      - external_id
+      - external_asset_id
+      - building_specification
+      title: BuildingAttributes
+      type: object
+    BREEAMLevel:
+      enum:
+      - OUTSTANDING
+      - EXCELLENT
+      - VERY_GOOD
+      - GOOD
+      - PASS
+      - UNCLASSIFIED
+      title: BREEAMLevel
+      type: string
+    LEEDLevel:
+      enum:
+      - PLATINUM
+      - GOLD
+      - SILVER
+      - CERTIFIED
+      title: LEEDLevel
+      type: string
+    BuildingCertificateSchema:
+      enum:
+      - BREEAM_COMMUNITIES
+      - BREEAM_INFRASTRUCTURE
+      - BREEAM_NEW_CONSTRUCTION
+      - BREEAM_IN_USE
+      - BREEAM_REFURBISHMENT
+      - DGNB_EXISTING_BUILDINGS
+      - DGNB_BUILDINGS_IN_USE
+      - DGNB_NEW_CONSTRUCTION
+      - DGNB_RENOVATION
+      - FITWEL
+      - LEED_BDC_CSD_C
+      - LEED_BDC_CSD_PC
+      - LEED_BDC_NC_C
+      - LEED_BDC_NC_PC
+      - LEED_IDC_CI_C
+      - LEED_IDC_CI_PC
+      - LEED_OM_EB_C
+      - WELL_HEALTH_SAFETY_RATING
+      - WIRED_SCORE_OCCUPIED_BUILDINGS
+      - WIRED_SCORE_DEVELOPMENTS
+      title: BuildingCertificateSchema
+      type: string
   securitySchemes:
     API_Key:
       description: '

@@ -425,10 +425,10 @@ components:
           title: Zip Code
       title: ContactUpdateAttributes
       type: object
-    Payload_ContactCreateAttributes_Literal_CONTACT__:
+    Payload_ContactUpdateAttributes_Literal_CONTACT__:
       properties:
         attributes:
-          $ref: '#/components/schemas/ContactCreateAttributes'
+          $ref: '#/components/schemas/ContactUpdateAttributes'
         type:
           const: CONTACT
           title: Type
@@ -436,7 +436,7 @@ components:
       required:
       - type
       - attributes
-      title: 'Payload[ContactCreateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      title: 'Payload[ContactUpdateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
       type: object
     ContactAttributes:
       properties:
@@ -566,210 +566,14 @@ components:
       - date_created
       title: ContactAttributes
       type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Payload_ContactUpdateAttributes_Literal_CONTACT__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContactUpdateAttributes'
-        type:
-          const: CONTACT
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[ContactUpdateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    ContactType:
+    ContactTitle:
       enum:
-      - PRIVATE
-      - COMMERCIAL
-      title: ContactType
+      - NO_TITLE
+      - DR
+      - PROF
+      - PROF_DR
+      title: ContactTitle
       type: string
-    Request_ContactUpdateAttributes_Literal_CONTACT__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_ContactUpdateAttributes_Literal_CONTACT__'
-      required:
-      - data
-      title: 'Request[ContactUpdateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    Data_ContactAttributes_Literal_CONTACT__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContactAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CONTACT
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    Request_ContactCreateAttributes_Literal_CONTACT__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_ContactCreateAttributes_Literal_CONTACT__'
-      required:
-      - data
-      title: 'Request[ContactCreateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    ContactSalutation:
-      enum:
-      - NOT_SPECIFIED
-      - MALE
-      - FEMALE
-      - NON_BINARY
-      - FAMILY
-      title: ContactSalutation
-      type: string
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    Response_ContactAttributes_Literal_CONTACT__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    ListResponse_ContactAttributes_Literal_CONTACT__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
     ContactCreateAttributes:
       properties:
         address:
@@ -908,13 +712,209 @@ components:
       - type
       title: ContactCreateAttributes
       type: object
-    ContactTitle:
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Payload_ContactCreateAttributes_Literal_CONTACT__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContactCreateAttributes'
+        type:
+          const: CONTACT
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContactCreateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    ContactSalutation:
       enum:
-      - NO_TITLE
-      - DR
-      - PROF
-      - PROF_DR
-      title: ContactTitle
+      - NOT_SPECIFIED
+      - MALE
+      - FEMALE
+      - NON_BINARY
+      - FAMILY
+      title: ContactSalutation
+      type: string
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Response_ContactAttributes_Literal_CONTACT__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    ListResponse_ContactAttributes_Literal_CONTACT__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    Data_ContactAttributes_Literal_CONTACT__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContactAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CONTACT
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    Request_ContactUpdateAttributes_Literal_CONTACT__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ContactUpdateAttributes_Literal_CONTACT__'
+      required:
+      - data
+      title: 'Request[ContactUpdateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    Request_ContactCreateAttributes_Literal_CONTACT__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ContactCreateAttributes_Literal_CONTACT__'
+      required:
+      - data
+      title: 'Request[ContactCreateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    ContactType:
+      enum:
+      - PRIVATE
+      - COMMERCIAL
+      title: ContactType
       type: string
   securitySchemes:
     API_Key:

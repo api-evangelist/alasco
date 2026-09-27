@@ -122,6 +122,157 @@ paths:
       - Cash Outflow Cost Element View
 components:
   schemas:
+    MonthlyAmount:
+      properties:
+        amount:
+          description: '**Monthly amount** · **Monatsbetrag**'
+          properties:
+            currency:
+              description: '**Currency code** · **Währungscode**'
+              example: EUR
+              title: Currency code
+              type: string
+            net:
+              description: '**Net amount** · **Nettobetrag**'
+              example: '123.123456789012'
+              title: Net amount
+              type: string
+            tax:
+              description: '**Tax amount** · **Steuerbetrag**'
+              example: '123.123456789012'
+              title: Tax amount
+              type: string
+          title: Amount
+          type: object
+        month:
+          description: '**Month** · **Monat**
+
+
+            Month in YYYY-MM format.
+
+
+            Monat im Format JJJJ-MM.'
+          title: Month
+          type: string
+        type:
+          description: '**Amount type** · **Betragsart**
+
+
+            Whether the value is actual or planned.
+
+
+            Gibt an, ob der Wert tatsächlich (actual) oder geplant (planned) ist.'
+          enum:
+          - ACTUAL
+          - PLANNED
+          title: Type
+          type: string
+      required:
+      - month
+      - amount
+      - type
+      title: MonthlyAmount
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ListResponse_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[CashOutflowNodeAttributes, Literal[<ResourceType.CASH_OUTFLOW_NODE: ''CASH_OUTFLOW_NODE''>]]'
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
     CashOutflowNodeAttributes:
       properties:
         amounts:
@@ -241,44 +392,6 @@ components:
       - project
       title: CashOutflowNodeAttributes
       type: object
-    CashOutflowNodeType:
-      enum:
-      - COST_ELEMENT
-      - CONTRACT_UNIT
-      - CONTRACT
-      - FINANCING_CONTRACT_UNIT
-      - FINANCING_CONTRACT
-      - UNASSIGNED
-      - UNLINKED_CONTRACT_UNITS_PARENT
-      - UNDISTRIBUTED_COST_ELEMENT_BUDGET
-      title: CashOutflowNodeType
-      type: string
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
     Data_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__:
       properties:
         attributes:
@@ -308,131 +421,18 @@ components:
       - attributes
       title: 'Data[CashOutflowNodeAttributes, Literal[<ResourceType.CASH_OUTFLOW_NODE: ''CASH_OUTFLOW_NODE''>]]'
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    ListResponse_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_CashOutflowNodeAttributes_Literal_CASH_OUTFLOW_NODE__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[CashOutflowNodeAttributes, Literal[<ResourceType.CASH_OUTFLOW_NODE: ''CASH_OUTFLOW_NODE''>]]'
-      type: object
-    MonthlyAmount:
-      properties:
-        amount:
-          description: '**Monthly amount** · **Monatsbetrag**'
-          properties:
-            currency:
-              description: '**Currency code** · **Währungscode**'
-              example: EUR
-              title: Currency code
-              type: string
-            net:
-              description: '**Net amount** · **Nettobetrag**'
-              example: '123.123456789012'
-              title: Net amount
-              type: string
-            tax:
-              description: '**Tax amount** · **Steuerbetrag**'
-              example: '123.123456789012'
-              title: Tax amount
-              type: string
-          title: Amount
-          type: object
-        month:
-          description: '**Month** · **Monat**
-
-
-            Month in YYYY-MM format.
-
-
-            Monat im Format JJJJ-MM.'
-          title: Month
-          type: string
-        type:
-          description: '**Amount type** · **Betragsart**
-
-
-            Whether the value is actual or planned.
-
-
-            Gibt an, ob der Wert tatsächlich (actual) oder geplant (planned) ist.'
-          enum:
-          - ACTUAL
-          - PLANNED
-          title: Type
-          type: string
-      required:
-      - month
-      - amount
-      - type
-      title: MonthlyAmount
-      type: object
+    CashOutflowNodeType:
+      enum:
+      - COST_ELEMENT
+      - CONTRACT_UNIT
+      - CONTRACT
+      - FINANCING_CONTRACT_UNIT
+      - FINANCING_CONTRACT
+      - UNASSIGNED
+      - UNLINKED_CONTRACT_UNITS_PARENT
+      - UNDISTRIBUTED_COST_ELEMENT_BUDGET
+      title: CashOutflowNodeType
+      type: string
   securitySchemes:
     API_Key:
       description: '

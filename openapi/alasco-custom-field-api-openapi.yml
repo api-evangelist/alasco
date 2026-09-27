@@ -138,34 +138,55 @@ paths:
     - url: https://api.alasco.de/fincon/v1
 components:
   schemas:
-    Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/CustomFieldAttributes'
-        id:
-          format: uuid
-          title: Id
+    CustomFieldType:
+      anyOf:
+      - type: integer
+      - type: string
+      - format: date
+        type: string
+      - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+        type: string
+      - items:
           type: string
-        relationships:
+        type: array
+    ListResponse_CustomFieldAttributes_Literal_CUSTOM_FIELD__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__'
+          title: Data
+          type: array
+        errors:
           anyOf:
-          - additionalProperties: true
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
             type: object
           - type: 'null'
           description: '
 
-            Contains links to related objects.
+            Contains the pagination''s next link if results don''t fit on one page.
 
             '
-          title: Relationships
-        type:
-          const: CUSTOM_FIELD
-          title: Type
-          type: string
+          title: Links
       required:
-      - id
-      - type
-      - attributes
-      title: 'Data[CustomFieldAttributes, Literal[<ResourceType.CUSTOM_FIELD: ''CUSTOM_FIELD''>]]'
+      - data
+      title: 'ListResponse[CustomFieldAttributes, Literal[<ResourceType.CUSTOM_FIELD: ''CUSTOM_FIELD''>]]'
       type: object
     ValidationError:
       properties:
@@ -228,17 +249,35 @@ components:
           title: Title
       title: Error
       type: object
-    CustomFieldType:
-      anyOf:
-      - type: integer
-      - type: string
-      - format: date
-        type: string
-      - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-        type: string
-      - items:
+    Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CustomFieldAttributes'
+        id:
+          format: uuid
+          title: Id
           type: string
-        type: array
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CUSTOM_FIELD
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[CustomFieldAttributes, Literal[<ResourceType.CUSTOM_FIELD: ''CUSTOM_FIELD''>]]'
+      type: object
     CustomFieldAttributes:
       properties:
         name:
@@ -252,45 +291,6 @@ components:
       - value
       - name
       title: CustomFieldAttributes
-      type: object
-    ListResponse_CustomFieldAttributes_Literal_CUSTOM_FIELD__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[CustomFieldAttributes, Literal[<ResourceType.CUSTOM_FIELD: ''CUSTOM_FIELD''>]]'
       type: object
     alasco__public_api__fincon__web__v1__schemas__custom_field__CustomFieldType:
       anyOf:

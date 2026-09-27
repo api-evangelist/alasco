@@ -217,61 +217,25 @@ paths:
       - Cost Element Tree Template
 components:
   schemas:
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Data_CostElementAttributes_Literal_COST_ELEMENT__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/CostElementAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: COST_ELEMENT
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
-      type: object
+    CostElementCategory:
+      enum:
+      - SITE
+      - CLEARANCE_AND_DEVELOPMENT
+      - STRUCTURE_CONSTRUCTION_WORKS
+      - STRUCTURE_SERVICES
+      - EXTERNAL_WORKS
+      - FURNISHINGS_FURNITURE_AND_ARTISTIC_APPOINTMENTS
+      - INCIDENTAL_BUILDING_COSTS
+      - FINANCING
+      - RESERVE
+      - COMPANY_COSTS
+      - SALES_MARKETING
+      - OTHER
+      - TENANT_IMPROVEMENT
+      - ESG_IMPROVEMENT
+      - MAINTENANCE
+      title: CostElementCategory
+      type: string
     Data_CostElementTreeTemplateAttributes_Literal_COST_ELEMENT_TREE_TEMPLATE__:
       properties:
         attributes:
@@ -300,27 +264,6 @@ components:
       - type
       - attributes
       title: 'Data[CostElementTreeTemplateAttributes, Literal[<ResourceType.COST_ELEMENT_TREE_TEMPLATE: ''COST_ELEMENT_TREE_TEMPLATE''>]]'
-      type: object
-    CostElementTreeTemplateAttributes:
-      properties:
-        created_at:
-          description: '**Date created** · **Erstellt am**'
-          format: date-time
-          title: Created At
-          type: string
-        description:
-          description: '**Description** · **Beschreibung**'
-          title: Description
-          type: string
-        name:
-          description: '**Name** · **Name**'
-          title: Name
-          type: string
-      required:
-      - name
-      - description
-      - created_at
-      title: CostElementTreeTemplateAttributes
       type: object
     Response_CostElementTreeTemplateAttributes_Literal_COST_ELEMENT_TREE_TEMPLATE__:
       properties:
@@ -353,65 +296,11 @@ components:
           title: Links
       title: 'Response[CostElementTreeTemplateAttributes, Literal[<ResourceType.COST_ELEMENT_TREE_TEMPLATE: ''COST_ELEMENT_TREE_TEMPLATE''>]]'
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    CostElementCategory:
-      enum:
-      - SITE
-      - CLEARANCE_AND_DEVELOPMENT
-      - STRUCTURE_CONSTRUCTION_WORKS
-      - STRUCTURE_SERVICES
-      - EXTERNAL_WORKS
-      - FURNISHINGS_FURNITURE_AND_ARTISTIC_APPOINTMENTS
-      - INCIDENTAL_BUILDING_COSTS
-      - FINANCING
-      - RESERVE
-      - COMPANY_COSTS
-      - SALES_MARKETING
-      - OTHER
-      - TENANT_IMPROVEMENT
-      - ESG_IMPROVEMENT
-      - MAINTENANCE
-      title: CostElementCategory
-      type: string
-    ListResponse_CostElementTreeTemplateAttributes_Literal_COST_ELEMENT_TREE_TEMPLATE__:
+    ListResponse_CostElementAttributes_Literal_COST_ELEMENT__:
       properties:
         data:
           items:
-            $ref: '#/components/schemas/Data_CostElementTreeTemplateAttributes_Literal_COST_ELEMENT_TREE_TEMPLATE__'
+            $ref: '#/components/schemas/Data_CostElementAttributes_Literal_COST_ELEMENT__'
           title: Data
           type: array
         errors:
@@ -424,7 +313,7 @@ components:
         included:
           anyOf:
           - items:
-              $ref: '#/components/schemas/Data_CostElementTreeTemplateAttributes_Literal_COST_ELEMENT_TREE_TEMPLATE__'
+              $ref: '#/components/schemas/Data_CostElementAttributes_Literal_COST_ELEMENT__'
             type: array
           - type: 'null'
           title: Included
@@ -444,7 +333,7 @@ components:
           title: Links
       required:
       - data
-      title: 'ListResponse[CostElementTreeTemplateAttributes, Literal[<ResourceType.COST_ELEMENT_TREE_TEMPLATE: ''COST_ELEMENT_TREE_TEMPLATE''>]]'
+      title: 'ListResponse[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
       type: object
     CostElementAttributes:
       properties:
@@ -520,11 +409,93 @@ components:
       - parent
       title: CostElementAttributes
       type: object
-    ListResponse_CostElementAttributes_Literal_COST_ELEMENT__:
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    CostElementTreeTemplateAttributes:
+      properties:
+        created_at:
+          description: '**Date created** · **Erstellt am**'
+          format: date-time
+          title: Created At
+          type: string
+        description:
+          description: '**Description** · **Beschreibung**'
+          title: Description
+          type: string
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+      required:
+      - name
+      - description
+      - created_at
+      title: CostElementTreeTemplateAttributes
+      type: object
+    ListResponse_CostElementTreeTemplateAttributes_Literal_COST_ELEMENT_TREE_TEMPLATE__:
       properties:
         data:
           items:
-            $ref: '#/components/schemas/Data_CostElementAttributes_Literal_COST_ELEMENT__'
+            $ref: '#/components/schemas/Data_CostElementTreeTemplateAttributes_Literal_COST_ELEMENT_TREE_TEMPLATE__'
           title: Data
           type: array
         errors:
@@ -537,7 +508,7 @@ components:
         included:
           anyOf:
           - items:
-              $ref: '#/components/schemas/Data_CostElementAttributes_Literal_COST_ELEMENT__'
+              $ref: '#/components/schemas/Data_CostElementTreeTemplateAttributes_Literal_COST_ELEMENT_TREE_TEMPLATE__'
             type: array
           - type: 'null'
           title: Included
@@ -557,7 +528,36 @@ components:
           title: Links
       required:
       - data
-      title: 'ListResponse[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
+      title: 'ListResponse[CostElementTreeTemplateAttributes, Literal[<ResourceType.COST_ELEMENT_TREE_TEMPLATE: ''COST_ELEMENT_TREE_TEMPLATE''>]]'
+      type: object
+    Data_CostElementAttributes_Literal_COST_ELEMENT__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CostElementAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: COST_ELEMENT
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
       type: object
   securitySchemes:
     API_Key:

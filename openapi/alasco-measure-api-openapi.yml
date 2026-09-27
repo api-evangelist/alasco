@@ -199,96 +199,6 @@ paths:
       - Measure
 components:
   schemas:
-    MeasureData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/Attributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - asset:
-              data:
-                id: 9e77da78-ee18-4cac-b643-8bbd092a5bae
-                type: ASSET
-          title: Relationships
-        type:
-          default: MEASURE
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: MeasureData
-      type: object
-    MeasureDetailResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/MeasureData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      required:
-      - data
-      title: MeasureDetailResponse
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
     Attributes:
       properties:
         asset:
@@ -351,6 +261,91 @@ components:
       - COMPLETED
       title: MeasureStatus
       type: string
+    MeasureData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/Attributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - asset:
+              data:
+                id: 9e77da78-ee18-4cac-b643-8bbd092a5bae
+                type: ASSET
+          title: Relationships
+        type:
+          default: MEASURE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: MeasureData
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -384,32 +379,6 @@ components:
       - id
       - type
       title: BaseDataSchema
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
       type: object
     ListResponse:
       properties:
@@ -449,6 +418,37 @@ components:
       required:
       - data
       title: ListResponse
+      type: object
+    MeasureDetailResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/MeasureData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      required:
+      - data
+      title: MeasureDetailResponse
       type: object
   securitySchemes:
     API_Key:

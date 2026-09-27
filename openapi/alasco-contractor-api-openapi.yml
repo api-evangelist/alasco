@@ -349,162 +349,6 @@ paths:
     - url: https://api.alasco.de/capex/v1
 components:
   schemas:
-    Payload_ContractorCreateAttributes_Literal_CONTRACTOR__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractorCreateAttributes'
-        type:
-          const: CONTRACTOR
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[ContractorCreateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
-      type: object
-    TaxAuthority:
-      enum:
-      - BADEN_WUERTTEMBERG
-      - BAVARIA
-      - BERLIN
-      - BRANDENBURG
-      - BREMEN
-      - HAMBURG
-      - HESSE
-      - MECKLENBURG_VORPOMMERN
-      - LOWER_SAXONY
-      - NORTH_RHINE_WESTPHALIA
-      - RHEINLAND_PALATINATE
-      - SAARLAND
-      - SAXONY
-      - SACHSEN_ANHALT
-      - SCHLESWIG_HOLSTEIN
-      - THURINGIA
-      title: TaxAuthority
-      type: string
-    TaxWaiverWriter:
-      properties:
-        security_number:
-          description: '**Security number** · **Sicherheitsnummer**'
-          maxLength: 90
-          title: Security Number
-          type: string
-      required:
-      - security_number
-      title: TaxWaiver
-      type: object
-    Data_ContractorAttributes_Literal_CONTRACTOR__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractorAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CONTRACTOR
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
-      type: object
-    TaxWaiverDocumentCreatedResponse:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/TaxWaiverDocumentCreated'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: TaxWaiverDocumentCreatedResponse
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
     ContractorUpdateAttributes:
       properties:
         accounts_payable_number:
@@ -652,57 +496,64 @@ components:
           title: Zip Code
       title: ContractorUpdateAttributes
       type: object
-    Request_ContractorUpdateAttributes_Literal_CONTRACTOR__:
+    TaxWaiver:
       properties:
-        data:
-          $ref: '#/components/schemas/Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__'
+        filename:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**Tax waiver document filename** · **Dateiname der Freistellungsbescheinigung**'
+          title: Filename
+        security_number:
+          description: '**Security number** · **Sicherheitsnummer**'
+          maxLength: 90
+          title: Security Number
+          type: string
+        valid_until:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Expiration date** · **Ablaufdatum**'
+          title: Valid Until
       required:
-      - data
-      title: 'Request[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      - security_number
+      title: TaxWaiver
       type: object
-    Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BaseDataSchema:
       properties:
         attributes:
-          $ref: '#/components/schemas/ContractorUpdateAttributes'
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
         type:
-          const: CONTRACTOR
           title: Type
           type: string
       required:
+      - id
       - type
-      - attributes
-      title: 'Payload[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
-      type: object
-    Response_ContractorAttributes_Literal_CONTRACTOR__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      title: BaseDataSchema
       type: object
     ContractorAttributes:
       properties:
@@ -838,15 +689,125 @@ components:
       - identifier
       title: ContractorAttributes
       type: object
-    TaxWaiverDocumentCreated:
+    Request_ContractorUpdateAttributes_Literal_CONTRACTOR__:
       properties:
-        filename:
-          description: '**Tax waiver document filename** · **Dateiname der Freistellungsbescheinigung**'
-          title: Filename
+        data:
+          $ref: '#/components/schemas/Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__'
+      required:
+      - data
+      title: 'Request[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    TaxAuthority:
+      enum:
+      - BADEN_WUERTTEMBERG
+      - BAVARIA
+      - BERLIN
+      - BRANDENBURG
+      - BREMEN
+      - HAMBURG
+      - HESSE
+      - MECKLENBURG_VORPOMMERN
+      - LOWER_SAXONY
+      - NORTH_RHINE_WESTPHALIA
+      - RHEINLAND_PALATINATE
+      - SAARLAND
+      - SAXONY
+      - SACHSEN_ANHALT
+      - SCHLESWIG_HOLSTEIN
+      - THURINGIA
+      title: TaxAuthority
+      type: string
+    Data_ContractorAttributes_Literal_CONTRACTOR__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractorAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CONTRACTOR
+          title: Type
           type: string
       required:
-      - filename
-      title: TaxWaiverDocumentCreated
+      - id
+      - type
+      - attributes
+      title: 'Data[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    TaxWaiverWriter:
+      properties:
+        security_number:
+          description: '**Security number** · **Sicherheitsnummer**'
+          maxLength: 90
+          title: Security Number
+          type: string
+      required:
+      - security_number
+      title: TaxWaiver
+      type: object
+    ListResponse_ContractorAttributes_Literal_CONTRACTOR__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    Payload_ContractorCreateAttributes_Literal_CONTRACTOR__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractorCreateAttributes'
+        type:
+          const: CONTRACTOR
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContractorCreateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
       type: object
     ContractorCreateAttributes:
       properties:
@@ -1011,6 +972,89 @@ components:
       - upload
       title: Body_upload_tax_waiver_contractors__id__upload_tax_waiver__post
       type: object
+    TaxWaiverDocumentCreatedResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/TaxWaiverDocumentCreated'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: TaxWaiverDocumentCreatedResponse
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
     Request_ContractorCreateAttributes_Literal_CONTRACTOR__:
       properties:
         data:
@@ -1019,72 +1063,35 @@ components:
       - data
       title: 'Request[ContractorCreateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
       type: object
-    TaxWaiver:
-      properties:
-        filename:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**Tax waiver document filename** · **Dateiname der Freistellungsbescheinigung**'
-          title: Filename
-        security_number:
-          description: '**Security number** · **Sicherheitsnummer**'
-          maxLength: 90
-          title: Security Number
-          type: string
-        valid_until:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Expiration date** · **Ablaufdatum**'
-          title: Valid Until
-      required:
-      - security_number
-      title: TaxWaiver
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    BaseDataSchema:
+    Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__:
       properties:
         attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
+          $ref: '#/components/schemas/ContractorUpdateAttributes'
         type:
+          const: CONTRACTOR
           title: Type
           type: string
       required:
-      - id
       - type
-      title: BaseDataSchema
+      - attributes
+      title: 'Payload[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
       type: object
-    ListResponse_ContractorAttributes_Literal_CONTRACTOR__:
+    TaxWaiverDocumentCreated:
+      properties:
+        filename:
+          description: '**Tax waiver document filename** · **Dateiname der Freistellungsbescheinigung**'
+          title: Filename
+          type: string
+      required:
+      - filename
+      title: TaxWaiverDocumentCreated
+      type: object
+    Response_ContractorAttributes_Literal_CONTRACTOR__:
       properties:
         data:
-          items:
-            $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
-          title: Data
-          type: array
+          anyOf:
+          - $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
+          - type: 'null'
         errors:
           anyOf:
           - items:
@@ -1107,15 +1114,8 @@ components:
               - type: 'null'
             type: object
           - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
           title: Links
-      required:
-      - data
-      title: 'ListResponse[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      title: 'Response[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
       type: object
     CountryCodes:
       enum:

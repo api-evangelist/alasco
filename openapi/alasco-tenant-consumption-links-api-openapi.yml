@@ -79,62 +79,29 @@ paths:
       - Tenant Consumption Links
 components:
   schemas:
-    TenantConsumptionLinkWrite:
+    TenantConsumptionLinkData:
       properties:
-        annual_consumption_id:
+        attributes:
+          $ref: '#/components/schemas/TenantConsumptionLinkAttributes'
+        id:
           format: uuid
-          title: Annual Consumption Id
+          title: Id
           type: string
-        external_tenant_id:
-          title: External Tenant Id
-          type: string
-      required:
-      - external_tenant_id
-      - annual_consumption_id
-      title: TenantConsumptionLinkWrite
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
         type:
-          title: Error Type
+          const: TENANT_CONSUMPTION_LINK
+          default: TENANT_CONSUMPTION_LINK
+          title: Type
           type: string
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Links:
-      properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
-      required:
-      - next
-      - prev
-      title: Links
+      - id
+      - attributes
+      title: TenantConsumptionLinkData
       type: object
     ResourceType:
       enum:
@@ -171,6 +138,22 @@ components:
       - attributes
       title: TenantConsumptionLinkCreatePayloadData
       type: object
+    TenantConsumptionLinkAttributes:
+      properties:
+        annual_consumption_id:
+          description: '**Annual consumption ID** · **Jahresverbrauch-ID**'
+          format: uuid
+          title: Annual Consumption Id
+          type: string
+        external_tenant_id:
+          description: '**External tenant ID** · **Externe Mieter-ID**'
+          title: External Tenant Id
+          type: string
+      required:
+      - external_tenant_id
+      - annual_consumption_id
+      title: TenantConsumptionLinkAttributes
+      type: object
     TenantConsumptionLinkResponse:
       properties:
         data:
@@ -196,6 +179,32 @@ components:
       required:
       - data
       title: TenantConsumptionLinkResponse
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
     HTTPValidationError:
       properties:
@@ -261,6 +270,37 @@ components:
           title: Title
       title: Error
       type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    TenantConsumptionLinkWrite:
+      properties:
+        annual_consumption_id:
+          format: uuid
+          title: Annual Consumption Id
+          type: string
+        external_tenant_id:
+          title: External Tenant Id
+          type: string
+      required:
+      - external_tenant_id
+      - annual_consumption_id
+      title: TenantConsumptionLinkWrite
+      type: object
     TenantConsumptionLinkPayload:
       properties:
         data:
@@ -268,46 +308,6 @@ components:
       required:
       - data
       title: TenantConsumptionLinkPayload
-      type: object
-    TenantConsumptionLinkAttributes:
-      properties:
-        annual_consumption_id:
-          description: '**Annual consumption ID** · **Jahresverbrauch-ID**'
-          format: uuid
-          title: Annual Consumption Id
-          type: string
-        external_tenant_id:
-          description: '**External tenant ID** · **Externe Mieter-ID**'
-          title: External Tenant Id
-          type: string
-      required:
-      - external_tenant_id
-      - annual_consumption_id
-      title: TenantConsumptionLinkAttributes
-      type: object
-    TenantConsumptionLinkData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TenantConsumptionLinkAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: TENANT_CONSUMPTION_LINK
-          default: TENANT_CONSUMPTION_LINK
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: TenantConsumptionLinkData
       type: object
   securitySchemes:
     API_Key:

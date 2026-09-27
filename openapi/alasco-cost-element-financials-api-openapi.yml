@@ -121,35 +121,6 @@ paths:
       - Cost Element Financials
 components:
   schemas:
-    Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/CostElementFinancialsAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: COST_ELEMENT_FINANCIALS
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[CostElementFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_FINANCIALS: ''COST_ELEMENT_FINANCIALS''>]]'
-      type: object
     CostElementFinancialsAttributes:
       properties:
         approved_amount:
@@ -824,6 +795,70 @@ components:
       - type
       title: ValidationError
       type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CostElementFinancialsAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: COST_ELEMENT_FINANCIALS
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[CostElementFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_FINANCIALS: ''COST_ELEMENT_FINANCIALS''>]]'
+      type: object
     ListResponse_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__:
       properties:
         data:
@@ -862,41 +897,6 @@ components:
       required:
       - data
       title: 'ListResponse[CostElementFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_FINANCIALS: ''COST_ELEMENT_FINANCIALS''>]]'
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
       type: object
   securitySchemes:
     API_Key:

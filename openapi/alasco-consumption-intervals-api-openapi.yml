@@ -128,27 +128,87 @@ components:
       - errors
       title: BulkPartialConsumptionIntervalData
       type: object
-    BulkConsumptionIntervalData:
+    BulkConsumptionIntervalPayload:
       properties:
-        created:
+        data:
           items:
-            $ref: '#/components/schemas/ProcessedConsumptionInterval'
-          title: Created
+            $ref: '#/components/schemas/ConsumptionIntervalPayloadData'
+          title: Data
           type: array
+      required:
+      - data
+      title: BulkConsumptionIntervalPayload
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ProcessedConsumptionInterval:
+      properties:
+        external_meter_id:
+          title: External Meter Id
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+      required:
+      - external_meter_id
+      - id
+      title: ProcessedConsumptionInterval
+      type: object
+    ConsumptionIntervalData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ConsumptionIntervalAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
         type:
           const: CONSUMPTION_INTERVAL
           default: CONSUMPTION_INTERVAL
           title: Type
           type: string
-        updated:
-          items:
-            $ref: '#/components/schemas/ProcessedConsumptionInterval'
-          title: Updated
-          type: array
       required:
-      - created
-      - updated
-      title: BulkConsumptionIntervalData
+      - id
+      - attributes
+      title: ConsumptionIntervalData
       type: object
     Links:
       properties:
@@ -193,43 +253,6 @@ components:
       - data
       title: ConsumptionIntervalResponse
       type: object
-    BulkConsumptionIntervalResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/BulkConsumptionIntervalData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: BulkConsumptionIntervalResponse
-      type: object
-    BulkConsumptionIntervalPayload:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ConsumptionIntervalPayloadData'
-          title: Data
-          type: array
-      required:
-      - data
-      title: BulkConsumptionIntervalPayload
-      type: object
     alasco__ivy__public__api__utilities__consumption_intervals__BulkError:
       properties:
         attributes:
@@ -260,6 +283,142 @@ components:
       - ALA-4008
       title: ConsumptionIntervalCreateErrorCode
       type: string
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    ConsumptionIntervalWrite-Output:
+      properties:
+        batch_info_uuid:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: The UUID of the utility data batch info this consumption interval should be associated with.
+          title: Batch Info Uuid
+        consumption_value:
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Consumption Value
+          type: string
+        end_date:
+          format: date
+          title: End Date
+          type: string
+        external_meter_id:
+          description: The external_id of the utility meter this consumption interval belongs to.
+          examples:
+          - 123XYZ
+          maxLength: 255
+          title: External Meter Id
+          type: string
+        start_date:
+          format: date
+          title: Start Date
+          type: string
+      required:
+      - external_meter_id
+      - start_date
+      - end_date
+      - consumption_value
+      title: ConsumptionIntervalWrite
+      type: object
+    BulkConsumptionIntervalData:
+      properties:
+        created:
+          items:
+            $ref: '#/components/schemas/ProcessedConsumptionInterval'
+          title: Created
+          type: array
+        type:
+          const: CONSUMPTION_INTERVAL
+          default: CONSUMPTION_INTERVAL
+          title: Type
+          type: string
+        updated:
+          items:
+            $ref: '#/components/schemas/ProcessedConsumptionInterval'
+          title: Updated
+          type: array
+      required:
+      - created
+      - updated
+      title: BulkConsumptionIntervalData
+      type: object
+    ConsumptionIntervalPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/ConsumptionIntervalPayloadData'
+      required:
+      - data
+      title: ConsumptionIntervalPayload
+      type: object
+    ConsumptionIntervalAttributes:
+      properties:
+        consumption_value:
+          description: '**Consumption value** · **Verbrauchswert**'
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Consumption Value
+          type: string
+        end_date:
+          description: '**End date** · **Enddatum**'
+          format: date
+          title: End Date
+          type: string
+        start_date:
+          description: '**Start date** · **Startdatum**'
+          format: date
+          title: Start Date
+          type: string
+      required:
+      - start_date
+      - end_date
+      - consumption_value
+      title: ConsumptionIntervalAttributes
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
     Error:
       properties:
         code:
@@ -290,6 +449,58 @@ components:
           - type: 'null'
           title: Title
       title: Error
+      type: object
+    BulkConsumptionIntervalResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/BulkConsumptionIntervalData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: BulkConsumptionIntervalResponse
+      type: object
+    BulkPartialConsumptionIntervalResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/BulkPartialConsumptionIntervalData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: BulkPartialConsumptionIntervalResponse
       type: object
     ConsumptionIntervalWrite-Input:
       properties:
@@ -329,29 +540,18 @@ components:
       - consumption_value
       title: ConsumptionIntervalWrite
       type: object
-    ConsumptionIntervalData:
+    ConsumptionIntervalPayloadData:
       properties:
         attributes:
-          $ref: '#/components/schemas/ConsumptionIntervalAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
+          $ref: '#/components/schemas/ConsumptionIntervalWrite-Input'
         type:
           const: CONSUMPTION_INTERVAL
-          default: CONSUMPTION_INTERVAL
           title: Type
           type: string
       required:
-      - id
+      - type
       - attributes
-      title: ConsumptionIntervalData
+      title: ConsumptionIntervalPayloadData
       type: object
     alasco__ivy__public__api__utilities__consumption_intervals__ErrorDetail:
       properties:
@@ -370,206 +570,6 @@ components:
       - msg
       - code
       title: ErrorDetail
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    ConsumptionIntervalWrite-Output:
-      properties:
-        batch_info_uuid:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          description: The UUID of the utility data batch info this consumption interval should be associated with.
-          title: Batch Info Uuid
-        consumption_value:
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Consumption Value
-          type: string
-        end_date:
-          format: date
-          title: End Date
-          type: string
-        external_meter_id:
-          description: The external_id of the utility meter this consumption interval belongs to.
-          examples:
-          - 123XYZ
-          maxLength: 255
-          title: External Meter Id
-          type: string
-        start_date:
-          format: date
-          title: Start Date
-          type: string
-      required:
-      - external_meter_id
-      - start_date
-      - end_date
-      - consumption_value
-      title: ConsumptionIntervalWrite
-      type: object
-    ConsumptionIntervalPayloadData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ConsumptionIntervalWrite-Input'
-        type:
-          const: CONSUMPTION_INTERVAL
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: ConsumptionIntervalPayloadData
-      type: object
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    BulkPartialConsumptionIntervalResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/BulkPartialConsumptionIntervalData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: BulkPartialConsumptionIntervalResponse
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    ConsumptionIntervalPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/ConsumptionIntervalPayloadData'
-      required:
-      - data
-      title: ConsumptionIntervalPayload
-      type: object
-    ConsumptionIntervalAttributes:
-      properties:
-        consumption_value:
-          description: '**Consumption value** · **Verbrauchswert**'
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Consumption Value
-          type: string
-        end_date:
-          description: '**End date** · **Enddatum**'
-          format: date
-          title: End Date
-          type: string
-        start_date:
-          description: '**Start date** · **Startdatum**'
-          format: date
-          title: Start Date
-          type: string
-      required:
-      - start_date
-      - end_date
-      - consumption_value
-      title: ConsumptionIntervalAttributes
-      type: object
-    ProcessedConsumptionInterval:
-      properties:
-        external_meter_id:
-          title: External Meter Id
-          type: string
-        id:
-          format: uuid
-          title: Id
-          type: string
-      required:
-      - external_meter_id
-      - id
-      title: ProcessedConsumptionInterval
       type: object
   securitySchemes:
     API_Key:

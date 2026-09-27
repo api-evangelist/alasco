@@ -667,6 +667,224 @@ paths:
     - url: https://api.alasco.de/fincon/v1
 components:
   schemas:
+    AddPaidInvoiceData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/PaidInvoiceAttributes'
+        relationships:
+          $ref: '#/components/schemas/AddPaidInvoiceRelationships'
+        type:
+          default: INVOICE
+          title: Type
+          type: string
+      required:
+      - attributes
+      - relationships
+      title: AddPaidInvoiceData
+      type: object
+    AddPaidInvoiceRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/AddPaidInvoiceData'
+      required:
+      - data
+      title: AddPaidInvoiceRequest
+      type: object
+    InvoiceResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/InvoiceData'
+          - $ref: '#/components/schemas/InvoiceCreatedData'
+          - type: 'null'
+          title: Data
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: InvoiceResponse
+      type: object
+    UpdateNewInvoiceDetailsRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/UpdateNewInvoiceDetailsData'
+      required:
+      - data
+      title: UpdateNewInvoiceDetailsRequest
+      type: object
+    UpdateInvoiceRelationships:
+      properties:
+        contract:
+          anyOf:
+          - $ref: '#/components/schemas/UpdateContractRelationshipData'
+          - type: 'null'
+          description: '**Contract ID** · **Auftrags-ID**'
+      title: UpdateInvoiceRelationships
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    UpdatePaidInvoiceRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/UpdatePaidInvoiceData'
+      required:
+      - data
+      title: UpdatePaidInvoiceRequest
+      type: object
+    UpdateNewInvoiceDetailsData:
+      properties:
+        attributes:
+          anyOf:
+          - $ref: '#/components/schemas/UpdateNewInvoiceAttributes'
+          - type: 'null'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - $ref: '#/components/schemas/UpdateInvoiceRelationships'
+          - type: 'null'
+        type:
+          default: INVOICE
+          title: Type
+          type: string
+      required:
+      - id
+      title: UpdateNewInvoiceDetailsData
+      type: object
+    InvoiceBasicAttributes:
+      properties:
+        date_created:
+          description: '**Date created** · **Datum hinzugefügt**'
+          format: date-time
+          title: Date Created
+          type: string
+        date_received:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Date received** · **Eingangsdatum**'
+          title: Date Received
+        invoice_process_state:
+          $ref: '#/components/schemas/InvoiceProcessState'
+          description: '**Invoice status** · **Rechnungsstatus**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `NEW` | New | Neu |
+
+            | `DETAILS_ENTERED` | Details entered | Erfasst |
+
+            | `CHECKED` | Checked | Geprüft |
+
+            | `APPROVED` | Approved | Freigegeben |
+
+            | `PAID` | Paid | Bezahlt |'
+          examples:
+          - NEW
+      required:
+      - date_created
+      - invoice_process_state
+      title: InvoiceBasicAttributes
+      type: object
+    InvoiceListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/InvoiceData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: InvoiceListResponse
+      type: object
     UpdatePaidInvoiceData:
       properties:
         attributes:
@@ -689,15 +907,365 @@ components:
       - id
       title: UpdatePaidInvoiceData
       type: object
-    UpdateInvoiceRelationships:
+    UpdateContractRelationshipAttributes:
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        type:
+          title: Type
+          type: string
+      required:
+      - type
+      - id
+      title: UpdateContractRelationshipAttributes
+      type: object
+    PaidInvoiceAttributes:
+      properties:
+        audited_amount:
+          description: '**Audited amount** · **Geprüfter Rechnungsbetrag**'
+          properties:
+            net:
+              example: '123.123456789012'
+              title: Net amount
+              type: string
+            tax:
+              example: '123.123456789012'
+              title: Tax amount
+              type: string
+          title: Audited Amount
+          type: object
+        cash_discount:
+          anyOf:
+          - properties:
+              net:
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Cash discount** · **Skonto**'
+          title: Cash Discount
+        date_approved:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Date approved** · **Freigabedatum**'
+          title: Date Approved
+        date_discount:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Cash discount date** · **Skontofrist**'
+          title: Date Discount
+        date_due:
+          description: '**Due date** · **Fälligkeitsdatum**'
+          format: date
+          title: Date Due
+          type: string
+        date_posted:
+          description: '**Posting date** · **Rechnungsdatum**'
+          format: date
+          title: Date Posted
+          type: string
+        date_received:
+          description: '**Date received** · **Eingangsdatum**'
+          format: date
+          title: Date Received
+          type: string
+        discounted_approved_amount:
+          description: '**Approved amount after cash discount** · **Freigegebener Betrag nach Skonto**'
+          properties:
+            net:
+              example: '123.123456789012'
+              title: Net amount
+              type: string
+            tax:
+              example: '123.123456789012'
+              title: Tax amount
+              type: string
+          title: Discounted Approved Amount
+          type: object
+        external_identifier:
+          description: '**Invoice number (external)** · **Rechnungsnummer (extern)**'
+          title: External Identifier
+          type: string
+        internal_identifier:
+          default: ''
+          description: '**Invoice number (internal)** · **Rechnungsnummer (intern)**'
+          title: Internal Identifier
+          type: string
+        invoice_type:
+          $ref: '#/components/schemas/InvoiceType'
+          description: '**Invoice type** · **Rechnungs-Typ**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `SINGLE` | Single | Einzelrechnung |
+
+            | `ADVANCE` | Advance | Vorauszahlung |
+
+            | `INSTALLMENT` | Installment | Abschlagsrechnung |
+
+            | `PARTIAL_FINAL` | Partial final | Teilschlussrechnung |
+
+            | `FINAL` | Final | Schlussrechnung |
+
+            | `RETAINAGE_PAYOUT` | Retention release | Auszahlung Einbehalt |
+
+            | `RECURRING` | Recurring | Dauerrechnung |'
+          examples:
+          - SINGLE
+        paid_amount:
+          description: '**Paid amount** · **Ausgezahlter Betrag**'
+          properties:
+            net:
+              example: '123.123456789012'
+              title: Net amount
+              type: string
+            tax:
+              example: '123.123456789012'
+              title: Tax amount
+              type: string
+          title: Paid Amount
+          type: object
+        payment_comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Payment comment** · **Zahlungskommentar**'
+          title: Payment Comment
+        payment_date:
+          description: '**Payment date** · **Zahlungsdatum**'
+          format: date
+          title: Payment Date
+          type: string
+        unaudited_amount:
+          description: '**Unaudited amount** · **Ungeprüfter Rechnungsbetrag und USt.**'
+          properties:
+            net:
+              example: '123.123456789012'
+              title: Net amount
+              type: string
+            tax:
+              example: '123.123456789012'
+              title: Tax amount
+              type: string
+          title: Unaudited Amount
+          type: object
+      required:
+      - audited_amount
+      - cash_discount
+      - date_approved
+      - date_discount
+      - date_due
+      - date_posted
+      - date_received
+      - discounted_approved_amount
+      - external_identifier
+      - invoice_type
+      - paid_amount
+      - payment_date
+      - unaudited_amount
+      title: PaidInvoiceAttributes
+      type: object
+    InvoiceProcessState:
+      description: 'The invoice process state represents the state of the invoice in its workflow.
+
+        A `NEW` invoice has not been processed by any user.
+
+        An invoice in state `DETAILS_ENTERED` means that all the required details
+
+        have been entered.
+
+        After the formal verification step has been completed, the invoice is in state `FORMALLY_CHECKED`.
+
+        As soon as the first manual approval step has been completed, the invoice enters state `CHECKED`.
+
+        An invoice is `APPROVED` when all required approvals have been given.
+
+        Finally, when the payment for an invoice is registered, it enters state `PAID`.'
+      enum:
+      - NEW
+      - DETAILS_ENTERED
+      - CHECKED
+      - APPROVED
+      - PAID
+      title: InvoiceProcessState
+      type: string
+    InvoicePayment:
+      properties:
+        data:
+          $ref: '#/components/schemas/InvoicePaymentData'
+      required:
+      - data
+      title: InvoicePayment
+      type: object
+    InvoicePaymentData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/InvoicePaymentAttributes'
+        type:
+          default: PAYMENT_DETAILS
+          title: Type
+          type: string
+      required:
+      - attributes
+      title: InvoicePaymentData
+      type: object
+    UpdateContractRelationshipData:
+      properties:
+        data:
+          $ref: '#/components/schemas/UpdateContractRelationshipAttributes'
+      required:
+      - data
+      title: UpdateContractRelationshipData
+      type: object
+    InvoiceData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/InvoiceAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - contract:
+              data:
+                id: 1aae03bc-96d8-47b6-9a8b-07f190400e62
+                type: CONTRACT
+            documents:
+              links:
+                related: https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/
+          title: Relationships
+        type:
+          default: INVOICE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: InvoiceData
+      type: object
+    AddPaidInvoiceRelationships:
       properties:
         contract:
-          anyOf:
-          - $ref: '#/components/schemas/UpdateContractRelationshipData'
-          - type: 'null'
+          $ref: '#/components/schemas/UpdateContractRelationshipData'
           description: '**Contract ID** · **Auftrags-ID**'
-      title: UpdateInvoiceRelationships
+      required:
+      - contract
+      title: AddPaidInvoiceRelationships
       type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    InvoiceCreatedData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/InvoiceBasicAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          default: INVOICE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: InvoiceCreatedData
+      type: object
+    InvoiceType:
+      description: The invoice type.
+      enum:
+      - SINGLE
+      - ADVANCE
+      - INSTALLMENT
+      - PARTIAL_FINAL
+      - FINAL
+      - RETAINAGE_PAYOUT
+      - RECURRING
+      title: InvoiceType
+      type: string
     InvoiceAttributes:
       properties:
         audited_amount:
@@ -982,285 +1550,6 @@ components:
       - is_reverse_charge
       title: InvoiceAttributes
       type: object
-    InvoicePaymentAttributes:
-      properties:
-        payment_amount_gross:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*(?:\d{0,16}|(?=[\d.]{1,29}0*$)\d{0,16}\.\d{0,12}0*$)
-            type: string
-          title: Payment Amount Gross
-        payment_comment:
-          title: Payment Comment
-          type: string
-        payment_date:
-          format: date
-          title: Payment Date
-          type: string
-      required:
-      - payment_date
-      - payment_amount_gross
-      - payment_comment
-      title: InvoicePaymentAttributes
-      type: object
-    InvoicePaymentData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/InvoicePaymentAttributes'
-        type:
-          default: PAYMENT_DETAILS
-          title: Type
-          type: string
-      required:
-      - attributes
-      title: InvoicePaymentData
-      type: object
-    InvoiceBasicAttributes:
-      properties:
-        date_created:
-          description: '**Date created** · **Datum hinzugefügt**'
-          format: date-time
-          title: Date Created
-          type: string
-        date_received:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Date received** · **Eingangsdatum**'
-          title: Date Received
-        invoice_process_state:
-          $ref: '#/components/schemas/InvoiceProcessState'
-          description: '**Invoice status** · **Rechnungsstatus**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `NEW` | New | Neu |
-
-            | `DETAILS_ENTERED` | Details entered | Erfasst |
-
-            | `CHECKED` | Checked | Geprüft |
-
-            | `APPROVED` | Approved | Freigegeben |
-
-            | `PAID` | Paid | Bezahlt |'
-          examples:
-          - NEW
-      required:
-      - date_created
-      - invoice_process_state
-      title: InvoiceBasicAttributes
-      type: object
-    InvoiceData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/InvoiceAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - contract:
-              data:
-                id: 1aae03bc-96d8-47b6-9a8b-07f190400e62
-                type: CONTRACT
-            documents:
-              links:
-                related: https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/
-          title: Relationships
-        type:
-          default: INVOICE
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: InvoiceData
-      type: object
-    UpdateContractRelationshipAttributes:
-      properties:
-        id:
-          format: uuid
-          title: Id
-          type: string
-        type:
-          title: Type
-          type: string
-      required:
-      - type
-      - id
-      title: UpdateContractRelationshipAttributes
-      type: object
-    UpdateContractRelationshipData:
-      properties:
-        data:
-          $ref: '#/components/schemas/UpdateContractRelationshipAttributes'
-      required:
-      - data
-      title: UpdateContractRelationshipData
-      type: object
-    InvoiceListResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/InvoiceData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: InvoiceListResponse
-      type: object
-    UpdatePaidInvoiceRequest:
-      properties:
-        data:
-          $ref: '#/components/schemas/UpdatePaidInvoiceData'
-      required:
-      - data
-      title: UpdatePaidInvoiceRequest
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    InvoicePayment:
-      properties:
-        data:
-          $ref: '#/components/schemas/InvoicePaymentData'
-      required:
-      - data
-      title: InvoicePayment
-      type: object
-    UpdateNewInvoiceDetailsData:
-      properties:
-        attributes:
-          anyOf:
-          - $ref: '#/components/schemas/UpdateNewInvoiceAttributes'
-          - type: 'null'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - $ref: '#/components/schemas/UpdateInvoiceRelationships'
-          - type: 'null'
-        type:
-          default: INVOICE
-          title: Type
-          type: string
-      required:
-      - id
-      title: UpdateNewInvoiceDetailsData
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    AddPaidInvoiceRelationships:
-      properties:
-        contract:
-          $ref: '#/components/schemas/UpdateContractRelationshipData'
-          description: '**Contract ID** · **Auftrags-ID**'
-      required:
-      - contract
-      title: AddPaidInvoiceRelationships
-      type: object
-    UpdateNewInvoiceDetailsRequest:
-      properties:
-        data:
-          $ref: '#/components/schemas/UpdateNewInvoiceDetailsData'
-      required:
-      - data
-      title: UpdateNewInvoiceDetailsRequest
-      type: object
     Body_submit_invoice_assets__id__submit_invoice__post:
       properties:
         file:
@@ -1276,132 +1565,6 @@ components:
       - file
       title: Body_submit_invoice_assets__id__submit_invoice__post
       type: object
-    AddPaidInvoiceRequest:
-      properties:
-        data:
-          $ref: '#/components/schemas/AddPaidInvoiceData'
-      required:
-      - data
-      title: AddPaidInvoiceRequest
-      type: object
-    AddPaidInvoiceData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/PaidInvoiceAttributes'
-        relationships:
-          $ref: '#/components/schemas/AddPaidInvoiceRelationships'
-        type:
-          default: INVOICE
-          title: Type
-          type: string
-      required:
-      - attributes
-      - relationships
-      title: AddPaidInvoiceData
-      type: object
-    InvoiceResponse:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/InvoiceData'
-          - $ref: '#/components/schemas/InvoiceCreatedData'
-          - type: 'null'
-          title: Data
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: InvoiceResponse
-      type: object
-    InvoiceProcessState:
-      description: 'The invoice process state represents the state of the invoice in its workflow.
-
-        A `NEW` invoice has not been processed by any user.
-
-        An invoice in state `DETAILS_ENTERED` means that all the required details
-
-        have been entered.
-
-        After the formal verification step has been completed, the invoice is in state `FORMALLY_CHECKED`.
-
-        As soon as the first manual approval step has been completed, the invoice enters state `CHECKED`.
-
-        An invoice is `APPROVED` when all required approvals have been given.
-
-        Finally, when the payment for an invoice is registered, it enters state `PAID`.'
-      enum:
-      - NEW
-      - DETAILS_ENTERED
-      - CHECKED
-      - APPROVED
-      - PAID
-      title: InvoiceProcessState
-      type: string
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    InvoiceType:
-      description: The invoice type.
-      enum:
-      - SINGLE
-      - ADVANCE
-      - INSTALLMENT
-      - PARTIAL_FINAL
-      - FINAL
-      - RETAINAGE_PAYOUT
-      - RECURRING
-      title: InvoiceType
-      type: string
     UpdateNewInvoiceAttributes:
       properties:
         date_discount:
@@ -1490,189 +1653,41 @@ components:
           title: Unaudited Amount
       title: UpdateNewInvoiceAttributes
       type: object
-    InvoiceCreatedData:
+    InvoicePaymentAttributes:
       properties:
-        attributes:
-          $ref: '#/components/schemas/InvoiceBasicAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
+        payment_amount_gross:
           anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          default: INVOICE
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: InvoiceCreatedData
-      type: object
-    PaidInvoiceAttributes:
-      properties:
-        audited_amount:
-          description: '**Audited amount** · **Geprüfter Rechnungsbetrag**'
-          properties:
-            net:
-              example: '123.123456789012'
-              title: Net amount
-              type: string
-            tax:
-              example: '123.123456789012'
-              title: Tax amount
-              type: string
-          title: Audited Amount
-          type: object
-        cash_discount:
-          anyOf:
-          - properties:
-              net:
-                example: '123.123456789012'
-                title: Net amount
-                type: string
-              tax:
-                example: '123.123456789012'
-                title: Tax amount
-                type: string
-            type: object
-          - type: 'null'
-          description: '**Cash discount** · **Skonto**'
-          title: Cash Discount
-        date_approved:
-          anyOf:
-          - format: date
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*(?:\d{0,16}|(?=[\d.]{1,29}0*$)\d{0,16}\.\d{0,12}0*$)
             type: string
-          - type: 'null'
-          description: '**Date approved** · **Freigabedatum**'
-          title: Date Approved
-        date_discount:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Cash discount date** · **Skontofrist**'
-          title: Date Discount
-        date_due:
-          description: '**Due date** · **Fälligkeitsdatum**'
-          format: date
-          title: Date Due
-          type: string
-        date_posted:
-          description: '**Posting date** · **Rechnungsdatum**'
-          format: date
-          title: Date Posted
-          type: string
-        date_received:
-          description: '**Date received** · **Eingangsdatum**'
-          format: date
-          title: Date Received
-          type: string
-        discounted_approved_amount:
-          description: '**Approved amount after cash discount** · **Freigegebener Betrag nach Skonto**'
-          properties:
-            net:
-              example: '123.123456789012'
-              title: Net amount
-              type: string
-            tax:
-              example: '123.123456789012'
-              title: Tax amount
-              type: string
-          title: Discounted Approved Amount
-          type: object
-        external_identifier:
-          description: '**Invoice number (external)** · **Rechnungsnummer (extern)**'
-          title: External Identifier
-          type: string
-        internal_identifier:
-          default: ''
-          description: '**Invoice number (internal)** · **Rechnungsnummer (intern)**'
-          title: Internal Identifier
-          type: string
-        invoice_type:
-          $ref: '#/components/schemas/InvoiceType'
-          description: '**Invoice type** · **Rechnungs-Typ**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `SINGLE` | Single | Einzelrechnung |
-
-            | `ADVANCE` | Advance | Vorauszahlung |
-
-            | `INSTALLMENT` | Installment | Abschlagsrechnung |
-
-            | `PARTIAL_FINAL` | Partial final | Teilschlussrechnung |
-
-            | `FINAL` | Final | Schlussrechnung |
-
-            | `RETAINAGE_PAYOUT` | Retention release | Auszahlung Einbehalt |
-
-            | `RECURRING` | Recurring | Dauerrechnung |'
-          examples:
-          - SINGLE
-        paid_amount:
-          description: '**Paid amount** · **Ausgezahlter Betrag**'
-          properties:
-            net:
-              example: '123.123456789012'
-              title: Net amount
-              type: string
-            tax:
-              example: '123.123456789012'
-              title: Tax amount
-              type: string
-          title: Paid Amount
-          type: object
+          title: Payment Amount Gross
         payment_comment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Payment comment** · **Zahlungskommentar**'
           title: Payment Comment
+          type: string
         payment_date:
-          description: '**Payment date** · **Zahlungsdatum**'
           format: date
           title: Payment Date
           type: string
-        unaudited_amount:
-          description: '**Unaudited amount** · **Ungeprüfter Rechnungsbetrag und USt.**'
-          properties:
-            net:
-              example: '123.123456789012'
-              title: Net amount
-              type: string
-            tax:
-              example: '123.123456789012'
-              title: Tax amount
-              type: string
-          title: Unaudited Amount
-          type: object
       required:
-      - audited_amount
-      - cash_discount
-      - date_approved
-      - date_discount
-      - date_due
-      - date_posted
-      - date_received
-      - discounted_approved_amount
-      - external_identifier
-      - invoice_type
-      - paid_amount
       - payment_date
-      - unaudited_amount
-      title: PaidInvoiceAttributes
+      - payment_amount_gross
+      - payment_comment
+      title: InvoicePaymentAttributes
+      type: object
+    Body_submit_invoice_projects__id__submit_invoice__post:
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          description: '
+
+            The file to submit. The file must be a valid PDF.
+
+            '
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_submit_invoice_projects__id__submit_invoice__post
       type: object
     InvoiceData_2:
       properties:
@@ -1709,21 +1724,6 @@ components:
       - id
       - attributes
       title: InvoiceData
-      type: object
-    Body_submit_invoice_projects__id__submit_invoice__post:
-      properties:
-        file:
-          contentMediaType: application/octet-stream
-          description: '
-
-            The file to submit. The file must be a valid PDF.
-
-            '
-          title: File
-          type: string
-      required:
-      - file
-      title: Body_submit_invoice_projects__id__submit_invoice__post
       type: object
   securitySchemes:
     API_Key:

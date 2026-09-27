@@ -187,32 +187,6 @@ paths:
       - Asset
 components:
   schemas:
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
     AssetListResponse:
       properties:
         data:
@@ -252,60 +226,31 @@ components:
       - data
       title: AssetListResponse
       type: object
-    AssetAttributes:
+    ValidationError:
       properties:
-        date_created:
-          description: '**Date created** · **Erstellt am**'
-          format: date-time
-          title: Date Created
-          type: string
-        identifier:
-          description: '**Identifier** · **Kennung**'
-          title: Identifier
-          type: string
-        name:
-          description: '**Name** · **Name**'
-          title: Name
-          type: string
-      required:
-      - name
-      - identifier
-      - date_created
-      title: AssetAttributes
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
           type: array
-      title: HTTPValidationError
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
+        msg:
+          title: Message
           type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
         type:
-          title: Type
+          title: Error Type
           type: string
       required:
-      - id
+      - loc
+      - msg
       - type
-      title: BaseDataSchema
+      title: ValidationError
       type: object
     Error:
       properties:
@@ -332,29 +277,6 @@ components:
           - type: 'null'
           title: Title
       title: Error
-      type: object
-    AssetData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/AssetAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          default: ASSET
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: AssetData
       type: object
     AssetDetailsResponse:
       properties:
@@ -386,6 +308,84 @@ components:
           - type: 'null'
           title: Links
       title: AssetDetailsResponse
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    AssetData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/AssetAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          default: ASSET
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: AssetData
+      type: object
+    AssetAttributes:
+      properties:
+        date_created:
+          description: '**Date created** · **Erstellt am**'
+          format: date-time
+          title: Date Created
+          type: string
+        identifier:
+          description: '**Identifier** · **Kennung**'
+          title: Identifier
+          type: string
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+      required:
+      - name
+      - identifier
+      - date_created
+      title: AssetAttributes
       type: object
   securitySchemes:
     API_Key:

@@ -115,43 +115,39 @@ paths:
       - Utility Meter Readings
 components:
   schemas:
-    Links:
+    UtilityMeterReadingPayload:
       properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
+        data:
+          $ref: '#/components/schemas/UtilityMeterReadingPayloadData'
       required:
-      - next
-      - prev
-      title: Links
+      - data
+      title: UtilityMeterReadingPayload
       type: object
-    UtilityMeterReadingAttributes:
+    BulkUtilityMeterReadingResponse:
       properties:
-        reading_timestamp:
-          description: '**Reading timestamp** · **Ablesezeitpunkt**'
-          examples:
-          - '2024-01-01T00:00:00Z'
-          format: date-time
-          title: Reading Timestamp
-          type: string
-        reading_value:
-          description: '**Reading value** · **Zählerstand**'
-          examples:
-          - 1000
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Reading Value
-          type: string
+        data:
+          $ref: '#/components/schemas/BulkUtilityMeterReadingData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
       required:
-      - reading_value
-      - reading_timestamp
-      title: UtilityMeterReadingAttributes
+      - data
+      title: BulkUtilityMeterReadingResponse
       type: object
     BulkUtilityMeterReadingPayload:
       properties:
@@ -164,13 +160,77 @@ components:
       - data
       title: BulkUtilityMeterReadingPayload
       type: object
-    UtilityMeterReadingPayload:
+    UtilityMeterReadingResponse:
       properties:
         data:
-          $ref: '#/components/schemas/UtilityMeterReadingPayloadData'
+          $ref: '#/components/schemas/UtilityMeterReadingData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
       required:
       - data
-      title: UtilityMeterReadingPayload
+      title: UtilityMeterReadingResponse
+      type: object
+    UtilityMeterReadingPayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterReadingWrite'
+        type:
+          const: UTILITY_METER_READING
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: UtilityMeterReadingPayloadData
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
       type: object
     UtilityMeterReadingWithExternalIdWrite:
       properties:
@@ -236,6 +296,173 @@ components:
       - reading_timestamp
       title: UtilityMeterReadingWrite
       type: object
+    UtilityMeterReadingWithExternalIdPayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterReadingWithExternalIdWrite'
+        type:
+          const: UTILITY_METER_READING
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: UtilityMeterReadingWithExternalIdPayloadData
+      type: object
+    BulkUtilityMeterReadingData:
+      properties:
+        created:
+          items:
+            $ref: '#/components/schemas/ProcessedUtilityMeterReading'
+          title: Created
+          type: array
+        type:
+          const: UTILITY_METER_READING
+          default: UTILITY_METER_READING
+          title: Type
+          type: string
+        updated:
+          items:
+            $ref: '#/components/schemas/ProcessedUtilityMeterReading'
+          title: Updated
+          type: array
+      required:
+      - created
+      - updated
+      title: BulkUtilityMeterReadingData
+      type: object
+    ProcessedUtilityMeterReading:
+      properties:
+        external_meter_id:
+          title: External Meter Id
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+      required:
+      - id
+      - external_meter_id
+      title: ProcessedUtilityMeterReading
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    UtilityMeterReadingWithExternalIdPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/UtilityMeterReadingWithExternalIdPayloadData'
+      required:
+      - data
+      title: UtilityMeterReadingWithExternalIdPayload
+      type: object
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    UtilityMeterReadingData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityMeterReadingAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: UTILITY_METER_READING
+          default: UTILITY_METER_READING
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: UtilityMeterReadingData
+      type: object
+    UtilityMeterReadingAttributes:
+      properties:
+        reading_timestamp:
+          description: '**Reading timestamp** · **Ablesezeitpunkt**'
+          examples:
+          - '2024-01-01T00:00:00Z'
+          format: date-time
+          title: Reading Timestamp
+          type: string
+        reading_value:
+          description: '**Reading value** · **Zählerstand**'
+          examples:
+          - 1000
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Reading Value
+          type: string
+      required:
+      - reading_value
+      - reading_timestamp
+      title: UtilityMeterReadingAttributes
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
     Error:
       properties:
         code:
@@ -266,233 +493,6 @@ components:
           - type: 'null'
           title: Title
       title: Error
-      type: object
-    UtilityMeterReadingResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/UtilityMeterReadingData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: UtilityMeterReadingResponse
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    UtilityMeterReadingPayloadData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/UtilityMeterReadingWrite'
-        type:
-          const: UTILITY_METER_READING
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: UtilityMeterReadingPayloadData
-      type: object
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
-    BulkUtilityMeterReadingResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/BulkUtilityMeterReadingData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: BulkUtilityMeterReadingResponse
-      type: object
-    UtilityMeterReadingWithExternalIdPayloadData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/UtilityMeterReadingWithExternalIdWrite'
-        type:
-          const: UTILITY_METER_READING
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: UtilityMeterReadingWithExternalIdPayloadData
-      type: object
-    UtilityMeterReadingData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/UtilityMeterReadingAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: UTILITY_METER_READING
-          default: UTILITY_METER_READING
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: UtilityMeterReadingData
-      type: object
-    BulkUtilityMeterReadingData:
-      properties:
-        created:
-          items:
-            $ref: '#/components/schemas/ProcessedUtilityMeterReading'
-          title: Created
-          type: array
-        type:
-          const: UTILITY_METER_READING
-          default: UTILITY_METER_READING
-          title: Type
-          type: string
-        updated:
-          items:
-            $ref: '#/components/schemas/ProcessedUtilityMeterReading'
-          title: Updated
-          type: array
-      required:
-      - created
-      - updated
-      title: BulkUtilityMeterReadingData
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    ProcessedUtilityMeterReading:
-      properties:
-        external_meter_id:
-          title: External Meter Id
-          type: string
-        id:
-          format: uuid
-          title: Id
-          type: string
-      required:
-      - id
-      - external_meter_id
-      title: ProcessedUtilityMeterReading
-      type: object
-    UtilityMeterReadingWithExternalIdPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/UtilityMeterReadingWithExternalIdPayloadData'
-      required:
-      - data
-      title: UtilityMeterReadingWithExternalIdPayload
       type: object
   securitySchemes:
     API_Key:
