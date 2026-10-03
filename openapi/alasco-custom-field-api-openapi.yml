@@ -138,91 +138,6 @@ paths:
     - url: https://api.alasco.de/fincon/v1
 components:
   schemas:
-    CustomFieldType:
-      anyOf:
-      - type: integer
-      - type: string
-      - format: date
-        type: string
-      - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-        type: string
-      - items:
-          type: string
-        type: array
-    ListResponse_CustomFieldAttributes_Literal_CUSTOM_FIELD__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[CustomFieldAttributes, Literal[<ResourceType.CUSTOM_FIELD: ''CUSTOM_FIELD''>]]'
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     Error:
       properties:
         detail:
@@ -248,6 +163,15 @@ components:
           - type: 'null'
           title: Title
       title: Error
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__:
       properties:
@@ -291,6 +215,82 @@ components:
       - value
       - name
       title: CustomFieldAttributes
+      type: object
+    CustomFieldType:
+      anyOf:
+      - type: integer
+      - type: string
+      - format: date
+        type: string
+      - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+        type: string
+      - items:
+          type: string
+        type: array
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ListResponse_CustomFieldAttributes_Literal_CUSTOM_FIELD__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[CustomFieldAttributes, Literal[<ResourceType.CUSTOM_FIELD: ''CUSTOM_FIELD''>]]'
       type: object
     alasco__public_api__fincon__web__v1__schemas__custom_field__CustomFieldType:
       anyOf:

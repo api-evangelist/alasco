@@ -207,6 +207,100 @@ paths:
       - Outright Sale
 components:
   schemas:
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    OutrightSaleAttributes:
+      properties:
+        name:
+          description: '**Name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+        project:
+          description: '**Project** · **Projekt**'
+          format: uuid
+          title: Project
+          type: string
+        total_planned_revenues:
+          description: '**Total planned revenues** · **Plan-Erlöse**'
+          properties:
+            currency:
+              description: '**Currency code** · **Währungscode**'
+              example: EUR
+              title: Currency code
+              type: string
+            net:
+              description: '**Net amount** · **Nettobetrag**'
+              example: '123.123456789012'
+              title: Net amount
+              type: string
+            tax:
+              description: '**Tax amount** · **Steuerbetrag**'
+              example: '123.123456789012'
+              title: Tax amount
+              type: string
+          title: Total Planned Revenues
+          type: object
+        total_recorded_payments:
+          description: '**Total recorded payments** · **Erfasste Zahlungen**'
+          properties:
+            currency:
+              description: '**Currency code** · **Währungscode**'
+              example: EUR
+              title: Currency code
+              type: string
+            net:
+              description: '**Net amount** · **Nettobetrag**'
+              example: '123.123456789012'
+              title: Net amount
+              type: string
+            tax:
+              description: '**Tax amount** · **Steuerbetrag**'
+              example: '123.123456789012'
+              title: Tax amount
+              type: string
+          title: Total Recorded Payments
+          type: object
+      required:
+      - name
+      - total_planned_revenues
+      - total_recorded_payments
+      - project
+      title: OutrightSaleAttributes
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     Response_OutrightSaleAttributes_Literal_OUTRIGHT_SALE_FINANCIALS__:
       properties:
         data:
@@ -331,100 +425,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    OutrightSaleAttributes:
-      properties:
-        name:
-          description: '**Name** · **Name**'
-          maxLength: 250
-          title: Name
-          type: string
-        project:
-          description: '**Project** · **Projekt**'
-          format: uuid
-          title: Project
-          type: string
-        total_planned_revenues:
-          description: '**Total planned revenues** · **Plan-Erlöse**'
-          properties:
-            currency:
-              description: '**Currency code** · **Währungscode**'
-              example: EUR
-              title: Currency code
-              type: string
-            net:
-              description: '**Net amount** · **Nettobetrag**'
-              example: '123.123456789012'
-              title: Net amount
-              type: string
-            tax:
-              description: '**Tax amount** · **Steuerbetrag**'
-              example: '123.123456789012'
-              title: Tax amount
-              type: string
-          title: Total Planned Revenues
-          type: object
-        total_recorded_payments:
-          description: '**Total recorded payments** · **Erfasste Zahlungen**'
-          properties:
-            currency:
-              description: '**Currency code** · **Währungscode**'
-              example: EUR
-              title: Currency code
-              type: string
-            net:
-              description: '**Net amount** · **Nettobetrag**'
-              example: '123.123456789012'
-              title: Net amount
-              type: string
-            tax:
-              description: '**Tax amount** · **Steuerbetrag**'
-              example: '123.123456789012'
-              title: Tax amount
-              type: string
-          title: Total Recorded Payments
-          type: object
-      required:
-      - name
-      - total_planned_revenues
-      - total_recorded_payments
-      - project
-      title: OutrightSaleAttributes
       type: object
   securitySchemes:
     API_Key:

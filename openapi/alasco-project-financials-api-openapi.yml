@@ -125,44 +125,69 @@ paths:
       - Project Financials
 components:
   schemas:
-    ListResponse_ProjectFinancialsAttributes_Literal_PROJECT_FINANCIALS__:
+    Error:
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_ProjectFinancialsAttributes_Literal_PROJECT_FINANCIALS__'
-          title: Data
-          type: array
-        errors:
+        detail:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
+          - type: string
           - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ProjectFinancialsAttributes_Literal_PROJECT_FINANCIALS__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
+          title: Detail
+        source:
           anyOf:
           - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Data_ProjectFinancialsAttributes_Literal_PROJECT_FINANCIALS__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ProjectFinancialsAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
             type: object
           - type: 'null'
           description: '
 
-            Contains the pagination''s next link if results don''t fit on one page.
+            Contains links to related objects.
 
             '
-          title: Links
+          title: Relationships
+        type:
+          const: PROJECT_FINANCIALS
+          title: Type
+          type: string
       required:
-      - data
-      title: 'ListResponse[ProjectFinancialsAttributes, Literal[<ResourceType.PROJECT_FINANCIALS: ''PROJECT_FINANCIALS''>]]'
+      - id
+      - type
+      - attributes
+      title: 'Data[ProjectFinancialsAttributes, Literal[<ResourceType.PROJECT_FINANCIALS: ''PROJECT_FINANCIALS''>]]'
       type: object
     ProjectFinancialsAttributes:
       properties:
@@ -797,34 +822,44 @@ components:
       - contract_realised_receivables_amount
       title: ProjectFinancialsAttributes
       type: object
-    Data_ProjectFinancialsAttributes_Literal_PROJECT_FINANCIALS__:
+    ListResponse_ProjectFinancialsAttributes_Literal_PROJECT_FINANCIALS__:
       properties:
-        attributes:
-          $ref: '#/components/schemas/ProjectFinancialsAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ProjectFinancialsAttributes_Literal_PROJECT_FINANCIALS__'
+          title: Data
+          type: array
+        errors:
           anyOf:
-          - additionalProperties: true
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ProjectFinancialsAttributes_Literal_PROJECT_FINANCIALS__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
             type: object
           - type: 'null'
           description: '
 
-            Contains links to related objects.
+            Contains the pagination''s next link if results don''t fit on one page.
 
             '
-          title: Relationships
-        type:
-          const: PROJECT_FINANCIALS
-          title: Type
-          type: string
+          title: Links
       required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ProjectFinancialsAttributes, Literal[<ResourceType.PROJECT_FINANCIALS: ''PROJECT_FINANCIALS''>]]'
+      - data
+      title: 'ListResponse[ProjectFinancialsAttributes, Literal[<ResourceType.PROJECT_FINANCIALS: ''PROJECT_FINANCIALS''>]]'
       type: object
     ValidationError:
       properties:
@@ -851,41 +886,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
       type: object
   securitySchemes:
     API_Key:

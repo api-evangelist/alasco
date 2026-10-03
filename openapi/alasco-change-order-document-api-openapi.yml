@@ -304,6 +304,228 @@ components:
       - data
       title: ChangeOrderDocumentListResponse
       type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ChangeOrderDocumentResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/ChangeOrderDocumentData'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: ChangeOrderDocumentResponse
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Body_create_change_order_document_change_orders__change_order_id__documents__post:
+      properties:
+        document_type:
+          $ref: '#/components/schemas/ChangeOrderDocumentType'
+          description: 'Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `CHANGE_ORDER_OFFER` | Change order offer | Nachtragsangebot |
+
+            | `ATTACHMENT` | Attachment | Anhang |
+
+            | `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |
+
+            | `AUDITED_CHANGE_ORDER` | Audited change order | Nachtragsprüfung |
+
+            | `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |
+
+            | `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |
+
+            | `VALUATIONS` | Valuations | Aufmaß |
+
+            | `PLANS` | Plans | Planunterlagen |
+
+            | `CHANGE_ORDER` | Change order | Nachtragsbeauftragung |
+
+            | `PROTOCOL` | Protocol | Protokoll |
+
+            | `OTHER` | Other | Sonstiges |'
+        upload:
+          contentMediaType: application/octet-stream
+          description: '
+
+            The file to submit. The file must be a valid PDF.
+
+            '
+          title: Upload
+          type: string
+      required:
+      - document_type
+      - upload
+      title: Body_create_change_order_document_change_orders__change_order_id__documents__post
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    ChangeOrderDocumentData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ChangeOrderDocumentAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        links:
+          $ref: '#/components/schemas/ChangeOrderDocumentDataLinks'
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - change_order:
+              data:
+                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
+                type: CHANGE_ORDER
+          title: Relationships
+        type:
+          default: CHANGE_ORDER_DOCUMENT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      - links
+      title: ChangeOrderDocumentData
+      type: object
+    ChangeOrderDocumentDataLinks:
+      properties:
+        download:
+          examples:
+          - https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download/
+          title: Download
+          type: string
+        download_annotated:
+          examples:
+          - https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download-annotated/
+          title: Download Annotated
+          type: string
+        self:
+          examples:
+          - https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/
+          title: Self
+          type: string
+      required:
+      - self
+      - download
+      - download_annotated
+      title: ChangeOrderDocumentDataLinks
+      type: object
     ChangeOrderDocumentType:
       description: 'Change order documents can be of different types such as `CHANGE_ORDER_OFFER`, `ATTACHMENT`, `COVERSHEET_EXTERNAL`,
 
@@ -373,228 +595,6 @@ components:
       - filename
       - uploaded_at
       title: ChangeOrderDocumentAttributes
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Body_create_change_order_document_change_orders__change_order_id__documents__post:
-      properties:
-        document_type:
-          $ref: '#/components/schemas/ChangeOrderDocumentType'
-          description: 'Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `CHANGE_ORDER_OFFER` | Change order offer | Nachtragsangebot |
-
-            | `ATTACHMENT` | Attachment | Anhang |
-
-            | `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |
-
-            | `AUDITED_CHANGE_ORDER` | Audited change order | Nachtragsprüfung |
-
-            | `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |
-
-            | `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |
-
-            | `VALUATIONS` | Valuations | Aufmaß |
-
-            | `PLANS` | Plans | Planunterlagen |
-
-            | `CHANGE_ORDER` | Change order | Nachtragsbeauftragung |
-
-            | `PROTOCOL` | Protocol | Protokoll |
-
-            | `OTHER` | Other | Sonstiges |'
-        upload:
-          contentMediaType: application/octet-stream
-          description: '
-
-            The file to submit. The file must be a valid PDF.
-
-            '
-          title: Upload
-          type: string
-      required:
-      - document_type
-      - upload
-      title: Body_create_change_order_document_change_orders__change_order_id__documents__post
-      type: object
-    ChangeOrderDocumentDataLinks:
-      properties:
-        download:
-          examples:
-          - https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download/
-          title: Download
-          type: string
-        download_annotated:
-          examples:
-          - https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/download-annotated/
-          title: Download Annotated
-          type: string
-        self:
-          examples:
-          - https://api.alasco.de/fincon/v1/change-orders/<change_order_id>/documents/<document_id>/
-          title: Self
-          type: string
-      required:
-      - self
-      - download
-      - download_annotated
-      title: ChangeOrderDocumentDataLinks
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    ChangeOrderDocumentData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ChangeOrderDocumentAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        links:
-          $ref: '#/components/schemas/ChangeOrderDocumentDataLinks'
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - change_order:
-              data:
-                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
-                type: CHANGE_ORDER
-          title: Relationships
-        type:
-          default: CHANGE_ORDER_DOCUMENT
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      - links
-      title: ChangeOrderDocumentData
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    ChangeOrderDocumentResponse:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/ChangeOrderDocumentData'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: ChangeOrderDocumentResponse
       type: object
   securitySchemes:
     API_Key:

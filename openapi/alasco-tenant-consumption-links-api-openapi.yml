@@ -79,29 +79,70 @@ paths:
       - Tenant Consumption Links
 components:
   schemas:
-    TenantConsumptionLinkData:
+    Error:
       properties:
-        attributes:
-          $ref: '#/components/schemas/TenantConsumptionLinkAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
+        code:
           anyOf:
-          - additionalProperties: true
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
             type: object
           - type: 'null'
-          title: Relationships
-        type:
-          const: TENANT_CONSUMPTION_LINK
-          default: TENANT_CONSUMPTION_LINK
-          title: Type
-          type: string
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    TenantConsumptionLinkPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantConsumptionLinkCreatePayloadData'
       required:
-      - id
-      - attributes
-      title: TenantConsumptionLinkData
+      - data
+      title: TenantConsumptionLinkPayload
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
       type: object
     ResourceType:
       enum:
@@ -125,18 +166,19 @@ components:
       - TENANT_CONSUMPTION_LINK
       title: ResourceType
       type: string
-    TenantConsumptionLinkCreatePayloadData:
+    TenantConsumptionLinkWrite:
       properties:
-        attributes:
-          $ref: '#/components/schemas/TenantConsumptionLinkWrite'
-        type:
-          const: TENANT_CONSUMPTION_LINK
-          title: Type
+        annual_consumption_id:
+          format: uuid
+          title: Annual Consumption Id
+          type: string
+        external_tenant_id:
+          title: External Tenant Id
           type: string
       required:
-      - type
-      - attributes
-      title: TenantConsumptionLinkCreatePayloadData
+      - external_tenant_id
+      - annual_consumption_id
+      title: TenantConsumptionLinkWrite
       type: object
     TenantConsumptionLinkAttributes:
       properties:
@@ -153,6 +195,67 @@ components:
       - external_tenant_id
       - annual_consumption_id
       title: TenantConsumptionLinkAttributes
+      type: object
+    TenantConsumptionLinkCreatePayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantConsumptionLinkWrite'
+        type:
+          const: TENANT_CONSUMPTION_LINK
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: TenantConsumptionLinkCreatePayloadData
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    TenantConsumptionLinkData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantConsumptionLinkAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: TENANT_CONSUMPTION_LINK
+          default: TENANT_CONSUMPTION_LINK
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: TenantConsumptionLinkData
       type: object
     TenantConsumptionLinkResponse:
       properties:
@@ -205,109 +308,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    Error:
-      properties:
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    Links:
-      properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
-      required:
-      - next
-      - prev
-      title: Links
-      type: object
-    TenantConsumptionLinkWrite:
-      properties:
-        annual_consumption_id:
-          format: uuid
-          title: Annual Consumption Id
-          type: string
-        external_tenant_id:
-          title: External Tenant Id
-          type: string
-      required:
-      - external_tenant_id
-      - annual_consumption_id
-      title: TenantConsumptionLinkWrite
-      type: object
-    TenantConsumptionLinkPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/TenantConsumptionLinkCreatePayloadData'
-      required:
-      - data
-      title: TenantConsumptionLinkPayload
       type: object
   securitySchemes:
     API_Key:

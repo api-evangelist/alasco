@@ -231,39 +231,121 @@ paths:
     - url: https://api.alasco.de/capex/v1
 components:
   schemas:
-    ContractDocumentListResponse:
+    Error:
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ContractDocumentData'
-          title: Data
-          type: array
-        errors:
+        detail:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
+          - type: string
           - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
+          title: Detail
+        source:
           anyOf:
           - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
+              type: string
             type: object
           - type: 'null'
-          title: Links
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ContractDocumentDataLinks:
+      properties:
+        download:
+          examples:
+          - https://api.alasco.de/fincon/v1/contracts/<contract_id>/documents/<document_id>/download/
+          title: Download
+          type: string
+        self:
+          examples:
+          - https://api.alasco.de/fincon/v1/contracts/<contract_id>/documents/<document_id>/
+          title: Self
+          type: string
       required:
-      - data
-      title: ContractDocumentListResponse
+      - self
+      - download
+      title: ContractDocumentDataLinks
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Body_create_contract_document_contracts__contract_id__documents__post:
+      properties:
+        document_type:
+          $ref: '#/components/schemas/ContractDocumentType'
+          description: 'Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `CONTRACT` | Contract | Auftrag |
+
+            | `ATTACHMENT` | Attachment | Anhang |'
+        upload:
+          contentMediaType: application/octet-stream
+          description: '
+
+            The file to submit. The file must be a valid PDF.
+
+            '
+          title: Upload
+          type: string
+      required:
+      - document_type
+      - upload
+      title: Body_create_contract_document_contracts__contract_id__documents__post
+      type: object
+    ContractDocumentData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractDocumentAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        links:
+          $ref: '#/components/schemas/ContractDocumentDataLinks'
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - contract:
+              data:
+                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
+                type: CONTRACT
+          title: Relationships
+        type:
+          default: CONTRACT_DOCUMENT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      - links
+      title: ContractDocumentData
       type: object
     ContractDocumentAttributes:
       properties:
@@ -297,102 +379,46 @@ components:
       - uploaded_at
       title: ContractDocumentAttributes
       type: object
-    ContractDocumentDataLinks:
+    ContractDocumentType:
+      description: Contract documents can be of different types such as `CONTRACT` and `ATTACHMENT`.
+      enum:
+      - CONTRACT
+      - ATTACHMENT
+      title: ContractDocumentType
+      type: string
+    ContractDocumentListResponse:
       properties:
-        download:
-          examples:
-          - https://api.alasco.de/fincon/v1/contracts/<contract_id>/documents/<document_id>/download/
-          title: Download
-          type: string
-        self:
-          examples:
-          - https://api.alasco.de/fincon/v1/contracts/<contract_id>/documents/<document_id>/
-          title: Self
-          type: string
-      required:
-      - self
-      - download
-      title: ContractDocumentDataLinks
-      type: object
-    Body_create_contract_document_contracts__contract_id__documents__post:
-      properties:
-        document_type:
-          $ref: '#/components/schemas/ContractDocumentType'
-          description: 'Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `CONTRACT` | Contract | Auftrag |
-
-            | `ATTACHMENT` | Attachment | Anhang |'
-        upload:
-          contentMediaType: application/octet-stream
-          description: '
-
-            The file to submit. The file must be a valid PDF.
-
-            '
-          title: Upload
-          type: string
-      required:
-      - document_type
-      - upload
-      title: Body_create_contract_document_contracts__contract_id__documents__post
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
+        data:
           items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
+            $ref: '#/components/schemas/ContractDocumentData'
+          title: Data
           type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Error:
-      properties:
-        detail:
+        errors:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
           - type: 'null'
-          title: Detail
-        source:
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
           anyOf:
           - additionalProperties:
-              type: string
+              anyOf:
+              - type: string
+              - type: 'null'
             type: object
           - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
+          title: Links
+      required:
+      - data
+      title: ContractDocumentListResponse
       type: object
     BaseDataSchema:
       properties:
@@ -450,57 +476,31 @@ components:
       - data
       title: ContractDocumentResponse
       type: object
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
           type: array
-      title: HTTPValidationError
-      type: object
-    ContractDocumentType:
-      description: Contract documents can be of different types such as `CONTRACT` and `ATTACHMENT`.
-      enum:
-      - CONTRACT
-      - ATTACHMENT
-      title: ContractDocumentType
-      type: string
-    ContractDocumentData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractDocumentAttributes'
-        id:
-          format: uuid
-          title: Id
+        msg:
+          title: Message
           type: string
-        links:
-          $ref: '#/components/schemas/ContractDocumentDataLinks'
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - contract:
-              data:
-                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
-                type: CONTRACT
-          title: Relationships
         type:
-          default: CONTRACT_DOCUMENT
-          title: Type
+          title: Error Type
           type: string
       required:
-      - id
-      - attributes
-      - links
-      title: ContractDocumentData
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
   securitySchemes:
     API_Key:

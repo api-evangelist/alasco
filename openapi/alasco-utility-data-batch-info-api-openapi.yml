@@ -44,55 +44,70 @@ paths:
       - Utility Data Batch Info
 components:
   schemas:
-    UtilityDataBatchInfoData:
+    Error:
       properties:
-        attributes:
-          $ref: '#/components/schemas/UtilityDataBatchInfoAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
+        code:
           anyOf:
-          - additionalProperties: true
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
             type: object
           - type: 'null'
-          title: Relationships
-        type:
-          const: UTILITY_DATA_BATCH_INFO
-          default: UTILITY_DATA_BATCH_INFO
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: UtilityDataBatchInfoData
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
       type: object
-    UtilityDataBatchInfoResponse:
+    UtilityDataBatchInfoPayload:
       properties:
         data:
-          $ref: '#/components/schemas/UtilityDataBatchInfoData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
+          $ref: '#/components/schemas/alasco__public_api__esg__web__v1__schemas__utilities__utility_batch_info__UtilityDataBatchInfoWrite'
       required:
       - data
-      title: UtilityDataBatchInfoResponse
+      title: UtilityDataBatchInfoPayload
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
       type: object
     ResourceType:
       enum:
@@ -138,24 +153,6 @@ components:
       - data_source_label
       title: UtilityDataBatchInfoAttributes
       type: object
-    alasco__ivy__public__api__utilities__utility_data_batch_info__UtilityDataBatchInfoWrite:
-      properties:
-        data_source_label:
-          title: Data Source Label
-          type: string
-        data_source_value:
-          title: Data Source Value
-          type: string
-        external_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: External Id
-      required:
-      - data_source_value
-      - data_source_label
-      title: UtilityDataBatchInfoWrite
-      type: object
     alasco__public_api__esg__web__v1__schemas__utilities__utility_batch_info__UtilityDataBatchInfoWrite:
       properties:
         attributes:
@@ -169,22 +166,79 @@ components:
       - attributes
       title: UtilityDataBatchInfoWrite
       type: object
-    Links:
+    BaseDataSchema:
       properties:
-        next:
+        attributes:
           anyOf:
-          - type: string
+          - {}
           - type: 'null'
-          title: Next
-        prev:
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
           anyOf:
-          - type: string
+          - additionalProperties: true
+            type: object
           - type: 'null'
-          title: Prev
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
       required:
-      - next
-      - prev
-      title: Links
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    UtilityDataBatchInfoResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/UtilityDataBatchInfoData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: UtilityDataBatchInfoResponse
+      type: object
+    UtilityDataBatchInfoData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UtilityDataBatchInfoAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: UTILITY_DATA_BATCH_INFO
+          default: UTILITY_DATA_BATCH_INFO
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: UtilityDataBatchInfoData
       type: object
     ValidationError:
       properties:
@@ -212,77 +266,23 @@ components:
       - type
       title: ValidationError
       type: object
-    Error:
+    alasco__ivy__public__api__utilities__utility_data_batch_info__UtilityDataBatchInfoWrite:
       properties:
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
+        data_source_label:
+          title: Data Source Label
           type: string
-        relationships:
+        data_source_value:
+          title: Data Source Value
+          type: string
+        external_id:
           anyOf:
-          - additionalProperties: true
-            type: object
+          - type: string
           - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
+          title: External Id
       required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    UtilityDataBatchInfoPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/alasco__public_api__esg__web__v1__schemas__utilities__utility_batch_info__UtilityDataBatchInfoWrite'
-      required:
-      - data
-      title: UtilityDataBatchInfoPayload
+      - data_source_value
+      - data_source_label
+      title: UtilityDataBatchInfoWrite
       type: object
   securitySchemes:
     API_Key:

@@ -85,108 +85,6 @@ paths:
       - Tenants
 components:
   schemas:
-    TenantAttributes:
-      properties:
-        contact_email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Contact email** · **E-Mail**'
-          title: Contact Email
-        contact_first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Contact first name** · **Vorname**'
-          title: Contact First Name
-        contact_last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Contact last name** · **Nachname**'
-          title: Contact Last Name
-        contact_phone_number:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Contact phone number** · **Telefonnummer**'
-          title: Contact Phone Number
-        contact_salutation:
-          anyOf:
-          - $ref: '#/components/schemas/Salutation'
-          - type: 'null'
-          description: '**Contact salutation** · **Anrede**'
-        contact_title:
-          anyOf:
-          - $ref: '#/components/schemas/Title'
-          - type: 'null'
-          description: '**Contact title** · **Titel**'
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Description** · **Beschreibung**'
-          title: Description
-        external_id:
-          description: '**External tenant ID** · **Externe Mieter-ID**'
-          title: External Id
-          type: string
-        green_signature_date:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Green lease signature date** · **Datum der Green-Lease-Unterzeichnung**'
-          title: Green Signature Date
-        lease_area_square_meters:
-          anyOf:
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          description: '**Lease area (m²)** · **Mietfläche (m²)**'
-          title: Lease Area Square Meters
-        lease_end_date:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Lease end date** · **Mietende**'
-          title: Lease End Date
-        lease_start_date:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Lease start date** · **Mietbeginn**'
-          title: Lease Start Date
-        name:
-          description: '**Name** · **Name**'
-          title: Name
-          type: string
-      required:
-      - name
-      - external_id
-      - description
-      - lease_start_date
-      - lease_end_date
-      - lease_area_square_meters
-      - green_signature_date
-      - contact_title
-      - contact_salutation
-      - contact_email
-      - contact_first_name
-      - contact_last_name
-      - contact_phone_number
-      title: TenantAttributes
-      type: object
-    TenantPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/TenantCreatePayloadData'
-      required:
-      - data
-      title: TenantPayload
-      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -196,104 +94,27 @@ components:
           type: array
       title: HTTPValidationError
       type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    TenantAttachmentWrite:
-      properties:
-        attachment_type:
-          $ref: '#/components/schemas/TenantAttachmentType'
-        comment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comment
-        file_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: File Id
-      required:
-      - attachment_type
-      title: TenantAttachmentWrite
-      type: object
-    TenantResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/TenantData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: TenantResponse
-      type: object
-    TenantData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TenantAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: TENANT
-          default: TENANT
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: TenantData
-      type: object
-    TenantAttachmentType:
+    ResourceType:
       enum:
-      - COMMENT
-      - DOCUMENT
-      title: TenantAttachmentType
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
       type: string
     TenantCreatePayloadData:
       properties:
@@ -393,6 +214,25 @@ components:
       - external_id
       title: TenantWrite
       type: object
+    TenantAttachmentWrite:
+      properties:
+        attachment_type:
+          $ref: '#/components/schemas/TenantAttachmentType'
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        file_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: File Id
+      required:
+      - attachment_type
+      title: TenantAttachmentWrite
+      type: object
     Links:
       properties:
         next:
@@ -410,6 +250,115 @@ components:
       - prev
       title: Links
       type: object
+    TenantAttachmentAttributes:
+      properties:
+        attachment_type:
+          $ref: '#/components/schemas/TenantAttachmentType'
+          description: '**Attachment type** · **Anhangstyp**'
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Comment** · **Kommentar**'
+          title: Comment
+        file_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**File ID** · **Datei-ID**'
+          title: File Id
+      required:
+      - attachment_type
+      title: TenantAttachmentAttributes
+      type: object
+    TenantAttachmentPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantAttachmentCreatePayloadData'
+      required:
+      - data
+      title: TenantAttachmentPayload
+      type: object
+    TenantResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: TenantResponse
+      type: object
+    TenantPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantCreatePayloadData'
+      required:
+      - data
+      title: TenantPayload
+      type: object
+    TenantAttachmentResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantAttachmentData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: TenantAttachmentResponse
+      type: object
+    TenantAttachmentType:
+      enum:
+      - COMMENT
+      - DOCUMENT
+      title: TenantAttachmentType
+      type: string
+    TenantAttachmentCreatePayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantAttachmentWrite'
+        type:
+          const: TENANT_ATTACHMENT
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: TenantAttachmentCreatePayloadData
+      type: object
     Salutation:
       enum:
       - MALE
@@ -417,13 +366,6 @@ components:
       - FAMILY
       - NONBINARY
       title: Salutation
-      type: string
-    Title:
-      enum:
-      - DR
-      - PROF
-      - PROFDR
-      title: Title
       type: string
     TenantAttachmentData:
       properties:
@@ -449,96 +391,99 @@ components:
       - attributes
       title: TenantAttachmentData
       type: object
-    TenantAttachmentPayload:
+    TenantAttributes:
       properties:
-        data:
-          $ref: '#/components/schemas/TenantAttachmentCreatePayloadData'
-      required:
-      - data
-      title: TenantAttachmentPayload
-      type: object
-    TenantAttachmentCreatePayloadData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TenantAttachmentWrite'
-        type:
-          const: TENANT_ATTACHMENT
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: TenantAttachmentCreatePayloadData
-      type: object
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
-    TenantAttachmentAttributes:
-      properties:
-        attachment_type:
-          $ref: '#/components/schemas/TenantAttachmentType'
-          description: '**Attachment type** · **Anhangstyp**'
-        comment:
+        contact_email:
           anyOf:
           - type: string
           - type: 'null'
-          description: '**Comment** · **Kommentar**'
-          title: Comment
-        file_id:
+          description: '**Contact email** · **E-Mail**'
+          title: Contact Email
+        contact_first_name:
           anyOf:
-          - format: uuid
+          - type: string
+          - type: 'null'
+          description: '**Contact first name** · **Vorname**'
+          title: Contact First Name
+        contact_last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact last name** · **Nachname**'
+          title: Contact Last Name
+        contact_phone_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Contact phone number** · **Telefonnummer**'
+          title: Contact Phone Number
+        contact_salutation:
+          anyOf:
+          - $ref: '#/components/schemas/Salutation'
+          - type: 'null'
+          description: '**Contact salutation** · **Anrede**'
+        contact_title:
+          anyOf:
+          - $ref: '#/components/schemas/Title'
+          - type: 'null'
+          description: '**Contact title** · **Titel**'
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Description** · **Beschreibung**'
+          title: Description
+        external_id:
+          description: '**External tenant ID** · **Externe Mieter-ID**'
+          title: External Id
+          type: string
+        green_signature_date:
+          anyOf:
+          - format: date
             type: string
           - type: 'null'
-          description: '**File ID** · **Datei-ID**'
-          title: File Id
-      required:
-      - attachment_type
-      title: TenantAttachmentAttributes
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
+          description: '**Green lease signature date** · **Datum der Green-Lease-Unterzeichnung**'
+          title: Green Signature Date
+        lease_area_square_meters:
+          anyOf:
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Lease area (m²)** · **Mietfläche (m²)**'
+          title: Lease Area Square Meters
+        lease_end_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Lease end date** · **Mietende**'
+          title: Lease End Date
+        lease_start_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Lease start date** · **Mietbeginn**'
+          title: Lease Start Date
+        name:
+          description: '**Name** · **Name**'
+          title: Name
           type: string
-        type:
-          title: Error Type
-          type: string
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - name
+      - external_id
+      - description
+      - lease_start_date
+      - lease_end_date
+      - lease_area_square_meters
+      - green_signature_date
+      - contact_title
+      - contact_salutation
+      - contact_email
+      - contact_first_name
+      - contact_last_name
+      - contact_phone_number
+      title: TenantAttributes
       type: object
     Error:
       properties:
@@ -571,31 +516,86 @@ components:
           title: Title
       title: Error
       type: object
-    TenantAttachmentResponse:
+    Title:
+      enum:
+      - DR
+      - PROF
+      - PROFDR
+      title: Title
+      type: string
+    TenantData:
       properties:
-        data:
-          $ref: '#/components/schemas/TenantAttachmentData'
-        errors:
+        attributes:
+          $ref: '#/components/schemas/TenantAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
+          - additionalProperties: true
+            type: object
           - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
+          title: Relationships
+        type:
+          const: TENANT
+          default: TENANT
+          title: Type
+          type: string
       required:
-      - data
-      title: TenantAttachmentResponse
+      - id
+      - attributes
+      title: TenantData
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
   securitySchemes:
     API_Key:

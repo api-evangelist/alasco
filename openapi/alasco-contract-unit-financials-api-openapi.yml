@@ -125,34 +125,40 @@ paths:
       - Contract Unit Financials
 components:
   schemas:
-    Data_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__:
+    Error:
       properties:
-        attributes:
-          $ref: '#/components/schemas/ContractUnitFinancialsAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
+        detail:
           anyOf:
-          - additionalProperties: true
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
             type: object
           - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CONTRACT_UNIT_FINANCIALS
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ContractUnitFinancialsAttributes, Literal[<ResourceType.CONTRACT_UNIT_FINANCIALS: ''CONTRACT_UNIT_FINANCIALS''>]]'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     ListResponse_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__:
       properties:
@@ -192,6 +198,35 @@ components:
       required:
       - data
       title: 'ListResponse[ContractUnitFinancialsAttributes, Literal[<ResourceType.CONTRACT_UNIT_FINANCIALS: ''CONTRACT_UNIT_FINANCIALS''>]]'
+      type: object
+    Data_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractUnitFinancialsAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CONTRACT_UNIT_FINANCIALS
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ContractUnitFinancialsAttributes, Literal[<ResourceType.CONTRACT_UNIT_FINANCIALS: ''CONTRACT_UNIT_FINANCIALS''>]]'
       type: object
     ContractUnitFinancialsAttributes:
       properties:
@@ -862,41 +897,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
       type: object
   securitySchemes:
     API_Key:

@@ -237,6 +237,173 @@ paths:
       - Contract Unit
 components:
   schemas:
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ContractRelationshipData:
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractRelationshipAttributes'
+      required:
+      - data
+      title: ContractRelationshipData
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ListResponse_ContractUnitAttributes_Literal_CONTRACT_UNIT__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ContractUnitAttributes, Literal[<ResourceType.CONTRACT_UNIT: ''CONTRACT_UNIT''>]]'
+      type: object
+    ContractUnitCreateAttributes:
+      properties:
+        description:
+          default: ''
+          description: '**Description** · **Beschreibung**'
+          title: Description
+          type: string
+        initial_budget:
+          anyOf:
+          - properties:
+              net:
+                example: '123.123456789012'
+                title: Net amount
+                type: string
+              tax:
+                example: '123.123456789012'
+                title: Tax amount
+                type: string
+            type: object
+          - type: 'null'
+          description: '**Initial budget** · **Ausgangsbudget**
+
+
+            Optional initial budget (net/tax). Only allowed when the target project does not use cost elements; otherwise omit or leave unset.
+
+
+            Optionales Ausgangsbudget (netto/USt.). Nur zulässig, wenn das Zielprojekt keine Kostengruppen verwendet; andernfalls weglassen.'
+          title: Initial Budget
+        name:
+          description: '**Name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+        state:
+          $ref: '#/components/schemas/ContractUnitPublicCreateState'
+          default: BUDGETED
+          description: '**State** · **Status**
+
+
+            Lifecycle state when creating the contract unit: BUDGETED or CONTINGENCY (contingency / reserve). Financing contract units cannot be created through the API.
+
+
+            Status beim Anlegen der Vergabeeinheit: BUDGETED oder CONTINGENCY (Rückstellung / Reserve). Finanzierungs-Vergabeeinheiten können nicht über die API angelegt werden.
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `BUDGETED` | Budgeted | Budgetiert |
+
+            | `CONTINGENCY` | Contingency | Reserve |'
+      required:
+      - name
+      title: ContractUnitCreateAttributes
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
     ContractUnitCreateRelationships:
       properties:
         project:
@@ -273,6 +440,80 @@ components:
       required:
       - id
       title: ContractUnitPatchData
+      type: object
+    Response_ContractUnitAttributes_Literal_CONTRACT_UNIT__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ContractUnitAttributes, Literal[<ResourceType.CONTRACT_UNIT: ''CONTRACT_UNIT''>]]'
+      type: object
+    ContractUnitPublicCreateState:
+      enum:
+      - BUDGETED
+      - CONTINGENCY
+      title: ContractUnitPublicCreateState
+      type: string
+    Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractUnitAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CONTRACT_UNIT
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ContractUnitAttributes, Literal[<ResourceType.CONTRACT_UNIT: ''CONTRACT_UNIT''>]]'
+      type: object
+    ContractUnitCreateRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractUnitCreateData'
+      required:
+      - data
+      title: ContractUnitCreateRequest
       type: object
     ContractUnitAttributes:
       properties:
@@ -319,137 +560,6 @@ components:
       - state
       - description
       title: ContractUnitAttributes
-      type: object
-    Response_ContractUnitAttributes_Literal_CONTRACT_UNIT__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[ContractUnitAttributes, Literal[<ResourceType.CONTRACT_UNIT: ''CONTRACT_UNIT''>]]'
-      type: object
-    ContractUnitPatchRequest:
-      properties:
-        data:
-          $ref: '#/components/schemas/ContractUnitPatchData'
-      required:
-      - data
-      title: ContractUnitPatchRequest
-      type: object
-    ContractUnitCreateData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractUnitCreateAttributes'
-        relationships:
-          $ref: '#/components/schemas/ContractUnitCreateRelationships'
-        type:
-          const: CONTRACT_UNIT
-          default: CONTRACT_UNIT
-          title: Type
-          type: string
-      required:
-      - attributes
-      - relationships
-      title: ContractUnitCreateData
-      type: object
-    ListResponse_ContractUnitAttributes_Literal_CONTRACT_UNIT__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[ContractUnitAttributes, Literal[<ResourceType.CONTRACT_UNIT: ''CONTRACT_UNIT''>]]'
-      type: object
-    ContractRelationshipData:
-      properties:
-        data:
-          $ref: '#/components/schemas/ContractRelationshipAttributes'
-      required:
-      - data
-      title: ContractRelationshipData
-      type: object
-    Data_ContractUnitAttributes_Literal_CONTRACT_UNIT__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractUnitAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CONTRACT_UNIT
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ContractUnitAttributes, Literal[<ResourceType.CONTRACT_UNIT: ''CONTRACT_UNIT''>]]'
       type: object
     ContractUnitPatchAttributes:
       properties:
@@ -518,126 +628,6 @@ components:
             | `FINANCING` | Financing | Finanzierung |'
       title: ContractUnitPatchAttributes
       type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    ContractUnitCreateAttributes:
-      properties:
-        description:
-          default: ''
-          description: '**Description** · **Beschreibung**'
-          title: Description
-          type: string
-        initial_budget:
-          anyOf:
-          - properties:
-              net:
-                example: '123.123456789012'
-                title: Net amount
-                type: string
-              tax:
-                example: '123.123456789012'
-                title: Tax amount
-                type: string
-            type: object
-          - type: 'null'
-          description: '**Initial budget** · **Ausgangsbudget**
-
-
-            Optional initial budget (net/tax). Only allowed when the target project does not use cost elements; otherwise omit or leave unset.
-
-
-            Optionales Ausgangsbudget (netto/USt.). Nur zulässig, wenn das Zielprojekt keine Kostengruppen verwendet; andernfalls weglassen.'
-          title: Initial Budget
-        name:
-          description: '**Name** · **Name**'
-          maxLength: 250
-          title: Name
-          type: string
-        state:
-          $ref: '#/components/schemas/ContractUnitPublicCreateState'
-          default: BUDGETED
-          description: '**State** · **Status**
-
-
-            Lifecycle state when creating the contract unit: BUDGETED or CONTINGENCY (contingency / reserve). Financing contract units cannot be created through the API.
-
-
-            Status beim Anlegen der Vergabeeinheit: BUDGETED oder CONTINGENCY (Rückstellung / Reserve). Finanzierungs-Vergabeeinheiten können nicht über die API angelegt werden.
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `BUDGETED` | Budgeted | Budgetiert |
-
-            | `CONTINGENCY` | Contingency | Reserve |'
-      required:
-      - name
-      title: ContractUnitCreateAttributes
-      type: object
     ContractRelationshipAttributes:
       properties:
         id:
@@ -652,20 +642,30 @@ components:
       - id
       title: ContractRelationshipAttributes
       type: object
-    ContractUnitCreateRequest:
+    ContractUnitPatchRequest:
       properties:
         data:
-          $ref: '#/components/schemas/ContractUnitCreateData'
+          $ref: '#/components/schemas/ContractUnitPatchData'
       required:
       - data
-      title: ContractUnitCreateRequest
+      title: ContractUnitPatchRequest
       type: object
-    ContractUnitPublicCreateState:
-      enum:
-      - BUDGETED
-      - CONTINGENCY
-      title: ContractUnitPublicCreateState
-      type: string
+    ContractUnitCreateData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractUnitCreateAttributes'
+        relationships:
+          $ref: '#/components/schemas/ContractUnitCreateRelationships'
+        type:
+          const: CONTRACT_UNIT
+          default: CONTRACT_UNIT
+          title: Type
+          type: string
+      required:
+      - attributes
+      - relationships
+      title: ContractUnitCreateData
+      type: object
   securitySchemes:
     API_Key:
       description: '

@@ -315,6 +315,136 @@ paths:
     - url: https://api.alasco.de/capex/v1
 components:
   schemas:
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ChangeOrderAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CHANGE_ORDER
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Response_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
+      type: object
+    BasisOfClaim:
+      enum:
+      - QUANTITY_CHANGE
+      - PRICE_CHANGE
+      - SERVICE_OMMISION
+      - SERVICE_CHANGE
+      - ADDITIONAL_SERVICE
+      - SERVICE_WITHOUT_CONTRACT
+      - DIRECT_LABOR_WORK
+      - PERFORMANCE_PERIOD_EXTENSION
+      - COMPENSATION
+      - OTHER
+      title: BasisOfClaim
+      type: string
+    ChangeOrderState:
+      enum:
+      - OPEN
+      - DETAILS_ENTERED
+      - ACKNOWLEDGED
+      - REJECTED
+      title: ChangeOrderState
+      type: string
+    Trigger:
+      enum:
+      - CONTRACTING_ENTITY_BUILDING_OWNER
+      - USER_TENANT
+      - BUYER
+      - PLANNING
+      - CONSTRUCTION_SUPERVISION
+      - THIRD_PARTY_CONSTRUCTION_SECTIONS
+      - THIRD_PARTY_AUTHORITIES
+      - UNFORESEEABLE_EVENTS
+      - OTHER
+      title: Trigger
+      type: string
     ChangeOrderAttributes:
       properties:
         acknowledged_at:
@@ -526,162 +656,6 @@ components:
       - weighting_factor
       title: ChangeOrderAttributes
       type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    Trigger:
-      enum:
-      - CONTRACTING_ENTITY_BUILDING_OWNER
-      - USER_TENANT
-      - BUYER
-      - PLANNING
-      - CONSTRUCTION_SUPERVISION
-      - THIRD_PARTY_CONSTRUCTION_SECTIONS
-      - THIRD_PARTY_AUTHORITIES
-      - UNFORESEEABLE_EVENTS
-      - OTHER
-      title: Trigger
-      type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ChangeOrderAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CHANGE_ORDER
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
-      type: object
-    ChangeOrderState:
-      enum:
-      - OPEN
-      - DETAILS_ENTERED
-      - ACKNOWLEDGED
-      - REJECTED
-      title: ChangeOrderState
-      type: string
-    BasisOfClaim:
-      enum:
-      - QUANTITY_CHANGE
-      - PRICE_CHANGE
-      - SERVICE_OMMISION
-      - SERVICE_CHANGE
-      - ADDITIONAL_SERVICE
-      - SERVICE_WITHOUT_CONTRACT
-      - DIRECT_LABOR_WORK
-      - PERFORMANCE_PERIOD_EXTENSION
-      - COMPENSATION
-      - OTHER
-      title: BasisOfClaim
-      type: string
-    Response_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ChangeOrderAttributes_Literal_CHANGE_ORDER__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
-      type: object
     ListResponse_ChangeOrderAttributes_Literal_CHANGE_ORDER__:
       properties:
         data:
@@ -720,6 +694,32 @@ components:
       required:
       - data
       title: 'ListResponse[ChangeOrderAttributes, Literal[<ResourceType.CHANGE_ORDER: ''CHANGE_ORDER''>]]'
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
   securitySchemes:
     API_Key:

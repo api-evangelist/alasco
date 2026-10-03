@@ -121,6 +121,80 @@ paths:
       - Cost Element Contract Financials
 components:
   schemas:
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ListResponse_CostElementContractFinancialsAttributes_Literal_COST_ELEMENT_CONTRACT_FINANCIALS__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_CostElementContractFinancialsAttributes_Literal_COST_ELEMENT_CONTRACT_FINANCIALS__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CostElementContractFinancialsAttributes_Literal_COST_ELEMENT_CONTRACT_FINANCIALS__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[CostElementContractFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_CONTRACT_FINANCIALS: ''COST_ELEMENT_CONTRACT_FINANCIALS''>]]'
+      type: object
     CostElementContractFinancialsAttributes:
       properties:
         approved_amount:
@@ -762,106 +836,6 @@ components:
       - contract_realised_receivables_amount
       title: CostElementContractFinancialsAttributes
       type: object
-    ListResponse_CostElementContractFinancialsAttributes_Literal_COST_ELEMENT_CONTRACT_FINANCIALS__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_CostElementContractFinancialsAttributes_Literal_COST_ELEMENT_CONTRACT_FINANCIALS__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_CostElementContractFinancialsAttributes_Literal_COST_ELEMENT_CONTRACT_FINANCIALS__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[CostElementContractFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_CONTRACT_FINANCIALS: ''COST_ELEMENT_CONTRACT_FINANCIALS''>]]'
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     Data_CostElementContractFinancialsAttributes_Literal_COST_ELEMENT_CONTRACT_FINANCIALS__:
       properties:
         attributes:
@@ -890,6 +864,32 @@ components:
       - type
       - attributes
       title: 'Data[CostElementContractFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_CONTRACT_FINANCIALS: ''COST_ELEMENT_CONTRACT_FINANCIALS''>]]'
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
   securitySchemes:
     API_Key:

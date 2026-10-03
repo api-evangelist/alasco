@@ -251,6 +251,164 @@ paths:
     - url: https://api.alasco.de/capex/v1
 components:
   schemas:
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ContractingEntityAttributes:
+      properties:
+        address:
+          description: '**Address** · **Adresse**'
+          maxLength: 255
+          title: Address
+          type: string
+        city:
+          description: '**City** · **Stadt**'
+          maxLength: 255
+          title: City
+          type: string
+        commercial_register_number:
+          description: '**Commercial register number** · **Handelsregisternummer**'
+          maxLength: 250
+          title: Commercial Register Number
+          type: string
+        commercial_register_type:
+          description: '**Commercial register type** · **Handelsregistertyp**'
+          maxLength: 250
+          title: Commercial Register Type
+          type: string
+        email:
+          description: '**Email address** · **E-Mail-Adresse**'
+          maxLength: 250
+          title: Email
+          type: string
+        managing_directors:
+          description: '**Managing directors** · **Geschäftsführung**'
+          maxLength: 250
+          title: Managing Directors
+          type: string
+        name:
+          description: '**Name** · **Name**'
+          maxLength: 250
+          minLength: 1
+          title: Name
+          type: string
+        register_court:
+          description: '**Register court** · **Amtsgericht**'
+          maxLength: 250
+          title: Register Court
+          type: string
+        tax_authority:
+          anyOf:
+          - $ref: '#/components/schemas/TaxAuthority'
+          - type: 'null'
+          description: '**Tax authority** · **Finanzamt**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `BADEN_WUERTTEMBERG` | Baden-Wuerttemberg | Baden-Württemberg |
+
+            | `BAVARIA` | Bavaria | Bayern |
+
+            | `BERLIN` | Berlin | Berlin |
+
+            | `BRANDENBURG` | Brandenburg | Brandenburg |
+
+            | `BREMEN` | Bremen | Bremen |
+
+            | `HAMBURG` | Hamburg | Hamburg |
+
+            | `HESSE` | Hesse | Hessen |
+
+            | `MECKLENBURG_VORPOMMERN` | Mecklenburg-Vorpommern | Mecklenburg-Vorpommern |
+
+            | `LOWER_SAXONY` | Lower Saxony | Niedersachsen |
+
+            | `NORTH_RHINE_WESTPHALIA` | North Rhine-Westphalia | Nordrhein-Westfalen |
+
+            | `RHEINLAND_PALATINATE` | Rhineland-Palatinate | Rheinland-Pfalz |
+
+            | `SAARLAND` | Saarland | Saarland |
+
+            | `SAXONY` | Saxony | Sachsen |
+
+            | `SACHSEN_ANHALT` | Saxony-Anhalt | Sachsen-Anhalt |
+
+            | `SCHLESWIG_HOLSTEIN` | Schleswig-Holstein | Schleswig-Holstein |
+
+            | `THURINGIA` | Thuringia | Thüringen |'
+        tax_id:
+          description: '**Tax ID** · **Steuernummer**'
+          maxLength: 250
+          title: Tax Id
+          type: string
+        vat_id:
+          description: '**VAT ID** · **USt.-IdNr.**'
+          maxLength: 250
+          title: Vat Id
+          type: string
+        website:
+          description: '**Website URL** · **Webadresse**'
+          maxLength: 250
+          title: Website
+          type: string
+        zip_code:
+          description: '**Zip code** · **Postleitzahl**'
+          maxLength: 12
+          title: Zip Code
+          type: string
+      required:
+      - name
+      - address
+      - zip_code
+      - city
+      - tax_id
+      - managing_directors
+      - commercial_register_type
+      - commercial_register_number
+      - register_court
+      - vat_id
+      - email
+      - website
+      title: ContractingEntityAttributes
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     TaxAuthority:
       enum:
       - BADEN_WUERTTEMBERG
@@ -271,6 +429,66 @@ components:
       - THURINGIA
       title: TaxAuthority
       type: string
+    Payload_ContractingEntityCreateAttributes_Literal_CONTRACTING_ENTITY__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractingEntityCreateAttributes'
+        type:
+          const: CONTRACTING_ENTITY
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContractingEntityCreateAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
+      type: object
+    ListResponse_ContractingEntityAttributes_Literal_CONTRACTING_ENTITY__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ContractingEntityAttributes_Literal_CONTRACTING_ENTITY__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractingEntityAttributes_Literal_CONTRACTING_ENTITY__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ContractingEntityAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
+      type: object
+    Request_ContractingEntityUpdateAttributes_Literal_CONTRACTING_ENTITY__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ContractingEntityUpdateAttributes_Literal_CONTRACTING_ENTITY__'
+      required:
+      - data
+      title: 'Request[ContractingEntityUpdateAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
+      type: object
     ContractingEntityUpdateAttributes:
       properties:
         address:
@@ -398,13 +616,60 @@ components:
           title: Zip Code
       title: ContractingEntityUpdateAttributes
       type: object
-    Request_ContractingEntityCreateAttributes_Literal_CONTRACTING_ENTITY__:
+    ValidationError:
       properties:
-        data:
-          $ref: '#/components/schemas/Payload_ContractingEntityCreateAttributes_Literal_CONTRACTING_ENTITY__'
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
       required:
-      - data
-      title: 'Request[ContractingEntityCreateAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Data_ContractingEntityAttributes_Literal_CONTRACTING_ENTITY__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractingEntityAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CONTRACTING_ENTITY
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ContractingEntityAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
       type: object
     Response_ContractingEntityAttributes_Literal_CONTRACTING_ENTITY__:
       properties:
@@ -437,291 +702,13 @@ components:
           title: Links
       title: 'Response[ContractingEntityAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
       type: object
-    Payload_ContractingEntityCreateAttributes_Literal_CONTRACTING_ENTITY__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractingEntityCreateAttributes'
-        type:
-          const: CONTRACTING_ENTITY
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[ContractingEntityCreateAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
-      type: object
-    Payload_ContractingEntityUpdateAttributes_Literal_CONTRACTING_ENTITY__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractingEntityUpdateAttributes'
-        type:
-          const: CONTRACTING_ENTITY
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[ContractingEntityUpdateAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
-      type: object
-    ContractingEntityAttributes:
-      properties:
-        address:
-          description: '**Address** · **Adresse**'
-          maxLength: 255
-          title: Address
-          type: string
-        city:
-          description: '**City** · **Stadt**'
-          maxLength: 255
-          title: City
-          type: string
-        commercial_register_number:
-          description: '**Commercial register number** · **Handelsregisternummer**'
-          maxLength: 250
-          title: Commercial Register Number
-          type: string
-        commercial_register_type:
-          description: '**Commercial register type** · **Handelsregistertyp**'
-          maxLength: 250
-          title: Commercial Register Type
-          type: string
-        email:
-          description: '**Email address** · **E-Mail-Adresse**'
-          maxLength: 250
-          title: Email
-          type: string
-        managing_directors:
-          description: '**Managing directors** · **Geschäftsführung**'
-          maxLength: 250
-          title: Managing Directors
-          type: string
-        name:
-          description: '**Name** · **Name**'
-          maxLength: 250
-          minLength: 1
-          title: Name
-          type: string
-        register_court:
-          description: '**Register court** · **Amtsgericht**'
-          maxLength: 250
-          title: Register Court
-          type: string
-        tax_authority:
-          anyOf:
-          - $ref: '#/components/schemas/TaxAuthority'
-          - type: 'null'
-          description: '**Tax authority** · **Finanzamt**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `BADEN_WUERTTEMBERG` | Baden-Wuerttemberg | Baden-Württemberg |
-
-            | `BAVARIA` | Bavaria | Bayern |
-
-            | `BERLIN` | Berlin | Berlin |
-
-            | `BRANDENBURG` | Brandenburg | Brandenburg |
-
-            | `BREMEN` | Bremen | Bremen |
-
-            | `HAMBURG` | Hamburg | Hamburg |
-
-            | `HESSE` | Hesse | Hessen |
-
-            | `MECKLENBURG_VORPOMMERN` | Mecklenburg-Vorpommern | Mecklenburg-Vorpommern |
-
-            | `LOWER_SAXONY` | Lower Saxony | Niedersachsen |
-
-            | `NORTH_RHINE_WESTPHALIA` | North Rhine-Westphalia | Nordrhein-Westfalen |
-
-            | `RHEINLAND_PALATINATE` | Rhineland-Palatinate | Rheinland-Pfalz |
-
-            | `SAARLAND` | Saarland | Saarland |
-
-            | `SAXONY` | Saxony | Sachsen |
-
-            | `SACHSEN_ANHALT` | Saxony-Anhalt | Sachsen-Anhalt |
-
-            | `SCHLESWIG_HOLSTEIN` | Schleswig-Holstein | Schleswig-Holstein |
-
-            | `THURINGIA` | Thuringia | Thüringen |'
-        tax_id:
-          description: '**Tax ID** · **Steuernummer**'
-          maxLength: 250
-          title: Tax Id
-          type: string
-        vat_id:
-          description: '**VAT ID** · **USt.-IdNr.**'
-          maxLength: 250
-          title: Vat Id
-          type: string
-        website:
-          description: '**Website URL** · **Webadresse**'
-          maxLength: 250
-          title: Website
-          type: string
-        zip_code:
-          description: '**Zip code** · **Postleitzahl**'
-          maxLength: 12
-          title: Zip Code
-          type: string
-      required:
-      - name
-      - address
-      - zip_code
-      - city
-      - tax_id
-      - managing_directors
-      - commercial_register_type
-      - commercial_register_number
-      - register_court
-      - vat_id
-      - email
-      - website
-      title: ContractingEntityAttributes
-      type: object
-    Request_ContractingEntityUpdateAttributes_Literal_CONTRACTING_ENTITY__:
+    Request_ContractingEntityCreateAttributes_Literal_CONTRACTING_ENTITY__:
       properties:
         data:
-          $ref: '#/components/schemas/Payload_ContractingEntityUpdateAttributes_Literal_CONTRACTING_ENTITY__'
+          $ref: '#/components/schemas/Payload_ContractingEntityCreateAttributes_Literal_CONTRACTING_ENTITY__'
       required:
       - data
-      title: 'Request[ContractingEntityUpdateAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    ListResponse_ContractingEntityAttributes_Literal_CONTRACTING_ENTITY__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_ContractingEntityAttributes_Literal_CONTRACTING_ENTITY__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContractingEntityAttributes_Literal_CONTRACTING_ENTITY__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[ContractingEntityAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    Data_ContractingEntityAttributes_Literal_CONTRACTING_ENTITY__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractingEntityAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CONTRACTING_ENTITY
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ContractingEntityAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
+      title: 'Request[ContractingEntityCreateAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
       type: object
     ContractingEntityCreateAttributes:
       properties:
@@ -849,6 +836,19 @@ components:
       required:
       - name
       title: ContractingEntityCreateAttributes
+      type: object
+    Payload_ContractingEntityUpdateAttributes_Literal_CONTRACTING_ENTITY__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractingEntityUpdateAttributes'
+        type:
+          const: CONTRACTING_ENTITY
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContractingEntityUpdateAttributes, Literal[<ResourceType.CONTRACTING_ENTITY: ''CONTRACTING_ENTITY''>]]'
       type: object
   securitySchemes:
     API_Key:

@@ -121,6 +121,109 @@ paths:
       - Cost Element Financials
 components:
   schemas:
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ListResponse_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[CostElementFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_FINANCIALS: ''COST_ELEMENT_FINANCIALS''>]]'
+      type: object
+    Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CostElementFinancialsAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: COST_ELEMENT_FINANCIALS
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[CostElementFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_FINANCIALS: ''COST_ELEMENT_FINANCIALS''>]]'
+      type: object
     CostElementFinancialsAttributes:
       properties:
         approved_amount:
@@ -794,109 +897,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/CostElementFinancialsAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: COST_ELEMENT_FINANCIALS
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[CostElementFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_FINANCIALS: ''COST_ELEMENT_FINANCIALS''>]]'
-      type: object
-    ListResponse_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_CostElementFinancialsAttributes_Literal_COST_ELEMENT_FINANCIALS__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[CostElementFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_FINANCIALS: ''COST_ELEMENT_FINANCIALS''>]]'
       type: object
   securitySchemes:
     API_Key:

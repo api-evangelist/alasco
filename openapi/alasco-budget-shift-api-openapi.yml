@@ -179,6 +179,41 @@ paths:
       - Budget Shift
 components:
   schemas:
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     BudgetShiftAttributes:
       properties:
         amount:
@@ -273,130 +308,6 @@ components:
       - INCREASE
       title: BudgetShiftType
       type: string
-    BudgetShiftData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/BudgetShiftAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - project:
-              links:
-                related: https://api.alasco.de/fincon/v1/projects/<UUID>/
-            source_contract_unit:
-              links:
-                related: https://api.alasco.de/fincon/v1/contract_units/<UUID>/
-            target_contract_unit:
-              links:
-                related: https://api.alasco.de/fincon/v1/contract_units/<UUID>/
-          title: Relationships
-        type:
-          default: BUDGET_SHIFT
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: BudgetShiftData
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     BudgetShiftListResponse:
       properties:
         data:
@@ -435,6 +346,95 @@ components:
       required:
       - data
       title: BudgetShiftListResponse
+      type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    BudgetShiftData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/BudgetShiftAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - project:
+              links:
+                related: https://api.alasco.de/fincon/v1/projects/<UUID>/
+            source_contract_unit:
+              links:
+                related: https://api.alasco.de/fincon/v1/contract_units/<UUID>/
+            target_contract_unit:
+              links:
+                related: https://api.alasco.de/fincon/v1/contract_units/<UUID>/
+          title: Relationships
+        type:
+          default: BUDGET_SHIFT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: BudgetShiftData
       type: object
   securitySchemes:
     API_Key:

@@ -285,6 +285,497 @@ paths:
       - Contact
 components:
   schemas:
+    ContactTitle:
+      enum:
+      - NO_TITLE
+      - DR
+      - PROF
+      - PROF_DR
+      title: ContactTitle
+      type: string
+    Payload_ContactUpdateAttributes_Literal_CONTACT__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContactUpdateAttributes'
+        type:
+          const: CONTACT
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContactUpdateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    ContactType:
+      enum:
+      - PRIVATE
+      - COMMERCIAL
+      title: ContactType
+      type: string
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    Request_ContactCreateAttributes_Literal_CONTACT__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ContactCreateAttributes_Literal_CONTACT__'
+      required:
+      - data
+      title: 'Request[ContactCreateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ListResponse_ContactAttributes_Literal_CONTACT__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    Response_ContactAttributes_Literal_CONTACT__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ContactAttributes:
+      properties:
+        address:
+          description: '**Address** · **Adresse**'
+          maxLength: 255
+          title: Address
+          type: string
+        city:
+          description: '**City** · **Stadt**'
+          maxLength: 255
+          title: City
+          type: string
+        date_created:
+          description: '**Date created** · **Erstellt am**'
+          format: date-time
+          title: Date Created
+          type: string
+        description:
+          description: '**Description** · **Beschreibung**'
+          title: Description
+          type: string
+        email:
+          description: '**Email** · **E-Mail**'
+          maxLength: 250
+          title: Email
+          type: string
+        first_name:
+          description: '**First name** · **Vorname**'
+          maxLength: 250
+          title: First Name
+          type: string
+        last_name:
+          description: '**Last name** · **Nachname**'
+          maxLength: 250
+          title: Last Name
+          type: string
+        name:
+          description: '**Contact name** · **Name**'
+          maxLength: 250
+          title: Name
+          type: string
+        phone_number:
+          description: '**Phone number** · **Telefonnummer**'
+          maxLength: 250
+          title: Phone Number
+          type: string
+        salutation:
+          $ref: '#/components/schemas/ContactSalutation'
+          description: '**Salutation** · **Anrede**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `NOT_SPECIFIED` | -- | -- |
+
+            | `MALE` | Male | Männlich |
+
+            | `FEMALE` | Female | Weiblich |
+
+            | `NON_BINARY` | Non-binary | Divers |
+
+            | `FAMILY` | Family | Familie |'
+          examples:
+          - NOT_SPECIFIED
+        title:
+          $ref: '#/components/schemas/ContactTitle'
+          description: '**Title** · **Titel**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `NO_TITLE` | -- | -- |
+
+            | `DR` | Dr. | Dr. |
+
+            | `PROF` | Prof. | Prof. |
+
+            | `PROF_DR` | Prof. Dr. | Prof. Dr. |'
+          examples:
+          - NO_TITLE
+        type:
+          $ref: '#/components/schemas/ContactType'
+          description: '**Contact type** · **Kontakttyp**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `PRIVATE` | Private person | Privatperson |
+
+            | `COMMERCIAL` | Company | Firma |'
+          examples:
+          - COMMERCIAL
+        zip_code:
+          description: '**Zip code** · **Postleitzahl**'
+          maxLength: 12
+          title: Zip Code
+          type: string
+      required:
+      - first_name
+      - last_name
+      - type
+      - name
+      - salutation
+      - title
+      - address
+      - zip_code
+      - city
+      - phone_number
+      - email
+      - description
+      - date_created
+      title: ContactAttributes
+      type: object
+    Data_ContactAttributes_Literal_CONTACT__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContactAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CONTACT
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    Payload_ContactCreateAttributes_Literal_CONTACT__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContactCreateAttributes'
+        type:
+          const: CONTACT
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContactCreateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
+    ContactSalutation:
+      enum:
+      - NOT_SPECIFIED
+      - MALE
+      - FEMALE
+      - NON_BINARY
+      - FAMILY
+      title: ContactSalutation
+      type: string
+    ContactCreateAttributes:
+      properties:
+        address:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**Address** · **Adresse**'
+          title: Address
+        city:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**City** · **Stadt**'
+          title: City
+        date_created:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          description: '**Date created** · **Erstellt am**'
+          title: Date Created
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Description** · **Beschreibung**'
+          title: Description
+        email:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Email** · **E-Mail**'
+          title: Email
+        first_name:
+          description: '**First name** · **Vorname**'
+          maxLength: 250
+          title: First Name
+          type: string
+        last_name:
+          description: '**Last name** · **Nachname**'
+          maxLength: 250
+          title: Last Name
+          type: string
+        name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Contact name** · **Name**'
+          title: Name
+        phone_number:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Phone number** · **Telefonnummer**'
+          title: Phone Number
+        salutation:
+          $ref: '#/components/schemas/ContactSalutation'
+          default: NOT_SPECIFIED
+          description: '**Salutation** · **Anrede**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `NOT_SPECIFIED` | -- | -- |
+
+            | `MALE` | Male | Männlich |
+
+            | `FEMALE` | Female | Weiblich |
+
+            | `NON_BINARY` | Non-binary | Divers |
+
+            | `FAMILY` | Family | Familie |'
+          examples:
+          - NOT_SPECIFIED
+        title:
+          anyOf:
+          - $ref: '#/components/schemas/ContactTitle'
+          - type: 'null'
+          default: NO_TITLE
+          description: '**Title** · **Titel**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `NO_TITLE` | -- | -- |
+
+            | `DR` | Dr. | Dr. |
+
+            | `PROF` | Prof. | Prof. |
+
+            | `PROF_DR` | Prof. Dr. | Prof. Dr. |'
+          examples:
+          - NO_TITLE
+        type:
+          $ref: '#/components/schemas/ContactType'
+          description: '**Contact type** · **Kontakttyp**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `PRIVATE` | Private person | Privatperson |
+
+            | `COMMERCIAL` | Company | Firma |'
+          examples:
+          - COMMERCIAL
+        zip_code:
+          anyOf:
+          - maxLength: 12
+            type: string
+          - type: 'null'
+          description: '**Zip code** · **Postleitzahl**'
+          title: Zip Code
+      required:
+      - first_name
+      - last_name
+      - type
+      title: ContactCreateAttributes
+      type: object
+    Request_ContactUpdateAttributes_Literal_CONTACT__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ContactUpdateAttributes_Literal_CONTACT__'
+      required:
+      - data
+      title: 'Request[ContactUpdateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
+      type: object
     ContactUpdateAttributes:
       properties:
         address:
@@ -425,497 +916,6 @@ components:
           title: Zip Code
       title: ContactUpdateAttributes
       type: object
-    Payload_ContactUpdateAttributes_Literal_CONTACT__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContactUpdateAttributes'
-        type:
-          const: CONTACT
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[ContactUpdateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    ContactAttributes:
-      properties:
-        address:
-          description: '**Address** · **Adresse**'
-          maxLength: 255
-          title: Address
-          type: string
-        city:
-          description: '**City** · **Stadt**'
-          maxLength: 255
-          title: City
-          type: string
-        date_created:
-          description: '**Date created** · **Erstellt am**'
-          format: date-time
-          title: Date Created
-          type: string
-        description:
-          description: '**Description** · **Beschreibung**'
-          title: Description
-          type: string
-        email:
-          description: '**Email** · **E-Mail**'
-          maxLength: 250
-          title: Email
-          type: string
-        first_name:
-          description: '**First name** · **Vorname**'
-          maxLength: 250
-          title: First Name
-          type: string
-        last_name:
-          description: '**Last name** · **Nachname**'
-          maxLength: 250
-          title: Last Name
-          type: string
-        name:
-          description: '**Contact name** · **Name**'
-          maxLength: 250
-          title: Name
-          type: string
-        phone_number:
-          description: '**Phone number** · **Telefonnummer**'
-          maxLength: 250
-          title: Phone Number
-          type: string
-        salutation:
-          $ref: '#/components/schemas/ContactSalutation'
-          description: '**Salutation** · **Anrede**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `NOT_SPECIFIED` | -- | -- |
-
-            | `MALE` | Male | Männlich |
-
-            | `FEMALE` | Female | Weiblich |
-
-            | `NON_BINARY` | Non-binary | Divers |
-
-            | `FAMILY` | Family | Familie |'
-          examples:
-          - NOT_SPECIFIED
-        title:
-          $ref: '#/components/schemas/ContactTitle'
-          description: '**Title** · **Titel**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `NO_TITLE` | -- | -- |
-
-            | `DR` | Dr. | Dr. |
-
-            | `PROF` | Prof. | Prof. |
-
-            | `PROF_DR` | Prof. Dr. | Prof. Dr. |'
-          examples:
-          - NO_TITLE
-        type:
-          $ref: '#/components/schemas/ContactType'
-          description: '**Contact type** · **Kontakttyp**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `PRIVATE` | Private person | Privatperson |
-
-            | `COMMERCIAL` | Company | Firma |'
-          examples:
-          - COMMERCIAL
-        zip_code:
-          description: '**Zip code** · **Postleitzahl**'
-          maxLength: 12
-          title: Zip Code
-          type: string
-      required:
-      - first_name
-      - last_name
-      - type
-      - name
-      - salutation
-      - title
-      - address
-      - zip_code
-      - city
-      - phone_number
-      - email
-      - description
-      - date_created
-      title: ContactAttributes
-      type: object
-    ContactTitle:
-      enum:
-      - NO_TITLE
-      - DR
-      - PROF
-      - PROF_DR
-      title: ContactTitle
-      type: string
-    ContactCreateAttributes:
-      properties:
-        address:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**Address** · **Adresse**'
-          title: Address
-        city:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**City** · **Stadt**'
-          title: City
-        date_created:
-          anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
-          description: '**Date created** · **Erstellt am**'
-          title: Date Created
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Description** · **Beschreibung**'
-          title: Description
-        email:
-          anyOf:
-          - maxLength: 250
-            type: string
-          - type: 'null'
-          description: '**Email** · **E-Mail**'
-          title: Email
-        first_name:
-          description: '**First name** · **Vorname**'
-          maxLength: 250
-          title: First Name
-          type: string
-        last_name:
-          description: '**Last name** · **Nachname**'
-          maxLength: 250
-          title: Last Name
-          type: string
-        name:
-          anyOf:
-          - maxLength: 250
-            type: string
-          - type: 'null'
-          description: '**Contact name** · **Name**'
-          title: Name
-        phone_number:
-          anyOf:
-          - maxLength: 250
-            type: string
-          - type: 'null'
-          description: '**Phone number** · **Telefonnummer**'
-          title: Phone Number
-        salutation:
-          $ref: '#/components/schemas/ContactSalutation'
-          default: NOT_SPECIFIED
-          description: '**Salutation** · **Anrede**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `NOT_SPECIFIED` | -- | -- |
-
-            | `MALE` | Male | Männlich |
-
-            | `FEMALE` | Female | Weiblich |
-
-            | `NON_BINARY` | Non-binary | Divers |
-
-            | `FAMILY` | Family | Familie |'
-          examples:
-          - NOT_SPECIFIED
-        title:
-          anyOf:
-          - $ref: '#/components/schemas/ContactTitle'
-          - type: 'null'
-          default: NO_TITLE
-          description: '**Title** · **Titel**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `NO_TITLE` | -- | -- |
-
-            | `DR` | Dr. | Dr. |
-
-            | `PROF` | Prof. | Prof. |
-
-            | `PROF_DR` | Prof. Dr. | Prof. Dr. |'
-          examples:
-          - NO_TITLE
-        type:
-          $ref: '#/components/schemas/ContactType'
-          description: '**Contact type** · **Kontakttyp**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `PRIVATE` | Private person | Privatperson |
-
-            | `COMMERCIAL` | Company | Firma |'
-          examples:
-          - COMMERCIAL
-        zip_code:
-          anyOf:
-          - maxLength: 12
-            type: string
-          - type: 'null'
-          description: '**Zip code** · **Postleitzahl**'
-          title: Zip Code
-      required:
-      - first_name
-      - last_name
-      - type
-      title: ContactCreateAttributes
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Payload_ContactCreateAttributes_Literal_CONTACT__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContactCreateAttributes'
-        type:
-          const: CONTACT
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[ContactCreateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    ContactSalutation:
-      enum:
-      - NOT_SPECIFIED
-      - MALE
-      - FEMALE
-      - NON_BINARY
-      - FAMILY
-      title: ContactSalutation
-      type: string
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Response_ContactAttributes_Literal_CONTACT__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    ListResponse_ContactAttributes_Literal_CONTACT__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContactAttributes_Literal_CONTACT__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    Data_ContactAttributes_Literal_CONTACT__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContactAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CONTACT
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ContactAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    Request_ContactUpdateAttributes_Literal_CONTACT__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_ContactUpdateAttributes_Literal_CONTACT__'
-      required:
-      - data
-      title: 'Request[ContactUpdateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    Request_ContactCreateAttributes_Literal_CONTACT__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_ContactCreateAttributes_Literal_CONTACT__'
-      required:
-      - data
-      title: 'Request[ContactCreateAttributes, Literal[<ResourceType.CONTACT: ''CONTACT''>]]'
-      type: object
-    ContactType:
-      enum:
-      - PRIVATE
-      - COMMERCIAL
-      title: ContactType
-      type: string
   securitySchemes:
     API_Key:
       description: '
