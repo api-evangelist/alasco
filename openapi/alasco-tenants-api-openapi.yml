@@ -85,6 +85,79 @@ paths:
       - Tenants
 components:
   schemas:
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    Salutation:
+      enum:
+      - MALE
+      - FEMALE
+      - FAMILY
+      - NONBINARY
+      title: Salutation
+      type: string
+    TenantResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: TenantResponse
+      type: object
+    TenantPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantCreatePayloadData'
+      required:
+      - data
+      title: TenantPayload
+      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -94,40 +167,195 @@ components:
           type: array
       title: HTTPValidationError
       type: object
-    ResourceType:
+    TenantAttachmentPayload:
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantAttachmentCreatePayloadData'
+      required:
+      - data
+      title: TenantAttachmentPayload
+      type: object
+    TenantAttachmentType:
       enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
+      - COMMENT
+      - DOCUMENT
+      title: TenantAttachmentType
       type: string
-    TenantCreatePayloadData:
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    BaseDataSchema:
       properties:
         attributes:
-          $ref: '#/components/schemas/TenantWrite'
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
         type:
-          const: TENANT
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Title:
+      enum:
+      - DR
+      - PROF
+      - PROFDR
+      title: Title
+      type: string
+    TenantAttachmentWrite:
+      properties:
+        attachment_type:
+          $ref: '#/components/schemas/TenantAttachmentType'
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        file_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: File Id
+      required:
+      - attachment_type
+      title: TenantAttachmentWrite
+      type: object
+    TenantAttachmentCreatePayloadData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantAttachmentWrite'
+        type:
+          const: TENANT_ATTACHMENT
           title: Type
           type: string
       required:
       - type
       - attributes
-      title: TenantCreatePayloadData
+      title: TenantAttachmentCreatePayloadData
+      type: object
+    TenantAttachmentData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantAttachmentAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: TENANT_ATTACHMENT
+          default: TENANT_ATTACHMENT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: TenantAttachmentData
+      type: object
+    TenantAttachmentAttributes:
+      properties:
+        attachment_type:
+          $ref: '#/components/schemas/TenantAttachmentType'
+          description: '**Attachment type** · **Anhangstyp**'
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Comment** · **Kommentar**'
+          title: Comment
+        file_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**File ID** · **Datei-ID**'
+          title: File Id
+      required:
+      - attachment_type
+      title: TenantAttachmentAttributes
+      type: object
+    TenantData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/TenantAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: TENANT
+          default: TENANT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: TenantData
       type: object
     TenantWrite:
       properties:
@@ -214,105 +442,18 @@ components:
       - external_id
       title: TenantWrite
       type: object
-    TenantAttachmentWrite:
+    TenantCreatePayloadData:
       properties:
-        attachment_type:
-          $ref: '#/components/schemas/TenantAttachmentType'
-        comment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comment
-        file_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: File Id
+        attributes:
+          $ref: '#/components/schemas/TenantWrite'
+        type:
+          const: TENANT
+          title: Type
+          type: string
       required:
-      - attachment_type
-      title: TenantAttachmentWrite
-      type: object
-    Links:
-      properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
-      required:
-      - next
-      - prev
-      title: Links
-      type: object
-    TenantAttachmentAttributes:
-      properties:
-        attachment_type:
-          $ref: '#/components/schemas/TenantAttachmentType'
-          description: '**Attachment type** · **Anhangstyp**'
-        comment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Comment** · **Kommentar**'
-          title: Comment
-        file_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          description: '**File ID** · **Datei-ID**'
-          title: File Id
-      required:
-      - attachment_type
-      title: TenantAttachmentAttributes
-      type: object
-    TenantAttachmentPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/TenantAttachmentCreatePayloadData'
-      required:
-      - data
-      title: TenantAttachmentPayload
-      type: object
-    TenantResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/TenantData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: TenantResponse
-      type: object
-    TenantPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/TenantCreatePayloadData'
-      required:
-      - data
-      title: TenantPayload
+      - type
+      - attributes
+      title: TenantCreatePayloadData
       type: object
     TenantAttachmentResponse:
       properties:
@@ -339,57 +480,6 @@ components:
       required:
       - data
       title: TenantAttachmentResponse
-      type: object
-    TenantAttachmentType:
-      enum:
-      - COMMENT
-      - DOCUMENT
-      title: TenantAttachmentType
-      type: string
-    TenantAttachmentCreatePayloadData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TenantAttachmentWrite'
-        type:
-          const: TENANT_ATTACHMENT
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: TenantAttachmentCreatePayloadData
-      type: object
-    Salutation:
-      enum:
-      - MALE
-      - FEMALE
-      - FAMILY
-      - NONBINARY
-      title: Salutation
-      type: string
-    TenantAttachmentData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TenantAttachmentAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: TENANT_ATTACHMENT
-          default: TENANT_ATTACHMENT
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: TenantAttachmentData
       type: object
     TenantAttributes:
       properties:
@@ -485,118 +575,28 @@ components:
       - contact_phone_number
       title: TenantAttributes
       type: object
-    Error:
-      properties:
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    Title:
+    ResourceType:
       enum:
-      - DR
-      - PROF
-      - PROFDR
-      title: Title
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
       type: string
-    TenantData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/TenantAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: TENANT
-          default: TENANT
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: TenantData
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
   securitySchemes:
     API_Key:
       description: '

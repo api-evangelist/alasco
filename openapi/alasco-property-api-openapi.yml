@@ -291,15 +291,6 @@ components:
           title: Title
       title: Error
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     CountryCodes:
       enum:
       - AM
@@ -343,6 +334,32 @@ components:
       - TR
       title: CountryCodes
       type: string
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
     PropertyCreateAttributes:
       properties:
         address:
@@ -388,18 +405,135 @@ components:
       - name
       title: PropertyCreateAttributes
       type: object
-    Payload_PropertyUpdateAttributes_Literal_PROPERTY__:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Data_PropertyAttributes_Literal_PROPERTY__:
       properties:
         attributes:
-          $ref: '#/components/schemas/PropertyUpdateAttributes'
+          $ref: '#/components/schemas/PropertyAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
         type:
           const: PROPERTY
           title: Type
           type: string
       required:
+      - id
       - type
       - attributes
-      title: 'Payload[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      title: 'Data[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      type: object
+    PropertyUpdateAttributes:
+      properties:
+        address:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**Address** · **Adresse**'
+          title: Address
+        city:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**City** · **Stadt**'
+          title: City
+        country:
+          anyOf:
+          - $ref: '#/components/schemas/CountryCodes'
+          - type: 'null'
+          description: '**Country** · **Land**'
+          examples:
+          - DE
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Property description** · **Beschreibung**'
+          title: Description
+        name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Property name** · **Immobilienname**'
+          title: Name
+        zip_code:
+          anyOf:
+          - maxLength: 12
+            type: string
+          - type: 'null'
+          description: '**Zip code** · **Postleitzahl**'
+          title: Zip Code
+      title: PropertyUpdateAttributes
+      type: object
+    Request_PropertyUpdateAttributes_Literal_PROPERTY__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_PropertyUpdateAttributes_Literal_PROPERTY__'
+      required:
+      - data
+      title: 'Request[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      type: object
+    ListResponse_PropertyAttributes_Literal_PROPERTY__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_PropertyAttributes_Literal_PROPERTY__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_PropertyAttributes_Literal_PROPERTY__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
     Response_PropertyAttributes_Literal_PROPERTY__:
       properties:
@@ -431,6 +565,27 @@ components:
           - type: 'null'
           title: Links
       title: 'Response[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      type: object
+    Request_PropertyCreateAttributes_Literal_PROPERTY__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_PropertyCreateAttributes_Literal_PROPERTY__'
+      required:
+      - data
+      title: 'Request[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      type: object
+    Payload_PropertyCreateAttributes_Literal_PROPERTY__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/PropertyCreateAttributes'
+        type:
+          const: PROPERTY
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
     PropertyAttributes:
       properties:
@@ -478,165 +633,10 @@ components:
       - date_created
       title: PropertyAttributes
       type: object
-    ListResponse_PropertyAttributes_Literal_PROPERTY__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_PropertyAttributes_Literal_PROPERTY__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_PropertyAttributes_Literal_PROPERTY__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
-      type: object
-    Request_PropertyUpdateAttributes_Literal_PROPERTY__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_PropertyUpdateAttributes_Literal_PROPERTY__'
-      required:
-      - data
-      title: 'Request[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
-      type: object
-    Data_PropertyAttributes_Literal_PROPERTY__:
+    Payload_PropertyUpdateAttributes_Literal_PROPERTY__:
       properties:
         attributes:
-          $ref: '#/components/schemas/PropertyAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: PROPERTY
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
-      type: object
-    Request_PropertyCreateAttributes_Literal_PROPERTY__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_PropertyCreateAttributes_Literal_PROPERTY__'
-      required:
-      - data
-      title: 'Request[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
-      type: object
-    PropertyUpdateAttributes:
-      properties:
-        address:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**Address** · **Adresse**'
-          title: Address
-        city:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**City** · **Stadt**'
-          title: City
-        country:
-          anyOf:
-          - $ref: '#/components/schemas/CountryCodes'
-          - type: 'null'
-          description: '**Country** · **Land**'
-          examples:
-          - DE
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Property description** · **Beschreibung**'
-          title: Description
-        name:
-          anyOf:
-          - maxLength: 250
-            type: string
-          - type: 'null'
-          description: '**Property name** · **Immobilienname**'
-          title: Name
-        zip_code:
-          anyOf:
-          - maxLength: 12
-            type: string
-          - type: 'null'
-          description: '**Zip code** · **Postleitzahl**'
-          title: Zip Code
-      title: PropertyUpdateAttributes
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Payload_PropertyCreateAttributes_Literal_PROPERTY__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/PropertyCreateAttributes'
+          $ref: '#/components/schemas/PropertyUpdateAttributes'
         type:
           const: PROPERTY
           title: Type
@@ -644,7 +644,7 @@ components:
       required:
       - type
       - attributes
-      title: 'Payload[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      title: 'Payload[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
   securitySchemes:
     API_Key:

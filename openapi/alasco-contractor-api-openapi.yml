@@ -349,6 +349,32 @@ paths:
     - url: https://api.alasco.de/capex/v1
 components:
   schemas:
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -358,51 +384,6 @@ components:
           type: array
       title: HTTPValidationError
       type: object
-    TaxAuthority:
-      enum:
-      - BADEN_WUERTTEMBERG
-      - BAVARIA
-      - BERLIN
-      - BRANDENBURG
-      - BREMEN
-      - HAMBURG
-      - HESSE
-      - MECKLENBURG_VORPOMMERN
-      - LOWER_SAXONY
-      - NORTH_RHINE_WESTPHALIA
-      - RHEINLAND_PALATINATE
-      - SAARLAND
-      - SAXONY
-      - SACHSEN_ANHALT
-      - SCHLESWIG_HOLSTEIN
-      - THURINGIA
-      title: TaxAuthority
-      type: string
-    TaxWaiver:
-      properties:
-        filename:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**Tax waiver document filename** · **Dateiname der Freistellungsbescheinigung**'
-          title: Filename
-        security_number:
-          description: '**Security number** · **Sicherheitsnummer**'
-          maxLength: 90
-          title: Security Number
-          type: string
-        valid_until:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Expiration date** · **Ablaufdatum**'
-          title: Valid Until
-      required:
-      - security_number
-      title: TaxWaiver
-      type: object
     Request_ContractorCreateAttributes_Literal_CONTRACTOR__:
       properties:
         data:
@@ -411,132 +392,17 @@ components:
       - data
       title: 'Request[ContractorCreateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
       type: object
-    Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__:
+    TaxWaiverWriter:
       properties:
-        attributes:
-          $ref: '#/components/schemas/ContractorUpdateAttributes'
-        type:
-          const: CONTRACTOR
-          title: Type
+        security_number:
+          description: '**Security number** · **Sicherheitsnummer**'
+          maxLength: 90
+          title: Security Number
           type: string
       required:
-      - type
-      - attributes
-      title: 'Payload[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      - security_number
+      title: TaxWaiver
       type: object
-    Response_ContractorAttributes_Literal_CONTRACTOR__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
-      type: object
-    TaxWaiverDocumentCreatedResponse:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/TaxWaiverDocumentCreated'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: TaxWaiverDocumentCreatedResponse
-      type: object
-    Request_ContractorUpdateAttributes_Literal_CONTRACTOR__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__'
-      required:
-      - data
-      title: 'Request[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
-      type: object
-    CountryCodes:
-      enum:
-      - AM
-      - AT
-      - BE
-      - BG
-      - CH
-      - CY
-      - CZ
-      - DE
-      - DK
-      - EE
-      - ES
-      - FI
-      - FR
-      - GB
-      - GE
-      - GR
-      - HR
-      - HU
-      - IE
-      - IT
-      - KZ
-      - LT
-      - LU
-      - LV
-      - MT
-      - MX
-      - NL
-      - 'NO'
-      - PL
-      - PT
-      - RO
-      - RS
-      - US
-      - UY
-      - SA
-      - SE
-      - SI
-      - SK
-      - TR
-      title: CountryCodes
-      type: string
     ContractorCreateAttributes:
       properties:
         accounts_payable_number:
@@ -685,6 +551,72 @@ components:
       - name
       title: ContractorCreateAttributes
       type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    Body_upload_tax_waiver_contractors__id__upload_tax_waiver__post:
+      properties:
+        upload:
+          contentMediaType: application/octet-stream
+          description: '
+
+            The file to submit. The file must be a valid PDF.
+
+            '
+          title: Upload
+          type: string
+      required:
+      - upload
+      title: Body_upload_tax_waiver_contractors__id__upload_tax_waiver__post
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
     ListResponse_ContractorAttributes_Literal_CONTRACTOR__:
       properties:
         data:
@@ -724,16 +656,65 @@ components:
       - data
       title: 'ListResponse[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
       type: object
-    TaxWaiverWriter:
+    Data_ContractorAttributes_Literal_CONTRACTOR__:
       properties:
-        security_number:
-          description: '**Security number** · **Sicherheitsnummer**'
-          maxLength: 90
-          title: Security Number
+        attributes:
+          $ref: '#/components/schemas/ContractorAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CONTRACTOR
+          title: Type
           type: string
       required:
-      - security_number
-      title: TaxWaiver
+      - id
+      - type
+      - attributes
+      title: 'Data[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    TaxWaiverDocumentCreatedResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/TaxWaiverDocumentCreated'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: TaxWaiverDocumentCreatedResponse
       type: object
     TaxWaiverDocumentCreated:
       properties:
@@ -744,6 +725,273 @@ components:
       required:
       - filename
       title: TaxWaiverDocumentCreated
+      type: object
+    TaxWaiver:
+      properties:
+        filename:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**Tax waiver document filename** · **Dateiname der Freistellungsbescheinigung**'
+          title: Filename
+        security_number:
+          description: '**Security number** · **Sicherheitsnummer**'
+          maxLength: 90
+          title: Security Number
+          type: string
+        valid_until:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Expiration date** · **Ablaufdatum**'
+          title: Valid Until
+      required:
+      - security_number
+      title: TaxWaiver
+      type: object
+    ContractorAttributes:
+      properties:
+        accounts_payable_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: '**Accounts payable number** · **Kreditorennummer (Gegenkonto)**'
+          title: Accounts Payable Number
+        address:
+          description: '**Address** · **Adresse**'
+          maxLength: 255
+          title: Address
+          type: string
+        bic:
+          description: '**BIC** · **BIC**'
+          title: Bic
+          type: string
+        city:
+          description: '**City** · **Stadt**'
+          maxLength: 255
+          title: City
+          type: string
+        contact_person_email:
+          description: '**Contact person email** · **E-Mail der Kontaktperson**'
+          title: Contact Person Email
+          type: string
+        contact_person_name:
+          description: '**Contact person name** · **Name der Kontaktperson**'
+          maxLength: 250
+          title: Contact Person Name
+          type: string
+        contact_person_phone_number:
+          description: '**Contact person phone number** · **Telefonnummer der Kontaktperson**'
+          title: Contact Person Phone Number
+          type: string
+        country:
+          description: '**Country** · **Land**'
+          title: Country
+          type: string
+        iban:
+          description: '**IBAN** · **IBAN**'
+          title: Iban
+          type: string
+        identifier:
+          description: '**Identifier** · **Kennung**'
+          title: Identifier
+          type: string
+        name:
+          description: '**Company name** · **Firmenname**'
+          maxLength: 250
+          minLength: 1
+          title: Name
+          type: string
+        tax_authority:
+          anyOf:
+          - $ref: '#/components/schemas/TaxAuthority'
+          - type: 'null'
+          description: '**Tax authority** · **Finanzamt**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `BADEN_WUERTTEMBERG` | Baden-Wuerttemberg | Baden-Württemberg |
+
+            | `BAVARIA` | Bavaria | Bayern |
+
+            | `BERLIN` | Berlin | Berlin |
+
+            | `BRANDENBURG` | Brandenburg | Brandenburg |
+
+            | `BREMEN` | Bremen | Bremen |
+
+            | `HAMBURG` | Hamburg | Hamburg |
+
+            | `HESSE` | Hesse | Hessen |
+
+            | `MECKLENBURG_VORPOMMERN` | Mecklenburg-Vorpommern | Mecklenburg-Vorpommern |
+
+            | `LOWER_SAXONY` | Lower Saxony | Niedersachsen |
+
+            | `NORTH_RHINE_WESTPHALIA` | North Rhine-Westphalia | Nordrhein-Westfalen |
+
+            | `RHEINLAND_PALATINATE` | Rhineland-Palatinate | Rheinland-Pfalz |
+
+            | `SAARLAND` | Saarland | Saarland |
+
+            | `SAXONY` | Saxony | Sachsen |
+
+            | `SACHSEN_ANHALT` | Saxony-Anhalt | Sachsen-Anhalt |
+
+            | `SCHLESWIG_HOLSTEIN` | Schleswig-Holstein | Schleswig-Holstein |
+
+            | `THURINGIA` | Thuringia | Thüringen |'
+        tax_id:
+          description: '**Tax ID** · **Steuernummer**'
+          maxLength: 250
+          title: Tax Id
+          type: string
+        tax_waiver:
+          anyOf:
+          - $ref: '#/components/schemas/TaxWaiver'
+          - type: 'null'
+          description: '**Tax waiver** · **Freistellungsbescheinigung**'
+        vat_id:
+          description: '**VAT ID** · **USt.-IdNr.**'
+          maxLength: 250
+          title: Vat Id
+          type: string
+        zip_code:
+          description: '**Zip code** · **Postleitzahl**'
+          maxLength: 12
+          title: Zip Code
+          type: string
+      required:
+      - name
+      - iban
+      - bic
+      - vat_id
+      - contact_person_name
+      - contact_person_phone_number
+      - contact_person_email
+      - tax_id
+      - address
+      - zip_code
+      - city
+      - country
+      - identifier
+      title: ContractorAttributes
+      type: object
+    Request_ContractorUpdateAttributes_Literal_CONTRACTOR__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__'
+      required:
+      - data
+      title: 'Request[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    CountryCodes:
+      enum:
+      - AM
+      - AT
+      - BE
+      - BG
+      - CH
+      - CY
+      - CZ
+      - DE
+      - DK
+      - EE
+      - ES
+      - FI
+      - FR
+      - GB
+      - GE
+      - GR
+      - HR
+      - HU
+      - IE
+      - IT
+      - KZ
+      - LT
+      - LU
+      - LV
+      - MT
+      - MX
+      - NL
+      - 'NO'
+      - PL
+      - PT
+      - RO
+      - RS
+      - US
+      - UY
+      - SA
+      - SE
+      - SI
+      - SK
+      - TR
+      title: CountryCodes
+      type: string
+    Payload_ContractorCreateAttributes_Literal_CONTRACTOR__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractorCreateAttributes'
+        type:
+          const: CONTRACTOR
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContractorCreateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    Payload_ContractorUpdateAttributes_Literal_CONTRACTOR__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractorUpdateAttributes'
+        type:
+          const: CONTRACTOR
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ContractorUpdateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
+      type: object
+    Response_ContractorAttributes_Literal_CONTRACTOR__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractorAttributes_Literal_CONTRACTOR__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
       type: object
     ContractorUpdateAttributes:
       properties:
@@ -892,274 +1140,26 @@ components:
           title: Zip Code
       title: ContractorUpdateAttributes
       type: object
-    Body_upload_tax_waiver_contractors__id__upload_tax_waiver__post:
-      properties:
-        upload:
-          contentMediaType: application/octet-stream
-          description: '
-
-            The file to submit. The file must be a valid PDF.
-
-            '
-          title: Upload
-          type: string
-      required:
-      - upload
-      title: Body_upload_tax_waiver_contractors__id__upload_tax_waiver__post
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    Payload_ContractorCreateAttributes_Literal_CONTRACTOR__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractorCreateAttributes'
-        type:
-          const: CONTRACTOR
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[ContractorCreateAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
-      type: object
-    ContractorAttributes:
-      properties:
-        accounts_payable_number:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          description: '**Accounts payable number** · **Kreditorennummer (Gegenkonto)**'
-          title: Accounts Payable Number
-        address:
-          description: '**Address** · **Adresse**'
-          maxLength: 255
-          title: Address
-          type: string
-        bic:
-          description: '**BIC** · **BIC**'
-          title: Bic
-          type: string
-        city:
-          description: '**City** · **Stadt**'
-          maxLength: 255
-          title: City
-          type: string
-        contact_person_email:
-          description: '**Contact person email** · **E-Mail der Kontaktperson**'
-          title: Contact Person Email
-          type: string
-        contact_person_name:
-          description: '**Contact person name** · **Name der Kontaktperson**'
-          maxLength: 250
-          title: Contact Person Name
-          type: string
-        contact_person_phone_number:
-          description: '**Contact person phone number** · **Telefonnummer der Kontaktperson**'
-          title: Contact Person Phone Number
-          type: string
-        country:
-          description: '**Country** · **Land**'
-          title: Country
-          type: string
-        iban:
-          description: '**IBAN** · **IBAN**'
-          title: Iban
-          type: string
-        identifier:
-          description: '**Identifier** · **Kennung**'
-          title: Identifier
-          type: string
-        name:
-          description: '**Company name** · **Firmenname**'
-          maxLength: 250
-          minLength: 1
-          title: Name
-          type: string
-        tax_authority:
-          anyOf:
-          - $ref: '#/components/schemas/TaxAuthority'
-          - type: 'null'
-          description: '**Tax authority** · **Finanzamt**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `BADEN_WUERTTEMBERG` | Baden-Wuerttemberg | Baden-Württemberg |
-
-            | `BAVARIA` | Bavaria | Bayern |
-
-            | `BERLIN` | Berlin | Berlin |
-
-            | `BRANDENBURG` | Brandenburg | Brandenburg |
-
-            | `BREMEN` | Bremen | Bremen |
-
-            | `HAMBURG` | Hamburg | Hamburg |
-
-            | `HESSE` | Hesse | Hessen |
-
-            | `MECKLENBURG_VORPOMMERN` | Mecklenburg-Vorpommern | Mecklenburg-Vorpommern |
-
-            | `LOWER_SAXONY` | Lower Saxony | Niedersachsen |
-
-            | `NORTH_RHINE_WESTPHALIA` | North Rhine-Westphalia | Nordrhein-Westfalen |
-
-            | `RHEINLAND_PALATINATE` | Rhineland-Palatinate | Rheinland-Pfalz |
-
-            | `SAARLAND` | Saarland | Saarland |
-
-            | `SAXONY` | Saxony | Sachsen |
-
-            | `SACHSEN_ANHALT` | Saxony-Anhalt | Sachsen-Anhalt |
-
-            | `SCHLESWIG_HOLSTEIN` | Schleswig-Holstein | Schleswig-Holstein |
-
-            | `THURINGIA` | Thuringia | Thüringen |'
-        tax_id:
-          description: '**Tax ID** · **Steuernummer**'
-          maxLength: 250
-          title: Tax Id
-          type: string
-        tax_waiver:
-          anyOf:
-          - $ref: '#/components/schemas/TaxWaiver'
-          - type: 'null'
-          description: '**Tax waiver** · **Freistellungsbescheinigung**'
-        vat_id:
-          description: '**VAT ID** · **USt.-IdNr.**'
-          maxLength: 250
-          title: Vat Id
-          type: string
-        zip_code:
-          description: '**Zip code** · **Postleitzahl**'
-          maxLength: 12
-          title: Zip Code
-          type: string
-      required:
-      - name
-      - iban
-      - bic
-      - vat_id
-      - contact_person_name
-      - contact_person_phone_number
-      - contact_person_email
-      - tax_id
-      - address
-      - zip_code
-      - city
-      - country
-      - identifier
-      title: ContractorAttributes
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Data_ContractorAttributes_Literal_CONTRACTOR__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractorAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CONTRACTOR
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ContractorAttributes, Literal[<ResourceType.CONTRACTOR: ''CONTRACTOR''>]]'
-      type: object
+    TaxAuthority:
+      enum:
+      - BADEN_WUERTTEMBERG
+      - BAVARIA
+      - BERLIN
+      - BRANDENBURG
+      - BREMEN
+      - HAMBURG
+      - HESSE
+      - MECKLENBURG_VORPOMMERN
+      - LOWER_SAXONY
+      - NORTH_RHINE_WESTPHALIA
+      - RHEINLAND_PALATINATE
+      - SAARLAND
+      - SAXONY
+      - SACHSEN_ANHALT
+      - SCHLESWIG_HOLSTEIN
+      - THURINGIA
+      title: TaxAuthority
+      type: string
   securitySchemes:
     API_Key:
       description: '

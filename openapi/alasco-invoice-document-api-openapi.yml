@@ -296,14 +296,56 @@ components:
           title: Title
       title: Error
       type: object
-    HTTPValidationError:
+    InvoiceDocumentReadType:
+      description: 'This used for reading document invoice types and some other extra  types such as `COVERSHEET`,
+
+        `COMPOSED_DOCUMENTS`, `GUARANTEE` and `FINAL_INVOICE` in addition to the invoice document types and this
+
+        one being used to read data only not for creation.'
+      enum:
+      - INVOICE
+      - ATTACHMENT
+      - COVERSHEET_EXTERNAL
+      - AUDITED_INVOICE
+      - INTERNAL_CORRESPONDENCE
+      - EXTERNAL_CORRESPONDENCE
+      - VALUATIONS
+      - PLANS
+      - REVISED_INVOICE
+      - PAYMENT_CERTIFICATE
+      - PROTOCOL
+      - OTHER
+      - FINAL_INVOICE
+      - GUARANTEE
+      - COVERSHEET
+      - COMPOSED_DOCUMENTS
+      - EINVOICE_VISUALIZATION
+      title: InvoiceDocumentReadType
+      type: string
+    BaseDataSchema:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      title: BaseDataSchema
       type: object
     ValidationError:
       properties:
@@ -331,28 +373,14 @@ components:
       - type
       title: ValidationError
       type: object
-    InvoiceDocumentDataLinks:
+    HTTPValidationError:
       properties:
-        download:
-          examples:
-          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download/
-          title: Download
-          type: string
-        download_annotated:
-          examples:
-          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download-annotated/
-          title: Download Annotated
-          type: string
-        self:
-          examples:
-          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/
-          title: Self
-          type: string
-      required:
-      - self
-      - download
-      - download_annotated
-      title: InvoiceDocumentDataLinks
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     InvoiceDocumentResponse:
       properties:
@@ -485,64 +513,28 @@ components:
       - links
       title: InvoiceDocumentData
       type: object
-    BaseDataSchema:
+    InvoiceDocumentDataLinks:
       properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
+        download:
+          examples:
+          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download/
+          title: Download
           type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          title: Type
+        download_annotated:
+          examples:
+          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download-annotated/
+          title: Download Annotated
+          type: string
+        self:
+          examples:
+          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/
+          title: Self
           type: string
       required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    InvoiceDocumentListResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/InvoiceDocumentData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      required:
-      - data
-      title: InvoiceDocumentListResponse
+      - self
+      - download
+      - download_annotated
+      title: InvoiceDocumentDataLinks
       type: object
     InvoiceDocumentCreateType:
       description: 'Invoice documents can be of different types. The file which is uploaded to Alasco when a new
@@ -621,32 +613,40 @@ components:
       - upload
       title: Body_create_invoice_document_invoices__invoice_id__documents__post
       type: object
-    InvoiceDocumentReadType:
-      description: 'This used for reading document invoice types and some other extra  types such as `COVERSHEET`,
-
-        `COMPOSED_DOCUMENTS`, `GUARANTEE` and `FINAL_INVOICE` in addition to the invoice document types and this
-
-        one being used to read data only not for creation.'
-      enum:
-      - INVOICE
-      - ATTACHMENT
-      - COVERSHEET_EXTERNAL
-      - AUDITED_INVOICE
-      - INTERNAL_CORRESPONDENCE
-      - EXTERNAL_CORRESPONDENCE
-      - VALUATIONS
-      - PLANS
-      - REVISED_INVOICE
-      - PAYMENT_CERTIFICATE
-      - PROTOCOL
-      - OTHER
-      - FINAL_INVOICE
-      - GUARANTEE
-      - COVERSHEET
-      - COMPOSED_DOCUMENTS
-      - EINVOICE_VISUALIZATION
-      title: InvoiceDocumentReadType
-      type: string
+    InvoiceDocumentListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/InvoiceDocumentData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      required:
+      - data
+      title: InvoiceDocumentListResponse
+      type: object
     InvoiceDocumentDataLinks_2:
       properties:
         download:

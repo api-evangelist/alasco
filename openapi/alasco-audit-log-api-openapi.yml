@@ -121,57 +121,13 @@ components:
           title: Title
       title: Error
       type: object
-    UserAuditLogData:
+    BaseDataSchema:
       properties:
         attributes:
-          $ref: '#/components/schemas/UserAuditLogAttributes'
-        id:
-          title: Id
-          type: integer
-        relationships:
           anyOf:
-          - additionalProperties: true
-            type: object
+          - {}
           - type: 'null'
-          title: Relationships
-        type:
-          const: USER_AUDIT_LOG
-          default: USER_AUDIT_LOG
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: UserAuditLogData
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    AuditOperation:
-      enum:
-      - INSERT
-      - UPDATE
-      - DELETE
-      title: AuditOperation
-      type: string
-    RecordOrigin:
-      enum:
-      - LEGACY
-      - APP_USER
-      - PUBLIC_API
-      - INTERNAL_PROCESS
-      title: RecordOrigin
-      type: string
-    AuditLogData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/AuditLogAttributes'
+          title: Attributes
         id:
           format: uuid
           title: Id
@@ -183,43 +139,11 @@ components:
           - type: 'null'
           title: Relationships
         type:
-          const: AUDIT_LOG
-          default: AUDIT_LOG
-          title: Type
-          type: string
+          $ref: '#/components/schemas/ResourceType'
       required:
       - id
-      - attributes
-      title: AuditLogData
-      type: object
-    UserAuditOperation:
-      enum:
-      - INSERT
-      - UPDATE
-      - DELETE
-      - LOGIN
-      - LOGIN_FAILED
-      - LOGOUT
-      - PASSWORD_CHANGE_FAILED
-      - PASSWORD_CHANGE_SUCCEEDED
-      title: UserAuditOperation
-      type: string
-    Links:
-      properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
-      required:
-      - next
-      - prev
-      title: Links
+      - type
+      title: BaseDataSchema
       type: object
     UserAuditLogAttributes:
       properties:
@@ -321,95 +245,6 @@ components:
       - TENANT_CONSUMPTION_LINK
       title: ResourceType
       type: string
-    UserAuditActor:
-      enum:
-      - SYSTEM
-      - USER
-      title: UserAuditActor
-      type: string
-    AuditLogListResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AuditLogData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: AuditLogListResponse
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
-      required:
-      - id
-      - type
-      title: BaseDataSchema
-      type: object
-    UserAuditLogListResponse:
-      description: Cannot use BaseResponseSchema because the ids are ints instead of uuids
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/UserAuditLogData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/UserAuditLogData'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: UserAuditLogListResponse
-      type: object
     ValidationError:
       properties:
         ctx:
@@ -435,6 +270,51 @@ components:
       - msg
       - type
       title: ValidationError
+      type: object
+    UserAuditOperation:
+      enum:
+      - INSERT
+      - UPDATE
+      - DELETE
+      - LOGIN
+      - LOGIN_FAILED
+      - LOGOUT
+      - PASSWORD_CHANGE_FAILED
+      - PASSWORD_CHANGE_SUCCEEDED
+      title: UserAuditOperation
+      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    AuditLogData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/AuditLogAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: AUDIT_LOG
+          default: AUDIT_LOG
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: AuditLogData
       type: object
     AuditLogAttributes:
       properties:
@@ -497,6 +377,126 @@ components:
       - ts
       - origin
       title: AuditLogAttributes
+      type: object
+    RecordOrigin:
+      enum:
+      - LEGACY
+      - APP_USER
+      - PUBLIC_API
+      - INTERNAL_PROCESS
+      title: RecordOrigin
+      type: string
+    AuditOperation:
+      enum:
+      - INSERT
+      - UPDATE
+      - DELETE
+      title: AuditOperation
+      type: string
+    UserAuditLogListResponse:
+      description: Cannot use BaseResponseSchema because the ids are ints instead of uuids
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/UserAuditLogData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UserAuditLogData'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: UserAuditLogListResponse
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    AuditLogListResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/AuditLogData'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: AuditLogListResponse
+      type: object
+    UserAuditActor:
+      enum:
+      - SYSTEM
+      - USER
+      title: UserAuditActor
+      type: string
+    UserAuditLogData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UserAuditLogAttributes'
+        id:
+          title: Id
+          type: integer
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: USER_AUDIT_LOG
+          default: USER_AUDIT_LOG
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: UserAuditLogData
       type: object
   securitySchemes:
     API_Key:

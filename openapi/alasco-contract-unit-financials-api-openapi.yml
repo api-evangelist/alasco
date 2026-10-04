@@ -151,6 +151,32 @@ components:
           title: Title
       title: Error
       type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -159,74 +185,6 @@ components:
           title: Detail
           type: array
       title: HTTPValidationError
-      type: object
-    ListResponse_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[ContractUnitFinancialsAttributes, Literal[<ResourceType.CONTRACT_UNIT_FINANCIALS: ''CONTRACT_UNIT_FINANCIALS''>]]'
-      type: object
-    Data_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractUnitFinancialsAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CONTRACT_UNIT_FINANCIALS
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ContractUnitFinancialsAttributes, Literal[<ResourceType.CONTRACT_UNIT_FINANCIALS: ''CONTRACT_UNIT_FINANCIALS''>]]'
       type: object
     ContractUnitFinancialsAttributes:
       properties:
@@ -872,31 +830,73 @@ components:
       - project
       title: ContractUnitFinancialsAttributes
       type: object
-    ValidationError:
+    ListResponse_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__:
       properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
+        data:
           items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
+            $ref: '#/components/schemas/Data_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__'
+          title: Data
           type: array
-        msg:
-          title: Message
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[ContractUnitFinancialsAttributes, Literal[<ResourceType.CONTRACT_UNIT_FINANCIALS: ''CONTRACT_UNIT_FINANCIALS''>]]'
+      type: object
+    Data_ContractUnitFinancialsAttributes_Literal_CONTRACT_UNIT_FINANCIALS__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractUnitFinancialsAttributes'
+        id:
+          format: uuid
+          title: Id
           type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
         type:
-          title: Error Type
+          const: CONTRACT_UNIT_FINANCIALS
+          title: Type
           type: string
       required:
-      - loc
-      - msg
+      - id
       - type
-      title: ValidationError
+      - attributes
+      title: 'Data[ContractUnitFinancialsAttributes, Literal[<ResourceType.CONTRACT_UNIT_FINANCIALS: ''CONTRACT_UNIT_FINANCIALS''>]]'
       type: object
   securitySchemes:
     API_Key:

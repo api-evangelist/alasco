@@ -213,90 +213,6 @@ components:
           title: Title
       title: Error
       type: object
-    AssetDetailsResponse:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/AssetData'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: AssetDetailsResponse
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    AssetData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/AssetAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          default: ASSET
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: AssetData
-      type: object
-    AssetAttributes:
-      properties:
-        date_created:
-          description: '**Date created** · **Erstellt am**'
-          format: date-time
-          title: Date Created
-          type: string
-        identifier:
-          description: '**Identifier** · **Kennung**'
-          title: Identifier
-          type: string
-        name:
-          description: '**Name** · **Name**'
-          title: Name
-          type: string
-      required:
-      - name
-      - identifier
-      - date_created
-      title: AssetAttributes
-      type: object
     BaseDataSchema:
       properties:
         attributes:
@@ -348,6 +264,69 @@ components:
       - type
       title: ValidationError
       type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    AssetDetailsResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/AssetData'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: AssetDetailsResponse
+      type: object
+    AssetData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/AssetAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          default: ASSET
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: AssetData
+      type: object
     AssetListResponse:
       properties:
         data:
@@ -386,6 +365,27 @@ components:
       required:
       - data
       title: AssetListResponse
+      type: object
+    AssetAttributes:
+      properties:
+        date_created:
+          description: '**Date created** · **Erstellt am**'
+          format: date-time
+          title: Date Created
+          type: string
+        identifier:
+          description: '**Identifier** · **Kennung**'
+          title: Identifier
+          type: string
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+      required:
+      - name
+      - identifier
+      - date_created
+      title: AssetAttributes
       type: object
   securitySchemes:
     API_Key:

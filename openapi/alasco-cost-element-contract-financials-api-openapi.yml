@@ -147,14 +147,31 @@ components:
           title: Title
       title: Error
       type: object
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
           type: array
-      title: HTTPValidationError
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
     ListResponse_CostElementContractFinancialsAttributes_Literal_COST_ELEMENT_CONTRACT_FINANCIALS__:
       properties:
@@ -194,6 +211,15 @@ components:
       required:
       - data
       title: 'ListResponse[CostElementContractFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_CONTRACT_FINANCIALS: ''COST_ELEMENT_CONTRACT_FINANCIALS''>]]'
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     CostElementContractFinancialsAttributes:
       properties:
@@ -864,32 +890,6 @@ components:
       - type
       - attributes
       title: 'Data[CostElementContractFinancialsAttributes, Literal[<ResourceType.COST_ELEMENT_CONTRACT_FINANCIALS: ''COST_ELEMENT_CONTRACT_FINANCIALS''>]]'
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
       type: object
   securitySchemes:
     API_Key:

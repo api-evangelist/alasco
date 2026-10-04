@@ -209,34 +209,31 @@ components:
           title: Title
       title: Error
       type: object
-    Data_CostElementAttributes_Literal_COST_ELEMENT__:
+    ValidationError:
       properties:
-        attributes:
-          $ref: '#/components/schemas/CostElementAttributes'
-        id:
-          format: uuid
-          title: Id
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
           type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
         type:
-          const: COST_ELEMENT
-          title: Type
+          title: Error Type
           type: string
       required:
-      - id
+      - loc
+      - msg
       - type
-      - attributes
-      title: 'Data[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
+      title: ValidationError
       type: object
     HTTPValidationError:
       properties:
@@ -266,37 +263,6 @@ components:
       - MAINTENANCE
       title: CostElementCategory
       type: string
-    Response_CostElementAttributes_Literal_COST_ELEMENT__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_CostElementAttributes_Literal_COST_ELEMENT__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_CostElementAttributes_Literal_COST_ELEMENT__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
-      type: object
     ListResponse_CostElementAttributes_Literal_COST_ELEMENT__:
       properties:
         data:
@@ -336,31 +302,34 @@ components:
       - data
       title: 'ListResponse[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
       type: object
-    ValidationError:
+    Data_CostElementAttributes_Literal_COST_ELEMENT__:
       properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
+        attributes:
+          $ref: '#/components/schemas/CostElementAttributes'
+        id:
+          format: uuid
+          title: Id
           type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
         type:
-          title: Error Type
+          const: COST_ELEMENT
+          title: Type
           type: string
       required:
-      - loc
-      - msg
+      - id
       - type
-      title: ValidationError
+      - attributes
+      title: 'Data[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
       type: object
     CostElementAttributes:
       properties:
@@ -435,6 +404,37 @@ components:
       - description
       - parent
       title: CostElementAttributes
+      type: object
+    Response_CostElementAttributes_Literal_COST_ELEMENT__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_CostElementAttributes_Literal_COST_ELEMENT__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CostElementAttributes_Literal_COST_ELEMENT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
       type: object
   securitySchemes:
     API_Key:

@@ -164,15 +164,6 @@ components:
           title: Title
       title: Error
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     Data_CustomFieldAttributes_Literal_CUSTOM_FIELD__:
       properties:
         attributes:
@@ -202,31 +193,6 @@ components:
       - attributes
       title: 'Data[CustomFieldAttributes, Literal[<ResourceType.CUSTOM_FIELD: ''CUSTOM_FIELD''>]]'
       type: object
-    CustomFieldAttributes:
-      properties:
-        name:
-          description: '**Name** · **Name**'
-          title: Name
-          type: string
-        value:
-          $ref: '#/components/schemas/CustomFieldType'
-          description: '**Value** · **Wert**'
-      required:
-      - value
-      - name
-      title: CustomFieldAttributes
-      type: object
-    CustomFieldType:
-      anyOf:
-      - type: integer
-      - type: string
-      - format: date
-        type: string
-      - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-        type: string
-      - items:
-          type: string
-        type: array
     ValidationError:
       properties:
         ctx:
@@ -252,6 +218,29 @@ components:
       - msg
       - type
       title: ValidationError
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    CustomFieldAttributes:
+      properties:
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+        value:
+          $ref: '#/components/schemas/CustomFieldType'
+          description: '**Value** · **Wert**'
+      required:
+      - value
+      - name
+      title: CustomFieldAttributes
       type: object
     ListResponse_CustomFieldAttributes_Literal_CUSTOM_FIELD__:
       properties:
@@ -292,7 +281,7 @@ components:
       - data
       title: 'ListResponse[CustomFieldAttributes, Literal[<ResourceType.CUSTOM_FIELD: ''CUSTOM_FIELD''>]]'
       type: object
-    alasco__public_api__fincon__web__v1__schemas__custom_field__CustomFieldType:
+    CustomFieldType:
       anyOf:
       - type: integer
       - type: string
@@ -317,6 +306,17 @@ components:
       - name
       title: CustomFieldAttributes
       type: object
+    alasco__public_api__fincon__web__v1__schemas__custom_field__CustomFieldType:
+      anyOf:
+      - type: integer
+      - type: string
+      - format: date
+        type: string
+      - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+        type: string
+      - items:
+          type: string
+        type: array
   securitySchemes:
     API_Key:
       description: '

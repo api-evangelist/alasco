@@ -377,70 +377,6 @@ paths:
       - Project
 components:
   schemas:
-    Data_ProjectAttributes_Literal_PROJECT__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ProjectAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: PROJECT
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[ProjectAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
-      type: object
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     ProjectAttributes:
       properties:
         commercial_area:
@@ -580,49 +516,118 @@ components:
       - property
       title: ProjectAttributes
       type: object
-    Response_ProjectAttributes_Literal_PROJECT__:
+    ProjectUsage:
+      enum:
+      - COMMERCIAL_USAGE
+      - NON_COMMERCIAL_USAGE
+      - MIXED_USAGE
+      title: ProjectUsage
+      type: string
+    Error:
       properties:
-        data:
+        detail:
           anyOf:
-          - $ref: '#/components/schemas/Data_ProjectAttributes_Literal_PROJECT__'
+          - type: string
           - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_ProjectAttributes_Literal_PROJECT__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
+          title: Detail
+        source:
           anyOf:
           - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
+              type: string
             type: object
           - type: 'null'
-          title: Links
-      title: 'Response[ProjectAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
       type: object
-    Payload_ProjectUpdateAttributes_Literal_PROJECT__:
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Data_ProjectAttributes_Literal_PROJECT__:
       properties:
         attributes:
-          $ref: '#/components/schemas/ProjectUpdateAttributes'
+          $ref: '#/components/schemas/ProjectAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
         type:
           const: PROJECT
           title: Type
           type: string
       required:
+      - id
       - type
       - attributes
-      title: 'Payload[ProjectUpdateAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
+      title: 'Data[ProjectAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Request_ProjectCreateAttributes_Literal_PROJECT__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ProjectCreateAttributes_Literal_PROJECT__'
+      required:
+      - data
+      title: 'Request[ProjectCreateAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
+      type: object
+    Request_ProjectUpdateAttributes_Literal_PROJECT__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_ProjectUpdateAttributes_Literal_PROJECT__'
+      required:
+      - data
+      title: 'Request[ProjectUpdateAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
       type: object
     ListResponse_ProjectAttributes_Literal_PROJECT__:
       properties:
@@ -663,21 +668,178 @@ components:
       - data
       title: 'ListResponse[ProjectAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
       type: object
-    Request_ProjectUpdateAttributes_Literal_PROJECT__:
+    ProjectUpdateAttributes:
+      properties:
+        commercial_area:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Commercial area (in m²)** · **Gewerbefläche (in m²)**'
+          title: Commercial Area
+        commercial_usage_ratio:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Commercial usage ratio** · **Anteil gewerblich**'
+          title: Commercial Usage Ratio
+        default_contracting_entity:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: '**Contracting entity** · **Auftraggeber**'
+          title: Default Contracting Entity
+        default_tax_rate:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Tax rate** · **Umsatzsteuersatz**'
+          title: Default Tax Rate
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Description** · **Beschreibung**'
+          title: Description
+        effective_floor_area:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Effective floor area (in m²)** · **Nutzungsfläche (in m²)**'
+          title: Effective Floor Area
+        estimated_end_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Estimated end date** · **Erwartetes Enddatum**'
+          title: Estimated End Date
+        estimated_start_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Estimated start date** · **Erwartetes Startdatum**'
+          title: Estimated Start Date
+        gross_floor_area:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Gross floor area (in m²)** · **Brutto-Grundfläche (in m²)**'
+          title: Gross Floor Area
+        gross_volume:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Gross volume (in m³)** · **Brutto-Rauminhalt (in m³)**'
+          title: Gross Volume
+        identifier:
+          anyOf:
+          - maxLength: 50
+            type: string
+          - type: 'null'
+          description: '**Identifier** · **Kennung**'
+          title: Identifier
+        name:
+          anyOf:
+          - maxLength: 250
+            type: string
+          - type: 'null'
+          description: '**Name** · **Name**'
+          title: Name
+        project_usage:
+          anyOf:
+          - $ref: '#/components/schemas/ProjectUsage'
+          - type: 'null'
+          description: '**Project usage** · **Projektnutzung**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `COMMERCIAL_USAGE` | Commercial | Gewerblich |
+
+            | `NON_COMMERCIAL_USAGE` | Non-commercial | Nicht-gewerblich |
+
+            | `MIXED_USAGE` | Mixed usage | Gemischte Nutzung |'
+        rental_area:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Rental area (in m²)** · **Mietfläche (in m²)**'
+          title: Rental Area
+        residential_area:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          description: '**Residential area (in m²)** · **Wohnfläche (in m²)**'
+          title: Residential Area
+      title: ProjectUpdateAttributes
+      type: object
+    Response_ProjectAttributes_Literal_PROJECT__:
       properties:
         data:
-          $ref: '#/components/schemas/Payload_ProjectUpdateAttributes_Literal_PROJECT__'
-      required:
-      - data
-      title: 'Request[ProjectUpdateAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
+          anyOf:
+          - $ref: '#/components/schemas/Data_ProjectAttributes_Literal_PROJECT__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_ProjectAttributes_Literal_PROJECT__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[ProjectAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
       type: object
-    ProjectUsage:
-      enum:
-      - COMMERCIAL_USAGE
-      - NON_COMMERCIAL_USAGE
-      - MIXED_USAGE
-      title: ProjectUsage
-      type: string
+    Payload_ProjectCreateAttributes_Literal_PROJECT__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ProjectCreateAttributes'
+        type:
+          const: PROJECT
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[ProjectCreateAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
+      type: object
     ProjectCreateAttributes:
       properties:
         commercial_area:
@@ -823,18 +985,10 @@ components:
       - default_contracting_entity
       title: ProjectCreateAttributes
       type: object
-    Request_ProjectCreateAttributes_Literal_PROJECT__:
-      properties:
-        data:
-          $ref: '#/components/schemas/Payload_ProjectCreateAttributes_Literal_PROJECT__'
-      required:
-      - data
-      title: 'Request[ProjectCreateAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
-      type: object
-    Payload_ProjectCreateAttributes_Literal_PROJECT__:
+    Payload_ProjectUpdateAttributes_Literal_PROJECT__:
       properties:
         attributes:
-          $ref: '#/components/schemas/ProjectCreateAttributes'
+          $ref: '#/components/schemas/ProjectUpdateAttributes'
         type:
           const: PROJECT
           title: Type
@@ -842,161 +996,7 @@ components:
       required:
       - type
       - attributes
-      title: 'Payload[ProjectCreateAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
-      type: object
-    ProjectUpdateAttributes:
-      properties:
-        commercial_area:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          description: '**Commercial area (in m²)** · **Gewerbefläche (in m²)**'
-          title: Commercial Area
-        commercial_usage_ratio:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          description: '**Commercial usage ratio** · **Anteil gewerblich**'
-          title: Commercial Usage Ratio
-        default_contracting_entity:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          description: '**Contracting entity** · **Auftraggeber**'
-          title: Default Contracting Entity
-        default_tax_rate:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          description: '**Tax rate** · **Umsatzsteuersatz**'
-          title: Default Tax Rate
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Description** · **Beschreibung**'
-          title: Description
-        effective_floor_area:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          description: '**Effective floor area (in m²)** · **Nutzungsfläche (in m²)**'
-          title: Effective Floor Area
-        estimated_end_date:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Estimated end date** · **Erwartetes Enddatum**'
-          title: Estimated End Date
-        estimated_start_date:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Estimated start date** · **Erwartetes Startdatum**'
-          title: Estimated Start Date
-        gross_floor_area:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          description: '**Gross floor area (in m²)** · **Brutto-Grundfläche (in m²)**'
-          title: Gross Floor Area
-        gross_volume:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          description: '**Gross volume (in m³)** · **Brutto-Rauminhalt (in m³)**'
-          title: Gross Volume
-        identifier:
-          anyOf:
-          - maxLength: 50
-            type: string
-          - type: 'null'
-          description: '**Identifier** · **Kennung**'
-          title: Identifier
-        name:
-          anyOf:
-          - maxLength: 250
-            type: string
-          - type: 'null'
-          description: '**Name** · **Name**'
-          title: Name
-        project_usage:
-          anyOf:
-          - $ref: '#/components/schemas/ProjectUsage'
-          - type: 'null'
-          description: '**Project usage** · **Projektnutzung**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `COMMERCIAL_USAGE` | Commercial | Gewerblich |
-
-            | `NON_COMMERCIAL_USAGE` | Non-commercial | Nicht-gewerblich |
-
-            | `MIXED_USAGE` | Mixed usage | Gemischte Nutzung |'
-        rental_area:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          description: '**Rental area (in m²)** · **Mietfläche (in m²)**'
-          title: Rental Area
-        residential_area:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          description: '**Residential area (in m²)** · **Wohnfläche (in m²)**'
-          title: Residential Area
-      title: ProjectUpdateAttributes
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: 'Payload[ProjectUpdateAttributes, Literal[<ResourceType.PROJECT: ''PROJECT''>]]'
       type: object
   securitySchemes:
     API_Key:

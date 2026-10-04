@@ -257,128 +257,6 @@ components:
           title: Title
       title: Error
       type: object
-    ContractDocumentDataLinks:
-      properties:
-        download:
-          examples:
-          - https://api.alasco.de/fincon/v1/contracts/<contract_id>/documents/<document_id>/download/
-          title: Download
-          type: string
-        self:
-          examples:
-          - https://api.alasco.de/fincon/v1/contracts/<contract_id>/documents/<document_id>/
-          title: Self
-          type: string
-      required:
-      - self
-      - download
-      title: ContractDocumentDataLinks
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Body_create_contract_document_contracts__contract_id__documents__post:
-      properties:
-        document_type:
-          $ref: '#/components/schemas/ContractDocumentType'
-          description: 'Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `CONTRACT` | Contract | Auftrag |
-
-            | `ATTACHMENT` | Attachment | Anhang |'
-        upload:
-          contentMediaType: application/octet-stream
-          description: '
-
-            The file to submit. The file must be a valid PDF.
-
-            '
-          title: Upload
-          type: string
-      required:
-      - document_type
-      - upload
-      title: Body_create_contract_document_contracts__contract_id__documents__post
-      type: object
-    ContractDocumentData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ContractDocumentAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        links:
-          $ref: '#/components/schemas/ContractDocumentDataLinks'
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - contract:
-              data:
-                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
-                type: CONTRACT
-          title: Relationships
-        type:
-          default: CONTRACT_DOCUMENT
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      - links
-      title: ContractDocumentData
-      type: object
-    ContractDocumentAttributes:
-      properties:
-        document_type:
-          $ref: '#/components/schemas/ContractDocumentType'
-          description: '**Document type** · **Dokumentenart**
-
-
-            Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `CONTRACT` | Contract | Auftrag |
-
-            | `ATTACHMENT` | Attachment | Anhang |'
-        filename:
-          description: '**Filename** · **Dateiname**'
-          title: Filename
-          type: string
-        uploaded_at:
-          description: '**Uploaded at** · **Hochgeladen am**'
-          format: date-time
-          title: Uploaded At
-          type: string
-      required:
-      - document_type
-      - filename
-      - uploaded_at
-      title: ContractDocumentAttributes
-      type: object
     ContractDocumentType:
       description: Contract documents can be of different types such as `CONTRACT` and `ATTACHMENT`.
       enum:
@@ -445,6 +323,154 @@ components:
       - type
       title: BaseDataSchema
       type: object
+    ContractDocumentData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/ContractDocumentAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        links:
+          $ref: '#/components/schemas/ContractDocumentDataLinks'
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - contract:
+              data:
+                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
+                type: CONTRACT
+          title: Relationships
+        type:
+          default: CONTRACT_DOCUMENT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      - links
+      title: ContractDocumentData
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Body_create_contract_document_contracts__contract_id__documents__post:
+      properties:
+        document_type:
+          $ref: '#/components/schemas/ContractDocumentType'
+          description: 'Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `CONTRACT` | Contract | Auftrag |
+
+            | `ATTACHMENT` | Attachment | Anhang |'
+        upload:
+          contentMediaType: application/octet-stream
+          description: '
+
+            The file to submit. The file must be a valid PDF.
+
+            '
+          title: Upload
+          type: string
+      required:
+      - document_type
+      - upload
+      title: Body_create_contract_document_contracts__contract_id__documents__post
+      type: object
+    ContractDocumentAttributes:
+      properties:
+        document_type:
+          $ref: '#/components/schemas/ContractDocumentType'
+          description: '**Document type** · **Dokumentenart**
+
+
+            Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `CONTRACT` | Contract | Auftrag |
+
+            | `ATTACHMENT` | Attachment | Anhang |'
+        filename:
+          description: '**Filename** · **Dateiname**'
+          title: Filename
+          type: string
+        uploaded_at:
+          description: '**Uploaded at** · **Hochgeladen am**'
+          format: date-time
+          title: Uploaded At
+          type: string
+      required:
+      - document_type
+      - filename
+      - uploaded_at
+      title: ContractDocumentAttributes
+      type: object
+    ContractDocumentDataLinks:
+      properties:
+        download:
+          examples:
+          - https://api.alasco.de/fincon/v1/contracts/<contract_id>/documents/<document_id>/download/
+          title: Download
+          type: string
+        self:
+          examples:
+          - https://api.alasco.de/fincon/v1/contracts/<contract_id>/documents/<document_id>/
+          title: Self
+          type: string
+      required:
+      - self
+      - download
+      title: ContractDocumentDataLinks
+      type: object
     ContractDocumentResponse:
       properties:
         data:
@@ -475,32 +501,6 @@ components:
       required:
       - data
       title: ContractDocumentResponse
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
       type: object
   securitySchemes:
     API_Key:

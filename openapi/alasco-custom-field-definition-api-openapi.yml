@@ -187,6 +187,12 @@ paths:
       - Custom Field Definition
 components:
   schemas:
+    CustomFieldObjectType:
+      enum:
+      - CONTRACT
+      - PROJECT
+      title: CustomFieldObjectType
+      type: string
     Error:
       properties:
         detail:
@@ -213,6 +219,42 @@ components:
           title: Title
       title: Error
       type: object
+    CustomFieldUnit:
+      enum:
+      - NO_UNIT
+      - CURRENCY
+      - LENGTH
+      - AREA
+      - VOLUME
+      - PERCENT
+      title: CustomFieldUnit
+      type: string
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -222,6 +264,117 @@ components:
           type: array
       title: HTTPValidationError
       type: object
+    Response_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__'
+          - type: 'null'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: 'Response[CustomFieldDefinitionAttributes, Literal[<ResourceType.CUSTOM_FIELD_DEFINITION: ''CUSTOM_FIELD_DEFINITION''>]]'
+      type: object
+    ListResponse_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__'
+          title: Data
+          type: array
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[CustomFieldDefinitionAttributes, Literal[<ResourceType.CUSTOM_FIELD_DEFINITION: ''CUSTOM_FIELD_DEFINITION''>]]'
+      type: object
+    Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/CustomFieldDefinitionAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          title: Relationships
+        type:
+          const: CUSTOM_FIELD_DEFINITION
+          title: Type
+          type: string
+      required:
+      - id
+      - type
+      - attributes
+      title: 'Data[CustomFieldDefinitionAttributes, Literal[<ResourceType.CUSTOM_FIELD_DEFINITION: ''CUSTOM_FIELD_DEFINITION''>]]'
+      type: object
+    alasco__public_api__fincon__web__v1__schemas__custom_field_definition__CustomFieldType:
+      enum:
+      - TEXT
+      - INTEGER
+      - DECIMAL
+      - DATE
+      - MONEY
+      - SELECT
+      - MULTISELECT
+      - BOOLEAN
+      title: CustomFieldType
+      type: string
     CustomFieldDefinitionAttributes:
       properties:
         description:
@@ -271,159 +424,6 @@ components:
       - description
       - object_type
       title: CustomFieldDefinitionAttributes
-      type: object
-    CustomFieldObjectType:
-      enum:
-      - CONTRACT
-      - PROJECT
-      title: CustomFieldObjectType
-      type: string
-    alasco__public_api__fincon__web__v1__schemas__custom_field_definition__CustomFieldType:
-      enum:
-      - TEXT
-      - INTEGER
-      - DECIMAL
-      - DATE
-      - MONEY
-      - SELECT
-      - MULTISELECT
-      - BOOLEAN
-      title: CustomFieldType
-      type: string
-    Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/CustomFieldDefinitionAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          title: Relationships
-        type:
-          const: CUSTOM_FIELD_DEFINITION
-          title: Type
-          type: string
-      required:
-      - id
-      - type
-      - attributes
-      title: 'Data[CustomFieldDefinitionAttributes, Literal[<ResourceType.CUSTOM_FIELD_DEFINITION: ''CUSTOM_FIELD_DEFINITION''>]]'
-      type: object
-    CustomFieldUnit:
-      enum:
-      - NO_UNIT
-      - CURRENCY
-      - LENGTH
-      - AREA
-      - VOLUME
-      - PERCENT
-      title: CustomFieldUnit
-      type: string
-    ListResponse_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[CustomFieldDefinitionAttributes, Literal[<ResourceType.CUSTOM_FIELD_DEFINITION: ''CUSTOM_FIELD_DEFINITION''>]]'
-      type: object
-    Response_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__'
-          - type: 'null'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_CustomFieldDefinitionAttributes_Literal_CUSTOM_FIELD_DEFINITION__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      title: 'Response[CustomFieldDefinitionAttributes, Literal[<ResourceType.CUSTOM_FIELD_DEFINITION: ''CUSTOM_FIELD_DEFINITION''>]]'
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
       type: object
   securitySchemes:
     API_Key:
