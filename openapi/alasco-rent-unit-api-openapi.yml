@@ -215,31 +215,44 @@ paths:
       - Rent Unit
 components:
   schemas:
-    Error:
+    ListResponse_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__:
       properties:
-        detail:
+        data:
+          items:
+            $ref: '#/components/schemas/Data_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
+          title: Data
+          type: array
+        errors:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
           - type: 'null'
-          title: Detail
-        source:
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Data_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
           anyOf:
           - additionalProperties:
-              type: string
+              anyOf:
+              - type: string
+              - type: 'null'
             type: object
           - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
+          description: '
+
+            Contains the pagination''s next link if results don''t fit on one page.
+
+            '
+          title: Links
+      required:
+      - data
+      title: 'ListResponse[RentUnitAttributes, Literal[<ResourceType.RENT_UNIT_FINANCIALS: ''RENT_UNIT_FINANCIALS''>]]'
       type: object
     ValidationError:
       properties:
@@ -295,61 +308,6 @@ components:
       - type
       - attributes
       title: 'Data[RentUnitAttributes, Literal[<ResourceType.RENT_UNIT_FINANCIALS: ''RENT_UNIT_FINANCIALS''>]]'
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    RentStatus:
-      enum:
-      - PLANNED
-      - RENTED
-      - COMPLETED
-      title: RentStatus
-      type: string
-    ListResponse_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/Data_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Data_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
-      required:
-      - data
-      title: 'ListResponse[RentUnitAttributes, Literal[<ResourceType.RENT_UNIT_FINANCIALS: ''RENT_UNIT_FINANCIALS''>]]'
       type: object
     Response_RentUnitAttributes_Literal_RENT_UNIT_FINANCIALS__:
       properties:
@@ -483,6 +441,48 @@ components:
       - overdue_payments_total
       - project
       title: RentUnitAttributes
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    RentStatus:
+      enum:
+      - PLANNED
+      - RENTED
+      - COMPLETED
+      title: RentStatus
+      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
   securitySchemes:
     API_Key:

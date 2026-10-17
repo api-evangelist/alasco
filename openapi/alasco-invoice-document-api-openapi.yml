@@ -270,31 +270,127 @@ paths:
     - url: https://api.alasco.de/capex/v1
 components:
   schemas:
-    Error:
+    InvoiceDocumentCreateType:
+      description: 'Invoice documents can be of different types. The file which is uploaded to Alasco when a new
+
+        invoice is created is of type `INVOICE`. All other documents which are added to the invoice in
+
+        Alasco later on can be of type `INVOICE`, `ATTACHMENT`, `AUDITED_INVOICE`, `EXTERNAL_CORRESPONDENCE`,
+
+        `INTERNAL_CORRESPONDENCE`, `VALUATIONS`, `PLANS`, `REVISED_INVOICE`, `PAYMENT_CERTIFICATE`,
+
+        `COVERSHEET_EXTERNAL`, `PROTOCOL` and `OTHER`.
+
+        If the invoice is of invoice type `RETAINAGE_PAYOUT` the guarantee which was used to start the
+
+        payout process is added to the invoice documents with the type `GUARANTEE`.'
+      enum:
+      - INVOICE
+      - ATTACHMENT
+      - COVERSHEET_EXTERNAL
+      - AUDITED_INVOICE
+      - INTERNAL_CORRESPONDENCE
+      - EXTERNAL_CORRESPONDENCE
+      - VALUATIONS
+      - PLANS
+      - REVISED_INVOICE
+      - PAYMENT_CERTIFICATE
+      - PROTOCOL
+      - OTHER
+      title: InvoiceDocumentCreateType
+      type: string
+    InvoiceDocumentData:
       properties:
-        detail:
+        attributes:
+          $ref: '#/components/schemas/InvoiceDocumentAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        links:
+          $ref: '#/components/schemas/InvoiceDocumentDataLinks'
+        relationships:
           anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
+          - additionalProperties: true
             type: object
           - type: 'null'
-          title: Source
-        status:
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - invoice:
+              data:
+                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
+                type: INVOICE
+          title: Relationships
+        type:
+          default: INVOICE_DOCUMENT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      - links
+      title: InvoiceDocumentData
+      type: object
+    InvoiceDocumentResponse:
+      properties:
+        data:
           anyOf:
-          - type: string
+          - $ref: '#/components/schemas/InvoiceDocumentData'
           - type: 'null'
-          title: Status
-        title:
+        errors:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
           - type: 'null'
-          title: Title
-      title: Error
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      title: InvoiceDocumentResponse
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
     InvoiceDocumentReadType:
       description: 'This used for reading document invoice types and some other extra  types such as `COVERSHEET`,
@@ -347,47 +443,87 @@ components:
       - type
       title: BaseDataSchema
       type: object
-    ValidationError:
+    Body_create_invoice_document_invoices__invoice_id__documents__post:
       properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
+        document_type:
+          $ref: '#/components/schemas/InvoiceDocumentCreateType'
+          description: 'Available values / Verfügbare Werte:
+
+
+            | Value | English | Deutsch |
+
+            | --- | --- | --- |
+
+            | `INVOICE` | Invoice | Rechnung |
+
+            | `ATTACHMENT` | Attachment | Anhang |
+
+            | `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |
+
+            | `AUDITED_INVOICE` | Audited invoice | Prüfrechnung |
+
+            | `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |
+
+            | `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |
+
+            | `VALUATIONS` | Valuations | Aufmaß |
+
+            | `PLANS` | Plans | Planunterlagen |
+
+            | `REVISED_INVOICE` | Revised invoice | Korrekturrechnung |
+
+            | `PAYMENT_CERTIFICATE` | Payment certificate | Zahlungsnachweis |
+
+            | `PROTOCOL` | Protocol | Protokoll |
+
+            | `OTHER` | Other | Sonstiges |'
+        upload:
+          contentMediaType: application/octet-stream
+          description: '
+
+            The file to submit. The file must be a valid PDF.
+
+            '
+          title: Upload
           type: string
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - document_type
+      - upload
+      title: Body_create_invoice_document_invoices__invoice_id__documents__post
       type: object
-    HTTPValidationError:
+    Error:
       properties:
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Detail
-          type: array
-      title: HTTPValidationError
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
       type: object
-    InvoiceDocumentResponse:
+    InvoiceDocumentListResponse:
       properties:
         data:
-          anyOf:
-          - $ref: '#/components/schemas/InvoiceDocumentData'
-          - type: 'null'
+          items:
+            $ref: '#/components/schemas/InvoiceDocumentData'
+          title: Data
+          type: array
         errors:
           anyOf:
           - items:
@@ -411,7 +547,41 @@ components:
             type: object
           - type: 'null'
           title: Links
-      title: InvoiceDocumentResponse
+      required:
+      - data
+      title: InvoiceDocumentListResponse
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    InvoiceDocumentDataLinks:
+      properties:
+        download:
+          examples:
+          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download/
+          title: Download
+          type: string
+        download_annotated:
+          examples:
+          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download-annotated/
+          title: Download Annotated
+          type: string
+        self:
+          examples:
+          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/
+          title: Self
+          type: string
+      required:
+      - self
+      - download
+      - download_annotated
+      title: InvoiceDocumentDataLinks
       type: object
     InvoiceDocumentAttributes:
       properties:
@@ -476,176 +646,6 @@ components:
       - uploaded_at
       - document_type
       title: InvoiceDocumentAttributes
-      type: object
-    InvoiceDocumentData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/InvoiceDocumentAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        links:
-          $ref: '#/components/schemas/InvoiceDocumentDataLinks'
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: '
-
-            Contains links to related objects.
-
-            '
-          examples:
-          - invoice:
-              data:
-                id: 503671b0-c9b4-47a9-b859-763fcf8a9f28
-                type: INVOICE
-          title: Relationships
-        type:
-          default: INVOICE_DOCUMENT
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      - links
-      title: InvoiceDocumentData
-      type: object
-    InvoiceDocumentDataLinks:
-      properties:
-        download:
-          examples:
-          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download/
-          title: Download
-          type: string
-        download_annotated:
-          examples:
-          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/download-annotated/
-          title: Download Annotated
-          type: string
-        self:
-          examples:
-          - https://api.alasco.de/capex/v1/invoices/<invoice_id>/documents/<document_id>/
-          title: Self
-          type: string
-      required:
-      - self
-      - download
-      - download_annotated
-      title: InvoiceDocumentDataLinks
-      type: object
-    InvoiceDocumentCreateType:
-      description: 'Invoice documents can be of different types. The file which is uploaded to Alasco when a new
-
-        invoice is created is of type `INVOICE`. All other documents which are added to the invoice in
-
-        Alasco later on can be of type `INVOICE`, `ATTACHMENT`, `AUDITED_INVOICE`, `EXTERNAL_CORRESPONDENCE`,
-
-        `INTERNAL_CORRESPONDENCE`, `VALUATIONS`, `PLANS`, `REVISED_INVOICE`, `PAYMENT_CERTIFICATE`,
-
-        `COVERSHEET_EXTERNAL`, `PROTOCOL` and `OTHER`.
-
-        If the invoice is of invoice type `RETAINAGE_PAYOUT` the guarantee which was used to start the
-
-        payout process is added to the invoice documents with the type `GUARANTEE`.'
-      enum:
-      - INVOICE
-      - ATTACHMENT
-      - COVERSHEET_EXTERNAL
-      - AUDITED_INVOICE
-      - INTERNAL_CORRESPONDENCE
-      - EXTERNAL_CORRESPONDENCE
-      - VALUATIONS
-      - PLANS
-      - REVISED_INVOICE
-      - PAYMENT_CERTIFICATE
-      - PROTOCOL
-      - OTHER
-      title: InvoiceDocumentCreateType
-      type: string
-    Body_create_invoice_document_invoices__invoice_id__documents__post:
-      properties:
-        document_type:
-          $ref: '#/components/schemas/InvoiceDocumentCreateType'
-          description: 'Available values / Verfügbare Werte:
-
-
-            | Value | English | Deutsch |
-
-            | --- | --- | --- |
-
-            | `INVOICE` | Invoice | Rechnung |
-
-            | `ATTACHMENT` | Attachment | Anhang |
-
-            | `COVERSHEET_EXTERNAL` | External coversheet | Externes Deckblatt |
-
-            | `AUDITED_INVOICE` | Audited invoice | Prüfrechnung |
-
-            | `INTERNAL_CORRESPONDENCE` | Internal correspondence | Interne Korrespondenz |
-
-            | `EXTERNAL_CORRESPONDENCE` | External correspondence | Externe Korrespondenz |
-
-            | `VALUATIONS` | Valuations | Aufmaß |
-
-            | `PLANS` | Plans | Planunterlagen |
-
-            | `REVISED_INVOICE` | Revised invoice | Korrekturrechnung |
-
-            | `PAYMENT_CERTIFICATE` | Payment certificate | Zahlungsnachweis |
-
-            | `PROTOCOL` | Protocol | Protokoll |
-
-            | `OTHER` | Other | Sonstiges |'
-        upload:
-          contentMediaType: application/octet-stream
-          description: '
-
-            The file to submit. The file must be a valid PDF.
-
-            '
-          title: Upload
-          type: string
-      required:
-      - document_type
-      - upload
-      title: Body_create_invoice_document_invoices__invoice_id__documents__post
-      type: object
-    InvoiceDocumentListResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/InvoiceDocumentData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      required:
-      - data
-      title: InvoiceDocumentListResponse
       type: object
     InvoiceDocumentDataLinks_2:
       properties:

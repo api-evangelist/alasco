@@ -101,41 +101,45 @@ paths:
       - Annual Consumption
 components:
   schemas:
-    Error:
+    AnnualConsumptionResponse:
       properties:
-        code:
+        data:
+          $ref: '#/components/schemas/AnnualConsumptionData'
+        errors:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
           - type: 'null'
-          title: Code
-        detail:
+          title: Errors
+        included:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
           - type: 'null'
-          title: Detail
-        source:
+          title: Included
+        links:
           anyOf:
-          - additionalProperties:
-              type: string
-            type: object
+          - $ref: '#/components/schemas/Links'
           - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
+      required:
+      - data
+      title: AnnualConsumptionResponse
       type: object
-    AnnualConsumptionData:
+    CoolingSystem:
+      enum:
+      - DISTRICT
+      - LOCAL_DISTRICT
+      title: CoolingSystem
+      type: string
+    BaseDataSchema:
       properties:
         attributes:
-          $ref: '#/components/schemas/AnnualConsumptionAttributes'
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
         id:
           format: uuid
           title: Id
@@ -147,64 +151,11 @@ components:
           - type: 'null'
           title: Relationships
         type:
-          const: ANNUAL_CONSUMPTION
-          default: ANNUAL_CONSUMPTION
-          title: Type
-          type: string
+          $ref: '#/components/schemas/ResourceType'
       required:
       - id
-      - attributes
-      title: AnnualConsumptionData
-      type: object
-    AnnualConsumptionPatchPayload:
-      properties:
-        data:
-          $ref: '#/components/schemas/AnnualConsumptionPatchPayloadData'
-      required:
-      - data
-      title: AnnualConsumptionPatchPayload
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Links:
-      properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
-      required:
-      - next
-      - prev
-      title: Links
-      type: object
-    AnnualConsumptionMarketBasedEmissionUpdate:
-      properties:
-        is_renewable:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Renewable
-        market_based_emission_factor:
-          anyOf:
-          - type: number
-          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-            type: string
-          - type: 'null'
-          title: Market Based Emission Factor
-      title: AnnualConsumptionMarketBasedEmissionUpdate
+      - type
+      title: BaseDataSchema
       type: object
     Utility:
       enum:
@@ -213,6 +164,17 @@ components:
       - WATER
       - COOLING
       title: Utility
+      type: string
+    Units:
+      enum:
+      - CUBIC_METERS
+      - KILOWATT_HOURS
+      - MEGAWATT_HOURS
+      - KILOJOULES
+      - MEGAJOULES
+      - GIGAJOULES
+      - BRITISH_THERMAL_UNITS
+      title: Units
       type: string
     AnnualConsumptionAttributes:
       properties:
@@ -297,13 +259,36 @@ components:
       - tenants
       title: AnnualConsumptionAttributes
       type: object
-    BaseDataSchema:
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    AnnualConsumptionData:
       properties:
         attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
+          $ref: '#/components/schemas/AnnualConsumptionAttributes'
         id:
           format: uuid
           title: Id
@@ -315,99 +300,34 @@ components:
           - type: 'null'
           title: Relationships
         type:
-          $ref: '#/components/schemas/ResourceType'
+          const: ANNUAL_CONSUMPTION
+          default: ANNUAL_CONSUMPTION
+          title: Type
+          type: string
       required:
       - id
-      - type
-      title: BaseDataSchema
+      - attributes
+      title: AnnualConsumptionData
       type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    TenantSummaryAttributes:
-      properties:
-        external_id:
-          description: '**External tenant ID** · **Externe Mieter-ID**'
-          title: External Id
-          type: string
-        name:
-          description: '**Name** · **Name**'
-          title: Name
-          type: string
-      required:
-      - external_id
-      - name
-      title: TenantSummaryAttributes
-      type: object
-    EmissionFactorAttributes:
-      properties:
-        location_based:
-          description: '**Location-based** · **Standortbasiert**'
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Location Based
-          type: string
-        market_based:
-          anyOf:
-          - $ref: '#/components/schemas/MarketBasedFactorAttributes'
-          - type: 'null'
-          description: '**Market-based** · **Marktbasiert**'
-      required:
-      - location_based
-      - market_based
-      title: EmissionFactorAttributes
-      type: object
-    Units:
+    HeatingSystem:
       enum:
-      - CUBIC_METERS
-      - KILOWATT_HOURS
-      - MEGAWATT_HOURS
-      - KILOJOULES
-      - MEGAJOULES
-      - GIGAJOULES
-      - BRITISH_THERMAL_UNITS
-      title: Units
+      - ELECTRICITY
+      - OIL
+      - GAS
+      - DISTRICT_HEATING
+      - WOOD_CHIPS
+      - WOOD_PELLETS
+      - HEAT_PUMP
+      - UNKNOWN
+      title: HeatingSystem
       type: string
-    MarketBasedFactorAttributes:
-      properties:
-        is_renewable:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          description: '**Is renewable** · **Erneuerbar**'
-          title: Is Renewable
-        value:
-          description: '**Value** · **Wert**'
-          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Value
-          type: string
-      required:
-      - value
-      - is_renewable
-      title: MarketBasedFactorAttributes
-      type: object
+    ConsumptionSource:
+      enum:
+      - meter
+      - estimate
+      - manualEntry
+      title: ConsumptionSource
+      type: string
     AnnualConsumptionPatchPayloadData:
       properties:
         attributes:
@@ -421,25 +341,6 @@ components:
       - attributes
       title: AnnualConsumptionPatchPayloadData
       type: object
-    CoolingSystem:
-      enum:
-      - DISTRICT
-      - LOCAL_DISTRICT
-      title: CoolingSystem
-      type: string
-    ConsumptionSource:
-      enum:
-      - meter
-      - estimate
-      - manualEntry
-      title: ConsumptionSource
-      type: string
-    ProcuredBy:
-      enum:
-      - LANDLORD
-      - TENANT
-      title: ProcuredBy
-      type: string
     AnnualConsumptionListResponse:
       properties:
         data:
@@ -469,44 +370,119 @@ components:
       - data
       title: AnnualConsumptionListResponse
       type: object
-    AnnualConsumptionResponse:
+    AnnualConsumptionMarketBasedEmissionUpdate:
+      properties:
+        is_renewable:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Renewable
+        market_based_emission_factor:
+          anyOf:
+          - type: number
+          - pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+            type: string
+          - type: 'null'
+          title: Market Based Emission Factor
+      title: AnnualConsumptionMarketBasedEmissionUpdate
+      type: object
+    AnnualConsumptionPatchPayload:
       properties:
         data:
-          $ref: '#/components/schemas/AnnualConsumptionData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
+          $ref: '#/components/schemas/AnnualConsumptionPatchPayloadData'
       required:
       - data
-      title: AnnualConsumptionResponse
+      title: AnnualConsumptionPatchPayload
       type: object
-    HeatingSystem:
-      enum:
-      - ELECTRICITY
-      - OIL
-      - GAS
-      - DISTRICT_HEATING
-      - WOOD_CHIPS
-      - WOOD_PELLETS
-      - HEAT_PUMP
-      - UNKNOWN
-      title: HeatingSystem
-      type: string
+    TenantSummaryAttributes:
+      properties:
+        external_id:
+          description: '**External tenant ID** · **Externe Mieter-ID**'
+          title: External Id
+          type: string
+        name:
+          description: '**Name** · **Name**'
+          title: Name
+          type: string
+      required:
+      - external_id
+      - name
+      title: TenantSummaryAttributes
+      type: object
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    EmissionFactorAttributes:
+      properties:
+        location_based:
+          description: '**Location-based** · **Standortbasiert**'
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Location Based
+          type: string
+        market_based:
+          anyOf:
+          - $ref: '#/components/schemas/MarketBasedFactorAttributes'
+          - type: 'null'
+          description: '**Market-based** · **Marktbasiert**'
+      required:
+      - location_based
+      - market_based
+      title: EmissionFactorAttributes
+      type: object
     ResourceType:
       enum:
       - BUILDING
@@ -528,6 +504,30 @@ components:
       - ANNUAL_CONSUMPTION
       - TENANT_CONSUMPTION_LINK
       title: ResourceType
+      type: string
+    MarketBasedFactorAttributes:
+      properties:
+        is_renewable:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: '**Is renewable** · **Erneuerbar**'
+          title: Is Renewable
+        value:
+          description: '**Value** · **Wert**'
+          pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Value
+          type: string
+      required:
+      - value
+      - is_renewable
+      title: MarketBasedFactorAttributes
+      type: object
+    ProcuredBy:
+      enum:
+      - LANDLORD
+      - TENANT
+      title: ProcuredBy
       type: string
   securitySchemes:
     API_Key:

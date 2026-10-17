@@ -234,66 +234,6 @@ paths:
       - Documents
 components:
   schemas:
-    Error:
-      properties:
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    DocumentEventsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/DocumentEventData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: DocumentEventsResponse
-      type: object
     ExternalIdRequestData:
       properties:
         attributes:
@@ -307,26 +247,156 @@ components:
       - attributes
       title: ExternalIdRequestData
       type: object
-    FileMetadataUpdateAttributes:
+    BaseDataSchema:
       properties:
-        building_external_id:
+        attributes:
           anyOf:
-          - type: string
+          - {}
           - type: 'null'
-          description: '**Building external ID** · **Externe Gebäude-ID**'
-          title: Building External Id
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    FileGetData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/FileGetAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: FILE
+          default: FILE
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: FileGetData
+      type: object
+    DocumentEventData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/DocumentEventAttributes'
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: DOCUMENT_EVENT
+          default: DOCUMENT_EVENT
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: DocumentEventData
+      type: object
+    FileMetadataAttributes:
+      properties:
+        building_external_ids:
+          description: '**Building external IDs** · **Externe Gebäude-IDs**'
+          items:
+            type: string
+          title: Building External Ids
+          type: array
         document_type:
-          anyOf:
-          - $ref: '#/components/schemas/DocumentType'
-          - type: 'null'
+          $ref: '#/components/schemas/DocumentType'
           description: '**Document type** · **Dokumenttyp**'
+        external_id:
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+          type: string
+        file_id:
+          description: '**File ID** · **Datei-ID**'
+          format: uuid
+          title: File Id
+          type: string
+        issued_at:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Issued at** · **Ausstellungsdatum**'
+          title: Issued At
         name:
           anyOf:
           - type: string
           - type: 'null'
           description: '**Name** · **Name**'
           title: Name
-      title: FileMetadataUpdateAttributes
+        source:
+          $ref: '#/components/schemas/DocumentSource'
+          description: '**Source** · **Quelle**'
+        valid_until:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          description: '**Valid until** · **Gültig bis**'
+          title: Valid Until
+      required:
+      - name
+      - external_id
+      - source
+      - file_id
+      - building_external_ids
+      - document_type
+      - issued_at
+      - valid_until
+      title: FileMetadataAttributes
+      type: object
+    FileMetadataUpdateRequest:
+      properties:
+        data:
+          $ref: '#/components/schemas/FileMetadataUpdateData'
+      required:
+      - data
+      title: FileMetadataUpdateRequest
+      type: object
+    Links:
+      properties:
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        prev:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prev
+      required:
+      - next
+      - prev
+      title: Links
       type: object
     FileGetAttributes:
       properties:
@@ -398,30 +468,10 @@ components:
           type: array
       title: HTTPValidationError
       type: object
-    Links:
-      properties:
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        prev:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prev
-      required:
-      - next
-      - prev
-      title: Links
-      type: object
-    BaseDataSchema:
+    ExternalIdData:
       properties:
         attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
+          $ref: '#/components/schemas/ExternalIdAttributes'
         id:
           format: uuid
           title: Id
@@ -433,44 +483,24 @@ components:
           - type: 'null'
           title: Relationships
         type:
-          $ref: '#/components/schemas/ResourceType'
+          const: FILE_EXTERNAL_ID
+          default: FILE_EXTERNAL_ID
+          title: Type
+          type: string
       required:
       - id
-      - type
-      title: BaseDataSchema
+      - attributes
+      title: ExternalIdData
       type: object
-    DocumentSource:
-      enum:
-      - APP
-      - API
-      - SURVEY
-      title: DocumentSource
-      type: string
-    ValidationError:
+    Body_upload_file_files__post:
       properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
+        file:
+          contentMediaType: application/octet-stream
+          title: File
           type: string
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - file
+      title: Body_upload_file_files__post
       type: object
     FileUploadResponse:
       properties:
@@ -498,93 +528,31 @@ components:
       - data
       title: FileUploadResponse
       type: object
-    FileMetadataData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/FileMetadataAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: FILE_METADATA
-          default: FILE_METADATA
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: FileMetadataData
-      type: object
-    FileGetData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/FileGetAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: FILE
-          default: FILE
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: FileGetData
-      type: object
-    DocumentEventData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/DocumentEventAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: DOCUMENT_EVENT
-          default: DOCUMENT_EVENT
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: DocumentEventData
-      type: object
-    FileMetadataUpdateRequest:
+    FileGetResponse:
       properties:
         data:
-          $ref: '#/components/schemas/FileMetadataUpdateData'
+          $ref: '#/components/schemas/FileGetData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
       required:
       - data
-      title: FileMetadataUpdateRequest
-      type: object
-    ExternalIdRequest:
-      properties:
-        data:
-          $ref: '#/components/schemas/ExternalIdRequestData'
-      required:
-      - data
-      title: ExternalIdRequest
+      title: FileGetResponse
       type: object
     DocumentEventAttributes:
       properties:
@@ -609,80 +577,40 @@ components:
       - record
       title: DocumentEventAttributes
       type: object
-    DocumentType:
-      enum:
-      - ENERGY_CERTIFICATE
-      - TAXONOMY_PROOF
-      - BUILDING_CERTIFICATE
-      - UTILITY_BILL
-      - CLIMATE_RISK_ANALYSIS
-      - TENANT_LEASE
-      - WASTE_COLLECTION_INTERVAL
-      - EMISSION_FACTOR_PROOF
-      - WASTE_MANAGEMENT_CONCEPT
-      - WASTE_DOCUMENTATION
-      - WASTE_REPORT
-      - PUBLIC_DISPLAY_ENERGY_CERTIFICATE
-      - RENEWABLE_ELECTRICITY_CERTIFICATE
-      - ESG_ANALYSIS
-      - EU_TAXONOMY_ASSESSMENT
-      - ENERGY_RENOVATION_ROADMAP
-      - ENERGY_AUDIT
-      - INVESTOR_ESG_ANALYSIS
-      - ENERGY_REVIEW
-      - OTHER
-      - UNSET
-      title: DocumentType
-      type: string
-    ExternalIdResponse:
+    ExternalIdRequest:
       properties:
         data:
-          $ref: '#/components/schemas/ExternalIdData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
+          $ref: '#/components/schemas/ExternalIdRequestData'
       required:
       - data
-      title: ExternalIdResponse
+      title: ExternalIdRequest
       type: object
-    ExternalIdAttributes:
+    FileUploadData:
       properties:
-        external_id:
-          description: '**External ID** · **Externe ID**'
-          title: External Id
-          type: string
-        file_id:
-          description: '**File ID** · **Datei-ID**'
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
           format: uuid
-          title: File Id
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: FILE
+          default: FILE
+          title: Type
           type: string
       required:
-      - file_id
-      - external_id
-      title: ExternalIdAttributes
+      - id
+      title: FileUploadData
       type: object
-    DocumentEventType:
-      enum:
-      - CREATE
-      - UPDATE
-      - DELETE
-      title: DocumentEventType
-      type: string
     DocumentEventRecord:
       properties:
         building_external_ids:
@@ -735,13 +663,10 @@ components:
       - valid_until
       title: DocumentEventRecord
       type: object
-    FileUploadData:
+    FileMetadataData:
       properties:
         attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
+          $ref: '#/components/schemas/FileMetadataAttributes'
         id:
           format: uuid
           title: Id
@@ -753,18 +678,106 @@ components:
           - type: 'null'
           title: Relationships
         type:
-          const: FILE
-          default: FILE
+          const: FILE_METADATA
+          default: FILE_METADATA
           title: Type
           type: string
       required:
       - id
-      title: FileUploadData
+      - attributes
+      title: FileMetadataData
       type: object
-    FileGetResponse:
+    DocumentType:
+      enum:
+      - ENERGY_CERTIFICATE
+      - TAXONOMY_PROOF
+      - BUILDING_CERTIFICATE
+      - UTILITY_BILL
+      - CLIMATE_RISK_ANALYSIS
+      - TENANT_LEASE
+      - WASTE_COLLECTION_INTERVAL
+      - EMISSION_FACTOR_PROOF
+      - WASTE_MANAGEMENT_CONCEPT
+      - WASTE_DOCUMENTATION
+      - WASTE_REPORT
+      - PUBLIC_DISPLAY_ENERGY_CERTIFICATE
+      - RENEWABLE_ELECTRICITY_CERTIFICATE
+      - ESG_ANALYSIS
+      - EU_TAXONOMY_ASSESSMENT
+      - ENERGY_RENOVATION_ROADMAP
+      - ENERGY_AUDIT
+      - INVESTOR_ESG_ANALYSIS
+      - ENERGY_REVIEW
+      - OTHER
+      - UNSET
+      title: DocumentType
+      type: string
+    FileMetadataUpdateAttributes:
+      properties:
+        building_external_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Building external ID** · **Externe Gebäude-ID**'
+          title: Building External Id
+        document_type:
+          anyOf:
+          - $ref: '#/components/schemas/DocumentType'
+          - type: 'null'
+          description: '**Document type** · **Dokumenttyp**'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Name** · **Name**'
+          title: Name
+      title: FileMetadataUpdateAttributes
+      type: object
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    DocumentSource:
+      enum:
+      - APP
+      - API
+      - SURVEY
+      title: DocumentSource
+      type: string
+    DocumentEventsResponse:
       properties:
         data:
-          $ref: '#/components/schemas/FileGetData'
+          items:
+            $ref: '#/components/schemas/DocumentEventData'
+          title: Data
+          type: array
         errors:
           anyOf:
           - items:
@@ -785,118 +798,8 @@ components:
           - type: 'null'
       required:
       - data
-      title: FileGetResponse
+      title: DocumentEventsResponse
       type: object
-    ExternalIdData:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/ExternalIdAttributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: FILE_EXTERNAL_ID
-          default: FILE_EXTERNAL_ID
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: ExternalIdData
-      type: object
-    ExternalIdRequestAttributes:
-      properties:
-        external_id:
-          description: '**External ID** · **Externe ID**'
-          title: External Id
-          type: string
-      required:
-      - external_id
-      title: ExternalIdRequestAttributes
-      type: object
-    FileMetadataAttributes:
-      properties:
-        building_external_ids:
-          description: '**Building external IDs** · **Externe Gebäude-IDs**'
-          items:
-            type: string
-          title: Building External Ids
-          type: array
-        document_type:
-          $ref: '#/components/schemas/DocumentType'
-          description: '**Document type** · **Dokumenttyp**'
-        external_id:
-          description: '**External ID** · **Externe ID**'
-          title: External Id
-          type: string
-        file_id:
-          description: '**File ID** · **Datei-ID**'
-          format: uuid
-          title: File Id
-          type: string
-        issued_at:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Issued at** · **Ausstellungsdatum**'
-          title: Issued At
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Name** · **Name**'
-          title: Name
-        source:
-          $ref: '#/components/schemas/DocumentSource'
-          description: '**Source** · **Quelle**'
-        valid_until:
-          anyOf:
-          - format: date
-            type: string
-          - type: 'null'
-          description: '**Valid until** · **Gültig bis**'
-          title: Valid Until
-      required:
-      - name
-      - external_id
-      - source
-      - file_id
-      - building_external_ids
-      - document_type
-      - issued_at
-      - valid_until
-      title: FileMetadataAttributes
-      type: object
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
     FileMetadataResponse:
       properties:
         data:
@@ -936,15 +839,112 @@ components:
       - attributes
       title: FileMetadataUpdateData
       type: object
-    Body_upload_file_files__post:
+    ValidationError:
       properties:
-        file:
-          contentMediaType: application/octet-stream
-          title: File
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
           type: string
       required:
-      - file
-      title: Body_upload_file_files__post
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    ExternalIdAttributes:
+      properties:
+        external_id:
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+          type: string
+        file_id:
+          description: '**File ID** · **Datei-ID**'
+          format: uuid
+          title: File Id
+          type: string
+      required:
+      - file_id
+      - external_id
+      title: ExternalIdAttributes
+      type: object
+    DocumentEventType:
+      enum:
+      - CREATE
+      - UPDATE
+      - DELETE
+      title: DocumentEventType
+      type: string
+    ExternalIdResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/ExternalIdData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: ExternalIdResponse
+      type: object
+    ExternalIdRequestAttributes:
+      properties:
+        external_id:
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+          type: string
+      required:
+      - external_id
+      title: ExternalIdRequestAttributes
       type: object
   securitySchemes:
     API_Key:

@@ -265,75 +265,19 @@ paths:
       - Property
 components:
   schemas:
-    Error:
+    Payload_PropertyUpdateAttributes_Literal_PROPERTY__:
       properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
+        attributes:
+          $ref: '#/components/schemas/PropertyUpdateAttributes'
+        type:
+          const: PROPERTY
+          title: Type
+          type: string
+      required:
+      - type
+      - attributes
+      title: 'Payload[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
-    CountryCodes:
-      enum:
-      - AM
-      - AT
-      - BE
-      - BG
-      - CH
-      - CY
-      - CZ
-      - DE
-      - DK
-      - EE
-      - ES
-      - FI
-      - FR
-      - GB
-      - GE
-      - GR
-      - HR
-      - HU
-      - IE
-      - IT
-      - KZ
-      - LT
-      - LU
-      - LV
-      - MT
-      - MX
-      - NL
-      - 'NO'
-      - PL
-      - PT
-      - RO
-      - RS
-      - US
-      - UY
-      - SA
-      - SE
-      - SI
-      - SK
-      - TR
-      title: CountryCodes
-      type: string
     ValidationError:
       properties:
         ctx:
@@ -359,60 +303,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    PropertyCreateAttributes:
-      properties:
-        address:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**Address** · **Adresse**'
-          title: Address
-        city:
-          anyOf:
-          - maxLength: 255
-            type: string
-          - type: 'null'
-          description: '**City** · **Stadt**'
-          title: City
-        country:
-          anyOf:
-          - $ref: '#/components/schemas/CountryCodes'
-          - type: 'null'
-          description: '**Country** · **Land**'
-          examples:
-          - DE
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: '**Property description** · **Beschreibung**'
-          title: Description
-        name:
-          description: '**Property name** · **Immobilienname**'
-          maxLength: 250
-          title: Name
-          type: string
-        zip_code:
-          anyOf:
-          - maxLength: 12
-            type: string
-          - type: 'null'
-          description: '**Zip code** · **Postleitzahl**'
-          title: Zip Code
-      required:
-      - name
-      title: PropertyCreateAttributes
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
       type: object
     Data_PropertyAttributes_Literal_PROPERTY__:
       properties:
@@ -442,6 +332,14 @@ components:
       - type
       - attributes
       title: 'Data[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      type: object
+    Request_PropertyUpdateAttributes_Literal_PROPERTY__:
+      properties:
+        data:
+          $ref: '#/components/schemas/Payload_PropertyUpdateAttributes_Literal_PROPERTY__'
+      required:
+      - data
+      title: 'Request[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
     PropertyUpdateAttributes:
       properties:
@@ -488,13 +386,173 @@ components:
           title: Zip Code
       title: PropertyUpdateAttributes
       type: object
-    Request_PropertyUpdateAttributes_Literal_PROPERTY__:
+    CountryCodes:
+      enum:
+      - AM
+      - AT
+      - BE
+      - BG
+      - CH
+      - CY
+      - CZ
+      - DE
+      - DK
+      - EE
+      - ES
+      - FI
+      - FR
+      - GB
+      - GE
+      - GR
+      - HR
+      - HU
+      - IE
+      - IT
+      - KZ
+      - LT
+      - LU
+      - LV
+      - MT
+      - MX
+      - NL
+      - 'NO'
+      - PL
+      - PT
+      - RO
+      - RS
+      - US
+      - UY
+      - SA
+      - SE
+      - SI
+      - SK
+      - TR
+      title: CountryCodes
+      type: string
+    PropertyCreateAttributes:
+      properties:
+        address:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**Address** · **Adresse**'
+          title: Address
+        city:
+          anyOf:
+          - maxLength: 255
+            type: string
+          - type: 'null'
+          description: '**City** · **Stadt**'
+          title: City
+        country:
+          anyOf:
+          - $ref: '#/components/schemas/CountryCodes'
+          - type: 'null'
+          description: '**Country** · **Land**'
+          examples:
+          - DE
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**Property description** · **Beschreibung**'
+          title: Description
+        name:
+          description: '**Property name** · **Immobilienname**'
+          maxLength: 250
+          title: Name
+          type: string
+        zip_code:
+          anyOf:
+          - maxLength: 12
+            type: string
+          - type: 'null'
+          description: '**Zip code** · **Postleitzahl**'
+          title: Zip Code
+      required:
+      - name
+      title: PropertyCreateAttributes
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    PropertyAttributes:
+      properties:
+        address:
+          description: '**Address** · **Adresse**'
+          maxLength: 255
+          title: Address
+          type: string
+        city:
+          description: '**City** · **Stadt**'
+          maxLength: 255
+          title: City
+          type: string
+        country:
+          description: '**Country** · **Land**'
+          title: Country
+          type: string
+        date_created:
+          description: '**Date created** · **Erstellt am**'
+          format: date-time
+          title: Date Created
+          type: string
+        description:
+          description: '**Property description** · **Beschreibung**'
+          maxLength: 255
+          title: Description
+          type: string
+        name:
+          description: '**Property name** · **Immobilienname**'
+          maxLength: 250
+          title: Name
+          type: string
+        zip_code:
+          description: '**Zip code** · **Postleitzahl**'
+          maxLength: 12
+          title: Zip Code
+          type: string
+      required:
+      - name
+      - description
+      - address
+      - zip_code
+      - city
+      - country
+      - date_created
+      title: PropertyAttributes
+      type: object
+    Request_PropertyCreateAttributes_Literal_PROPERTY__:
       properties:
         data:
-          $ref: '#/components/schemas/Payload_PropertyUpdateAttributes_Literal_PROPERTY__'
+          $ref: '#/components/schemas/Payload_PropertyCreateAttributes_Literal_PROPERTY__'
       required:
       - data
-      title: 'Request[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+      title: 'Request[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
     ListResponse_PropertyAttributes_Literal_PROPERTY__:
       properties:
@@ -566,13 +624,14 @@ components:
           title: Links
       title: 'Response[PropertyAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
-    Request_PropertyCreateAttributes_Literal_PROPERTY__:
+    HTTPValidationError:
       properties:
-        data:
-          $ref: '#/components/schemas/Payload_PropertyCreateAttributes_Literal_PROPERTY__'
-      required:
-      - data
-      title: 'Request[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     Payload_PropertyCreateAttributes_Literal_PROPERTY__:
       properties:
@@ -586,65 +645,6 @@ components:
       - type
       - attributes
       title: 'Payload[PropertyCreateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
-      type: object
-    PropertyAttributes:
-      properties:
-        address:
-          description: '**Address** · **Adresse**'
-          maxLength: 255
-          title: Address
-          type: string
-        city:
-          description: '**City** · **Stadt**'
-          maxLength: 255
-          title: City
-          type: string
-        country:
-          description: '**Country** · **Land**'
-          title: Country
-          type: string
-        date_created:
-          description: '**Date created** · **Erstellt am**'
-          format: date-time
-          title: Date Created
-          type: string
-        description:
-          description: '**Property description** · **Beschreibung**'
-          maxLength: 255
-          title: Description
-          type: string
-        name:
-          description: '**Property name** · **Immobilienname**'
-          maxLength: 250
-          title: Name
-          type: string
-        zip_code:
-          description: '**Zip code** · **Postleitzahl**'
-          maxLength: 12
-          title: Zip Code
-          type: string
-      required:
-      - name
-      - description
-      - address
-      - zip_code
-      - city
-      - country
-      - date_created
-      title: PropertyAttributes
-      type: object
-    Payload_PropertyUpdateAttributes_Literal_PROPERTY__:
-      properties:
-        attributes:
-          $ref: '#/components/schemas/PropertyUpdateAttributes'
-        type:
-          const: PROPERTY
-          title: Type
-          type: string
-      required:
-      - type
-      - attributes
-      title: 'Payload[PropertyUpdateAttributes, Literal[<ResourceType.PROPERTY: ''PROPERTY''>]]'
       type: object
   securitySchemes:
     API_Key:

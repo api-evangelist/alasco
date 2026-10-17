@@ -199,39 +199,10 @@ paths:
       - Measure
 components:
   schemas:
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    BaseDataSchema:
+    MeasureData:
       properties:
         attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
+          $ref: '#/components/schemas/Attributes'
         id:
           format: uuid
           title: Id
@@ -241,14 +212,25 @@ components:
           - additionalProperties: true
             type: object
           - type: 'null'
+          description: '
+
+            Contains links to related objects.
+
+            '
+          examples:
+          - asset:
+              data:
+                id: 9e77da78-ee18-4cac-b643-8bbd092a5bae
+                type: ASSET
           title: Relationships
         type:
+          default: MEASURE
           title: Type
           type: string
       required:
       - id
-      - type
-      title: BaseDataSchema
+      - attributes
+      title: MeasureData
       type: object
     ValidationError:
       properties:
@@ -276,92 +258,31 @@ components:
       - type
       title: ValidationError
       type: object
-    ListResponse:
+    BaseDataSchema:
       properties:
-        data:
-          items:
-            $ref: '#/components/schemas/MeasureData'
-          title: Data
-          type: array
-        errors:
+        attributes:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
+          - {}
           - type: 'null'
-          title: Errors
-        included:
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
+          - additionalProperties: true
             type: object
           - type: 'null'
-          description: '
-
-            Contains the pagination''s next link if results don''t fit on one page.
-
-            '
-          title: Links
+          title: Relationships
+        type:
+          title: Type
+          type: string
       required:
-      - data
-      title: ListResponse
+      - id
+      - type
+      title: BaseDataSchema
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    MeasureDetailResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/MeasureData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Links
-      required:
-      - data
-      title: MeasureDetailResponse
-      type: object
-    MeasureStatus:
-      enum:
-      - BUDGETED
-      - IN_PROGRESS
-      - COMPLETED
-      title: MeasureStatus
-      type: string
     Attributes:
       properties:
         asset:
@@ -417,38 +338,117 @@ components:
       - asset
       title: Attributes
       type: object
-    MeasureData:
+    ListResponse:
       properties:
-        attributes:
-          $ref: '#/components/schemas/Attributes'
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
+        data:
+          items:
+            $ref: '#/components/schemas/MeasureData'
+          title: Data
+          type: array
+        errors:
           anyOf:
-          - additionalProperties: true
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
             type: object
           - type: 'null'
           description: '
 
-            Contains links to related objects.
+            Contains the pagination''s next link if results don''t fit on one page.
 
             '
-          examples:
-          - asset:
-              data:
-                id: 9e77da78-ee18-4cac-b643-8bbd092a5bae
-                type: ASSET
-          title: Relationships
-        type:
-          default: MEASURE
-          title: Type
-          type: string
+          title: Links
       required:
-      - id
-      - attributes
-      title: MeasureData
+      - data
+      title: ListResponse
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
+    MeasureStatus:
+      enum:
+      - BUDGETED
+      - IN_PROGRESS
+      - COMPLETED
+      title: MeasureStatus
+      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    MeasureDetailResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/MeasureData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Links
+      required:
+      - data
+      title: MeasureDetailResponse
       type: object
   securitySchemes:
     API_Key:

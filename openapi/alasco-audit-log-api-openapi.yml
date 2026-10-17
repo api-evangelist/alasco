@@ -90,60 +90,46 @@ paths:
       - Audit Log
 components:
   schemas:
-    Error:
+    UserAuditOperation:
+      enum:
+      - INSERT
+      - UPDATE
+      - DELETE
+      - LOGIN
+      - LOGIN_FAILED
+      - LOGOUT
+      - PASSWORD_CHANGE_FAILED
+      - PASSWORD_CHANGE_SUCCEEDED
+      title: UserAuditOperation
+      type: string
+    AuditLogListResponse:
       properties:
-        code:
+        data:
+          items:
+            $ref: '#/components/schemas/AuditLogData'
+          title: Data
+          type: array
+        errors:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
           - type: 'null'
-          title: Code
-        detail:
+          title: Errors
+        included:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
           - type: 'null'
-          title: Detail
-        source:
+          title: Included
+        links:
           anyOf:
-          - additionalProperties:
-              type: string
-            type: object
+          - $ref: '#/components/schemas/Links'
           - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
       required:
-      - id
-      - type
-      title: BaseDataSchema
+      - data
+      title: AuditLogListResponse
       type: object
     UserAuditLogAttributes:
       properties:
@@ -223,28 +209,29 @@ components:
       - event_type
       title: UserAuditLogAttributes
       type: object
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
+    UserAuditLogData:
+      properties:
+        attributes:
+          $ref: '#/components/schemas/UserAuditLogAttributes'
+        id:
+          title: Id
+          type: integer
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          const: USER_AUDIT_LOG
+          default: USER_AUDIT_LOG
+          title: Type
+          type: string
+      required:
+      - id
+      - attributes
+      title: UserAuditLogData
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -270,27 +257,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    UserAuditOperation:
-      enum:
-      - INSERT
-      - UPDATE
-      - DELETE
-      - LOGIN
-      - LOGIN_FAILED
-      - LOGOUT
-      - PASSWORD_CHANGE_FAILED
-      - PASSWORD_CHANGE_SUCCEEDED
-      title: UserAuditOperation
-      type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
       type: object
     AuditLogData:
       properties:
@@ -378,6 +344,52 @@ components:
       - origin
       title: AuditLogAttributes
       type: object
+    BaseDataSchema:
+      properties:
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
+      type: object
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
     RecordOrigin:
       enum:
       - LEGACY
@@ -386,13 +398,37 @@ components:
       - INTERNAL_PROCESS
       title: RecordOrigin
       type: string
-    AuditOperation:
-      enum:
-      - INSERT
-      - UPDATE
-      - DELETE
-      title: AuditOperation
-      type: string
+    Error:
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
+      type: object
     UserAuditLogListResponse:
       description: Cannot use BaseResponseSchema because the ids are ints instead of uuids
       properties:
@@ -440,63 +476,27 @@ components:
       - prev
       title: Links
       type: object
-    AuditLogListResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/AuditLogData'
-          title: Data
-          type: array
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: AuditLogListResponse
-      type: object
     UserAuditActor:
       enum:
       - SYSTEM
       - USER
       title: UserAuditActor
       type: string
-    UserAuditLogData:
+    AuditOperation:
+      enum:
+      - INSERT
+      - UPDATE
+      - DELETE
+      title: AuditOperation
+      type: string
+    HTTPValidationError:
       properties:
-        attributes:
-          $ref: '#/components/schemas/UserAuditLogAttributes'
-        id:
-          title: Id
-          type: integer
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          const: USER_AUDIT_LOG
-          default: USER_AUDIT_LOG
-          title: Type
-          type: string
-      required:
-      - id
-      - attributes
-      title: UserAuditLogData
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
   securitySchemes:
     API_Key:

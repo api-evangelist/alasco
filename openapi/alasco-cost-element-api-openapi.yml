@@ -183,32 +183,6 @@ paths:
       - Cost Element
 components:
   schemas:
-    Error:
-      properties:
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
     ValidationError:
       properties:
         ctx:
@@ -234,15 +208,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
       type: object
     CostElementCategory:
       enum:
@@ -301,6 +266,32 @@ components:
       required:
       - data
       title: 'ListResponse[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
+      type: object
+    Error:
+      properties:
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
       type: object
     Data_CostElementAttributes_Literal_COST_ELEMENT__:
       properties:
@@ -435,6 +426,15 @@ components:
           - type: 'null'
           title: Links
       title: 'Response[CostElementAttributes, Literal[<ResourceType.COST_ELEMENT: ''COST_ELEMENT''>]]'
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
   securitySchemes:
     API_Key:

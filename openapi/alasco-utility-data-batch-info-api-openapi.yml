@@ -44,60 +44,39 @@ paths:
       - Utility Data Batch Info
 components:
   schemas:
-    Error:
+    UtilityDataBatchInfoPayload:
       properties:
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-        detail:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Detail
-        source:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Source
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-      title: Error
-      type: object
-    BaseDataSchema:
-      properties:
-        attributes:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Attributes
-        id:
-          format: uuid
-          title: Id
-          type: string
-        relationships:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Relationships
-        type:
-          $ref: '#/components/schemas/ResourceType'
+        data:
+          $ref: '#/components/schemas/alasco__public_api__esg__web__v1__schemas__utilities__utility_batch_info__UtilityDataBatchInfoWrite'
       required:
-      - id
-      - type
-      title: BaseDataSchema
+      - data
+      title: UtilityDataBatchInfoPayload
+      type: object
+    UtilityDataBatchInfoResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/UtilityDataBatchInfoData'
+        errors:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Error'
+            type: array
+          - type: 'null'
+          title: Errors
+        included:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/BaseDataSchema'
+            type: array
+          - type: 'null'
+          title: Included
+        links:
+          anyOf:
+          - $ref: '#/components/schemas/Links'
+          - type: 'null'
+      required:
+      - data
+      title: UtilityDataBatchInfoResponse
       type: object
     ValidationError:
       properties:
@@ -143,36 +122,82 @@ components:
       - data_source_label
       title: UtilityDataBatchInfoWrite
       type: object
-    HTTPValidationError:
+    BaseDataSchema:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
+        attributes:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Attributes
+        id:
+          format: uuid
+          title: Id
+          type: string
+        relationships:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Relationships
+        type:
+          $ref: '#/components/schemas/ResourceType'
+      required:
+      - id
+      - type
+      title: BaseDataSchema
       type: object
-    UtilityDataBatchInfoAttributes:
+    ResourceType:
+      enum:
+      - BUILDING
+      - UTILITY_METER
+      - UTILITY_METER_IMPORT
+      - UTILITY_METER_READING
+      - CONSUMPTION_INTERVAL
+      - UTILITY_DATA_BATCH_INFO
+      - AUDIT_LOG
+      - USER_AUDIT_LOG
+      - DOCUMENT_EVENT
+      - FILE
+      - FILE_EXTERNAL_ID
+      - FILE_METADATA
+      - ANALYSIS_RESULT
+      - TENANT
+      - TENANT_ATTACHMENT
+      - CUSTOM_DATA_GROUP_INSTANCE
+      - ANNUAL_CONSUMPTION
+      - TENANT_CONSUMPTION_LINK
+      title: ResourceType
+      type: string
+    Error:
       properties:
-        data_source_label:
-          description: '**Data source label** · **Datenquelle (Bezeichnung)**'
-          title: Data Source Label
-          type: string
-        data_source_value:
-          description: '**Data source value** · **Datenquelle (Wert)**'
-          title: Data Source Value
-          type: string
-        external_id:
+        code:
           anyOf:
           - type: string
           - type: 'null'
-          description: '**External ID** · **Externe ID**'
-          title: External Id
-      required:
-      - external_id
-      - data_source_value
-      - data_source_label
-      title: UtilityDataBatchInfoAttributes
+          title: Code
+        detail:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Detail
+        source:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Source
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+      title: Error
       type: object
     UtilityDataBatchInfoData:
       properties:
@@ -211,32 +236,6 @@ components:
       - attributes
       title: UtilityDataBatchInfoWrite
       type: object
-    UtilityDataBatchInfoResponse:
-      properties:
-        data:
-          $ref: '#/components/schemas/UtilityDataBatchInfoData'
-        errors:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/Error'
-            type: array
-          - type: 'null'
-          title: Errors
-        included:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/BaseDataSchema'
-            type: array
-          - type: 'null'
-          title: Included
-        links:
-          anyOf:
-          - $ref: '#/components/schemas/Links'
-          - type: 'null'
-      required:
-      - data
-      title: UtilityDataBatchInfoResponse
-      type: object
     Links:
       properties:
         next:
@@ -254,36 +253,37 @@ components:
       - prev
       title: Links
       type: object
-    UtilityDataBatchInfoPayload:
+    HTTPValidationError:
       properties:
-        data:
-          $ref: '#/components/schemas/alasco__public_api__esg__web__v1__schemas__utilities__utility_batch_info__UtilityDataBatchInfoWrite'
-      required:
-      - data
-      title: UtilityDataBatchInfoPayload
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
-    ResourceType:
-      enum:
-      - BUILDING
-      - UTILITY_METER
-      - UTILITY_METER_IMPORT
-      - UTILITY_METER_READING
-      - CONSUMPTION_INTERVAL
-      - UTILITY_DATA_BATCH_INFO
-      - AUDIT_LOG
-      - USER_AUDIT_LOG
-      - DOCUMENT_EVENT
-      - FILE
-      - FILE_EXTERNAL_ID
-      - FILE_METADATA
-      - ANALYSIS_RESULT
-      - TENANT
-      - TENANT_ATTACHMENT
-      - CUSTOM_DATA_GROUP_INSTANCE
-      - ANNUAL_CONSUMPTION
-      - TENANT_CONSUMPTION_LINK
-      title: ResourceType
-      type: string
+    UtilityDataBatchInfoAttributes:
+      properties:
+        data_source_label:
+          description: '**Data source label** · **Datenquelle (Bezeichnung)**'
+          title: Data Source Label
+          type: string
+        data_source_value:
+          description: '**Data source value** · **Datenquelle (Wert)**'
+          title: Data Source Value
+          type: string
+        external_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: '**External ID** · **Externe ID**'
+          title: External Id
+      required:
+      - external_id
+      - data_source_value
+      - data_source_label
+      title: UtilityDataBatchInfoAttributes
+      type: object
   securitySchemes:
     API_Key:
       description: '
